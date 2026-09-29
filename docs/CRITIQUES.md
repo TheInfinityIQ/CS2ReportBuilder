@@ -100,6 +100,30 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | V-12 | Coach limited to 4 teaching moments | Not a builder cap (the plan had 4). KeyMoments now allows 1-6 rounds per block | DONE v3.1 |
 | V-13 | Every moment has a 2D viewer and no charts | Dashboard of per-map, side and trend charts (owner likes graphs); design once the statistical layer (E-3, E-7) is fixed | OPEN (planned, see ROADMAP) |
 
+## External review of v3.3 (R) - full product pass, 2026-09-29
+Verified against the code before logging. "Agree" means the claim was checked and is true.
+
+| ID | Critique | Decision | Status |
+|---|---|---|---|
+| R-1 | HE grenade shows a rifle icon (Dust2, 0:48): `wcat()` regex misses "High Explosive Grenade" and defaults to rifle; kill feed also falls back to rifle | Agree (a real bug of mine). Replace regex with an explicit map from every raw item name to one canonical id; add an `unknown` icon; the report build FAILS on an unmapped name. The 58 distinct names in the 30 MIMY games are the starting table | OPEN v3.4 (top priority) |
+| R-2 | Category glyphs look crude; AK = M4, AWP = Scout; blur when the canvas is scaled to 350 px | Agree. Interim: canonical ids + text chips (AK, M4A1-S) and no glyph below a minimum displayed map width. Real per-weapon silhouettes need an icon set with a licence the owner approves; I will not hand-draw 58 inaccurate ones | OPEN v3.4 |
+| R-3 | "Equipped weapon" is the wrong term (it is the active item: HE, knife, bomb) | Agree; use "active item" in the legend and roster | OPEN v3.4 |
+| R-4 | The pin mixes three meanings (recorded aim, movement, last known) | Agree. With 8 Hz tracks the pin becomes real facing always; without them, pin only for recorded aim, a short tail for movement, neutral dot when unknown | OPEN v3.4; fixed properly by viewer tracks |
+| R-5 | Heading cached on `p._th` survives scrubbing backwards (replay state depends on how you arrived) | Agree. Make heading stateless: derive only from data at or before t | OPEN v3.4 |
+| R-6 | Cone shows 1.2 s but the pin and legend say 1.5 s | Agree; one constant | OPEN v3.4 |
+| R-7 | Labels are canvas text scaled down (microscopic on phones); need full-screen mobile viewer | Agree. Render labels and kill feed as DOM/SVG at fixed CSS size; add "Expand replay" | OPEN v3.4 |
+| R-8 | Timeline needs markers (focus moment, plant, kills, round end); step and prev/next-event controls; two-row mobile toolbar | Agree | OPEN v3.4 |
+| R-9 | Layer toggles (Players / Aim / Utility / Feed); default to the smallest set that explains the moment | Agree | OPEN v3.4 |
+| R-10 | Legend paragraph repeats under every replay | Agree; move behind a "How to read" control | OPEN v3.4 |
+| R-11 | Roster: dead rows too faint (opacity .45), need an amber mid-HP state, compact rows on mobile | Agree | OPEN v3.4 |
+| R-12 | Filter bar sits under "What this study covers" so it looks global but only filters the replay drawers; contradicts "five maps" | Agree (my placement error). Make filters local to each replay set, labelled "Filter example replays", with an empty state and `aria-pressed`; keep label with its buttons on mobile | OPEN v3.4 |
+| R-13 | Drawer header repeats inside the open drawer; consider all drawers closed on mobile; initialise viewers lazily on first open | Agree | OPEN v3.4 |
+| R-14 | Summary rows (Maintain / Practice / Measure next), date-range eyebrow instead of "Player Study" | Agree | OPEN (= U2-20, U2-33) |
+| R-15 | 7% vs 10% bars vanish on a 0-100% axis; use a dumbbell / dot plot with the difference | Agree; do with the planned dashboard work | OPEN |
+| R-16 | "Both halves" are interleaved games (`i % 2` over sorted demo ids in `analyst._half_map`), not early vs late | Agree, verified in code. Say "both interleaved splits agree", or compare games 1-15 with 16-30 | OPEN |
+| R-17 | Headline "win more than most" and "worst way to start a fight" are unsupported rankings | Agree (= P0 in the v3 review); reword to the pooled same-lobby baseline / "a difficult way to start a fight" | OPEN |
+| R-18 | Analyst Desk on phones is a wide table; needs metric cards, filters, sticky nav; ARIA tab pattern; per-tab scroll; contrast of the green badge; badge size; print; `<main>` | Agree | OPEN (= U2-22, 23, 27, 28, 30, 31, 34, 35) |
+
 ## Self-found (S)
 | ID | Critique | Decision | Status |
 |---|---|---|---|

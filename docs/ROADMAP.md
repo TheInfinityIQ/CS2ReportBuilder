@@ -34,6 +34,10 @@ and ask for coaching?**
 7. **Longitudinal coaching** (memory across batches: improved / stable / regressed / resolved).
 8. **Cope Barn**, kept walled off from all serious findings.
 
+## Viewer v3.4 (from the external v3.3 review, see CRITIQUES R-1..R-18)
+Order: (1) exact weapon-id map plus an unknown icon and a build check, (2) aim / movement / unknown pin semantics and stateless heading, (3) DOM labels plus full-screen mobile viewer, (4) local viewer filters, (5) timeline markers and step controls, (6) legend and drawer de-duplication, lazy init, (7) mobile Analyst Desk and tabs. Statistical wording (R-16, R-17) is cheap and goes in with it.
+Data step in parallel: run `extractor/extract_viewer_tracks.py` on a test batch of 30 PUGs (see `extractor/README.md`), then wire the viewer to it.
+
 ## Planned after the viewer pass (owner request 2026-09-29)
 - **Dashboard tab**: per-map, per-side and over-time charts (owner likes graphs). Every moment currently has a 2D viewer and no chart. Build after the statistical corrections (E-3 advantage denominators, E-7 match-clustered tests) so the charts do not show numbers we are about to change. Use the dataviz skill.
 - **Continuous facing + real grenade paths**: measured and specified in `docs/VIEWER_DATA_OPTIONS_2026-09-29.md` (8 Hz `yaw`/X/Y sidecar plus simplified projectile paths; ~20 MB for 30 demos; needs the `.dem` files). Not built yet; owner decision on sidecar vs schema bump pending.

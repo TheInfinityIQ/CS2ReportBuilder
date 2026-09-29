@@ -12,3 +12,16 @@ Changing it requires a schema bump and a regression comparison; do not edit casu
 KNOWN_PITFALLS row 27) and your `PROJECT_ROOT/demos/<folder>` path convention. Every other line is
 v7.7. Set `DEMO_FOLDER` and run it as before. Output from v7.7 and earlier can be brought to the same
 columns with `cs2di repair <batch>` (dry run) then `cs2di repair <batch> --apply`.
+
+## Viewer-tracks sidecar (additive, does not touch the frozen extractor)
+
+`extract_viewer_tracks.py` (v1.0) writes, beside each demo's existing output, `viewer_tracks.csv.gz` (8 Hz X/Y/Z, yaw,
+pitch, posture flags, live windows only), `grenade_throws.csv.gz`, `grenade_paths.csv.gz` (real projectile paths, simplified,
+bounces kept) and `viewer_tracks_meta.json` (provenance, pairing check, interpolation error, join statistics).
+Design and measurements: `docs/VIEWER_DATA_OPTIONS_2026-09-29.md`. Needs the original `.dem` files and the analyzed folder
+(named after each demo file).
+
+    python extract_viewer_tracks.py --demos "D:\\demos\\pugs" --analyzed "D:\\v7dot7Analysis\\analyzed_pugs" --pack tracks_pack.zip
+
+`--limit 3` for a quick trial, `--force` to redo, `--no-validate` to skip the interpolation check. Send back the zip.
+
