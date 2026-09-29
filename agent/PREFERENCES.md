@@ -25,3 +25,5 @@ Format: `date | + or − | what | what to do about it`. Add a line whenever he r
 2026-09-29 | + | Wanted many packets of 30 unique matches per player, with real limits respected ("10 is my estimation… not accurate") | Compute the true maximum and report it (8, not ~10)
 2026-09-29 | − | Data folder sat inside a Steam game directory (Steam restrictions) | Moved to `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`; code default and legend updated
 2026-09-29 | + | Wants one agent with a strong start point, legend/maps, a history of regressions and sentiment, and role "hats" (not many agents talking to each other) | This `agent/` system; keep it small and true
+2026-09-29 | + | Wants a mandatory pre-work hat (plan the most efficient route) and a post-work hat (review the change log and update the big logs) | Both are in `agent/roles/`; every task is wrapped by them
+2026-09-29 | + | Wants a short tail on replies naming the rules or design parts behind judgement calls, so he can change rules; not overwhelming | Max 3 lines, only rules that decided a call, omit if none

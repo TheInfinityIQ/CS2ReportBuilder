@@ -21,3 +21,6 @@ Last updated: 2026-09-29.
 1. Run fresh coaches on some or all 8 packets, then Test reviewer hat on the outputs.
 2. Developer hat: fix H-1..H-3 and re-issue packets.
 3. Intake steward: move ADR-014..017 into DECISIONS.md if approved; update Design v5.
+
+## Recent work (newest first; keep the last 10 lines)
+- 2026-09-29: Added pre-work and post-work hats and the judgement-call tail. Built the `agent/` hats system (`CLAUDE.md`, router, five hats, logs). Moved data folder to `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`. Built and delivered 8 packets; removed the Teaching Moment count rule.

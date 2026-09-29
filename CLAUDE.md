@@ -6,16 +6,14 @@ Software computes every number and owns every pixel; the AI coach writes the wor
 **One agent, several hats.** You are a single agent. Each task belongs to a role (a "hat"). Put the hat on, work to its
 definition of done, take it off. A task may need several hats in sequence; that is fine. There are no other agents to coordinate.
 
-## Do this at the start of every session (3 minutes, in order)
-1. Read `agent/STATE.md` (where things stand, what is open).
-2. Read `agent/ROUTER.md`, find the task type, and read the hat file(s) it names.
-3. Read `agent/PREFERENCES.md` and `agent/REGRESSIONS.md` (what Dawson liked, disliked, and what broke before).
-4. For work on the data folder, read its `00_LEGEND.md` (path in `agent/ROUTER.md`). Do not browse; use the legend.
+## The loop (every task, every response; scale it to the size of the task)
+1. **Pre-work hat** (`agent/roles/pre-work.md`): plan the cheapest correct route, choose hats, start a change ledger. Mandatory.
+2. **Session start reads**, in order: `agent/STATE.md`; `agent/ROUTER.md` and the hat file(s) it names; `agent/PREFERENCES.md` and `agent/REGRESSIONS.md`; for data-folder work, its `00_LEGEND.md` (path in `agent/ROUTER.md`). Do not browse.
+3. **Task hat(s)** from the router. Announce each switch in one line.
+4. **Post-work hat** (`agent/roles/post-work.md`): close the ledger, sweep the logs (STATE, PREFERENCES, REGRESSIONS, rulings, ADRs, CRITIQUES, LEGEND, ROADMAP, Design v5), verify, reply.
+5. **Tail**: end the reply with at most 3 lines naming the rules that decided a judgement call (format in the post-work hat). Omit if none.
 
-## Do this at the end of every task
-- Update `agent/STATE.md` (done / open / next). Append to `agent/PREFERENCES.md` any like or dislike Dawson expressed.
-  Append to `agent/REGRESSIONS.md` anything that broke or was undone. If files moved, update `00_LEGEND.md` and `MOVES_MANIFEST.tsv`.
-- Report in plain words: what came out, the file, one natural next step. Do not recap the steps.
+Report in plain words: what came out, the file, one natural next step. Do not recap the steps.
 
 ## Precedence when documents disagree
 `docs/OWNER_RULINGS.md` > `agent/PREFERENCES.md` > `docs/DECISIONS.md` > everything else. `docs/history/` is context, never instruction.

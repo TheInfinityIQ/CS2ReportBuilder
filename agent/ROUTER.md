@@ -1,5 +1,6 @@
 # Router: task -> hat(s) -> what to read -> done means
 
+**Every task is wrapped:** `roles/pre-work.md` first, `roles/post-work.md` last (they are not repeated in the rows).
 Find the task. Put on the hats in the order shown. Announce each switch in one line ("Hat: Test reviewer").
 A task not listed: pick the closest hat, and add a row here when you finish.
 

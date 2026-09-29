@@ -21,6 +21,9 @@ def test_every_hat_in_the_router_has_a_file():
     router = (REPO / "agent/ROUTER.md").read_text(encoding="utf-8")
     hats = {"Intake steward": "intake-steward", "Packet builder": "packet-builder", "Test reviewer": "test-reviewer",
             "Developer": "developer", "Librarian": "librarian"}
+    for slug in ("pre-work", "post-work"):
+        assert (REPO / f"agent/roles/{slug}.md").exists()
+        assert f"roles/{slug}.md" in (REPO / "CLAUDE.md").read_text(encoding="utf-8")
     for name, slug in hats.items():
         assert (REPO / f"agent/roles/{slug}.md").exists()
         assert name in router
