@@ -8,10 +8,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-DEFAULT_ROOT = Path(
-    r"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive"
-    r"\game\csgo\replays\demoparser"
-)
+DEFAULT_ROOT = Path(r"C:\Users\dawso\Developer\CS2ReportBuilder\demoparser")
 
 
 def root() -> Path:
