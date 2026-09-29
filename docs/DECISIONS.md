@@ -86,3 +86,23 @@ the batch, and a correction for the number of comparisons tried).
 Why: the owner pointed out that "his stats are normal" can also mean we are not extracting enough,
 or presenting it in a way that reveals nothing. Both are live possibilities.
 
+
+## ADR-013: The batch is the only baseline (owner ruling 2026-09-28)
+
+**Decision.** Every comparison uses only what the product will have: the demos the player submits.
+Baselines are (1) the other players in the same matches (lobby peers, placed at a similar skill by
+matchmaking) and (2) the player's own level and, later, their own earlier batches (continuous
+coaching). No stored database, no population percentiles, no pro norms. The FACEIT API may later add
+context but must never be required.
+
+**Why.** The development corpus mixes world-class, very good and average players; comparing a user to
+it would be comparing against an audience the product will never have, and against the wrong skill
+level. The lobby-peer baseline is skill-matched for free.
+
+**Allowed use of the corpus.** Developing and validating methods only (does a measure behave sensibly,
+does a bug exist, how large an effect can N games detect). Never as a norm in a report.
+
+**Consequence.** With about 20-30 games, only large situational differences can be proven (about
+600-1,200 decided fights). Findings must say so; "no clear difference" is a valid result, and the
+coaching must also come from round-level behaviour (trades, value of kills, playing an advantage,
+utility purpose, economy, clutch discipline), see docs/COACHABLE_CONCEPTS.md.

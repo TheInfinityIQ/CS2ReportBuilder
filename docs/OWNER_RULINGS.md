@@ -71,6 +71,15 @@ default, revisit freely. **Open** = not settled; do not fill the gap with an ass
   longitudinal coach stay in scope even when deferred. **Firm.**
 - **Cope Barn stays separate** from serious findings and coaching state. **Firm.**
 
+## Baselines
+
+- **Compare only within the player's own batch.** The dev corpus spans pros to average players and
+  the product will not have a database. Compare with the other players in the same matches and with
+  the player's own level; later with their own earlier batches. FACEIT API only as optional context.
+  **Firm** (2026-09-28). See ADR-013.
+- **Coach what human coaches coach.** Use the creator transcripts to decide what is coachable, then
+  find the demo evidence for it. **Firm** (2026-09-28).
+
 ## Open questions
 
 - Exact number of Teaching Moments per report.

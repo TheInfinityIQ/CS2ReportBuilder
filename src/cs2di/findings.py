@@ -1,10 +1,13 @@
 """Analyst findings from the fight table: where and in what situations a player wins or loses
 fights, compared with a stated baseline. Every comparison is kept, including "no difference".
 
+Baseline (ADR-013): the other players in the player's own matches, and the player's own level.
+Nothing outside the batch is ever used; the finished product will not have a database.
+
 Two questions per situation (a "cell", e.g. "you were moving when the fight started"):
 
 - RESULT: of the fights decided in this situation (someone died), how many did the player win?
-  Compared with (a) everyone else in the same kind of game in the same situation, and
+  Compared with (a) the other players in the same matches (lobby peers) in the same situation, and
   (b) the player's own usual level: the population rate shifted by the player's overall edge.
   (b) is the coaching question, "where do you play below yourself?".
 - HABIT: how often the player's fights happen in this situation, compared with everyone else.
@@ -121,9 +124,10 @@ def analyse(fights: pd.DataFrame, steamid: int) -> dict:
     if me.empty:
         return {"steamid": str(steamid), "findings": [], "baseline": {}}
     fam = me.family.mode().iloc[0]
-    pop = f[(f.family == fam) & (f.steamid != steamid)]
-    me = me[me.family == fam]
+    # ADR-013: the only baseline is the other players in the SAME matches (lobby peers, matched to
+    # a similar skill by matchmaking) plus the player's own level. Never an outside database.
     demos = sorted(me.demo_id.unique())
+    pop = f[f.demo_id.isin(demos) & (f.steamid != steamid)]
     half = {d: i % 2 for i, d in enumerate(demos)}
     me = me.assign(_half=me.demo_id.map(half))
 
@@ -133,24 +137,21 @@ def analyse(fights: pd.DataFrame, steamid: int) -> dict:
     pop_rate = (dec_pop.outcome == "win").mean()
     lift = _logit(my_rate) - _logit(pop_rate)
 
-    per_player = dec_pop.groupby("steamid").outcome.agg(n="size", w=lambda s: (s == "win").mean())
-    per_player = per_player[per_player.n >= 200]
     baseline = {
         "family": fam,
-        "population_players": int(pop.steamid.nunique()),
-        "population_demos": int(pop.demo_id.nunique()),
-        "population_fights": int(len(pop) // 1),
-        "players_with_200_decided": int(len(per_player)),
+        "baseline": "other players in the same matches (lobby peers) and the player's own level",
+        "peer_players": int(pop.steamid.nunique()),
+        "matches": int(pop.demo_id.nunique()),
+        "peer_fight_rows": int(len(pop) // 1),
         "subject_demos": len(demos),
         "subject_fights": int(len(me)),
         "subject_decided": int(len(dec_me)),
         "subject_win_rate": my_rate,
-        "population_win_rate": pop_rate,
-        "subject_percentile": float((per_player.w < my_rate).mean()) if len(per_player) else None,
+        "peer_win_rate": pop_rate,
         "subject_initiative_rate": float(me.initiative.mean()),
-        "population_initiative_rate": float(pop.initiative.mean()),
+        "peer_initiative_rate": float(pop.initiative.mean()),
         "subject_no_death_share": float((me.outcome == "none").mean()),
-        "population_no_death_share": float((pop.outcome == "none").mean()),
+        "peer_no_death_share": float((pop.outcome == "none").mean()),
         "overall_edge_logit": lift,
     }
 
