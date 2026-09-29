@@ -25,7 +25,15 @@ class Ctx:
     digest: dict
     batch_dir: Path
     steamid: int
+    analysis: dict | None = None
     _sit: dict = field(default_factory=dict)
+
+    def finding(self, fid: str) -> dict:
+        for f in (self.analysis or {}).get("findings", []):
+            if f["id"] == fid:
+                return f
+        known = [f["id"] for f in (self.analysis or {}).get("findings", []) if f["status"] in ("credible", "leaning", "no_difference")]
+        raise ModuleError(f"unknown finding '{fid}' (usable ids include: {', '.join(known[:40])})")
 
     def metric(self, mid: str) -> dict:
         m = self.digest["metrics"].get(mid)
@@ -197,7 +205,7 @@ def _name(n, side):
     return f'<span class="{esc(side or "")}">{esc(n)}</span>'
 
 
-def _timeline(s: dict) -> str:
+def _timeline(s: dict, focus_tick: int | None = None) -> str:
     items = []
     for e in s["events"]:
         killer = _name(e["killer"], e["killer_side"]) if not e["self_or_world"] else "the bomb / world"
@@ -208,7 +216,8 @@ def _timeline(s: dict) -> str:
         if e["place"]:
             extra.append("at " + e["place"])
         tail = f' <span class="muted small">({esc(" ".join(extra))})</span>' if extra else ""
-        cls = ' class="me"' if e["role"] else ""
+        classes = [c for c in ("me" if e["role"] else "", "focus" if focus_tick is not None and e.get("tick") == focus_tick else "") if c]
+        cls = f' class="{" ".join(classes)}"' if classes else ""
         items.append((e["t"], f'<li{cls}><span class="tm">{fmt.clock(e["t"])}</span><span>{text}{tail}</span></li>'))
     if s["bomb"]:
         site = f' at {esc(s["bomb"]["site"])}' if s["bomb"]["site"] else ""
@@ -252,6 +261,115 @@ def _timeline_render(spec, ctx):
     return f'<div class="mod">{title}{_sit_card(spec["situation"], ctx)}</div>'
 
 
+# ---------------------------------------------------------------- FindingCard
+STATUS_WORDS = {
+    "credible": "Clear difference from the players in your games",
+    "leaning": "Possible difference, not proven yet",
+    "no_difference": "About the same as the players in your games",
+    "unclear": "Not enough to tell",
+    "too_few": "Too few cases to tell",
+}
+
+
+def _fval(f: dict, v) -> str:
+    if v is None:
+        return "Unknown"
+    if f.get("unit") == "win_points":
+        return f"{v * 100:+.0f} win points"
+    return f"{v * 100:.0f}%"
+
+
+def _finding_check(spec, ctx):
+    _only(spec, {"finding", "caption"}, "FindingCard")
+    ctx.finding(_req(spec, "finding", str, "FindingCard"))
+
+
+def _finding_calc(f: dict) -> list[tuple[str, str]]:
+    rows = [("What it measures", f.get("plain") or f"{f['dimension_label']}: {f['situation']}")]
+    if f.get("k") is not None:
+        rows.append(("Your count", f"{f['k']:,} out of {f['n']:,}"))
+    else:
+        rows.append(("Your cases", f"{f['n']:,}"))
+    rows.append(("Compared with", "the other players in the same matches (same lobbies, similar level)"
+                 if f["kind"] != "result_vs_own_level" else "the players in your games, adjusted to your own overall level"))
+    lo, hi = f.get("ci") or (None, None)
+    if lo is not None:
+        rows.append(("Uncertainty", f"95% interval {lo * 100:.0f} to {hi * 100:.0f}" + (" points" if f.get("kind") == "mean_vs_peers" else "%")))
+    q = f.get("q")
+    rows.append(("Test", f"p = {f['p']:.3f}" + (f", after correcting for the number of checks q = {q:.3f}" if q is not None else "")
+                 + ("; both halves of your games agree" if f.get("halves_agree") else "; the two halves of your games do not clearly agree" if f.get("halves_agree") is False else "")))
+    rows.append(("Verdict", STATUS_WORDS[f["status"]]))
+    return rows
+
+
+def _finding_render(spec, ctx):
+    f = ctx.finding(spec["finding"])
+    you, base = f.get("rate"), f.get("baseline_rate")
+    tone = "neutral"
+    if f["status"] == "credible" and f["kind"] != "habit" and you is not None and base is not None:
+        better = (you > base) == bool(f.get("higher_is_good", True))
+        tone = "good" if better else "bad"
+    top = max(abs(you or 0), abs(base or 0), 1e-9)
+    bars = (f'<div class="bar-row"><div class="bar-label">You</div><div class="bar-track">{_bar("k" if tone == "good" else "d" if tone == "bad" else "", abs(you or 0) / top, _fval(f, you))}</div></div>'
+            f'<div class="bar-row"><div class="bar-label">Players in your games</div><div class="bar-track">{_bar("", abs(base or 0) / top, _fval(f, base))}</div></div>')
+    cap = spec.get("caption") or f["situation"]
+    return (f'<div class="mod"><div class="mod-title">{esc(cap)}</div><div class="bars">{bars}</div>'
+            f'<p class="verdict {esc(f["status"])}">{esc(STATUS_WORDS[f["status"]])}</p>'
+            f'{_disclosure("How is this calculated?", _finding_calc(f))}</div>')
+
+
+# ----------------------------------------------------------------- KeyMoments
+def _moments_check(spec, ctx):
+    _only(spec, {"title", "finding", "picks"}, "KeyMoments")
+    f = ctx.finding(_req(spec, "finding", str, "KeyMoments"))
+    picks = _req(spec, "picks", list, "KeyMoments")
+    if not 1 <= len(picks) <= 3:
+        raise ModuleError("KeyMoments: choose 1 to 3 picks")
+    for i, pk in enumerate(picks):
+        w = f"KeyMoments.picks[{i}]"
+        if not isinstance(pk, dict):
+            raise ModuleError(f"{w} must be an object")
+        _only(pk, {"example", "note"}, w)
+        ix = _req(pk, "example", int, w)
+        if not 0 <= ix < len(f["examples"]):
+            raise ModuleError(f"{w}: example must be 0..{len(f['examples']) - 1} for this finding")
+        _req(pk, "note", str, w)
+        e = f["examples"][ix]
+        ctx.situation(e["demo_id"], int(e["round"]))
+
+
+def _moment_context(e: dict) -> str:
+    bits = []
+    if e.get("own_alive") is not None and e.get("opp_alive") is not None:
+        bits.append(f"{e['own_alive']} of your team alive against {e['opp_alive']}")
+    td = e.get("teammate_distance")
+    if "teammate_distance" in e:
+        bits.append("no teammate close by" if td is None or td > 900 else "a teammate close by")
+    if e.get("round_time_s") is not None:
+        bits.append(f"{fmt.clock(e['round_time_s'])} into the round")
+    return " · ".join(bits)
+
+
+def _moments_render(spec, ctx):
+    f = ctx.finding(spec["finding"])
+    title = f'<div class="mod-title">{esc(spec["title"])}</div>' if spec.get("title") else ""
+    cards = []
+    for pk in spec["picks"]:
+        e = f["examples"][pk["example"]]
+        s = ctx.situation(e["demo_id"], int(e["round"]))
+        res = '<span class="tag win">Round won</span>' if s["win"] else '<span class="tag loss">Round lost</span>'
+        ctxline = _moment_context(e)
+        cards.append(
+            f'<div class="sit"><div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}</strong><span>'
+            f'<span class="tag">{esc(s["side"])}</span> {res}</span></div>'
+            + (f'<p class="muted small">{esc(ctxline)}</p>' if ctxline else "")
+            + f'<p class="why"><b>Coach:</b> {esc(pk["note"])}</p>{_timeline(s, e.get("tick"))}</div>')
+    disc = _disclosure("Why these rounds?", [
+        ("Where they come from", f"Rounds from your games that fit: {f['situation'].lower()} ({e.get('why', '')})."),
+        ("Caution", "A few rounds show what the pattern looks like; the card above shows how often it happens.")])
+    return f'<div class="mod">{title}<div class="moments">{"".join(cards)}</div>{disc}</div>'
+
+
 # ------------------------------------------------------------------- Registry
 @dataclass(frozen=True)
 class Module:
@@ -265,6 +383,8 @@ REGISTRY: dict[str, Module] = {
     "ContextBreakdown": Module(_ctx_check, _ctx_render),
     "SituationContrast": Module(_contrast_check, _contrast_render),
     "EventTimeline": Module(_timeline_check, _timeline_render),
+    "FindingCard": Module(_finding_check, _finding_render),
+    "KeyMoments": Module(_moments_check, _moments_render),
 }
 
 # Deliberately not offered yet; the message tells the coach what to do instead.

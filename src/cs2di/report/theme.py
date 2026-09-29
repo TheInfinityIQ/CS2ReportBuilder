@@ -78,6 +78,16 @@ sup.fn a{text-decoration:none;color:var(--accent);font-weight:650;padding:0 1px}
 .why{font-size:.9rem;margin:6px 0 8px}
 .timeline{list-style:none;margin:0;padding:0;font-size:.9rem}
 .timeline li{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:5px 0;border-top:1px dashed var(--line)}
+.timeline li.focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:6px;font-weight:700}
+.verdict{margin:8px 0 0;font-size:14px;font-weight:600;color:var(--muted)}
+.verdict.credible{color:var(--ink)}
+.moments{display:grid;gap:12px}
+.fgroup{margin:14px 0}.fgroup h3{margin:0 0 6px;font-size:15px}
+.chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);white-space:nowrap}
+.chip.credible{background:var(--accent-soft);border-color:var(--accent)}
+.chip.leaning{border-style:dashed}
+.chip.no_difference,.chip.unclear,.chip.too_few{color:var(--muted)}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .timeline li.me{background:var(--accent-soft);margin:0 -6px;padding:5px 6px;border-radius:6px}
 .tm{color:var(--muted);font-variant-numeric:tabular-nums}
 .T{color:var(--t);font-weight:650} .CT{color:var(--ct);font-weight:650}

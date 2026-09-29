@@ -1,0 +1,88 @@
+{
+  "report": {"subtitle": "30 FACEIT games, compared only with the other players in those same lobbies"},
+  "agenda": "My read before we start: you are a disciplined anchor. You almost never give the other team a free first kill, and when someone catches you off guard you still win more of those fights than the players in your lobbies. So this study is not about your aim. It is about two moments where rounds leak away: when your team is already ahead, and when a teammate dies right next to you. Neither is a weakness unique to you. The players in your games leak just as much, which is exactly why fixing it wins you rounds your lobbies give away.",
+  "moments": [
+    {
+      "id": "first-death",
+      "intent": "REINFORCE",
+      "title": "You don't hand out free first kills",
+      "question": "How often am I the one who dies first?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "Dying first puts your team a player down for the rest of the round. You do it clearly less than the players in your games, and that holds in both halves of your games, so it is a habit rather than luck.\n\nIt fits how you play. You take your fights from the sites: on Anubis as CT, far more of your fights happen at B than for anyone else in your lobbies. Anchors who stay alive early keep the round playable for everyone.",
+         "module": {"type": "FindingCard", "finding": "value.first_death", "caption": "Your deaths that were the first of the round"}},
+        {"layout": "module_only",
+         "module": {"type": "FindingCard", "finding": "fight.habit.s_place.Anubis / CT / BombsiteB", "caption": "Anubis CT: share of your fights that start at B site"}}
+      ],
+      "takeaway": "Keep this. Staying alive early is the base everything else in this study builds on.",
+      "analyst": {"alternatives": ["Role: an anchor meets the enemy later than an entry player, so part of this is position, not only discipline."],
+                  "limitations": ["Compared with lobby peers only; a different role mix in other lobbies could change the gap."]}
+    },
+    {
+      "id": "caught-running",
+      "intent": "REINFORCE",
+      "title": "When you get caught moving, you still fight back",
+      "question": "What happens when the enemy hits me first while I'm running?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "Getting shot first while running is the worst way to start a fight, and most players simply die. You still win about a quarter of those fights, clearly more than the players in your games. That is reaction and composure.\n\nThe lesson is not to rely on it. The best version of you is caught running less often, and keeps this as a safety net.",
+         "module": {"type": "FindingCard", "finding": "fight.result_vs_everyone.s_init_move.they hit first, running", "caption": "Fights won after being hit first while running"}}
+      ],
+      "takeaway": "Your mechanics under pressure are a strength. Spend them on fights you choose, not on fights you walk into.",
+      "analyst": {"alternatives": ["'Hit first' means damage first, not seen first; some of these fights you may have seen coming."],
+                  "limitations": ["Fights with no damage at all are invisible to this measure."]}
+    },
+    {
+      "id": "advantage",
+      "intent": "ACTION",
+      "title": "When your team is ahead, stop taking the fight",
+      "question": "What do I do after my team gets the numbers?",
+      "blocks": [
+        {"layout": "text_above",
+         "text": "About a third of your deaths happen while your team has more players alive. That is the same as the players in your games, so this is a lobby habit, not a personal flaw. But it is the cheapest round win available to you: when you are up players, time is on your side and the enemy has to come to you.",
+         "module": {"type": "FindingCard", "finding": "value.died_ahead", "caption": "Your deaths that came while your team had more players"}},
+        {"layout": "module_only",
+         "module": {"type": "KeyMoments", "finding": "value.died_ahead", "title": "Three advantages you gave back",
+                    "picks": [
+                      {"example": 3, "note": "Three of you against one, and you are the one at Long Doors, far from every teammate. The last player finds you alone and then takes your teammate on A as well. You won the round anyway, but a three against one should never become a one against one."},
+                      {"example": 2, "note": "Three against one on B. You die at Checkers, and a teammate on site dies right after. Your team closes it out, but the last enemy got two chances he should not have had."},
+                      {"example": 0, "note": "Two against one on T side. You die at Electrical Box and your teammate has to trade it. With the numbers, let the last CT come to you or play for the bomb instead of looking for him."}
+                    ]}}
+      ],
+      "takeaway": "Once your team is up players, your job changes from getting kills to not dying. Hold a crossfire with a teammate, play the bomb or the clock, and make the last enemy find you.",
+      "analyst": {"alternatives": ["Some of these deaths come while saving the round or chasing the bomb, which can be correct."],
+                  "limitations": ["'Ahead' uses players alive only; weapons, health and the bomb are not in it."]}
+    },
+    {
+      "id": "trades",
+      "intent": "UNDERSTAND",
+      "title": "When a teammate dies next to you, the killer usually walks away",
+      "question": "If my teammate dies near me, do I make the enemy pay?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "When a teammate dies close to you, you kill that enemy within five seconds only about one time in six. The players in your games are the same, so everyone in your lobbies lets these go. A trade turns a lost fight into an even one; missing it turns one death into a lost round.",
+         "module": {"type": "FindingCard", "finding": "trading.converted", "caption": "Teammate died near you: you killed their killer within five seconds"}},
+        {"layout": "module_only",
+         "module": {"type": "KeyMoments", "finding": "trading.converted", "title": "Two trades that did not happen",
+                    "picks": [
+                      {"example": 4, "note": "Your teammate dies Outside Long. You do kill that same player at Top of Mid, but seven seconds later. By then he has already taken the space. The trade has to come while he is still reloading or repositioning."},
+                      {"example": 0, "note": "Your teammate dies on Catwalk and you kill a different enemy on Short Stairs a second later. Good kill, but the player who killed your teammate was free to keep playing. When you are close, look for the killer first."}
+                    ]}}
+      ],
+      "takeaway": "Before a teammate peeks near you, be ready to swing the same angle the moment you hear him die. Close enough to trade is a position you choose before the fight, not after it.",
+      "analyst": {"alternatives": ["Some trades are impossible because of walls or angles; distance ignores walls."],
+                  "limitations": ["Five seconds and about nine hundred units are conventions, not rules of the game."]}
+    }
+  ],
+  "summary": {
+    "covered": ["You rarely die first and you win more fights than your lobbies when caught moving.",
+                "Rounds leak when your team is ahead and when a teammate dies near you; your lobbies leak the same way."],
+    "watch": ["After your team gets the numbers: are you still the one taking the next fight?",
+              "When a teammate peeks next to you: are you already aimed at the same angle?"],
+    "retest": ["Deaths while your team is ahead.", "Trades when a teammate dies near you."]
+  },
+  "notes": {},
+  "analyst": {"open_questions": [
+    "Is the possible edge in the first seconds of rounds a real strength or role (anchors meet fewer early fights)?",
+    "Is your low sniper use a choice or team structure? Your lobbies use the AWP far more."]}
+}

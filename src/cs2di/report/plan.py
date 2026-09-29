@@ -41,8 +41,14 @@ def _num_leaves(x, out: set):
 GAME_CONSTANTS = {215.0}
 
 
-def allowed_numbers(digest: dict) -> set:
+def allowed_numbers(digest: dict, analysis: dict | None = None) -> set:
     out: set = set(GAME_CONSTANTS)
+    for f in (analysis or {}).get("findings", []):
+        if f.get("status") in ("credible", "leaning", "no_difference"):
+            _num_leaves({k: f.get(k) for k in ("k", "n", "rate", "baseline_rate")}, out)
+            if f.get("diff_pp") is not None:
+                out.add(float(round(abs(f["diff_pp"]))))
+    _num_leaves((analysis or {}).get("baseline", {}), out)
     _num_leaves(digest.get("metrics", {}), out)
     _num_leaves(digest.get("per_map", []), out)
     _num_leaves(digest.get("per_side", []), out)
@@ -78,6 +84,11 @@ def _texts(plan: dict):
             yield f"{w}.{k}", m.get(k, "")
         for j, b in enumerate(m.get("blocks", [])):
             yield f"{w}.blocks[{j}].text", b.get("text", "")
+            mod = b.get("module") if isinstance(b, dict) else None
+            if isinstance(mod, dict):
+                for x, pk in enumerate(mod.get("picks", []) if isinstance(mod.get("picks"), list) else []):
+                    if isinstance(pk, dict):
+                        yield f"{w}.blocks[{j}].module.picks[{x}].note", pk.get("note", "")
         a = m.get("analyst", {})
         for k in ("alternatives", "limitations"):
             for j, t in enumerate(a.get(k, [])):
@@ -159,11 +170,11 @@ def validate_plan(plan: dict, ctx: Ctx) -> None:
         used_notes |= set(re.findall(r"\[\[note:([\w-]+)\]\]", str(m.get("takeaway", ""))))
     for k in used_notes - set(notes):
         p.append(f"a text refers to note '{k}' which is not defined in notes")
-    allowed = allowed_numbers(ctx.digest)
+    allowed = allowed_numbers(ctx.digest, ctx.analysis)
     for where, text in _texts(plan):
         if isinstance(text, str):
             bad = stray_numbers(text, allowed)
             if bad:
-                p.append(f"{where}: number(s) {bad} are not in the evidence digest; use a metric block or a figure from the digest")
+                p.append(f"{where}: number(s) {bad} are not in the evidence digest or findings; show numbers with a block instead")
     if p:
         raise PlanError(p)

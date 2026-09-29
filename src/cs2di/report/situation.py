@@ -43,7 +43,7 @@ def load_situation(batch_dir: Path, demo_id: str, round_no: int, steamid: int) -
         v = int(e.user_steamid) if pd.notna(e.user_steamid) else None
         role = "kill" if a == steamid and v != steamid else "death" if v == steamid else None
         out.append({
-            "t": (float(e.tick) - lo) / tick,
+            "t": (float(e.tick) - lo) / tick, "tick": int(e.tick),
             "killer": name_of.get(a) if a else None, "killer_side": side_of.get(a),
             "victim": name_of.get(v) if v else None, "victim_side": side_of.get(v),
             "weapon": None if pd.isna(e.weapon) else str(e.weapon),

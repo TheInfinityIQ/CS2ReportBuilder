@@ -9,7 +9,7 @@ from pathlib import Path
 
 from . import fmt
 from .fmt import esc
-from .modules import Ctx, render_module
+from .modules import STATUS_WORDS, Ctx, render_module
 from .plan import validate_plan
 from .theme import CSS
 
@@ -112,7 +112,7 @@ def _fmt_metric_val(m):
     return f"{int(v):,}"
 
 
-def _analyst_desk(plan: dict, d: dict) -> str:
+def _analyst_desk(plan: dict, d: dict, an: dict | None = None) -> str:
     s = d["scope"]
     demo_rows = "".join(f'<tr><td><code>{esc(x["demo_id"])}</code></td><td>{esc(fmt.map_name(x["map"]))}</td><td class="num">{x["rounds"]}</td></tr>' for x in d["demos"])
     mrows = "".join(
@@ -145,6 +145,7 @@ def _analyst_desk(plan: dict, d: dict) -> str:
 <div class="sub">Every figure, how it was built, and what it cannot tell us.</div></div>
 <div class="desk-sec"><h2>Scope</h2><p>{s["demos"]} games, {s["rounds"]} rounds. Only games that passed the integrity check are used.</p>
 <details class="disc"><summary>Show the {s["demos"]} games</summary><table><thead><tr><th>Game</th><th>Map</th><th class="num">Rounds</th></tr></thead><tbody>{demo_rows}</tbody></table></details></div>
+{_findings_desk(an)}
 <div class="desk-sec"><h2>All figures</h2><table><thead><tr><th>Measure</th><th class="num">Value</th><th class="num">Count</th><th class="num">Out of</th><th>Scope</th><th>Id</th></tr></thead><tbody>{mrows}</tbody></table></div>
 <div class="desk-sec"><h2>By map</h2><table><thead><tr><th>Map</th><th class="num">Rounds</th><th class="num">Won</th><th class="num">Kills</th><th class="num">Deaths</th><th class="num">K/D</th><th class="num">Damage/rd</th><th class="num">Open kills</th><th class="num">Open deaths</th><th class="num">Grenade dmg/rd</th></tr></thead><tbody>{maprows}</tbody></table></div>
 <div class="desk-sec"><h2>By side</h2><table><thead><tr><th>Side</th><th class="num">Rounds</th><th class="num">Won</th><th class="num">Kills</th><th class="num">Deaths</th></tr></thead><tbody>{siderows}</tbody></table></div>
@@ -155,6 +156,74 @@ def _analyst_desk(plan: dict, d: dict) -> str:
 <li>Kills and deaths include any kill that lands just after the round-end tick, matching the scoreboard.</li>
 <li>Speed figures are game units per second. Kill speed is measured when this player first fired; death speed when the enemy first fired, so the two are measured at different moments.</li>
 <li>Examples show what a pattern looks like. They do not show how often it happens.</li></ul></div>'''
+
+
+KIND_WORDS = {
+    "result_vs_everyone": "Fights won, compared with players in your games",
+    "result_vs_own_level": "Fights won, compared with your own usual level",
+    "habit": "How often your fights happen in this situation",
+    "rate_vs_peers": "Compared with players in your games",
+    "mean_vs_peers": "Average, compared with players in your games",
+}
+CHIP = {"credible": "Clear", "leaning": "Possible", "no_difference": "Same", "unclear": "Unclear", "too_few": "Too few"}
+ORDER = {"credible": 0, "leaning": 1, "no_difference": 2, "unclear": 3, "too_few": 4}
+
+
+def _fv(f, v):
+    if v is None:
+        return "Unknown"
+    return f"{v * 100:+.1f} pts" if f.get("unit") == "win_points" else f"{v * 100:.1f}%"
+
+
+def _frow(f):
+    cnt = f"{f['k']:,}/{f['n']:,}" if f.get("k") is not None else f"n={f['n']:,}"
+    diff = "" if f.get("diff_pp") is None else f"{f['diff_pp']:+.1f}"
+    q = "" if f.get("q") is None else f"{f['q']:.3f}"
+    halves = {True: "agree", False: "disagree", None: ""}[f.get("halves_agree")]
+    ex = len(f.get("examples") or [])
+    return (f'<tr><td>{esc(f["situation"])}</td><td class="num">{esc(_fv(f, f.get("rate")))}<br><span class="muted small">{cnt}</span></td>'
+            f'<td class="num">{esc(_fv(f, f.get("baseline_rate")))}</td><td class="num">{diff}</td>'
+            f'<td><span class="chip {esc(f["status"])}" title="{esc(STATUS_WORDS[f["status"]])}">{CHIP[f["status"]]}</span></td>'
+            f'<td class="num small">{f["p"]:.3f}</td><td class="num small">{q}</td><td class="small">{halves}</td>'
+            f'<td class="small"><code>{esc(f["id"])}</code>{" · " + str(ex) + " examples" if ex else ""}</td></tr>')
+
+
+def _ftable(rows):
+    head = ('<thead><tr><th>Situation</th><th class="num">You</th><th class="num">Players in your games</th><th class="num">Diff (pts)</th>'
+            '<th>Verdict</th><th class="num">p</th><th class="num">q</th><th>Halves</th><th>Id</th></tr></thead>')
+    return f'<table>{head}<tbody>{"".join(_frow(f) for f in rows)}</tbody></table>'
+
+
+def _findings_desk(an: dict | None) -> str:
+    if not an:
+        return ""
+    b = an["baseline"]
+    F = an["findings"]
+    counts = {k: sum(1 for f in F if f["status"] == k) for k in CHIP}
+    out = [f'''<div class="desk-sec"><h2>Findings</h2>
+<p>Baseline: the other {b["peer_players"]} players in the same {b["matches"]} matches (similar level by matchmaking), and your own usual level.
+No outside database is used. You were in {b["subject_fights"]:,} fights; {b["subject_decided"]:,} ended with one of you dead.
+You won {b["subject_win_rate"] * 100:.1f}% of those; players in your games won {b["peer_win_rate"] * 100:.1f}%.</p>
+<p class="small">{len(F)} comparisons: {counts["credible"]} clear, {counts["leaning"]} possible, {counts["no_difference"]} same as your lobbies,
+{counts["unclear"]} unclear, {counts["too_few"]} with too few cases. "Clear" means it survives a correction for running this many checks
+(false-discovery rate under 10%) and both halves of your games point the same way. "Same" (at least 40 cases, no sign of a difference) is a real result, kept on purpose.</p></div>''']
+    topics = [("value", "Value of kills and deaths"), ("trading", "Trading and spacing"), ("clutch", "Clutches")]
+    for t, title in topics:
+        rows = sorted([f for f in F if f["topic"] == t], key=lambda f: ORDER[f["status"]])
+        if rows:
+            out.append(f'<div class="desk-sec"><h2>{esc(title)}</h2>{_ftable(rows)}</div>')
+    fights = [f for f in F if f["topic"] == "fights"]
+    for kind, title in (("result_vs_everyone", "Fights won, by situation (vs players in your games)"),
+                        ("result_vs_own_level", "Fights won, by situation (vs your own usual level)"),
+                        ("habit", "Profile: where and how your fights happen")):
+        rows = [f for f in fights if f["kind"] == kind]
+        shown = sorted([f for f in rows if f["status"] != "too_few"], key=lambda f: (ORDER[f["status"]], f["p"]))
+        few = [f for f in rows if f["status"] == "too_few"]
+        body = _ftable(shown)
+        if few:
+            body += f'<details class="disc"><summary>{len(few)} situations with too few fights to judge</summary><div class="disc-body">{_ftable(few)}</div></details>'
+        out.append(f'<div class="desk-sec"><h2>{esc(title)}</h2>{body}</div>')
+    return "".join(out)
 
 
 def _data_link(label: str, obj: dict, filename: str) -> str:
@@ -170,15 +239,16 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
 """
 
 
-def build_report(plan: dict, digest: dict, *, batch_dir, steamid) -> str:
-    """Validate the plan against the digest, then render the whole report as one HTML string."""
-    ctx = Ctx(digest=digest, batch_dir=Path(batch_dir), steamid=int(steamid))
+def build_report(plan: dict, digest: dict, *, batch_dir, steamid, analysis: dict | None = None) -> str:
+    """Validate the plan against the digest and findings, then render the report as one HTML string."""
+    ctx = Ctx(digest=digest, batch_dir=Path(batch_dir), steamid=int(steamid), analysis=analysis)
     validate_plan(plan, ctx)
     name = digest["subject"].get("name") or "Player"
     player = _player_study(plan, digest, ctx)
-    desk = _analyst_desk(plan, digest)
+    desk = _analyst_desk(plan, digest, analysis)
+    desk = desk.replace("<table>", '<div class="table-scroll"><table>').replace("</table>", "</table></div>")  # phones scroll tables, not the page
     footer = (f'<div class="footer">Downloads: {_data_link("evidence digest (JSON)", digest, "evidence_digest.json")} · '
-              f'{_data_link("coach plan (JSON)", plan, "coach_plan.json")}<br>'
+              f'{_data_link("coach plan (JSON)", plan, "coach_plan.json")}{(" · " + _data_link("all findings (JSON)", analysis, "findings.json")) if analysis else ""}<br>'
               'Every figure in this report was calculated by software from the analyzed demo files. '
               'The coach wrote the explanations and chose what to show.</div>')
     return f'''<!doctype html>
