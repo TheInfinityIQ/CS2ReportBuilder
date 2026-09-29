@@ -20,6 +20,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from .damage import effective_damage
 from .evidence import scan_batch
 from .ids import parse_steamid
 
@@ -36,6 +37,15 @@ def _read_events(path: Path, cols: list[str]) -> pd.DataFrame:
     return df
 
 
+def _damage(hurt: pd.DataFrame) -> pd.Series:
+    """Effective damage: repaired/v7.8 column if present, else computed (pitfall 27)."""
+    if hurt["dmg_health_effective"].notna().any():
+        return hurt["dmg_health_effective"]
+    if hurt["user_health"].notna().any():
+        return effective_damage(hurt)[0]
+    return hurt["dmg_health_capped"]
+
+
 def demo_round_facts(demo_dir: Path, steamid: int) -> tuple[list[dict], str | None]:
     """Per-round facts for one demo. Returns (facts, map_name)."""
     ms = json.loads((demo_dir / "match_summary.json").read_text(encoding="utf-8"))
@@ -49,8 +59,10 @@ def demo_round_facts(demo_dir: Path, steamid: int) -> tuple[list[dict], str | No
     )
     hurt = _read_events(
         demo_dir / "events" / "player_hurt.csv.gz",
-        ["tick", "attacker_steamid", "user_steamid", "attacker_team_num", "user_team_num", "dmg_health_capped"],
+        ["tick", "attacker_steamid", "user_steamid", "attacker_team_num", "user_team_num", "dmg_health_capped",
+         "dmg_health_effective", "user_health", "health"],
     )
+    hurt["dmg"] = _damage(hurt)
     facts: list[dict] = []
     starts = rounds["start_tick"].tolist()
     for i, r in rounds.iterrows():
@@ -88,7 +100,7 @@ def demo_round_facts(demo_dir: Path, steamid: int) -> tuple[list[dict], str | No
             "headshots": int((my_kills.headshot == True).sum()),  # noqa: E712
             "deaths": len(my_deaths),
             "deaths_pvp": len(my_pvp_deaths),
-            "damage": float(h.dmg_health_capped.sum()),
+            "damage": float(h.dmg.sum()),
             "opening": opening,
             "died": len(my_deaths) > 0,
         })

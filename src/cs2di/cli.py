@@ -32,7 +32,30 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--plan", required=True, help="coach plan JSON (content only, no styling)")
     r.add_argument("--out", required=True, help="HTML file to write")
 
+    rp = sub.add_parser("repair", help="fix known data errors in already-extracted output (dry run unless --apply)")
+    rp.add_argument("batch")
+    rp.add_argument("--apply", action="store_true", help="write the fix (originals are backed up first)")
+
     args = p.parse_args(argv)
+
+    if args.cmd == "repair":
+        from .repair import repair_batch
+
+        res = repair_batch(_batch_path(args.batch), apply=args.apply)
+        from collections import Counter
+
+        for r in res:
+            if r["status"] not in ("dry_run", "applied", "already_repaired", "not_needed_new_schema"):
+                print(f"{r['status'].upper()} {r['demo_id']}: {'; '.join(map(str, r['notes']))}")
+        rows = sum(r.get("rows_changed", 0) for r in res)
+        cells = sum(r.get("utility_cells_changed", 0) for r in res)
+        excess = sum(r.get("legacy_total", 0) - r.get("effective_total", 0) for r in res)
+        print(f"demos: {dict(Counter(r['status'] for r in res))}")
+        print(f"utility tables: {dict(Counter(r.get('utility_status', '-') for r in res))}")
+        print(f"hurt rows corrected: {rows}; utility cells corrected: {cells}; overcount removed: {excess:.0f} HP")
+        if not args.apply:
+            print("Dry run: nothing was written. Re-run with --apply to write.")
+        return 1 if any(r["status"].startswith(("skip_legacy", "conflict")) for r in res) else 0
 
     if args.cmd == "gate":
         results = scan_batch(_batch_path(args.batch))

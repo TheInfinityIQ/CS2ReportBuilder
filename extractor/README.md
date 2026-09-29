@@ -5,3 +5,10 @@ top of the file (DEMO_DIR / OUTPUT_DIR). Layout convention:
 `Demos/<batch>/*.dem` -> `v7dot7Analysis/analyzed_<batch>/<demo_id>/`.
 Its own SHA-256 is recorded in each `match_summary.json` (`runtime_environment.extractor_sha256`).
 Changing it requires a schema bump and a regression comparison; do not edit casually.
+
+## v7.8 (current)
+
+`extract_demos_v7dot8.py` is v7.7 plus one fix: `player_hurt.dmg_health_effective` (see
+KNOWN_PITFALLS row 27) and your `PROJECT_ROOT/demos/<folder>` path convention. Every other line is
+v7.7. Set `DEMO_FOLDER` and run it as before. Output from v7.7 and earlier can be brought to the same
+columns with `cs2di repair <batch>` (dry run) then `cs2di repair <batch> --apply`.
