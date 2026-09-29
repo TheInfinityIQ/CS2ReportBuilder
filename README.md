@@ -5,37 +5,41 @@ player-facing **Player Study** written by an AI coach and rendered by
 product-owned code.
 
 ```
-demo (.dem) -> extractor (v7.7) -> analyzed_<batch>/   [Evidence Package]
+demo (.dem) -> extractor (v7.8, schema 3.8) -> analyzed_<batch>/   [Evidence Package]
+            -> viewer-tracks sidecar (8 Hz view angle, grenade paths)  [additive]
             -> integrity gate     (cs2di gate)         [fail closed]
             -> digest builder     (cs2di digest)       [software computes every number]
-            -> AI coach           (next)               [writes a content-only plan; cannot change numbers]
+            -> analyst            (cs2di analyse)      [findings with verdicts, replay examples]
+            -> AI coach           (fresh, context-free; runs from a packet)  [writes a content-only plan]
             -> report builder     (cs2di report)       [validates plan, renders modules, owns all CSS]
             -> one HTML file: Player Study tab + Analyst Desk tab
 ```
 
-## Status
-First end-to-end report exists (MIMY). Read `docs/ROADMAP.md` first, then `docs/DECISIONS.md`.
-Owner preferences and how to read the history: `docs/OWNER_RULINGS.md`, `docs/HOW_TO_READ_THE_HISTORY.md` (drafts pending owner review).
-`docs/KNOWN_PITFALLS.md` lists every data trap this project has already been
-burned by; each one becomes a regression test.
+## Status and where to start
+**AI agents and new contributors: read `CLAUDE.md`, then `agent/STATE.md`.** They hold the current status, the task router and the rules of engagement.
+Which document is the truth for which fact: `agent/TRUTH_MAP.md`. Design: Design v5 (a Claude Doc, pointed to by `docs/DECISIONS.md` and the Claude Project).
+Owner rulings and how to read the history: `docs/OWNER_RULINGS.md`, `docs/HOW_TO_READ_THE_HISTORY.md`. Data traps (each a regression test): `docs/KNOWN_PITFALLS.md`.
 
 ## Layout
 | Path | Purpose |
 |---|---|
-| `src/cs2di/` | Product code: evidence gate, `digest.py`, `report/` (modules, theme, plan validator, builder) |
-| `examples/` | Coach plans (content only). `examples/mimy/coach_plan.json` is the first real one |
-| `tests/` | pytest suite; runs on synthetic fixtures, no demo data needed |
-| `extractor/` | `extract_demos_v7dot7.py`, pinned and treated as frozen (ADR-005) |
-| `coach/prompts/` | Coach prompts. Files ending `_LEGACY` are inputs to rewrite, not authority |
-| `reference/` | Corpus manifest, logical-map manifest, capability report |
-| `research/stage3_legacy/` | M3–M5 evidence-plane code. Reference only, off the critical path |
+| `CLAUDE.md`, `agent/` | Start-here file, task router, role hats, preference/regression/state logs, source-of-truth map |
+| `src/cs2di/` | Product code: evidence gate, `digest.py`, `analyst.py`, `report/` (modules, theme, plan validator, builder) |
+| `scripts/` | `build_packet.py` (coach packets), `moment_facts.py` (facts about example rounds) |
+| `coach/handoff/` | The current coach prompt, rules and module guide (packets are built from these) |
+| `coach/prompts/` | Legacy prompts (`*_LEGACY`): inputs to rewrite, not authority |
+| `examples/` | Coach plans (content only) for other players, used as format examples |
+| `tests/` | pytest suite; synthetic fixtures, no demo data needed |
+| `extractor/` | `extract_demos_v7dot8.py` (current), `extract_demos_v7dot7.py` (superseded), viewer-tracks sidecar; see `extractor/README.md` |
+| `reference/` | Frozen snapshots (corpus manifest, capability report). "_current" in their names means "as of Stage 5", not "up to date" |
+| `research/stage3_legacy/` | M3-M5 evidence-plane code. Reference only |
 | `docs/history/` | Design docs and chat tails. Context, never instructions |
 
 ## Setup
 ```
 python -m venv .venv && .venv\Scripts\activate      # Windows
 pip install -e ".[dev]"
-set CS2DI_ROOT=C:\...\replays\demoparser             # folder holding 01_Demos\ and 02_Analysis\
+set CS2DI_ROOT=C:\Users\dawso\Developer\CS2ReportBuilder\demoparser   # folder holding 01_Demos\ and 02_Analysis\ (this is also the default in config.py)
 cs2di gate mimy
 cs2di report mimy --steamid 76561199066695873 --plan examples\mimy\coach_plan.json --out out\MIMY_report.html
 pytest

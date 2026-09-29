@@ -1,4 +1,6 @@
-# Coaching lessons (source material for the future coach prompt)
+# Coaching lessons (source material for the coach prompt)
+
+**Status (2026-09-29):** compiled into `coach/handoff/RULES.md`, which is the version a coach reads and the one that wins if the two differ. Change a rule in both, or change `RULES.md` and note it here.
 
 The AI that writes a report will know only what is in its package. Everything it must know about
 how to coach, what the data can and cannot say, and how to word things is collected here first and

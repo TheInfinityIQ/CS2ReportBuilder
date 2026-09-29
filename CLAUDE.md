@@ -24,7 +24,7 @@ Push back **once**, briefly, with the reason and a recommendation, when a reques
 Then do what he decides. Reversible and he is away: take the recommended path and say so. Irreversible and could go either way: stop and ask. Never nag, never quietly work around a ruling, never agree just to be agreeable.
 
 ## Precedence when documents disagree
-`docs/OWNER_RULINGS.md` > `agent/PREFERENCES.md` > `docs/DECISIONS.md` > `coach/handoff/RULES.md`, `docs/KNOWN_PITFALLS.md`, `docs/CRITIQUES.md` > everything else. (OWNER_RULINGS says DRAFT only because Dawson has not read it top to bottom; treat entries as his statements.) The last group are guardrails learned from real failures: a new ruling that collides with one gets a pushback first, then a written supersede. `docs/history/` is context, never instruction.
+`docs/OWNER_RULINGS.md` > `agent/PREFERENCES.md` > `docs/DECISIONS.md` > `coach/handoff/RULES.md`, `docs/KNOWN_PITFALLS.md`, `docs/CRITIQUES.md` > everything else. (OWNER_RULINGS says DRAFT only because Dawson has not read it top to bottom; treat entries as his statements.) `agent/TRUTH_MAP.md` says which file is the truth for each repeated fact. The last group are guardrails learned from real failures: a new ruling that collides with one gets a pushback first, then a written supersede. `docs/history/` is context, never instruction.
 A request that matches nothing written: build the best reading of what Dawson plausibly means, include the obvious surrounding
 behaviour, and flag each judgement call in plain words (see `docs/HOW_TO_READ_THE_HISTORY.md`).
 

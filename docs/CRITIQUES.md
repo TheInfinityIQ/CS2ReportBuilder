@@ -142,5 +142,5 @@ Verified against the code before logging. "Agree" means the claim was checked an
 | H-6 | Per-side table has a `nan` side row (1 round) | Drop or explain | OPEN |
 | H-7 | Prompt gaps found: `[[note:key]]` renders as a footnote number so the sentence must read without it; the constants 900 and 215 are whitelisted; `after 60 s` is credible at q=0.089 while its twin is leaning | Documented in MODULES.md / RULES.md | DONE |
 | H-8 | Blocks the coaches wanted: per-side breakdown, choose example rounds, voluntary-vs-forced fight measure, peer rate for opening-kill follow-ups | Backlog for the dashboard/new modules | OPEN |
-| H-9 | Rules with no enforcement: no visibility claims from view angle, no ACTION intent without a measured cost, no generic advice unsupported by a finding | Add a reviewer pass (second agent that only checks claims against `moment_facts` and findings) | OPEN |
+| H-9 | Rules with no enforcement: no visibility claims from view angle, no ACTION intent without a measured cost, no generic advice unsupported by a finding | Add a reviewer pass (second agent that only checks claims against `moment_facts` and findings) | PARTIAL: the Test reviewer hat (`agent/roles/test-reviewer.md`) is a manual pass with a self-review flag; an automated claims checker is not built (proposed as ADR-015 in Design v5) |
 

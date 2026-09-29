@@ -33,6 +33,12 @@ unparseable input is a gate failure, never a pass.
 with a v-old vs v-new regression comparison (the v5 vs v6 method: unchanged
 data must be byte-identical; every intended difference is enumerated).
 
+## ADR-005A: Extractor v7.8 is the current pinned extractor (2026-09-29)
+Adopts v7.8 (schema 3.8) under the ADR-005 rule: it changes damage only (`dmg_health_effective`, `same_tick_multi_hurt`,
+effective damage in `utility_effectiveness`) and the folder convention; regression checked on 446 demos (KNOWN_PITFALLS 27);
+`cs2di repair` brings v7.7 output to the same columns. v7.7 stays in the repo as the previous pin. The viewer-tracks sidecar is
+additive and does not touch either extractor. ADR-005 is unchanged; this entry supersedes its "v7.7" naming only.
+
 ## ADR-006: Repo docs outrank history
 Historical chats, consultant reviews and V4.x drafts inform but do not
 instruct. This log, the roadmap and the tests are the authority.

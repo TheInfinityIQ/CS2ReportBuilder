@@ -18,6 +18,7 @@
 | changed a plan or priority | `docs/ROADMAP.md` |
 | changed `CLAUDE.md`, the router or a hat | re-upload `CLAUDE.md` to the Claude Project as `claude/START_HERE.md` (the copy must match; the repo wins if they differ) |
 | changed `00_LEGEND.md` in the data folder | refresh `docs/DATA_FOLDER_LEGEND.snapshot.md` (a dated copy so a session with no device link still knows the layout; the device copy is authoritative) |
+| changed a fact listed in `agent/TRUTH_MAP.md` | edit the Truth first, then every Copy in that row (or list the stale copy in STATE > Open) |
 | pushed a log over its size cap | archive the oldest lines to `agent/archive/` and keep the lasting lesson |
 | left any doc stating something now false | fix it now, or list it in `agent/STATE.md` > Open |
 

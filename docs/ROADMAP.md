@@ -11,26 +11,21 @@ and ask for coaching?**
 - Repo, package, CI, config, SteamID handling.
 - Hard integrity gate, verified on the real corpus (Cologne 113/114 = 2,251 rounds; FACEIT 100 = 2,105;
   Premier 4 = 85; MIMY 30 = 640).
-- **Digest** (`cs2di digest`): software computes every number for one player (counts, denominators,
-  plain definitions, per-map and per-side splits). Cross-checked against a fresh-AI coach's numbers.
-- **Report** (`cs2di report`): one HTML file, tabs for Player Study and Analyst Desk, fixed shell,
-  Teaching Moments built from software modules, styling owned only by `theme.py`, plan validator
-  (unknown modules, styling fields, invented numbers, missing evidence all rejected).
-- First real output: MIMY, 30 games, 4 Teaching Moments (`examples/mimy/coach_plan.json`).
+- **Digest**, **analyst** (findings with verdicts and replay examples), **report** (one HTML file, Player Study + Analyst Desk tabs,
+  fixed shell, module registry, single-source CSS, plan validator).
+- **Map viewer (Viewer2D)** built on real radar images and demo data; v3.4 uses the 8 Hz viewer-tracks sidecar (see below).
+- **Handoff test** (2026-09-29): a fresh, context-free AI produced valid reports from a pack; defects logged as H-1..H-9.
+- **8 report packets** (5 pug players, 3 pro players; 30 unique matches each, none shared) built by `scripts/build_packet.py`.
+- **Agent start-here system** (`CLAUDE.md`, `agent/`): task router, role hats, preference/regression/state logs.
+- Reports produced: MIMY, iTrilogyy (hand-written reference plans in `examples/`).
 
 ## Next (in order, each ends with something to open)
-1. **Owner review of the MIMY report.** Feedback decides everything below. Fix what feels wrong
-   before adding anything.
-2. **Coach loop.** Write the prompts that make a fresh AI produce `coach_plan.json` from the
-   digest (plus a way to look at selected rounds). The validator already guards the output.
-   Compare several fresh runs against the hand-written MIMY plan.
-3. **Map viewer (Viewer2D).** Owner ruling: a viewer without the map has little value. Needs radar
-   images with verified coordinate calibration for the five maps in play. Until then the plan
-   validator rejects `Viewer2D` with a clear message and timelines fill the gap.
-4. **More modules as real teaching needs them** (not from a wish list): metric-over-time,
-   side-by-side student/reference, utility replay, bomb context.
-5. **Analyst Desk depth**: counterexamples, alternative explanations, drill-down to rounds.
-6. **Second player** (CanadianIQ) to prove it is not tuned to one player.
+1. **Run fresh coaches on the 8 packets**, then review them (Test reviewer hat). This is the first test on more than one player and on tournament data.
+2. **Fix H-1, H-2, H-3** (example ranking, self-kills, validator gaps), then re-issue the affected packets.
+3. **Statistical corrections** E-3 (advantage denominators) and E-7 (match-clustered tests), before charts show numbers that are about to change.
+4. **Dashboard tab** (per-map, per-side, over-time charts) after 3.
+5. **More modules as real teaching needs them** (not from a wish list): metric-over-time, side-by-side student/reference, bomb context; the H-8 blocks the coaches asked for.
+6. **Analyst Desk depth and mobile**: counterexamples, alternative explanations, drill-down; U2-21..35, R-14, R-15, R-18.
 7. **Longitudinal coaching** (memory across batches: improved / stable / regressed / resolved).
 8. **Cope Barn**, kept walled off from all serious findings.
 
@@ -41,7 +36,7 @@ Data step in parallel: run `extractor/extract_viewer_tracks.py` on a test batch 
 
 ## Planned after the viewer pass (owner request 2026-09-29)
 - **Dashboard tab**: per-map, per-side and over-time charts (owner likes graphs). Every moment currently has a 2D viewer and no chart. Build after the statistical corrections (E-3 advantage denominators, E-7 match-clustered tests) so the charts do not show numbers we are about to change. Use the dataviz skill.
-- **Continuous facing + real grenade paths**: measured and specified in `docs/VIEWER_DATA_OPTIONS_2026-09-29.md` (8 Hz `yaw`/X/Y sidecar plus simplified projectile paths; ~20 MB for 30 demos; needs the `.dem` files). Not built yet; owner decision on sidecar vs schema bump pending.
+- **Continuous facing + real grenade paths**: DONE as an additive sidecar (the pending "sidecar vs schema bump" choice was settled in practice by building the sidecar; Dawson has not objected; see `docs/VIEWER_DATA_OPTIONS_2026-09-29.md` and `extractor/README.md`).
 - **Viewer roster**: add money and utility inventory (present on `weapon_fire.user_balance` / `user_inventory`).
 
 ## Parked (kept in scope, deliberately not started)

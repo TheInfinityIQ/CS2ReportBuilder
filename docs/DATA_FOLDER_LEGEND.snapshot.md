@@ -1,4 +1,4 @@
-<!-- SNAPSHOT of the data folder's 00_LEGEND.md taken 2026-09-29. The device copy is authoritative; refresh this when it changes. Its purpose: a session with no device link still knows the layout. -->
+<!-- SNAPSHOT of the data folder's 00_LEGEND.md taken 2026-09-29 (after the consistency audit). The device copy is authoritative; refresh this when it changes. Its purpose: a session with no device link still knows the layout. -->
 
 # 00_LEGEND: start here
 
@@ -26,14 +26,14 @@ Last updated: 2026-09-29. If you add or move anything, update this file (Section
 | Watch a demo of the 2D viewer or report | `04_Reports/demo_videos/` |
 | Read a written coaching report | `04_Reports/written_reports/` |
 | See screenshots of the report or of data | `04_Reports/screenshots/` |
-| Read the coach system prompt | `05_Coach_Knowledge/onboarding_pack/CS2 Demo Coach — System Prompt.txt` |
+| Read the current coach prompt and rules | git repo `coach/handoff/PROMPT.md`, `RULES.md`, `MODULES.md` (each packet holds a copy). `05_Coach_Knowledge/onboarding_pack/` prompts are legacy |
 | Read what data the extractor can produce | `05_Coach_Knowledge/onboarding_pack/data_capability_report_current.md` |
-| Read the current project onboarding document | `05_Coach_Knowledge/onboarding_document/` |
-| Read the architecture and design history | `05_Coach_Knowledge/architecture_review/` |
+| Read the current design | Design v5 (a Claude Doc; the git repo `docs/DECISIONS.md` and `agent/TRUTH_MAP.md` say where). The `.docx` files in `05_Coach_Knowledge/` are history |
+| Read the old architecture and design history | `05_Coach_Knowledge/architecture_review/` (history only) |
 | Read pro-player and creator knowledge | `05_Coach_Knowledge/content_creator_transcripts/` and `player_knowledge_base/` |
 | Find the old AI chat logs (how decisions were made) | `05_Coach_Knowledge/ai_chat_history/` |
 | Find a ready-made coach packet (30 matches per player) | `06_Handoff_and_Tests/packets/<packet_id>/` (Section 8) |
-| Test a fresh AI with no context | `06_Handoff_and_Tests/packets/<packet_id>/PROMPT.md` |
+| Test a fresh AI with no context | `06_Handoff_and_Tests/PASTE_TO_FRESH_AI.md` (start the AI inside a packet folder) |
 | See results from test coaches | `06_Handoff_and_Tests/test_coaches/` |
 | Find old stage/milestone work (Stage 3, M0 to M122) | `07_Development/stage_steps/` |
 | Find the awpy / demoparser library source | `07_Development/repos/` |
@@ -116,16 +116,16 @@ Data dictionary: `05_Coach_Knowledge/onboarding_pack/data_capability_report_curr
 
 | Thing | Current | Older (do not use) |
 |---|---|---|
-| Extractor | `03_Scripts/current/extract_demos_v7dot8.py` | `03_Scripts/archive/` v5 to v7.7 |
+| Extractor | `03_Scripts/current/extract_demos_v7dot8.py` (v7.8, schema 3.8) | `03_Scripts/archive/` v5 to v7.7 |
 | Tracks extractor | `03_Scripts/current/extract_viewer_tracks.py` v1.0 | none |
 | Run tracks on everything | `03_Scripts/current/run_all_tracks.py` | none |
 | Player report | `MIMY_report_v3.3.html` (v3.4 lives in the git repo) | v2, v3.0, v3.2 |
-| Coach prompt | repo `coach/handoff/PROMPT.md` and `06_.../packets/<id>/PROMPT.md` | `05_.../onboarding_pack/SUPERSEDED_README.md` era |
-| Onboarding | `05_.../onboarding_document/...LIVING_ONBOARDING_CURRENT_v1.2.docx` | files in `architecture_review/` |
-| Architecture | `...Master_Architecture_v4.1.docx` | v4.0, DesignV2, V2.1 |
-| Coach packets | `06_.../packets/P_<kind>_<player>/` | `06_.../current_handoff_pack/` (single-player, older) |
+| Coach prompt | repo `coach/handoff/PROMPT.md` (each `06_.../packets/<id>/PROMPT.md` is a generated copy) | `05_.../onboarding_pack/` prompts, `_archive/handoff_2026-09-29_pre_packets/` |
+| Onboarding (a new contributor) | git repo `CLAUDE.md` then `agent/STATE.md` | `05_.../onboarding_document/...LIVING_ONBOARDING_CURRENT_v1.2.docx` (history; "CURRENT" in the name is stale) |
+| Architecture and design | Design v5 (Claude Doc) | `...Master_Architecture_v4.1.docx`, v4.0, DesignV2, V2.1 |
+| Coach packets | `06_.../packets/P_<kind>_<player>/` | the single-player pack now in `_archive/handoff_2026-09-29_pre_packets/` |
 
-v7.8 = v7.7 plus two damage columns and a new path convention. Same tables, same sampling rate. The 8 Hz data comes from the tracks scripts.
+v7.8 = v7.7 plus two damage columns (`dmg_health_effective`, `same_tick_multi_hurt`), effective damage in utility stats, and a new path convention. Same tables, same sampling rate. The 8 Hz data comes from the tracks scripts.
 
 ---
 

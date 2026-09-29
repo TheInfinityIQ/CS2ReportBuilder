@@ -59,7 +59,7 @@ default, revisit freely. **Open** = not settled; do not fill the gap with an ass
   maximum in prompts, validator or docs. Every moment must still stand on a supported finding and
   teach one lesson; detail that does not teach goes to the Analyst Desk. *Why:* a fixed count
   either pads thin evidence or hides a supported lesson. **Firm** (2026-09-29; supersedes the
-  earlier "only a few things per report", which was Leaning).
+  earlier "only a few things per report", which was Leaning; two older versions of the limit also existed and are dead: "2 to 4" in the repo prompt, and "10 max, 5 or under is the target" in the owner's old device handoff pack).
 - **Should change its mind and remember.** Stop coaching solved problems; question earlier
   claims when new evidence contradicts them. **Firm** as a direction; **Open** for the
   first build (single batch only).
