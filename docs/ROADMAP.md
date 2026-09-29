@@ -36,7 +36,7 @@ and ask for coaching?**
 
 ## Planned after the viewer pass (owner request 2026-09-29)
 - **Dashboard tab**: per-map, per-side and over-time charts (owner likes graphs). Every moment currently has a 2D viewer and no chart. Build after the statistical corrections (E-3 advantage denominators, E-7 match-clustered tests) so the charts do not show numbers we are about to change. Use the dataviz skill.
-- **Continuous facing**: capture `usercmd_viewangle_y` for the rounds shown in viewers (probe already confirms the property exists) so pins and cones can follow real view direction throughout, not only at shots.
+- **Continuous facing + real grenade paths**: measured and specified in `docs/VIEWER_DATA_OPTIONS_2026-09-29.md` (8 Hz `yaw`/X/Y sidecar plus simplified projectile paths; ~20 MB for 30 demos; needs the `.dem` files). Not built yet; owner decision on sidecar vs schema bump pending.
 - **Viewer roster**: add money and utility inventory (present on `weapon_fire.user_balance` / `user_inventory`).
 
 ## Parked (kept in scope, deliberately not started)
