@@ -27,6 +27,7 @@ class Ctx:
     steamid: int
     analysis: dict | None = None
     _sit: dict = field(default_factory=dict)
+    maps: dict = field(default_factory=dict)  # map backgrounds used by viewers (emitted once per page)
 
     def finding(self, fid: str) -> dict:
         for f in (self.analysis or {}).get("findings", []):
@@ -263,9 +264,9 @@ def _timeline_render(spec, ctx):
 
 # ---------------------------------------------------------------- FindingCard
 STATUS_WORDS = {
-    "credible": "Clear difference from the players in your games",
-    "leaning": "Possible difference, not proven yet",
-    "no_difference": "About the same as the players in your games",
+    "credible": "Supported in this sample: a difference from the players in your games",
+    "leaning": "Possible difference, not proven",
+    "no_difference": "No detectable difference from the players in your games in this sample",
     "unclear": "Not enough to tell",
     "too_few": "Too few cases to tell",
 }
@@ -284,6 +285,10 @@ def _finding_check(spec, ctx):
     ctx.finding(_req(spec, "finding", str, "FindingCard"))
 
 
+def pfmt(v) -> str:
+    return "<0.001" if v is not None and v < 0.001 else "" if v is None else f"{v:.3f}"
+
+
 def _finding_calc(f: dict) -> list[tuple[str, str]]:
     rows = [("What it measures", f.get("plain") or f"{f['dimension_label']}: {f['situation']}")]
     if f.get("k") is not None:
@@ -296,7 +301,7 @@ def _finding_calc(f: dict) -> list[tuple[str, str]]:
     if lo is not None:
         rows.append(("Uncertainty", f"95% interval {lo * 100:.0f} to {hi * 100:.0f}" + (" points" if f.get("kind") == "mean_vs_peers" else "%")))
     q = f.get("q")
-    rows.append(("Test", f"p = {f['p']:.3f}" + (f", after correcting for the number of checks q = {q:.3f}" if q is not None else "")
+    rows.append(("Test", f"p = {pfmt(f['p'])}" + (f", after correcting for the number of checks q = {pfmt(q)}" if q is not None else "")
                  + ("; both halves of your games agree" if f.get("halves_agree") else "; the two halves of your games do not clearly agree" if f.get("halves_agree") is False else "")))
     rows.append(("Verdict", STATUS_WORDS[f["status"]]))
     return rows
@@ -305,13 +310,16 @@ def _finding_calc(f: dict) -> list[tuple[str, str]]:
 def _finding_render(spec, ctx):
     f = ctx.finding(spec["finding"])
     you, base = f.get("rate"), f.get("baseline_rate")
-    tone = "neutral"
-    if f["status"] == "credible" and f["kind"] != "habit" and you is not None and base is not None:
-        better = (you > base) == bool(f.get("higher_is_good", True))
-        tone = "good" if better else "bad"
-    top = max(abs(you or 0), abs(base or 0), 1e-9)
-    bars = (f'<div class="bar-row"><div class="bar-label">You</div><div class="bar-track">{_bar("k" if tone == "good" else "d" if tone == "bad" else "", abs(you or 0) / top, _fval(f, you))}</div></div>'
-            f'<div class="bar-row"><div class="bar-label">Players in your games</div><div class="bar-track">{_bar("", abs(base or 0) / top, _fval(f, base))}</div></div>')
+    def row(label, v, cls):
+        if f.get("unit") == "win_points":  # centred scale: -50..+50 win points
+            w = min(abs(v or 0) * 100, 50) / 100
+            return (f'<div class="bar-row"><div class="bar-label">{label}</div><div class="bar-track">'
+                    f'{_bar(cls, w, _fval(f, v))}</div></div>')
+        return (f'<div class="bar-row"><div class="bar-label">{label}</div><div class="bar-track">'
+                f'{_bar(cls, min(max(v or 0, 0), 1), _fval(f, v))}</div></div>')
+    bars = row("You", you, "you") + row("Players in your games", base, "peer")
+    scale = '<div class="bar-row"><div class="bar-label"></div><div class="bar-scale"><span>0%</span><span>50%</span><span>100%</span></div></div>' if f.get("unit") != "win_points" else ""
+    bars += scale
     cap = spec.get("caption") or f["situation"]
     return (f'<div class="mod"><div class="mod-title">{esc(cap)}</div><div class="bars">{bars}</div>'
             f'<p class="verdict {esc(f["status"])}">{esc(STATUS_WORDS[f["status"]])}</p>'
@@ -351,21 +359,29 @@ def _moment_context(e: dict) -> str:
 
 
 def _moments_render(spec, ctx):
+    from .viewer import observed_facts, viewer_html
+
     f = ctx.finding(spec["finding"])
     title = f'<div class="mod-title">{esc(spec["title"])}</div>' if spec.get("title") else ""
     cards = []
     for pk in spec["picks"]:
         e = f["examples"][pk["example"]]
-        s = ctx.situation(e["demo_id"], int(e["round"]))
+        demo, rnd, tick = e["demo_id"], int(e["round"]), e.get("tick")
+        s = ctx.situation(demo, rnd)
         res = '<span class="tag win">Round won</span>' if s["win"] else '<span class="tag loss">Round lost</span>'
-        ctxline = _moment_context(e)
+        facts = observed_facts(ctx.batch_dir, demo, rnd, ctx.steamid, tick)
+        view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps)
         cards.append(
-            f'<div class="sit"><div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}</strong><span>'
-            f'<span class="tag">{esc(s["side"])}</span> {res}</span></div>'
-            + (f'<p class="muted small">{esc(ctxline)}</p>' if ctxline else "")
-            + f'<p class="why"><b>Coach:</b> {esc(pk["note"])}</p>{_timeline(s, e.get("tick"))}</div>')
+            f'<div class="sit"><div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}'
+            + (f' · {fmt.clock(e["round_time_s"])}' if e.get("round_time_s") is not None else "")
+            + f'</strong><span><span class="tag">{esc(s["side"])}</span> {res}</span></div>'
+            f'<div class="observed"><div class="eyebrow">What happened (from the demo)</div>'
+            f'<ul>{"".join(f"<li class=sub>{esc(x.strip())}</li>" if x.startswith("  ") else f"<li>{esc(x)}</li>" for x in facts)}</ul></div>'
+            f'{view}<p class="why"><b>Coach\'s read:</b> {esc(pk["note"])}</p>'
+            f'<details class="disc"><summary>Show every kill in the round</summary><div class="disc-body">{_timeline(s, tick)}</div></details></div>')
     disc = _disclosure("Why these rounds?", [
-        ("Where they come from", f"Rounds from your games that fit: {f['situation'].lower()} ({e.get('why', '')})."),
+        ("Where they come from", f"Rounds from your games that fit: {f['situation'].lower()}."),
+        ("What is fact and what is opinion", "'What happened' is computed from the demo. 'Coach's read' is interpretation."),
         ("Caution", "A few rounds show what the pattern looks like; the card above shows how often it happens.")])
     return f'<div class="mod">{title}<div class="moments">{"".join(cards)}</div>{disc}</div>'
 

@@ -39,10 +39,12 @@ def _num_leaves(x, out: set):
 
 # Fixed game facts a coach may cite (never player data): full rifle run speed in units per second.
 GAME_CONSTANTS = {215.0}
+# Fixed method settings a coach may cite (from impact.py): trade reach in units, trade window in seconds.
+METHOD_CONSTANTS = {900.0}
 
 
 def allowed_numbers(digest: dict, analysis: dict | None = None) -> set:
-    out: set = set(GAME_CONSTANTS)
+    out: set = set(GAME_CONSTANTS) | METHOD_CONSTANTS
     for f in (analysis or {}).get("findings", []):
         if f.get("status") in ("credible", "leaning", "no_difference"):
             _num_leaves({k: f.get(k) for k in ("k", "n", "rate", "baseline_rate")}, out)

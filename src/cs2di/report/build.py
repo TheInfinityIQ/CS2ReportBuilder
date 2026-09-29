@@ -9,9 +9,10 @@ from pathlib import Path
 
 from . import fmt
 from .fmt import esc
-from .modules import STATUS_WORDS, Ctx, render_module
+from .modules import STATUS_WORDS, Ctx, pfmt, render_module
 from .plan import validate_plan
 from .theme import CSS
+from .viewer import maps_script
 
 _NOTE = re.compile(r"\[\[note:([\w-]+)\]\]")
 
@@ -71,7 +72,7 @@ def _coverage(d: dict) -> str:
     s = d["scope"]
     maps = ", ".join(fmt.map_name(x) for x in s["maps"])
     return (f'<div class="coverage"><span><b>{s["demos"]}</b> games</span><span><b>{s["rounds"]}</b> rounds</span>'
-            f'<span><b>{len(s["maps"])}</b> maps ({esc(maps)})</span><span>Complete for this study</span></div>')
+            f'<span><b>{len(s["maps"])}</b> maps ({esc(maps)})</span><span>{s["demos"]}/{s["demos"]} demos passed the integrity check</span></div>')
 
 
 def _summary(s: dict) -> str:
@@ -165,7 +166,7 @@ KIND_WORDS = {
     "rate_vs_peers": "Compared with players in your games",
     "mean_vs_peers": "Average, compared with players in your games",
 }
-CHIP = {"credible": "Clear", "leaning": "Possible", "no_difference": "Same", "unclear": "Unclear", "too_few": "Too few"}
+CHIP = {"credible": "Supported", "leaning": "Possible", "no_difference": "No detectable difference", "unclear": "Unclear", "too_few": "Too few"}
 ORDER = {"credible": 0, "leaning": 1, "no_difference": 2, "unclear": 3, "too_few": 4}
 
 
@@ -178,13 +179,13 @@ def _fv(f, v):
 def _frow(f):
     cnt = f"{f['k']:,}/{f['n']:,}" if f.get("k") is not None else f"n={f['n']:,}"
     diff = "" if f.get("diff_pp") is None else f"{f['diff_pp']:+.1f}"
-    q = "" if f.get("q") is None else f"{f['q']:.3f}"
+    q = pfmt(f.get("q"))
     halves = {True: "agree", False: "disagree", None: ""}[f.get("halves_agree")]
     ex = len(f.get("examples") or [])
     return (f'<tr><td>{esc(f["situation"])}</td><td class="num">{esc(_fv(f, f.get("rate")))}<br><span class="muted small">{cnt}</span></td>'
             f'<td class="num">{esc(_fv(f, f.get("baseline_rate")))}</td><td class="num">{diff}</td>'
             f'<td><span class="chip {esc(f["status"])}" title="{esc(STATUS_WORDS[f["status"]])}">{CHIP[f["status"]]}</span></td>'
-            f'<td class="num small">{f["p"]:.3f}</td><td class="num small">{q}</td><td class="small">{halves}</td>'
+            f'<td class="num small">{pfmt(f["p"])}</td><td class="num small">{q}</td><td class="small">{halves}</td>'
             f'<td class="small"><code>{esc(f["id"])}</code>{" · " + str(ex) + " examples" if ex else ""}</td></tr>')
 
 
@@ -204,9 +205,8 @@ def _findings_desk(an: dict | None) -> str:
 <p>Baseline: the other {b["peer_players"]} players in the same {b["matches"]} matches (similar level by matchmaking), and your own usual level.
 No outside database is used. You were in {b["subject_fights"]:,} fights; {b["subject_decided"]:,} ended with one of you dead.
 You won {b["subject_win_rate"] * 100:.1f}% of those; players in your games won {b["peer_win_rate"] * 100:.1f}%.</p>
-<p class="small">{len(F)} comparisons: {counts["credible"]} clear, {counts["leaning"]} possible, {counts["no_difference"]} same as your lobbies,
-{counts["unclear"]} unclear, {counts["too_few"]} with too few cases. "Clear" means it survives a correction for running this many checks
-(false-discovery rate under 10%) and both halves of your games point the same way. "Same" (at least 40 cases, no sign of a difference) is a real result, kept on purpose.</p></div>''']
+<p class="small">{len(F)} comparisons: {counts["credible"]} supported, {counts["leaning"]} possible, {counts["no_difference"]} with no detectable difference,
+{counts["unclear"]} unclear, {counts["too_few"]} with too few cases. "Supported" means it survives a correction for running this many checks (false-discovery rate under 10%) and both halves of your games (alternate games in date order) point the same way; results just under the threshold are still exploratory. "No detectable difference" (at least 40 cases, p at least 0.30) does not prove the two are equal; it is kept so the coach does not chase it. Tests treat each event as independent (not yet clustered by match), so borderline results deserve caution. Counts differ from the scoreboard figures because these analyses leave out kills and deaths after the round was decided and deaths to the bomb or world.</p></div>''']
     topics = [("value", "Value of kills and deaths"), ("trading", "Trading and spacing"), ("clutch", "Clutches")]
     for t, title in topics:
         rows = sorted([f for f in F if f["topic"] == t], key=lambda f: ORDER[f["status"]])
@@ -257,4 +257,4 @@ def build_report(plan: dict, digest: dict, *, batch_dir, steamid, analysis: dict
 <nav class="folder-tabs" role="tablist"><button class="tab-btn" role="tab" aria-selected="true" data-target="tab-study">Player Study</button>
 <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-desk">Analyst Desk</button></nav>
 <div class="wrap"><div class="tab-panel active" id="tab-study">{player}</div>
-<div class="tab-panel" id="tab-desk">{desk}</div>{footer}</div><script>{_JS}</script></body></html>'''
+<div class="tab-panel" id="tab-desk">{desk}</div>{footer}</div><script>{_JS}</script>{maps_script(ctx.maps)}</body></html>'''

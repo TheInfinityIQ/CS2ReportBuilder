@@ -1,0 +1,88 @@
+{
+  "report": {"subtitle": "30 FACEIT games · compared with the other players in those same games"},
+  "agenda": "Keep: you are rarely the first player to die, and you still win fights when caught moving.\n\nWork on: retakes and fights after your team is already ahead. Go in together.\n\nRe-check next time: deaths while your team is ahead, and trades when a teammate dies close to you.",
+  "moments": [
+    {
+      "id": "first-death",
+      "intent": "REINFORCE",
+      "title": "You are rarely the first player to die",
+      "question": "How often am I the first one to die in a round?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "Being first to die gives the other team a numbers lead until someone trades it. You were the first to die in fewer of your rounds than the players in your games, and that holds in both halves of your games.\n\nPart of this may be where you play. On Anubis as CT, far more of your fights happen at B than for anyone else in your lobbies; players who fight from a site often meet the enemy later.",
+         "module": {"type": "FindingCard", "finding": "value.first_death_rounds", "caption": "Rounds where you were the first player to die"}},
+        {"layout": "module_only",
+         "module": {"type": "FindingCard", "finding": "fight.habit.s_place.Anubis / CT / BombsiteB", "caption": "Anubis CT: share of your fights that start at B"}}
+      ],
+      "takeaway": "Keep it. Staying alive early keeps the round playable for your team.",
+      "analyst": {"alternatives": ["Role and position: fighting from a site meets the enemy later than entering one."],
+                  "limitations": ["Baseline is every player in the same games, all roles mixed."]}
+    },
+    {
+      "id": "caught-running",
+      "intent": "REINFORCE",
+      "title": "When you are hit first while moving, you still win more than most",
+      "question": "What happens when an enemy damages me first while I am running?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "This is the worst way to start a fight and most players lose it. You win about a quarter of these, more than the players in your games. The data does not say why: it could be your aim, cover, or the weapons involved.\n\nUseful, but not something to rely on. Being caught moving less often is still the better habit.",
+         "module": {"type": "FindingCard", "finding": "fight.result_vs_everyone.s_init_move.they hit first, running", "caption": "Fights won after being damaged first while running"}}
+      ],
+      "takeaway": "A safety net, not a plan. Choose when you move into an angle.",
+      "analyst": {"alternatives": ["Damaged first is not seen first; some of these fights were expected."],
+                  "limitations": ["Fights where nobody landed damage are not counted."]}
+    },
+    {
+      "id": "advantage",
+      "intent": "ACTION",
+      "title": "When your team is ahead, go in together",
+      "question": "What goes wrong after my team gets the numbers?",
+      "blocks": [
+        {"layout": "text_above",
+         "text": "About a third of your deaths come while your team has more players alive. There is no detectable difference from the players in your games, so this is common in your lobbies, not a personal flaw. It is still worth reviewing, because these are rounds your team is favoured to win.\n\nThe rounds below are retakes and late fights. When the bomb is down, CT has to move, so waiting is not the answer. What stands out is going in one at a time.",
+         "module": {"type": "FindingCard", "finding": "value.died_ahead", "caption": "Your deaths that came while your team had more players"}},
+        {"layout": "module_only",
+         "module": {"type": "KeyMoments", "finding": "value.died_ahead", "title": "Three rounds to review",
+                    "picks": [
+                      {"example": 3, "note": "A retake: the bomb is down and CT must move. You go through Long Doors on your own while your two teammates are elsewhere, and the last T gets a one-against-one with you and then one with fashnozzle. Retaking at the same moment as your teammates would have made him face two of you."},
+                      {"example": 2, "note": "Another retake, three against one. The same T kills you at Checkers and jaxxze two seconds later. Entering together, or trading each other, turns this into one fight he has to win twice at once."},
+                      {"example": 0, "note": "Two against one on T side with no plant yet. You meet the last CT at Electrical Box on your own and your teammate finishes it. Worth asking: was the bomb, or your teammate, a better way to use the numbers?"}
+                    ]}}
+      ],
+      "takeaway": "Numbers only help if they arrive together. When ahead, make the enemy face two of you: move with a teammate, use a flash, or play the bomb. Taking a fight alone still makes sense when you must trade, stop a plant or defuse, or the clock forces you.",
+      "analyst": {"alternatives": ["Some of these deaths were required by the bomb or the clock."],
+                  "limitations": ["'Ahead' counts players alive only; weapons, health and utility are not in it.", "Share of deaths is not the chance of losing an advantage; that needs a count of every advantage state (CRITIQUES E-3)."]}
+    },
+    {
+      "id": "trades",
+      "intent": "UNDERSTAND",
+      "title": "Potential trades when a teammate dies close to you",
+      "question": "When a teammate dies near me, do I get the killer?",
+      "blocks": [
+        {"layout": "side_by_side",
+         "text": "When a teammate died within about nine hundred units of you, you killed their killer within five seconds about one time in six. There is no detectable difference from the players in your games. Distance ignores walls, so many of these were not real chances; they are situations worth a look, not mistakes.",
+         "module": {"type": "FindingCard", "finding": "trading.converted", "caption": "Teammate died near you: you killed their killer within five seconds"}},
+        {"layout": "module_only",
+         "module": {"type": "KeyMoments", "finding": "trading.converted", "title": "Two situations",
+                    "picks": [
+                      {"example": 4, "note": "FoxC dies Outside Long. You do kill that same player at Top of Mid, about seven seconds later, just outside the trade window. Being ready on the same angle before your teammate peeks is what makes the trade immediate."},
+                      {"example": 0, "note": "Two teammates die within a second. You trade Greed___ straight away by killing TENST. METRAJLY's killer, Neosho, survives and kills Roskookie next. A good trade: this is also why 'near' is not always a missed chance, because you could only answer one."}
+                    ]}}
+      ],
+      "takeaway": "Before a teammate peeks near you, decide who swings second, and be aimed at the same angle when they do.",
+      "analyst": {"alternatives": ["Walls, height and other threats make many of these impossible to trade."],
+                  "limitations": ["Five seconds and about 900 units are conventions; line of sight is not checked yet."]}
+    }
+  ],
+  "summary": {
+    "covered": ["You are rarely first to die, and you win more fights than your lobbies after being caught moving.",
+                "Rounds slip when the team is ahead and players go in one at a time."],
+    "watch": ["Retakes: are you entering at the same moment as a teammate?",
+              "When a teammate peeks next to you: are you ready on the same angle?"],
+    "retest": ["Deaths while your team is ahead.", "Trades when a teammate dies close to you."]
+  },
+  "notes": {},
+  "analyst": {"open_questions": [
+    "Which position does MIMY play on each map? Position recognition from early-round locations is in development (66% accuracy on labelled pros).",
+    "Is the possible edge early in rounds real, or a result of where he plays?"]}
+}

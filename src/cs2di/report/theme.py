@@ -4,7 +4,7 @@ CSS = """
 :root{
   --bg:#f6f5f2; --panel:#ffffff; --ink:#1d2027; --muted:#5b6270; --line:#e2e0da;
   --accent:#2f5d8a; --accent-soft:#e6eef6;
-  --t:#b7791f; --t-soft:#fbf1dc; --ct:#2b6cb0; --ct-soft:#e3eefa;
+  --t:#8f560a; --t-soft:#fbf1dc; --ct:#2b6cb0; --ct-soft:#e3eefa;
   --good:#2f7d4f; --good-soft:#e4f3ea; --bad:#b03a3a; --bad-soft:#f8e6e6;
   --radius:12px; --shadow:0 1px 2px rgba(20,24,32,.06),0 4px 14px rgba(20,24,32,.05);
   --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -79,9 +79,21 @@ sup.fn a{text-decoration:none;color:var(--accent);font-weight:650;padding:0 1px}
 .timeline{list-style:none;margin:0;padding:0;font-size:.9rem}
 .timeline li{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:5px 0;border-top:1px dashed var(--line)}
 .timeline li.focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:6px;font-weight:700}
+.bar.you{background:var(--ink)}.bar.peer{background:var(--muted);opacity:.55}
+.bar-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 .verdict{margin:8px 0 0;font-size:14px;font-weight:600;color:var(--muted)}
 .verdict.credible{color:var(--ink)}
 .moments{display:grid;gap:12px}
+.viewer{margin:10px 0}.viewer canvas{width:100%;max-width:640px;display:block;margin:0 auto;border-radius:8px;background:#1d232b}
+.v-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-width:640px;margin:8px auto 0}
+.v-ctl input[type=range]{flex:1 1 160px}.v-ctl button,.v-ctl select{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.v-time{font-variant-numeric:tabular-nums;font-size:14px}
+.v-feed{max-width:640px;margin:6px auto 0;min-height:22px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.v-feed b.CT{color:var(--ct)}.v-feed b.T{color:var(--t)}
+.observed{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:8px 0}
+.observed li.sub{list-style:none;margin-left:-4px;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.moment .mod{padding:10px 8px;margin-left:-8px;margin-right:-8px}.sit{padding:10px 8px;margin-left:-6px;margin-right:-6px}.observed{padding:8px}}
+.observed ul{margin:4px 0 0;padding-left:18px;font-size:14px}
 .fgroup{margin:14px 0}.fgroup h3{margin:0 0 6px;font-size:15px}
 .chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);white-space:nowrap}
 .chip.credible{background:var(--accent-soft);border-color:var(--accent)}

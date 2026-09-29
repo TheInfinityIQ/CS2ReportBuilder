@@ -22,10 +22,10 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | O-2 | Need an analyst stage that lists everything it finds, interesting or not | Analyst Desk findings tables incl. null results | DONE v2 |
 | O-3 | "Normal" needs a baseline | ADR-012/013; verdict words tied to tests | DONE |
 | O-4 | Never compare to a database; batch only (lobby peers, own level, own history) | ADR-013 | DONE (findings.py baseline = same matches) |
-| O-5 | Kill feed is fun but gives no understanding | Replace with 2D viewer moments; timeline only as fallback | OPEN (viewer) |
-| O-6 | We need the 2D viewer now; analysis built without it may be wasted | Viewer is the next build; moments must be designed around it | OPEN (priority 1) |
-| O-7 | "What this study covers" is far too wordy | Short scannable block: Keep / Work on / Re-check | OPEN |
-| O-8 | "Anchor" was not earned: roles come from positional data | Role/position only from positions; state the observation, name the position only when confident | OPEN (position recognition prototype 66% vs 10% baseline) |
+| O-5 | Kill feed is fun but gives no understanding | Replace with 2D viewer moments; timeline only as fallback | DONE v3: KeyMoments show a map replay; kill list collapsed under it |
+| O-6 | We need the 2D viewer now; analysis built without it may be wasted | Viewer is the next build; moments must be designed around it | PARTIAL v3: viewer built (report/viewer.py) on a map outline from the batch; radar images pending (awpy assets from owner) |
+| O-7 | "What this study covers" is far too wordy | Short scannable block: Keep / Work on / Re-check | DONE v3: three lines, Keep / Work on / Re-check (plan rule in COACHING_LESSONS) |
+| O-8 | "Anchor" was not earned: roles come from positional data | Role/position only from positions; state the observation, name the position only when confident | PARTIAL v3: role label removed, described as where fights happen; position recognition not yet in product |
 | O-9 | The AI coach will only know what is in the package | All lessons go into COACHING_LESSONS.md, later compiled into the coach prompt | ONGOING |
 | O-10 | Keep critiques tracked so nothing regresses | This file | DONE |
 | O-11 | AI must never control styling; blocks are software | Theme + module registry | DONE (validator rejects styling fields) |
@@ -34,12 +34,12 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 ## Evidence review of MIMY v2 (E)
 | ID | Critique | Decision | Status |
 |---|---|---|---|
-| E-1 | Dust2 r19 note was wrong: it was a CT retake with the bomb planted, round won by defuse | Moments must show bomb state and round outcome as computed facts; coach may not contradict them | OPEN (observed-facts block) |
-| E-2 | Dust2 r1 note was wrong: MIMY traded Greed___ 0.16 s later | Trade detection must consider every teammate death, and moments must list trades as facts | OPEN |
+| E-1 | Dust2 r19 note was wrong: it was a CT retake with the bomb planted, round won by defuse | Moments must show bomb state and round outcome as computed facts; coach may not contradict them | DONE v3: software "What happened" facts (side, result and how, bomb state, numbers, kills ±5 s) above every coach note |
+| E-2 | Dust2 r1 note was wrong: MIMY traded Greed___ 0.16 s later | Trade detection must consider every teammate death, and moments must list trades as facts | DONE v3: kills within 5 s listed as facts; example note rewritten |
 | E-3 | "Deaths while ahead / all deaths" is not the chance of losing an advantage | Build advantage-state denominators: occurrences of each state and what followed | OPEN |
-| E-4 | 900 units ignores walls: "potential trade situations", not opportunities | Rename now; geometry/visibility later | OPEN |
+| E-4 | 900 units ignores walls: "potential trade situations", not opportunities | Rename now; geometry/visibility later | DONE v3: renamed "potential trade situations"; geometry still OPEN |
 | E-5 | Post-round deaths must be separated from live-round conversion | impact.py excludes after_round_end; show it separately in moments | PARTIAL |
-| E-6 | Denominators differ (449 vs 447 deaths, 45 vs 44 first deaths) without explanation | "Why counts differ" note on the Desk | OPEN |
+| E-6 | Denominators differ (449 vs 447 deaths, 45 vs 44 first deaths) without explanation | "Why counts differ" note on the Desk | PARTIAL v3: Desk explains why counts differ; per-metric eligibility table OPEN |
 | E-7 | Tests treat events as independent; cluster by match | Match-level bootstrap or clustered tests | OPEN |
 | E-8 | Split-half agreement is not replication; findings near q=0.08-0.09 are exploratory | Wording tier (see U2-13) | OPEN |
 | E-9 | Recommend a practice block with process goals and a re-check | Summary "Re-check next time" + continuous coaching later | PARTIAL |
@@ -47,26 +47,26 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 ## UX review v2 (U2)
 | ID | Critique | Decision | Status |
 |---|---|---|---|
-| U2-1 | "Same" is not equivalence | Say "No detectable difference in this sample"; equivalence only with a stated margin | OPEN |
-| U2-2 | First-death question vs denominator mismatch (deaths vs rounds) | Per-round rate for "how often do I die first" | OPEN |
-| U2-3 | "Free first kills", "a player down for the rest of the round" overstate | Wording rules in COACHING_LESSONS | OPEN |
-| U2-4 | Correlation turned into character ("disciplined anchor") | Same as O-8 | OPEN |
-| U2-5 | "Reaction and composure" is an unsupported mechanism | Coach may state observed pattern; mechanisms only as a labelled interpretation | OPEN |
-| U2-6 | "Stop taking the fight when ahead" too categorical; caveats belong beside the advice | Advice must name its exceptions next to it | OPEN |
-| U2-7 | "Cheapest round win" implies an unestimated ranking | No ranking words without an opportunity model | OPEN |
+| U2-1 | "Same" is not equivalence | Say "No detectable difference in this sample"; equivalence only with a stated margin | DONE v3: "No detectable difference in this sample"; test guards the old word |
+| U2-2 | First-death question vs denominator mismatch (deaths vs rounds) | Per-round rate for "how often do I die first" | DONE v3: value.first_death_rounds (first deaths / rounds played) |
+| U2-3 | "Free first kills", "a player down for the rest of the round" overstate | Wording rules in COACHING_LESSONS | DONE v3 (plan wording; rule in COACHING_LESSONS) |
+| U2-4 | Correlation turned into character ("disciplined anchor") | Same as O-8 | PARTIAL v3 (= O-8) |
+| U2-5 | "Reaction and composure" is an unsupported mechanism | Coach may state observed pattern; mechanisms only as a labelled interpretation | DONE v3 (plan says the data does not say why) |
+| U2-6 | "Stop taking the fight when ahead" too categorical; caveats belong beside the advice | Advice must name its exceptions next to it | DONE v3 (exceptions in the takeaway) |
+| U2-7 | "Cheapest round win" implies an unestimated ranking | No ranking words without an opportunity model | DONE v3 (removed) |
 | U2-8 | Trading metric distance-only (see E-4) | | OPEN |
-| U2-9 | "Missing it turns one death into a lost round" is causal | Wording rule | OPEN |
-| U2-10 | Separate Observed from Coach interpretation in moments | Two labelled parts per moment; observed part generated by software | OPEN |
-| U2-11 | Bars scaled to the larger value exaggerate small percentages | Fixed 0-100 scale or dot plot | OPEN |
-| U2-12 | Colour encodes both identity and judgement | You/Peers always the same colours; judgement only in verdict text | OPEN |
-| U2-13 | "Clear" too strong | "Supported in this sample" | OPEN |
-| U2-14 | p = 0.000 | Show "<0.001" | OPEN |
-| U2-15 | Explain the statistical method and unit of independence | Desk "Statistical method" section | OPEN |
-| U2-16 | Define the halves | Alternating games by date; say so | OPEN |
-| U2-17 | Explain differing counts | = E-6 | OPEN |
+| U2-9 | "Missing it turns one death into a lost round" is causal | Wording rule | DONE v3 |
+| U2-10 | Separate Observed from Coach interpretation in moments | Two labelled parts per moment; observed part generated by software | DONE v3: "What happened (from the demo)" vs "Coach's read"; test guards it |
+| U2-11 | Bars scaled to the larger value exaggerate small percentages | Fixed 0-100 scale or dot plot | DONE v3: 0-100% scale with axis labels |
+| U2-12 | Colour encodes both identity and judgement | You/Peers always the same colours; judgement only in verdict text | DONE v3: You always dark, peers always grey; judgement only in verdict text |
+| U2-13 | "Clear" too strong | "Supported in this sample" | DONE v3: "Supported in this sample" |
+| U2-14 | p = 0.000 | Show "<0.001" | DONE v3: <0.001 |
+| U2-15 | Explain the statistical method and unit of independence | Desk "Statistical method" section | PARTIAL v3: method paragraph states event-level independence; clustered tests OPEN (E-7) |
+| U2-16 | Define the halves | Alternating games by date; say so | DONE v3: alternate games in date order |
+| U2-17 | Explain differing counts | = E-6 | PARTIAL v3 (= E-6) |
 | U2-18 | Baseline not role-adjusted | Label "same-lobby, all roles"; role-matched peers once positions are recognised | OPEN |
-| U2-19 | Player Study too long (10k px mobile); timelines dominate | Show 2-4 relevant events, "Show full round"; viewer replaces most text | OPEN |
-| U2-20 | Actionable summary at the bottom | First-screen Keep / Work on / Re-check with links (= O-7) | OPEN |
+| U2-19 | Player Study too long (10k px mobile); timelines dominate | Show 2-4 relevant events, "Show full round"; viewer replaces most text | PARTIAL v3: full kill list collapsed; page still ~12k px on phones |
+| U2-20 | Actionable summary at the bottom | First-screen Keep / Work on / Re-check with links (= O-7) | PARTIAL v3: first-screen Keep / Work on / Re-check; links to sections OPEN |
 | U2-21 | No in-page navigation | Compact section nav | OPEN |
 | U2-22 | 9-column tables on phones | Card rows on mobile, IDs out, swipe hint | OPEN |
 | U2-23 | Analyst Desk ~17-20k px; needs filters | Filter by topic/verdict/map/side; collapse "no difference" and "too few" | OPEN |
@@ -77,8 +77,8 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | U2-28 | Tab switch resets scroll | Keep per-tab scroll | OPEN |
 | U2-29 | Tabs fail without JS | Anchor links enhanced into tabs | OPEN |
 | U2-30 | Text too small (11.5-12.5 px) | Minimum 13-14 px | OPEN |
-| U2-31 | Contrast: T orange 3.64:1, green badge 4.39:1 | Darken | OPEN |
-| U2-32 | "Complete for this study" says nothing | "30/30 demos passed integrity" + date range | OPEN |
+| U2-31 | Contrast: T orange 3.64:1, green badge 4.39:1 | Darken | PARTIAL v3: T orange darkened to #8f560a; badge green OPEN |
+| U2-32 | "Complete for this study" says nothing | "30/30 demos passed integrity" + date range | PARTIAL v3: "30/30 demos passed the integrity check"; date range OPEN |
 | U2-33 | "Player Study" repeated | Use eyebrow for date range / generated date | OPEN |
 | U2-34 | Print prints everything; break rules too coarse | Print Player Study vs full; protect modules not sections | OPEN |
 | U2-35 | No main landmark | Wrap in main | OPEN |
@@ -88,4 +88,4 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 |---|---|---|---|
 | S-1 | Duplicate matches across batches inflated a finding to "credible" | load_fights dedup, pitfall 28 | DONE |
 | S-2 | "Alone" deaths counted clutches (no teammates alive) | Only deaths with living teammates | DONE |
-| S-3 | Coach notes written from a kill feed without round state (caused E-1, E-2) | Observed-facts block generated by software under every moment | OPEN |
+| S-3 | Coach notes written from a kill feed without round state (caused E-1, E-2) | Observed-facts block generated by software under every moment | DONE v3 (= E-1) |

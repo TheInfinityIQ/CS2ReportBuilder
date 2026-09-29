@@ -56,7 +56,9 @@ def ready(played_demo):
 def test_finding_blocks_render_with_verdict_and_calculation(ready):
     root, d = ready
     html = build_report(PLAN, d, batch_dir=root, steamid=HERO, analysis=_analysis())
-    assert "Clear difference from the players in your games" in html and "How is this calculated?" in html
+    assert "Supported in this sample" in html and "How is this calculated?" in html
+    assert "Clear difference" not in html and ">Same<" not in html  # CRITIQUES U2-1, U2-13
+    assert "What happened (from the demo)" in html and "Coach's read" in html  # U2-10, S-3
     assert "You go in alone here." in html
     assert "Findings" in html  # analyst desk section
 

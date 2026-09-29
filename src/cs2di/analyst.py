@@ -97,6 +97,19 @@ def impact_findings(imp: dict, steamid: int) -> list[dict]:
     rows.append(_rate("value.low_swing_kills", "value", "Kills that barely changed the round",
                       "Share of your kills that moved the round by under 5 win points, e.g. kills in rounds already decided.",
                       mk, pk, "low_swing", _ex(mk[mk.low_swing], "kill that barely changed the round"), higher_is_good=False))
+    if "player_rounds" in imp and len(imp["player_rounds"]):
+        R = imp["player_rounds"]
+        R = R[R.demo_id.isin(demos)].drop_duplicates(["demo_id", "round", "steamid"])
+        fd = live_d[live_d.first_death][["demo_id", "round", "steamid"]].drop_duplicates().assign(first_death=True)
+        R = R.merge(fd, how="left", on=["demo_id", "round", "steamid"]).assign(
+            first_death=lambda x: x.first_death.fillna(False).astype(bool), _half=lambda x: x.demo_id.map(half))
+        first = R[R.first_death].merge(live_d[live_d.first_death][["demo_id", "round", "steamid", "map", "tick", "round_time_s",
+                                                                   "own_alive", "opp_alive", "teammate_distance", "traded", "swing"]],
+                                        on=["demo_id", "round", "steamid"])
+        rows.append(_rate("value.first_death_rounds", "value", "Being the first player to die in a round",
+                          "Rounds in which you were the first player on either team to die, out of the rounds you played.",
+                          R[R.steamid == steamid], R[R.steamid != steamid], "first_death",
+                          _ex(first[(first.steamid == steamid) & ~first.traded], "first to die, not traded"), higher_is_good=False))
     rows.append(_rate("value.first_death", "value", "Dying first",
                       "Share of your deaths that were the first death of the round.",
                       mad, pad, "first_death", _ex(mad[mad.first_death & ~mad.traded], "first death, not traded"), higher_is_good=False))
@@ -118,7 +131,7 @@ def impact_findings(imp: dict, steamid: int) -> list[dict]:
                       "Of your deaths while teammates were still alive, the share where none of them was within about 900 units (walls ignored).",
                       mdm, pdm, "alone", _ex(mdm[mdm.alone].sort_values("swing"), "died with nobody near"), higher_is_good=False))
     mc, pc = C[C.steamid == steamid], C[C.steamid != steamid]
-    rows.append(_rate("trading.converted", "trading", "Trading a teammate who died near you",
+    rows.append(_rate("trading.converted", "trading", "Potential trade situations: teammate died near you",
                       "When a teammate died within about 900 units of you, how often you killed their killer within 5 seconds.",
                       mc, pc, "traded_by_me", _ex(mc[~mc.traded_by_me], "teammate died near you, no trade")))
     ml, pl = L[L.steamid == steamid], L[L.steamid != steamid]

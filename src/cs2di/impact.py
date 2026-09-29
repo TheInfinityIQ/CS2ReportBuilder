@@ -147,7 +147,7 @@ def batch_impact(batch_dir: Path) -> dict[str, pd.DataFrame]:
         all_states += s
         per_demo.append((p, pd.DataFrame(d)))
     wc = WinChance(pd.DataFrame(all_states))
-    kills, deaths, chances, clutches = [], [], [], []
+    kills, deaths, chances, clutches, pr_rows = [], [], [], [], []
     trade_ticks = TRADE_S * TICKRATE
     for p, d in per_demo:
         if d.empty:
@@ -157,6 +157,7 @@ def batch_impact(batch_dir: Path) -> dict[str, pd.DataFrame]:
         pos["team"] = pos.team_name.map(_side)
         pos["team_name"] = pos["team"]
         ros_all = pd.read_csv(p / "player_rounds.csv", dtype={"steamid": "int64"})
+        pr_rows.append(ros_all[ros_all.side.notna()].assign(demo_id=p.name)[["demo_id", "round", "steamid"]])
         for rnd, g in d.groupby("round"):
             g = g.sort_values("tick")
             live = g[~g.after_round_end]
@@ -211,5 +212,6 @@ def batch_impact(batch_dir: Path) -> dict[str, pd.DataFrame]:
                     clutches.append({"demo_id": h.demo_id, "map": h["map"], "round": rnd, "tick": int(h.tick),
                                      "steamid": int(last[0]), "side": s, "vs": int(h[f"after_{o}"]),
                                      "planted": bool(h.planted), "won": h.winner == s})
-    return {"kills": pd.DataFrame(kills), "deaths": pd.DataFrame(deaths),
+    return {"player_rounds": pd.concat(pr_rows, ignore_index=True) if pr_rows else pd.DataFrame(columns=["demo_id", "round", "steamid"]),
+            "kills": pd.DataFrame(kills), "deaths": pd.DataFrame(deaths),
             "trade_chances": pd.DataFrame(chances), "clutches": pd.DataFrame(clutches)}
