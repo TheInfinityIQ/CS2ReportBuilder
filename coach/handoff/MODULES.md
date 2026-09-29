@@ -4,9 +4,9 @@ A plan is ONE JSON file. Allowed top-level fields: `report`, `agenda`, `moments`
 
 ```
 {
-  "report":  {"subtitle": "30 games · compared with the other players in those same games"},
+  "report":  {"subtitle": "<N> games · compared with the other players in those same games"},
   "agenda":  "Keep: ...\n\nWork on: ...\n\nRe-check next time: ...",      // required, short preview, paragraphs split by blank line
-  "moments": [ <Teaching Moment>, ... ],                                   // required, 2 to 4 recommended
+  "moments": [ <Teaching Moment>, ... ],                                   // required, at least one; no maximum. The evidence decides how many
   "summary": {"covered": [..], "watch": [..], "retest": [..]},              // one short line each
   "notes":   {"key": "longer caveat text"},                                 // optional; cite in text as [[note:key]]
   "analyst": {"open_questions": ["..."]}                                    // shown on the Analyst Desk
@@ -51,7 +51,7 @@ Not available (do not ask for them in the plan): dashboards, free-form charts, c
 The validator scans every text field. Digits >= 10, decimals or percentages must exist in the digest or the usable findings. Prefer showing numbers with a FindingCard/Metric block. Words are not scanned, but rule 1 in RULES.md still applies to them.
 
 ## Choosing findings
-- `findings_index.txt` lists the 199 findings that have enough cases, strongest first: status (credible / leaning / unclear / no_difference), id, count, player rate vs comparison rate, q (after correcting for the number of checks), whether both interleaved splits of the games agree, and how many replay examples exist.
+- `findings_index.txt` lists the findings that have enough cases (one line each), strongest first: status (credible / leaning / unclear / no_difference), id, count, player rate vs comparison rate, q (after correcting for the number of checks), whether both interleaved splits of the games agree, and how many replay examples exist.
 - `credible` = survives the multiple-checks correction. `leaning` = exploratory. `no_difference` = a real null result worth a short mention. `unclear` = not enough to tell.
 - Finding ids look like `fight.habit.s_phase.first 25 s`, `value.first_death`, `trading.converted`, `fight.result_vs_own_level.s_phase.after 60 s`. Copy them exactly.
 - Kinds: `habit` = how often the player is in a situation compared with peers (a style/position fact, not a result). `result_vs_everyone` / `result_vs_own_level` = win rate in a situation. `value.*`, `trading.*`, `clutch.*` = round-level measures.

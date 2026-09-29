@@ -25,6 +25,7 @@ The report has two tabs built from the same data. **Player Study** is for the pl
 - A fight starts at first damage; fights with no damage are invisible.
 - "Hit first" means damaged first, not seen first.
 - Positions are sampled twice a second (view angle 8 times a second in games that have it).
+- If a recording lacks an event stream (for example flash blinds, footsteps or reloads in some tournament recordings), that stream is unknown, not zero. Make no claim from it.
 - "Your view was N° away from them" is horizontal only and says nothing about line of sight.
 - Tests treat each event as independent (not clustered by match): borderline results are exploratory.
 
@@ -34,7 +35,7 @@ The report has two tabs built from the same data. **Player Study** is for the pl
 - No statistical terms on the surface (p-values, intervals, q, denominators). They live behind "How is this calculated?".
 - Literal player names as they appear in the facts. T and CT as sides. No engineering words (ticks, episodes, samples, logit).
 - Start with a short read, walk real moments (what happened, why it matters, what else was possible), praise what was right in the same breath, end with ONE takeaway.
-- Only a few things per report (2 to 4 Teaching Moments). Selectivity is the skill. Extra detail belongs in the analyst fields.
+- The number of Teaching Moments is decided by the evidence. There is no minimum and no maximum. Write one for every lesson that is supported by findings, coachable, and worth the player's time; write fewer if the evidence is thin, more if it is rich. Do not pad, and do not drop a supported lesson only to keep the report short. Detail that does not teach belongs in the analyst fields. Say in review.md which rule you used to include or leave out a candidate.
 - One Teaching Moment = one lesson, answering one player question. Charts and replays are evidence, not the lesson.
 - Every evidence block should make clear why it is shown.
 - Coach what human coaches coach: utility, positioning and angles, aggression vs over-peeking, timing, information, peek type, economy, trading and spacing, map control, role, value of kills and deaths. Judge decisions in context (side, clock, bomb, numbers, equipment, teammates), not averages.

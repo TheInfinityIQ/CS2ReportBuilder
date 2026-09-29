@@ -97,7 +97,7 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | V-9 | Flashed players | White ring while `flash_duration` > 0.3 s | DONE v3.3 |
 | V-10 | Win vs loss distinction across viewers | Green/red left border, Won/Lost tag, filter bar by outcome and map | DONE v3.1 |
 | V-11 | Many viewers are messy | One drawer per round, first open, opening one closes the others; filter bar applies to drawers | DONE v3.1 |
-| V-12 | Coach limited to 4 teaching moments | Not a builder cap (the plan had 4). KeyMoments now allows 1-6 rounds per block | DONE v3.1 |
+| V-12 | Coach limited to 4 teaching moments | Not a builder cap (the plan had 4). KeyMoments now allows 1-6 rounds per block | DONE v3.1; 2026-09-29: the "2 to 4" wording is also gone from the coach prompt, rules and module guide (owner ruling: the evidence sets the count) |
 | V-13 | Every moment has a 2D viewer and no charts | Dashboard of per-map, side and trend charts (owner likes graphs); design once the statistical layer (E-3, E-7) is fixed | OPEN (planned, see ROADMAP) |
 
 ## External review of v3.3 (R) - full product pass, 2026-09-29

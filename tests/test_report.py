@@ -118,3 +118,18 @@ def test_footnotes_are_numbered_in_order(ready):
 def test_digest_numbers_reach_the_page(ready):
     html = build(ready)
     assert '<div class="val">1</div>' in html      # one opening kill, one opening death
+
+
+@pytest.mark.parametrize("count", [1, 7, 12])
+def test_no_cap_or_minimum_on_teaching_moments(ready, count):
+    """Owner ruling 2026-09-29: the evidence sets the number of Teaching Moments, never a rule."""
+    def many(p):
+        base = p["moments"][0]
+        p["moments"] = []
+        for i in range(count):
+            m = copy.deepcopy(base)
+            m["id"] = f"m{i + 1}"
+            m["title"] = "Lesson " + "x" * i
+            p["moments"].append(m)
+    html = build(ready, mutate(many))
+    assert html.count('class="moment"') + html.count("class=\"moment ") >= count

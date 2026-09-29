@@ -55,8 +55,11 @@ default, revisit freely. **Open** = not settled; do not fill the gap with an ass
 
 - **Should sound like real Counter-Strike coaching,** not robotic or Mad-Libs prose.
   **Firm.**
-- **Only a few things per report.** Selectivity is intelligence. Extra detail goes to the
-  Analyst Desk. **Leaning.**
+- **The number of Teaching Moments is set by the evidence, never by a rule.** No minimum and no
+  maximum in prompts, validator or docs. Every moment must still stand on a supported finding and
+  teach one lesson; detail that does not teach goes to the Analyst Desk. *Why:* a fixed count
+  either pads thin evidence or hides a supported lesson. **Firm** (2026-09-29; supersedes the
+  earlier "only a few things per report", which was Leaning).
 - **Should change its mind and remember.** Stop coaching solved problems; question earlier
   claims when new evidence contradicts them. **Firm** as a direction; **Open** for the
   first build (single batch only).
@@ -82,6 +85,5 @@ default, revisit freely. **Open** = not settled; do not fill the gap with an ass
 
 ## Open questions
 
-- Exact number of Teaching Moments per report.
 - What the first "good enough" Viewer2D map looks like, given radar/historical limits.
 - Whether Analyst Desk should be editable or read-only in the first build.
