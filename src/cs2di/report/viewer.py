@@ -224,17 +224,18 @@ function arrowHead(ctx,x,y,dx,dy,size){
   ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(lx+px,ly+py); ctx.lineTo(lx-px,ly-py); ctx.closePath(); ctx.fill();
 }
 
-/* draw a quadratic bezier arc from thrower to nade landing */
-function drawNadeArc(ctx,tx,ty,nx,ny,col,alpha,progress){
-  const mx=(tx+nx)/2, my=(ty+ny)/2;
-  const dx=nx-tx, dy=ny-ty;
-  const cpx=mx+dy*0.35, cpy=my-dx*0.35; /* control point lifted perpendicularly */
+/* draw a straight dashed line from thrower to nade landing point.
+   Only shown BEFORE detonation (while nade is in flight) so nothing
+   fabricated appears after it lands. */
+function drawNadeLine(ctx,tx,ty,nx,ny,col,alpha){
   ctx.save();
-  ctx.strokeStyle=col+(alpha*0.7)+')';
-  ctx.lineWidth=1.5; ctx.setLineDash([4,4]); ctx.lineDashOffset=-(progress*12);
-  ctx.beginPath(); ctx.moveTo(tx,ty);
-  ctx.quadraticCurveTo(cpx,cpy,nx,ny);
+  ctx.strokeStyle=col+(alpha*0.65)+')';
+  ctx.lineWidth=1.8; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(nx,ny);
   ctx.stroke(); ctx.setLineDash([]); ctx.restore();
+  /* small circle at the thrower end */
+  ctx.beginPath(); ctx.arc(tx,ty,3,0,7);
+  ctx.fillStyle=col+(alpha*0.5)+')'; ctx.fill();
 }
 
 /* draw a styled nade splash */
@@ -301,25 +302,28 @@ function initViewer(root){
     if(i<0) return null; const a=[p.xy[2*i],p.xy[2*i+1]], b=[p.xy[2*j],p.xy[2*j+1]];
     if(a[0]==null) return null; if(b[0]==null) return a; const k=f-i; return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];}
 
-  /* compute movement direction from adjacent position samples */
+  /* compute movement direction in PIXEL space from adjacent samples */
   function dirAt(p,tt){
-    const dt=data.dt*1.5;
-    const a=posAt(p,tt-dt), b=posAt(p,tt+dt);
+    const window=data.dt*3; /* wider window so slow players still show */
+    const a=posAt(p,tt-window), b=posAt(p,tt+window);
     if(!a||!b) return null;
-    const dx=(b[0]-a[0]), dy=(b[1]-a[1]);
-    return Math.hypot(dx,dy)>8 ? [dx,dy] : null;
+    const [ax,ay]=P(a[0],a[1]), [bx,by]=P(b[0],b[1]);
+    const dx=bx-ax, dy=by-ay;
+    return Math.hypot(dx,dy)>1.5 ? [dx,dy] : null; /* 1.5 px threshold in pixel space */
   }
 
   function draw(){
     ctx.clearRect(0,0,cv.width,cv.height); ctx.fillStyle='#1d232b'; ctx.fillRect(0,0,cv.width,cv.height);
     if(img.complete) ctx.drawImage(img,0,0,bg.w,bg.h);
 
-    /* nade arcs (drawn before splash so arc is behind the circle) */
+    /* nade throw lines: straight dashed line from thrower to landing, visible ONLY before detonation */
     for(const n of data.nades){
-      if(n.tx==null||n.t>t||t>n.t+0.5) continue; /* only show arc briefly before detonation */
+      if(n.tx==null) continue;
+      /* show the line for up to 4 s before detonation; hide once nade lands */
+      if(t>=n.t||t<n.t-4) continue;
       const [nx,ny]=P(n.x,n.y), [tx2,ty2]=P(n.tx,n.ty);
-      const progress=(t-n.t+4)%1; /* animate dash offset */
-      drawNadeArc(ctx,tx2,ty2,nx,ny,NCOL[n.k]||'rgba(200,200,200,',0.7,progress);
+      const alpha=Math.min(1,(n.t-t)/1.5); /* fade in from 4 s out; brighten near landing */
+      drawNadeLine(ctx,tx2,ty2,nx,ny,NCOL[n.k]||'rgba(200,200,200,',0.4+alpha*0.45);
     }
 
     /* nade splashes */
@@ -353,17 +357,15 @@ function initViewer(root){
       ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fillStyle=COL[p.side]; ctx.fill();
       ctx.lineWidth=p.me?R/2:R/5; ctx.strokeStyle=p.me?'#fff':'rgba(0,0,0,.6)'; ctx.stroke();
 
-      /* movement pointer */
+      /* movement pointer: dirAt returns pixel-space delta already */
       const dir=dirAt(p,t);
       if(dir){
-        const [dx,dy]=P(q[0]+dir[0],q[1]+dir[1]);
-        const [ox,oy]=P(q[0],q[1]);
-        const vx=dx-ox, vy=dy-oy; const vlen=Math.hypot(vx,vy);
-        if(vlen>0.5){
-          const nx2=vx/vlen*R*1.6, ny2=vy/vlen*R*1.6;
-          ctx.fillStyle=p.me?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.65)';
-          arrowHead(ctx,x+nx2,y+ny2,nx2,ny2,R*0.85);
-        }
+        const [pdx,pdy]=dir; const plen=Math.hypot(pdx,pdy);
+        const ux=pdx/plen, uy=pdy/plen;
+        /* tip is R*2.8 from dot centre; arrowhead size R*1.4 */
+        const tipX=x+ux*R*2.8, tipY=y+uy*R*2.8;
+        ctx.fillStyle=p.me?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.7)';
+        arrowHead(ctx,tipX,tipY,pdx,pdy,R*1.4);
       }
 
       /* name label */
