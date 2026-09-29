@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from . import fmt
+from . import fmt, weapons as wmap
 
 TICK = 64
 NADES = {"smokegrenade_detonate": ("smoke", 18.0), "inferno_startburn": ("fire", 7.0),
@@ -95,12 +95,44 @@ THROW_KIND = {"weapon_smokegrenade": "smoke", "weapon_hegrenade": "he", "weapon_
 EXPIRE = {"smokegrenade_detonate": "smokegrenade_expired", "inferno_startburn": "inferno_expire"}
 
 
-def _nades(d: Path, lo: int, hi: int, side_of: dict) -> list[dict]:
+SIDECAR_HZ_STEP = 8  # ticks between sidecar samples (8 Hz)
+
+
+def _sidecar_tracks(d: Path, round_no: int, lo: int, hi: int):
+    """Continuous facing + position from extractor/extract_viewer_tracks.py (8 Hz), or None when not present."""
+    f = d / "viewer_tracks.csv.gz"
+    if not f.exists():
+        return None
+    t = pd.read_csv(f, dtype={"steamid": "int64"})
+    t = t[(t["round"] == round_no) & (t.tick >= lo) & (t.tick <= hi)]
+    if t.empty:
+        return None
+    return t
+
+
+def _sidecar_throws(d: Path, round_no: int):
+    """Real projectile paths (simplified to +-12 units) per throw, or (None, None) when not present."""
+    ft, fp = d / "grenade_throws.csv.gz", d / "grenade_paths.csv.gz"
+    if not (ft.exists() and fp.exists()):
+        return None, None
+    th = pd.read_csv(ft, dtype={"steamid": "int64"})
+    th = th[th["round"] == round_no]
+    if th.empty:
+        return None, None
+    pa = pd.read_csv(fp)
+    pa = pa[pa.throw_id.isin(th.throw_id)]
+    return th, {int(k): g.sort_values("tick") for k, g in pa.groupby("throw_id")}
+
+
+def _nades(d: Path, lo: int, hi: int, side_of: dict, round_no: int | None = None) -> list[dict]:
     """Grenade detonations, each tied to the real throw (spot + time) recorded in weapon_fire.
 
-    Only the throw spot, landing spot and both times are recorded. The flight path itself (arc, bounces) is
-    not in the demo, so the viewer draws a plain straight line and says so.
+    With the viewer-tracks sidecar the real flight path is attached (`pa`, points every ~12 units of deviation).
+    Without it only the throw spot, landing spot and both times are known, and the viewer draws a plain straight
+    line and says so.
     """
+    sc_th, sc_pa = _sidecar_throws(d, round_no) if round_no is not None else (None, None)
+    sc_used: set[int] = set()
     throws = []
     wf = d / "events" / "weapon_fire.csv.gz"
     if wf.exists():
@@ -145,6 +177,20 @@ def _nades(d: Path, lo: int, hi: int, side_of: dict) -> list[dict]:
             if best is not None:
                 best["used"] = True
                 n.update({"tt": (best["tick"] - lo) / TICK, "tx": int(best["x"]), "ty": int(best["y"])})
+            if sc_th is not None and sid is not None:
+                m = sc_th[(sc_th.steamid == sid) & (sc_th.kind == kind) & (sc_th.detonated == 1)
+                          & ((sc_th.det_tick - row.tick).abs() <= 3)]
+                m = m[~m.throw_id.isin(sc_used)]
+                if len(m):
+                    th = m.iloc[(m.det_tick - row.tick).abs().argsort().iloc[0]]
+                    tid = int(th.throw_id)
+                    sc_used.add(tid)
+                    pts = sc_pa.get(tid)
+                    if pts is not None and len(pts) >= 2:
+                        n["pa"] = [[round((int(a) - lo) / TICK, 2), int(b), int(c)]
+                                   for a, b, c in zip(pts.tick, pts.x, pts.y)]
+                        n["tt"] = round((int(th.throw_tick) - lo) / TICK, 2)
+                        n["tx"], n["ty"] = int(th.throw_x), int(th.throw_y)
             out.append(n)
     return out
 
@@ -220,6 +266,34 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
     for pl in players:
         pl["aim"] = sorted({(a, b) for a, b in pl["aim"]})
         pl["aim"] = [list(x) for x in pl["aim"]]
+    # State (health, armour, active item, flash) stays on the 2 Hz grid; position and facing move to 8 Hz when the
+    # viewer-tracks sidecar exists. Facing is then a recorded value at every sample (circular interpolation in the
+    # browser), not an inference from events.
+    sdt = (ticks[1] - ticks[0]) / TICK if len(ticks) > 1 else 0.5
+    st0 = (ticks[0] - lo) / TICK if ticks else 0.0
+    sn = len(ticks)
+    grid = dict(dt=sdt, t0=st0, n=sn)
+    sc = _sidecar_tracks(d, round_no, lo, hi)
+    facing = False
+    if sc is not None and sid_index and set(sid_index) <= set(int(x) for x in sc.steamid.unique()):
+        gt = list(range(lo, min(hi, int(sc.tick.max())) + 1, SIDECAR_HZ_STEP))
+        for sid_, ix in sid_index.items():
+            g = sc[sc.steamid == sid_].drop_duplicates("tick").set_index("tick").reindex(gt)
+            ok = g["x"].notna().to_numpy()
+            xs, ys, ws, fs = g["x"].to_numpy(), g["y"].to_numpy(), g["yaw"].to_numpy(), g["flags"].to_numpy()
+            xy8, yw8, fg8 = [], [], []
+            for k in range(len(gt)):
+                if ok[k]:
+                    xy8 += [int(xs[k]), int(ys[k])]
+                    yw8.append(None if np.isnan(ws[k]) else int(round(float(ws[k]))))
+                    fg8.append(0 if np.isnan(fs[k]) else int(fs[k]))
+                else:
+                    xy8 += [None, None]
+                    yw8.append(None)
+                    fg8.append(0)
+            players[ix].update({"xy": xy8, "yw": yw8, "fg": fg8})
+        grid = dict(dt=SIDECAR_HZ_STEP / TICK, t0=0.0, n=len(gt))
+        facing = True
     dth = pd.read_csv(d / "events" / "player_death.csv.gz", dtype={"attacker_steamid": "Int64", "user_steamid": "Int64"},
                       usecols=lambda c: c in {"tick", "attacker_steamid", "user_steamid", "attacker_X", "attacker_Y",
                                               "user_X", "user_Y", "weapon", "attacker_name", "user_name", "headshot"})
@@ -234,8 +308,9 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
                       "vs": side_of.get(int(e.user_steamid)) if not pd.isna(e.user_steamid) else None,
                       "w": fmt.weapon(e.weapon) if isinstance(e.weapon, str) else "",
                       "wr": e.weapon if isinstance(e.weapon, str) else "",
+                      "wi": wmap.icon_id(e.weapon) if isinstance(e.weapon, str) else "",
                       "hs": bool(getattr(e, "headshot", False)) if not pd.isna(getattr(e, "headshot", float("nan"))) else False})
-    nades = _nades(d, lo, hi, side_of)
+    nades = _nades(d, lo, hi, side_of, round_no)
     bomb = None
     bp = d / "events" / "bomb_planted.csv.gz"
     if bp.exists():
@@ -243,10 +318,43 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
         b = b[(b.tick >= lo) & (b.tick <= hi)]
         if len(b):
             bomb = {"t": (int(b.tick.iloc[0]) - lo) / TICK, "x": int(b.user_X.iloc[0]), "y": int(b.user_Y.iloc[0])}
-    return {"map": ms.get("map_name"), "dt": (ticks[1] - ticks[0]) / TICK if len(ticks) > 1 else 0.5,
-            "t0": (ticks[0] - lo) / TICK if ticks else 0.0, "n": len(ticks), "players": players, "weapons": weapons, "kills": kills,
+    return {"map": ms.get("map_name"), "dt": grid["dt"], "t0": grid["t0"], "n": grid["n"],
+            "sdt": float(sdt), "st0": float(st0), "sn": sn, "facing": facing,
+            "players": players, "weapons": weapons, "wi": [wmap.icon_id(w) for w in weapons], "kills": kills,
             "nades": nades, "bomb": bomb, "focus": None if focus_tick is None else (focus_tick - lo) / TICK,
             "end": (int(r.end_tick) - lo) / TICK}
+
+
+def _view_offsets(d: Path, round_no: int, tick: int, me: int, other: int):
+    """How far (degrees) the player's recorded view was from the other player, 1.0 s and 0.5 s before `tick`.
+    Needs the viewer-tracks sidecar (8 Hz view angle); returns None without it."""
+    f = d / "viewer_tracks.csv.gz"
+    if not f.exists():
+        return None
+    t = pd.read_csv(f, dtype={"steamid": "int64"})
+    t = t[(t["round"] == round_no) & (t.tick >= tick - 2 * TICK) & (t.tick <= tick + 8)]
+    out = {}
+    for label, back in (("1.0", 64), ("0.5", 32)):
+        want = tick - back
+        rows = {}
+        for who in (me, other):
+            g = t[t.steamid == who]
+            if g.empty:
+                break
+            g = g.iloc[(g.tick - want).abs().argsort()[:1]]
+            if abs(int(g.tick.iloc[0]) - want) > 8:
+                break
+            rows[who] = g.iloc[0]
+        if len(rows) < 2:
+            return None
+        dx, dy = float(rows[other]["x"] - rows[me]["x"]), float(rows[other]["y"] - rows[me]["y"])
+        dist = float(np.hypot(dx, dy))
+        if dist < 1:
+            return None
+        bearing = float(np.degrees(np.arctan2(dy, dx)))
+        off = abs(((float(rows[me]["yaw"]) - bearing + 540) % 360) - 180)
+        out[label] = (int(round(off)), int(round(dist)))
+    return out
 
 
 def observed_facts(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick: int | None) -> list[str]:
@@ -297,197 +405,26 @@ def observed_facts(batch_dir, demo_id: str, round_no: int, steamid: int, focus_t
     if lines:
         facts.append("Kills within 5 seconds of the moment:")
         facts += ["  " + x for x in lines]
+    # Where the player was looking just before a kill or death in this moment (recorded view angle, 8 Hz sidecar)
+    for e in near.itertuples():
+        if abs(e.tick - focus_tick) > TICK or pd.isna(e.attacker_steamid) or pd.isna(e.user_steamid):
+            continue
+        a, v = int(e.attacker_steamid), int(e.user_steamid)
+        if a == v or steamid not in (a, v):
+            continue
+        other = a if v == steamid else v
+        vo = _view_offsets(d, round_no, int(e.tick), steamid, other)
+        if not vo:
+            continue
+        name = e.attacker_name if v == steamid else e.user_name
+        (o1, dist), (o5, _) = vo["1.0"], vo["0.5"]
+        verb = f"died to {name}" if v == steamid else f"killed {name}"
+        facts.append(f"When you {verb} from {dist} units away, your view was {o5}° away from them half a second earlier "
+                     f"and {o1}° away one second earlier (recorded view angle).")
     return facts
 
 
-VIEWER_JS = r"""
-(function(){
-const COL={CT:'#3f8fe0',T:'#e39a35'}, EDGE={CT:'#173f73',T:'#7a4a0c'};
-const PILL={CT:'rgba(24,52,92,.90)',T:'rgba(96,58,10,.90)'};
-const TXT={CT:'#8fc3f5',T:'#f5c27a'};
-function fmt(t){t=Math.max(0,t);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-
-/* weapon name -> icon category (names come from the demo's active_weapon_name / kill weapon) */
-function wcat(n){n=(n||'').toLowerCase();
- if(!n) return 'none';
- if(/awp|ssg|scout|scar|g3sg1/.test(n)) return 'sniper';
- if(/knife|bayonet|karambit|butterfly|flip|gut|falchion|shadow|bowie|huntsman|navaja|stiletto|talon|ursus|skeleton|paracord|survival|nomad|classic/.test(n)) return 'knife';
- if(/smoke/.test(n)) return 'smoke'; if(/flash/.test(n)) return 'flash';
- if(/he grenade|hegrenade/.test(n)) return 'he'; if(/molotov|incendiary|incgrenade/.test(n)) return 'fire';
- if(/decoy/.test(n)) return 'decoy'; if(/c4|bomb/.test(n)) return 'c4'; if(/zeus|taser/.test(n)) return 'zeus';
- if(/nova|xm1014|sawed|mag-?7/.test(n)) return 'shotgun';
- if(/mp[0-9]|p90|ump|mac-?10|bizon/.test(n)) return 'smg';
- if(/glock|usp|p2000|p250|five|tec|cz75|desert|deagle|dual|r8|revolver/.test(n)) return 'pistol';
- return 'rifle';}
-
-function initViewer(root){
-  const data=JSON.parse(root.querySelector('script[type="application/json"]').textContent);
-  const bg=window.__MAPS[data.map]; const cv=root.querySelector('canvas'); const ctx=cv.getContext('2d');
-  const img=new Image(); img.src=bg.img; cv.width=bg.w; cv.height=bg.h;
-  const P=(x,y)=>[(x-bg.x0)/bg.s,(bg.y0-y)/bg.s];
-  const range=root.querySelector('input[type=range]'), btn=root.querySelector('.v-play'), lab=root.querySelector('.v-time'), spd=root.querySelector('select');
-  const rosterEl=root.querySelector('.v-roster'), feed=root.querySelector('.v-feed');
-  const T=data.t0+(data.n-1)*data.dt; range.max=T; let t=Math.max(0,(data.focus==null?0:data.focus-8)); let playing=false, last=0;
-  const R=Math.max(5,bg.w/110), W=cv.width, H=cv.height;
-  let rosterHtml='';
-
-  const clampT=x=>Math.max(data.t0,Math.min(T,x));
-  function frameIx(tt){return Math.max(0,Math.min(data.n-1,Math.round((tt-data.t0)/data.dt)));}
-  function posAt(p,tt){const f=(clampT(tt)-data.t0)/data.dt, i=Math.floor(f), j=Math.min(i+1,data.n-1);
-    const a=[p.xy[2*i],p.xy[2*i+1]], b=[p.xy[2*j],p.xy[2*j+1]];
-    if(a[0]==null) return null; if(b[0]==null) return a; const k=f-i; return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];}
-
-  /* facing: 1) a recorded aim angle from the last 1.5 s (shot / hit / kill), else 2) direction of travel, else 3) last known */
-  function lastAim(p,tt){let r=null; for(const a of p.aim){ if(a[0]<=tt) r=a; else break; } return r;}
-  function heading(p,tt){
-    const a=lastAim(p,tt);
-    if(a && tt-a[0]<=1.5){ p._th=-a[1]*Math.PI/180; return p._th; }
-    const w=data.dt*2, ta=clampT(tt-w), tb=clampT(tt+w);
-    if(tb>ta){const A=posAt(p,ta), B=posAt(p,tb);
-      if(A&&B){const [ax,ay]=P(A[0],A[1]),[bx,by]=P(B[0],B[1]); if(Math.hypot(bx-ax,by-ay)>1.2){p._th=Math.atan2(by-ay,bx-ax); return p._th;}}}
-    return p._th==null?null:p._th;
-  }
-
-  /* ---- small drawing helpers ---- */
-  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-  function glyph(c,x,y,w,h,col){ /* icon drawn in box left=x, vertical centre=y */
-    ctx.fillStyle=col; ctx.strokeStyle=col; ctx.lineWidth=Math.max(1,h*.13);
-    const F=(a,b,cw,ch)=>ctx.fillRect(x+w*a,y+h*b,w*cw,h*ch);
-    const poly=pts=>{ctx.beginPath();pts.forEach((q,i)=>i?ctx.lineTo(x+w*q[0],y+h*q[1]):ctx.moveTo(x+w*q[0],y+h*q[1]));ctx.closePath();ctx.fill();};
-    const ball=(cx,cy,r)=>{ctx.beginPath();ctx.arc(x+w*cx,y+h*cy,h*r,0,7);ctx.fill();};
-    if(c==='rifle'){F(0,-.05,.22,.32);F(.14,-.2,.42,.34);F(.5,-.13,.5,.16);poly([[.36,.12],[.5,.12],[.44,.5],[.32,.5]]);}
-    else if(c==='sniper'){F(0,-.05,.2,.3);F(.14,-.16,.4,.3);F(.5,-.1,.5,.13);F(.3,-.36,.3,.14);poly([[.36,.1],[.48,.1],[.44,.42],[.34,.42]]);}
-    else if(c==='smg'){F(.1,-.18,.5,.34);F(.55,-.1,.32,.14);poly([[.3,.14],[.44,.14],[.4,.5],[.28,.5]]);F(0,-.02,.14,.2);}
-    else if(c==='shotgun'){F(0,-.05,.2,.3);F(.15,-.16,.3,.28);F(.4,-.16,.6,.11);F(.4,-.02,.5,.1);}
-    else if(c==='pistol'){F(.2,-.3,.6,.26);poly([[.22,-.05],[.42,-.05],[.36,.5],[.2,.5]]);}
-    else if(c==='knife'){poly([[.05,.35],[.62,-.4],[.95,-.42],[.5,.05],[.2,.42]]);}
-    else if(c==='smoke'){ctx.fillStyle='#c9ced6';ball(.5,.05,.42);ctx.fillStyle='#8a919c';F(.4,-.62,.2,.2);}
-    else if(c==='flash'){ctx.fillStyle='#f4f6fb';ball(.5,.08,.4);ctx.fillStyle='#9aa3b2';F(.42,-.58,.16,.22);}
-    else if(c==='he'){ctx.fillStyle='#8ea05a';ball(.5,.08,.4);ctx.fillStyle='#d9d9c8';F(.42,-.58,.16,.22);}
-    else if(c==='fire'){ctx.fillStyle='#ff9a3c';poly([[.5,-.5],[.85,.1],[.7,.5],[.3,.5],[.15,.1]]);}
-    else if(c==='decoy'){ctx.fillStyle='#b8b8b8';ball(.5,.08,.36);}
-    else if(c==='zeus'){ctx.fillStyle='#ffe066';poly([[.55,-.5],[.2,.1],[.48,.1],[.4,.5],[.8,-.1],[.5,-.1]]);}
-    else if(c==='c4'){ctx.fillStyle='#ff5c5c';F(.15,-.3,.7,.6);ctx.fillStyle='#fff';F(.25,-.15,.5,.1);}
-  }
-  function cloud(x,y,r,a){ctx.fillStyle='rgba(255,255,255,'+a+')';
-    [[-.5,.1,.42],[.1,-.15,.55],[.6,.1,.4]].forEach(function(c){ctx.beginPath();ctx.arc(x+r*c[0],y+r*c[1],r*c[2],0,7);ctx.fill();});}
-  function flame(x,y,r,a){ctx.beginPath();ctx.moveTo(x,y-r);ctx.bezierCurveTo(x+r*.95,y-r*.15,x+r*.7,y+r*.9,x,y+r*.9);
-    ctx.bezierCurveTo(x-r*.7,y+r*.9,x-r*.95,y-r*.15,x,y-r);ctx.fillStyle='rgba(255,240,180,'+a+')';ctx.fill();}
-  function star(x,y,r1,r2,n,a,col){ctx.beginPath();for(let i=0;i<n*2;i++){const r=i%2?r2:r1,th=i*Math.PI/n;ctx.lineTo(x+Math.cos(th)*r,y+Math.sin(th)*r);}ctx.closePath();ctx.fillStyle=col+a+')';ctx.fill();}
-  function pin(x,y,th,fill,edge,me){
-    const D=R*2.7, al=Math.acos(R/D); ctx.beginPath();
-    if(th==null){ctx.arc(x,y,R,0,7);}
-    else{ctx.moveTo(x+Math.cos(th)*D,y+Math.sin(th)*D);ctx.lineTo(x+Math.cos(th+al)*R,y+Math.sin(th+al)*R);
-      ctx.arc(x,y,R,th+al,th-al+Math.PI*2,false);ctx.closePath();}
-    ctx.fillStyle=fill;ctx.fill();ctx.lineJoin='round';ctx.lineWidth=me?R*.42:R*.24;ctx.strokeStyle=me?'#fff':edge;ctx.stroke();
-    ctx.beginPath();ctx.arc(x,y,R*.4,0,7);ctx.fillStyle='rgba(255,255,255,.95)';ctx.fill();
-  }
-
-  function drawNade(n){
-    const age=t-n.t; if(age<0||age>n.d) return; const [x,y]=P(n.x,n.y), col=n.s==='CT'?'63,143,224':n.s==='T'?'227,154,53':'200,200,200';
-    if(n.k==='smoke'){ /* real in-game radius (~144 units), pops out then fades in its last 1.5 s */
-      const r=144/bg.s*Math.min(1,.55+age/.5*.45), a=Math.min(1,(n.d-age)/1.5);
-      ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle='rgba(196,201,210,'+(.42*a)+')';ctx.fill();
-      ctx.setLineDash([R*.7,R*.5]);ctx.lineWidth=R*.28;ctx.strokeStyle='rgba('+col+','+(.9*a)+')';ctx.stroke();ctx.setLineDash([]);
-      cloud(x,y,R*1.1,.75*a);
-    }else if(n.k==='fire'){ /* ~110 unit burn area */
-      const r=110/bg.s, a=Math.min(1,(n.d-age)/1.0), fk=1+Math.sin(age*9)*.04;
-      const g=ctx.createRadialGradient(x,y,r*.1,x,y,r*fk);g.addColorStop(0,'rgba(255,200,60,'+(.75*a)+')');g.addColorStop(.6,'rgba(235,95,20,'+(.55*a)+')');g.addColorStop(1,'rgba(160,30,0,'+(.15*a)+')');
-      ctx.beginPath();ctx.arc(x,y,r*fk,0,7);ctx.fillStyle=g;ctx.fill();
-      ctx.setLineDash([R*.6,R*.45]);ctx.lineWidth=R*.25;ctx.strokeStyle='rgba(255,150,40,'+(.9*a)+')';ctx.stroke();ctx.setLineDash([]);
-      flame(x,y,R*1.0,.9*a);
-    }else if(n.k==='he'){
-      const life=age/n.d, r=R*(1.3+life*2.6);
-      ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.strokeStyle='rgba(255,205,60,'+(.95*(1-life))+')';ctx.lineWidth=R*.5*(1-life)+1;ctx.stroke();
-      star(x,y,R*(2.2-life),R*.8,8,.95*(1-life),'rgba(255,225,110,');
-    }else{
-      const life=age/n.d, r=R*(1.6+life*1.8);
-      const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba(255,255,255,'+(.95*(1-life))+')');g.addColorStop(1,'rgba(210,225,255,0)');
-      ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=g;ctx.fill();
-    }
-  }
-  function drawThrow(n){ /* real throw spot + landing spot + both times; the path between is not recorded, so it is a straight line */
-    if(n.tt==null||t<n.tt||t>n.t+1.2) return; const [tx,ty]=P(n.tx,n.ty),[nx,ny]=P(n.x,n.y);
-    const a=t<=n.t?.85:Math.max(0,1-(t-n.t)/1.2)*.6;
-    ctx.save();ctx.strokeStyle='rgba(235,240,250,'+a+')';ctx.lineWidth=Math.max(1.2,R*.16);ctx.setLineDash([R*.5,R*.45]);
-    ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(nx,ny);ctx.stroke();ctx.setLineDash([]);
-    ctx.beginPath();ctx.arc(tx,ty,R*.35,0,7);ctx.fillStyle='rgba(235,240,250,'+a+')';ctx.fill();
-    if(t<=n.t){const f=(t-n.tt)/Math.max(.1,n.t-n.tt); ctx.beginPath();ctx.arc(tx+(nx-tx)*f,ty+(ny-ty)*f,R*.5,0,7);
-      ctx.fillStyle=n.k==='smoke'?'#d5d9e0':n.k==='fire'?'#ff9a3c':n.k==='he'?'#9fb35f':'#ffffff';ctx.fill();ctx.lineWidth=1;ctx.strokeStyle='rgba(0,0,0,.6)';ctx.stroke();}
-    ctx.restore();
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);ctx.fillStyle='#141a22';ctx.fillRect(0,0,W,H);
-    if(img.complete){ctx.drawImage(img,0,0,W,H);ctx.fillStyle='rgba(8,12,18,.34)';ctx.fillRect(0,0,W,H);} /* dim radar so units stand out */
-    for(const n of data.nades) drawNade(n);
-    for(const n of data.nades) drawThrow(n);
-    if(data.bomb&&t>=data.bomb.t){const [x,y]=P(data.bomb.x,data.bomb.y),ph=((t-data.bomb.t)*1.2)%1;
-      ctx.beginPath();ctx.arc(x,y,R*(1+ph*2),0,7);ctx.strokeStyle='rgba(255,70,70,'+(.7*(1-ph))+')';ctx.lineWidth=R*.3;ctx.stroke();
-      ctx.beginPath();ctx.arc(x,y,R*.9,0,7);ctx.fillStyle='#e03434';ctx.fill();ctx.lineWidth=R*.25;ctx.strokeStyle='#ffb0b0';ctx.stroke();
-      glyph('c4',x-R*.55,y,R*1.1,R*1.1,'#fff');}
-    const vis=[], fi=frameIx(t);
-    for(const p of data.players){const q=posAt(p,t); if(!q) continue; const [x,y]=P(q[0],q[1]); vis.push({p,x,y,th:heading(p,t)});}
-    /* recorded aim cones (only at moments the demo logged a view angle) */
-    for(const v of vis){const a=lastAim(v.p,t); if(!a||t-a[0]>1.2) continue; const age=t-a[0], th=-a[1]*Math.PI/180, L=650/bg.s, k=1-age/1.2;
-      const g=ctx.createRadialGradient(v.x,v.y,R,v.x,v.y,L);g.addColorStop(0,'rgba('+(v.p.side==='CT'?'63,143,224':'227,154,53')+','+(.38*k)+')');g.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.arc(v.x,v.y,L,th-.42,th+.42);ctx.closePath();ctx.fillStyle=g;ctx.fill();}
-    for(const k of data.kills){ if(t<k.t) continue;
-      if(t-k.t<1.5&&k.ax!=null&&k.vx!=null){const [a,b]=P(k.ax,k.ay),[c,d]=P(k.vx,k.vy);ctx.strokeStyle=k.as==='CT'?'rgba(120,180,240,'+(1-(t-k.t)/1.5)+')':'rgba(245,190,110,'+(1-(t-k.t)/1.5)+')';
-        ctx.lineWidth=Math.max(1.5,R*.25);ctx.beginPath();ctx.moveTo(a,b);ctx.lineTo(c,d);ctx.stroke();}
-      if(k.vx!=null){const [x,y]=P(k.vx,k.vy);ctx.strokeStyle=k.vs?COL[k.vs]:'#999';ctx.lineWidth=R*.4;ctx.beginPath();
-        ctx.moveTo(x-R*.6,y-R*.6);ctx.lineTo(x+R*.6,y+R*.6);ctx.moveTo(x+R*.6,y-R*.6);ctx.lineTo(x-R*.6,y+R*.6);ctx.stroke();}}
-    for(const v of vis){ if(v.p.fl[fi]){ctx.beginPath();ctx.arc(v.x,v.y,R*1.9,0,7);ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=R*.3;ctx.stroke();}
-      pin(v.x,v.y,v.th,COL[v.p.side],EDGE[v.p.side],v.p.me);}
-    /* name pills with the equipped weapon icon; nudged apart so they don't stack */
-    const placed=[]; vis.sort((a,b)=>(b.p.me-a.p.me)||(a.y-b.y));
-    for(const v of vis){const p=v.p, wn=data.weapons[p.wp[fi]]||'', cat=wcat(wn), gw=cat==='none'?0:R*4.0;
-      const fs=Math.round(R*(p.me?2.25:1.95));ctx.font=(p.me?'700 ':'600 ')+fs+'px system-ui,sans-serif';ctx.textBaseline='middle';
-      const tw=ctx.measureText(p.name).width, pw=tw+gw+R*1.7+(gw?R*.5:0), ph=R*3.0;
-      let px=Math.max(3,Math.min(W-pw-3,v.x-pw/2)), py=v.y-R*3.5-ph, dir=-1;
-      if(py<3){py=v.y+R*2.6;dir=1;}
-      for(let i=0;i<6;i++){const hit=placed.some(o=>px<o[0]+o[2]+2&&px+pw+2>o[0]&&py<o[1]+o[3]+2&&py+ph+2>o[1]); if(!hit) break; py+=dir*(ph+2);}
-      py=Math.max(3,Math.min(H-ph-3,py)); placed.push([px,py,pw,ph]);
-      rr(px,py,pw,ph,ph/2.6);ctx.fillStyle=PILL[p.side];ctx.fill();if(p.me){ctx.lineWidth=R*.2;ctx.strokeStyle='#fff';ctx.stroke();}
-      if(gw) glyph(cat,px+R*.8,py+ph/2,gw,ph*.8,'#e9edf3');
-      ctx.fillStyle=p.me?'#fff':TXT[p.side];ctx.fillText(p.name,px+R*.8+gw+(gw?R*.5:0),py+ph/2+1);}
-    /* kill feed, top right */
-    const recent=data.kills.filter(k=>k.t<=t&&t-k.t<6).slice(-4);
-    ctx.font='600 '+Math.round(R*1.9)+'px system-ui,sans-serif';
-    recent.forEach(function(k,i){const an=k.a||'', vn=k.v, cat=wcat(k.wr), gw=R*4.0, sp=R*.7;
-      const w1=an?ctx.measureText(an).width:0, w2=ctx.measureText(vn).width, hs=k.hs?R*1.4:0, tot=w1+(an?sp:0)+gw+hs+sp+w2+R*1.6, h=R*3.0;
-      const x0=W-tot-6, y0=6+i*(h+3); rr(x0,y0,tot,h,h/2.6);ctx.fillStyle='rgba(10,14,20,.82)';ctx.fill();
-      let cx=x0+R*.8; ctx.textBaseline='middle';
-      if(an){ctx.fillStyle=TXT[k.as]||'#ddd';ctx.fillText(an,cx,y0+h/2+1);cx+=w1+sp;}
-      glyph(cat==='none'?'rifle':cat,cx,y0+h/2,gw,h*.78,'#e9edf3');cx+=gw;
-      if(k.hs){ctx.beginPath();ctx.arc(cx+R*.6,y0+h/2,R*.5,0,7);ctx.strokeStyle='#ff6b6b';ctx.lineWidth=R*.2;ctx.stroke();ctx.beginPath();ctx.arc(cx+R*.6,y0+h/2,R*.14,0,7);ctx.fillStyle='#ff6b6b';ctx.fill();cx+=hs;}
-      cx+=sp;ctx.fillStyle=TXT[k.vs]||'#ddd';ctx.fillText(vn,cx,y0+h/2+1);});
-    if(data.focus!=null&&Math.abs(t-data.focus)<1.2){ctx.strokeStyle='#ffd400';ctx.lineWidth=R/2;ctx.strokeRect(2,2,W-4,H-4);}
-    range.value=t;lab.textContent=fmt(t)+' / '+fmt(T);
-    const nextHtml=recent.map(k=>'<span><b class="'+(k.as||'')+'">'+esc(k.a||'World')+'</b> '+(k.w?'['+esc(k.w)+'] ':'')+'<b class="'+(k.vs||'')+'">'+esc(k.v)+'</b></span>').join('');
-    if(feed.innerHTML!==nextHtml) feed.innerHTML=nextHtml;
-    /* roster: health, armour and equipped weapon for both teams */
-    let h='';
-    for(const side of ['CT','T']){const ps=data.players.filter(p=>p.side===side); const alive=ps.filter(p=>p.xy[2*fi]!=null).length;
-      h+='<div class="rt '+side+'"><div class="rh"><b>'+side+'</b><span>'+alive+' alive</span></div>';
-      for(const p of ps){const up=p.xy[2*fi]!=null, hp=p.hp[fi], wn=data.weapons[p.wp[fi]]||'';
-        h+='<div class="rr'+(up?'':' dead')+(p.me?' me':'')+'"><div class="l1"><span class="nm">'+esc(p.name)+'</span><span class="hpb"><i class="'+(hp<=30?'lo':'')+'" style="width:'+(up?Math.max(3,hp):0)+'%"></i></span><span class="hpn">'+(up?hp:'dead')+'</span></div>'
-          +'<div class="wn">'+(up?esc(wn)+(p.ar[fi]?' · armor':''):'&nbsp;')+'</div></div>';}
-      h+='</div>';}
-    if(h!==rosterHtml){rosterHtml=h;rosterEl.innerHTML=h;}
-  }
-
-  function loop(ts){ if(!playing) return; if(last) t+=(ts-last)/1000*parseFloat(spd.value); last=ts;
-    if(t>=T){t=T; playing=false; btn.textContent='Play'; btn.setAttribute('aria-pressed','false');} draw(); if(playing) requestAnimationFrame(loop);}
-  btn.addEventListener('click',()=>{playing=!playing; btn.textContent=playing?'Pause':'Play'; btn.setAttribute('aria-pressed',String(playing)); last=0; if(playing){ if(t>=T) t=0; requestAnimationFrame(loop);} });
-  range.addEventListener('input',()=>{t=parseFloat(range.value); draw();});
-  root.querySelector('.v-jump').addEventListener('click',()=>{t=Math.max(0,(data.focus||0)-5); draw(); playing=false; btn.textContent='Play'; btn.setAttribute('aria-pressed','false');});
-  img.onload=draw; draw();
-}
-document.querySelectorAll('.viewer').forEach(initViewer);
-})();
-"""
+VIEWER_JS = (Path(__file__).with_name("viewer.js")).read_text(encoding="utf-8")
 
 
 def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick: int | None, maps: dict) -> str:
@@ -503,20 +440,42 @@ def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick
     note = ("Map: radar image." if kind == "radar" else
             "Map outline drawn from where players stood in these games; radar images not installed yet.")
     payload = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+    real = data["facing"]
+    face_note = ("Each pin points where that player was actually looking (view angle recorded 8 times a second)."
+                 if real else
+                 "Each pin points where that player last aimed, but only right after a shot, hit or kill (held 1.5 s); "
+                 "between those moments the demo has no view angle here, so a moving player gets a short trail and a "
+                 "still player a plain dot.")
+    paths = any("pa" in n for n in data["nades"])
+    nade_note = ("Grenades follow their recorded flight path, bounces included." if paths else
+                 "A dashed line joins where a grenade was thrown to where it landed (a straight line: the flight path "
+                 "is not recorded for this game).")
+    how = (f'<details class="disc v-how"><summary>How to read this replay</summary><div class="disc-body">'
+           f'<p>{note} You are the white-outlined pin. {face_note} The icon by each name is the kind of item the player '
+           f'is holding (rifle, pistol, grenade, knife, bomb); the exact item is in the list under the map. '
+           f'Smoke and fire are drawn at their in-game size. {nade_note} Crosses mark deaths and a thin line flashes from '
+           f'killer to victim. A white ring means flashed; a green dashed ring means defusing. Coloured ticks on the timeline '
+           f'are kills, the bomb plant, the moment being discussed (yellow) and the round end.</p></div></details>')
     return (f'<div class="viewer"><script type="application/json">{payload}</script>'
-            f'<canvas role="img" aria-label="Top-down replay of the round"></canvas>'
+            f'<div class="v-stage"><canvas role="img" aria-label="Top-down replay of the round"></canvas>'
+            f'<button class="v-expand" aria-pressed="false">Expand replay</button></div>'
             f'<div class="v-feed" aria-live="polite"></div>'
-            f'<div class="v-ctl"><button class="v-play" aria-pressed="false">Play</button>'
-            f'<button class="v-jump">Lead-in (−5 s)</button>'
-            f'<input type="range" min="0" step="0.1" aria-label="Round time">'
+            f'<div class="v-ctl"><button class="v-prev" title="Previous event">◀ Event</button>'
+            f'<button class="v-play" aria-pressed="false">Play</button>'
+            f'<button class="v-next" title="Next event">Event ▶</button>'
+            f'<button data-step="-0.5" title="Back half a second" aria-label="Back half a second">−½</button>'
+            f'<button data-step="0.5" title="Forward half a second" aria-label="Forward half a second">+½</button>'
+            f'<button class="v-jump" title="Jump to 5 seconds before the moment">Lead-in</button></div>'
+            f'<div class="v-ctl v-scrub"><div class="v-track"><input type="range" min="0" step="0.05" aria-label="Round time">'
+            f'<div class="v-marks"></div></div>'
             f'<span class="v-time"></span><select aria-label="Speed"><option value="0.5">0.5×</option>'
             f'<option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>'
-            f'<div class="v-roster"></div>'
-            f'<p class="muted small">{note} You are the white-outlined pin. Pins point where a player last aimed '
-            f'(recorded on shots, hits and kills, held 1.5 s) or, otherwise, where they were moving; the shaded cone is that '
-            f'recorded aim. The icon by each name is the equipped weapon. Smoke and fire are drawn at their in-game size. '
-            f'A dashed line joins where a grenade was thrown to where it landed (straight line: the demo does not record the '
-            f'flight path). Crosses mark deaths; a thin line flashes from killer to victim.</p></div>')
+            f'<div class="v-ctl v-layers"><span class="v-lbl">Show</span>'
+            f'<button data-layer="names" aria-pressed="true">Names</button>'
+            f'<button data-layer="facing" aria-pressed="true">Facing</button>'
+            f'<button data-layer="util" aria-pressed="true">Utility</button>'
+            f'<button data-layer="feed" aria-pressed="true">Feed</button></div>'
+            f'<div class="v-roster"></div>{how}</div>')
 
 
 def maps_script(maps: dict) -> str:

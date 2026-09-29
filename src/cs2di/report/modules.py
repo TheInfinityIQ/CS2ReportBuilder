@@ -302,7 +302,7 @@ def _finding_calc(f: dict) -> list[tuple[str, str]]:
         rows.append(("Uncertainty", f"95% interval {lo * 100:.0f} to {hi * 100:.0f}" + (" points" if f.get("kind") == "mean_vs_peers" else "%")))
     q = f.get("q")
     rows.append(("Test", f"p = {pfmt(f['p'])}" + (f", after correcting for the number of checks q = {pfmt(q)}" if q is not None else "")
-                 + ("; both halves of your games agree" if f.get("halves_agree") else "; the two halves of your games do not clearly agree" if f.get("halves_agree") is False else "")))
+                 + ("; both interleaved splits of your games agree" if f.get("halves_agree") else "; the two interleaved splits of your games do not clearly agree" if f.get("halves_agree") is False else "")))
     rows.append(("Verdict", STATUS_WORDS[f["status"]]))
     return rows
 
@@ -358,12 +358,35 @@ def _moment_context(e: dict) -> str:
     return " · ".join(bits)
 
 
+def _km_filters(sits) -> str:
+    """Filter buttons that belong to ONE set of example replays (not the whole report). Shown only when there is a choice."""
+    outcomes = [o for o in ("win", "loss") if any(x[0] == o for x in sits)]
+    maps = sorted({x[1] for x in sits if x[1]})
+    if len(sits) < 2 or (len(outcomes) < 2 and len(maps) < 2):
+        return ""
+    g1 = ""
+    if len(outcomes) > 1:
+        g1 = ('<span class="fgrp"><span class="filter-label">Result</span>'
+              + "".join(f'<button type="button" class="filter-btn {o}" data-fo="{o}" aria-pressed="false">'
+                        f'{"Won" if o == "win" else "Lost"} ({sum(1 for x in sits if x[0] == o)})</button>' for o in outcomes)
+              + "</span>")
+    g2 = ""
+    if len(maps) > 1:
+        g2 = ('<span class="fgrp"><span class="filter-label">Map</span>'
+              + "".join(f'<button type="button" class="filter-btn" data-fm="{esc(mp)}" aria-pressed="false">'
+                        f'{esc(fmt.map_name(mp))} ({sum(1 for x in sits if x[1] == mp)})</button>' for mp in maps)
+              + "</span>")
+    return (f'<div class="km-filters" role="group" aria-label="Filter example replays">'
+            f'<span class="filter-label">Filter example replays</span>{g1}{g2}'
+            f'<button type="button" class="filter-btn" data-reset="1" hidden>Show all</button></div>')
+
+
 def _moments_render(spec, ctx):
     from .viewer import observed_facts, viewer_html
 
     f = ctx.finding(spec["finding"])
     title = f'<div class="mod-title">{esc(spec["title"])}</div>' if spec.get("title") else ""
-    drawers = []
+    drawers, sits = [], []
     for i, pk in enumerate(spec["picks"]):
         e = f["examples"][pk["example"]]
         demo, rnd, tick = e["demo_id"], int(e["round"]), e.get("tick")
@@ -372,15 +395,13 @@ def _moments_render(spec, ctx):
         facts = observed_facts(ctx.batch_dir, demo, rnd, ctx.steamid, tick)
         view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps)
         outcome = "win" if s["win"] else "loss"
+        sits.append((outcome, s["map"]))
         clock_str = fmt.clock(e["round_time_s"]) if e.get("round_time_s") is not None else ""
         summary_label = (f'{esc(fmt.map_name(s["map"]))} · round {s["round"]}'
                          + (f' · {clock_str}' if clock_str else "")
                          + f' · {esc(s["side"])}')
         open_attr = " open" if i == 0 else ""
         card_inner = (
-            f'<div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}'
-            + (f' · {clock_str}' if clock_str else "")
-            + f'</strong><span><span class="tag">{esc(s["side"])}</span> {res}</span></div>'
             f'<div class="observed"><div class="eyebrow">What happened (from the demo)</div>'
             f'<ul>{"".join(f"<li class=sub>{esc(x.strip())}</li>" if x.startswith("  ") else f"<li>{esc(x)}</li>" for x in facts)}</ul></div>'
             f'{view}<p class="why"><b>Coach\'s read:</b> {esc(pk["note"])}</p>'
@@ -396,7 +417,8 @@ def _moments_render(spec, ctx):
         ("Where they come from", f"Rounds from your games that fit: {f['situation'].lower()}."),
         ("What is fact and what is opinion", "'What happened' is computed from the demo. 'Coach's read' is interpretation."),
         ("Caution", "A few rounds show what the pattern looks like; the card above shows how often it happens.")])
-    return f'<div class="mod">{title}<div class="moments km-accordion">{"".join(drawers)}</div>{disc}</div>'
+    return (f'<div class="mod">{title}{_km_filters(sits)}<div class="moments km-accordion">{"".join(drawers)}</div>'
+            f'<p class="km-empty" hidden>No example replays match this filter.</p>{disc}</div>')
 
 
 # ------------------------------------------------------------------- Registry

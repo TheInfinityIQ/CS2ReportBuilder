@@ -21,11 +21,11 @@
     {
       "id": "caught-running",
       "intent": "REINFORCE",
-      "title": "When you are hit first while moving, you still win more than most",
+      "title": "When you are hit first while moving, you win about a quarter of these fights",
       "question": "What happens when an enemy damages me first while I am running?",
       "blocks": [
         {"layout": "side_by_side",
-         "text": "This is the worst way to start a fight and most players lose it. You win about a quarter of these, more than the players in your games. The data does not say why: it could be your aim, cover, or the weapons involved.\n\nUseful, but not something to rely on. Being caught moving less often is still the better habit.",
+         "text": "This is a difficult way to start a fight and most players lose it. You win about a quarter of these, above the pooled rate for the players in your games. The data does not say why: it could be your aim, cover, or the weapons involved.\n\nUseful, but not something to rely on. Being caught moving less often is still the better habit.",
          "module": {"type": "FindingCard", "finding": "fight.result_vs_everyone.s_init_move.they hit first, running", "caption": "Fights won after being damaged first while running"}}
       ],
       "takeaway": "A safety net, not a plan. Choose when you move into an angle.",

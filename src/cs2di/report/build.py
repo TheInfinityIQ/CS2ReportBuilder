@@ -13,6 +13,7 @@ from .modules import STATUS_WORDS, Ctx, pfmt, render_module
 from .plan import validate_plan
 from .theme import CSS
 from .viewer import maps_script
+from .weapons import assert_all_mapped
 
 _NOTE = re.compile(r"\[\[note:([\w-]+)\]\]")
 
@@ -92,7 +93,7 @@ def _player_study(plan: dict, d: dict, ctx: Ctx) -> str:
     moments = "".join(_moment(m, ctx, notes) for m in plan["moments"])
     head = (f'<div class="header"><div class="eyebrow">Player Study</div><h1>{name}</h1>'
             f'<div class="sub">{esc(rep.get("subtitle", ""))}</div></div>')
-    moments_section = f'<div id="moments-wrap"><div class="moments-filters" id="moments-filter-bar"></div><div id="moments-list">{moments}</div></div>'
+    moments_section = f'<div id="moments-wrap"><div id="moments-list">{moments}</div></div>'
     return (f'{_coverage(d)}{head}<section class="agenda"><div class="label">What this study covers</div>{agenda}</section>'
             f'{moments_section}{_summary(plan.get("summary", {}))}{notes.list_html()}')
 
@@ -207,7 +208,7 @@ def _findings_desk(an: dict | None) -> str:
 No outside database is used. You were in {b["subject_fights"]:,} fights; {b["subject_decided"]:,} ended with one of you dead.
 You won {b["subject_win_rate"] * 100:.1f}% of those; players in your games won {b["peer_win_rate"] * 100:.1f}%.</p>
 <p class="small">{len(F)} comparisons: {counts["credible"]} supported, {counts["leaning"]} possible, {counts["no_difference"]} with no detectable difference,
-{counts["unclear"]} unclear, {counts["too_few"]} with too few cases. "Supported" means it survives a correction for running this many checks (false-discovery rate under 10%) and both halves of your games (alternate games in date order) point the same way; results just under the threshold are still exploratory. "No detectable difference" (at least 40 cases, p at least 0.30) does not prove the two are equal; it is kept so the coach does not chase it. Tests treat each event as independent (not yet clustered by match), so borderline results deserve caution. Counts differ from the scoreboard figures because these analyses leave out kills and deaths after the round was decided and deaths to the bomb or world.</p></div>''']
+{counts["unclear"]} unclear, {counts["too_few"]} with too few cases. "Supported" means it survives a correction for running this many checks (false-discovery rate under 10%) and both interleaved splits of your games (alternate games in date order, not early versus late) point the same way; results just under the threshold are still exploratory. "No detectable difference" (at least 40 cases, p at least 0.30) does not prove the two are equal; it is kept so the coach does not chase it. Tests treat each event as independent (not yet clustered by match), so borderline results deserve caution. Counts differ from the scoreboard figures because these analyses leave out kills and deaths after the round was decided and deaths to the bomb or world.</p></div>''']
     topics = [("value", "Value of kills and deaths"), ("trading", "Trading and spacing"), ("clutch", "Clutches")]
     for t, title in topics:
         rows = sorted([f for f in F if f["topic"] == t], key=lambda f: ORDER[f["status"]])
@@ -245,60 +246,26 @@ document.querySelectorAll('.km-accordion').forEach(function(acc){
    });
  });
 });
-(function(){
- var bar=document.getElementById('moments-filter-bar');
- if(!bar) return;
- /* target km-drawers when present, fall back to bare .sit cards */
- var items=Array.from(document.querySelectorAll('#moments-list .km-drawer'));
- if(!items.length) items=Array.from(document.querySelectorAll('#moments-list .sit'));
- if(!items.length) return;
- var maps=[...new Set(items.map(function(s){return s.dataset.map;}).filter(Boolean))];
- var outcomes=['win','loss'];
- var active={outcome:null,map:null};
- function applyFilter(){
-   items.forEach(function(s){
-     var show=true;
-     if(active.outcome && s.dataset.outcome!==active.outcome) show=false;
-     if(active.map && s.dataset.map!==active.map) show=false;
-     if(show) s.removeAttribute('hidden'); else s.setAttribute('hidden','');
-   });
-   bar.querySelectorAll('.filter-btn').forEach(function(b){
-     var isActive=(b.dataset.outcome&&b.dataset.outcome===active.outcome)||(b.dataset.map&&b.dataset.map===active.map)||(b.dataset.reset&&!active.outcome&&!active.map);
-     b.classList.toggle('active',!!isActive);
-   });
+/* local filters: each replay set has its own bar (.km-filters) and only filters its own drawers */
+document.querySelectorAll('.mod').forEach(function(mod){
+ var bar=mod.querySelector('.km-filters'); if(!bar) return;
+ var items=Array.from(mod.querySelectorAll('.km-drawer')), empty=mod.querySelector('.km-empty'), reset=bar.querySelector('[data-reset]');
+ var st={o:null,m:null};
+ function apply(){
+  var shown=0;
+  items.forEach(function(d){var ok=(!st.o||d.dataset.outcome===st.o)&&(!st.m||d.dataset.map===st.m); d.hidden=!ok; if(ok) shown++;});
+  bar.querySelectorAll('[data-fo],[data-fm]').forEach(function(b){b.setAttribute('aria-pressed',String((b.dataset.fo&&b.dataset.fo===st.o)||(b.dataset.fm&&b.dataset.fm===st.m)));});
+  if(reset) reset.hidden=!(st.o||st.m);
+  if(empty) empty.hidden=shown>0;
+  var open=items.filter(function(d){return !d.hidden;});
+  if(open.length&&!open.some(function(d){return d.open;})) open[0].open=true;
  }
- function makeBtn(label,cls,data){
-   var b=document.createElement('button');
-   b.className='filter-btn'+(cls?' '+cls:'');
-   b.textContent=label;
-   Object.assign(b.dataset,data);
-   b.addEventListener('click',function(){
-     if(data.reset){active.outcome=null;active.map=null;}
-     else if(data.outcome){active.outcome=active.outcome===data.outcome?null:data.outcome;}
-     else if(data.map){active.map=active.map===data.map?null:data.map;}
-     applyFilter();
-   });
-   return b;
- }
- var lbl=document.createElement('span');
- lbl.className='filter-label'; lbl.textContent='Filter:';
- bar.appendChild(lbl);
- bar.appendChild(makeBtn('All','active',{reset:'1'}));
- outcomes.forEach(function(o){
-   var n=items.filter(function(s){return s.dataset.outcome===o;}).length;
-   if(n) bar.appendChild(makeBtn(o==='win'?'Won ('+n+')':'Lost ('+n+')',o,{outcome:o}));
- });
- if(maps.length>1){
-   var sep=document.createElement('span'); sep.className='filter-label'; sep.style.marginLeft='8px'; sep.textContent='Map:';
-   bar.appendChild(sep);
-   maps.forEach(function(m){
-     var label=m.replace('de_','').replace(/_/g,' ');
-     label=label.charAt(0).toUpperCase()+label.slice(1);
-     bar.appendChild(makeBtn(label,'',{map:m}));
-   });
- }
- applyFilter();
-})();
+ bar.addEventListener('click',function(e){var b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.reset){st.o=null;st.m=null;}
+  else if(b.dataset.fo){st.o=st.o===b.dataset.fo?null:b.dataset.fo;}
+  else if(b.dataset.fm){st.m=st.m===b.dataset.fm?null:b.dataset.fm;}
+  apply();});
+});
 """
 
 
@@ -308,6 +275,7 @@ def build_report(plan: dict, digest: dict, *, batch_dir, steamid, analysis: dict
     validate_plan(plan, ctx)
     name = digest["subject"].get("name") or "Player"
     player = _player_study(plan, digest, ctx)
+    assert_all_mapped()  # an unknown weapon/item name must fail the build, not draw the wrong icon
     desk = _analyst_desk(plan, digest, analysis)
     desk = desk.replace("<table>", '<div class="table-scroll"><table>').replace("</table>", "</table></div>")  # phones scroll tables, not the page
     footer = (f'<div class="footer">Downloads: {_data_link("evidence digest (JSON)", digest, "evidence_digest.json")} · '

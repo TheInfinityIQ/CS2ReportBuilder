@@ -25,3 +25,6 @@ Design and measurements: `docs/VIEWER_DATA_OPTIONS_2026-09-29.md`. Needs the ori
 
 `--limit 3` for a quick trial, `--force` to redo, `--no-validate` to skip the interpolation check. Send back the zip.
 
+
+## Using the sidecar in the report (viewer v3.4)
+Nothing to configure. `cs2di report` looks for `viewer_tracks.csv.gz`, `grenade_throws.csv.gz` and `grenade_paths.csv.gz` in each demo folder of the analyzed batch. When they exist the viewer draws the recorded 8 Hz view angle and the real grenade flight path, and the "What happened" box gains a line about where the player's view pointed before a kill or death. Demos without them use the event-only drawing (aim after shots, straight throw line).
