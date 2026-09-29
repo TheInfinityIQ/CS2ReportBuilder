@@ -23,7 +23,7 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | O-3 | "Normal" needs a baseline | ADR-012/013; verdict words tied to tests | DONE |
 | O-4 | Never compare to a database; batch only (lobby peers, own level, own history) | ADR-013 | DONE (findings.py baseline = same matches) |
 | O-5 | Kill feed is fun but gives no understanding | Replace with 2D viewer moments; timeline only as fallback | DONE v3: KeyMoments show a map replay; kill list collapsed under it |
-| O-6 | We need the 2D viewer now; analysis built without it may be wasted | Viewer is the next build; moments must be designed around it | PARTIAL v3: viewer built (report/viewer.py) on a map outline from the batch; radar images pending (awpy assets from owner) |
+| O-6 | We need the 2D viewer now; analysis built without it may be wasted | Viewer is the next build; moments must be designed around it | DONE v3.3: radar images installed (11 maps); viewer rebuilt around real demo data (see V-1..V-12) |
 | O-7 | "What this study covers" is far too wordy | Short scannable block: Keep / Work on / Re-check | DONE v3: three lines, Keep / Work on / Re-check (plan rule in COACHING_LESSONS) |
 | O-8 | "Anchor" was not earned: roles come from positional data | Role/position only from positions; state the observation, name the position only when confident | PARTIAL v3: role label removed, described as where fights happen; position recognition not yet in product |
 | O-9 | The AI coach will only know what is in the package | All lessons go into COACHING_LESSONS.md, later compiled into the coach prompt | ONGOING |
@@ -82,6 +82,23 @@ Status: OPEN, DONE (with how it is enforced), REJECTED (with reason).
 | U2-33 | "Player Study" repeated | Use eyebrow for date range / generated date | OPEN |
 | U2-34 | Print prints everything; break rules too coarse | Print Player Study vs full; protect modules not sections | OPEN |
 | U2-35 | No main landmark | Wrap in main | OPEN |
+
+## 2D viewer review v3.1-v3.3 (V) - owner comparison against a reference viewer
+| ID | Critique | Decision | Status |
+|---|---|---|---|
+| V-1 | Show all player names, not only the subject | Team-tinted name pills on every pin; nudged apart so they do not stack | DONE v3.3 |
+| V-2 | Equipped weapon on each player | `active_weapon_name` IS in `player_positions` per frame (earlier note saying it was not was wrong). Icon by category on the name pill and in the kill feed | DONE v3.3 |
+| V-3 | Facing cone / pointer | Continuous view angle is NOT in the export. Yaw exists only at events (shots, hits, kills). Pin points at the last recorded aim (<=1.5 s) else direction of travel; a shaded cone shows recorded aim only; legend says so. Yaw convention checked against 175 kills (median error 0.4 deg) | DONE v3.3; continuous facing needs the usercmd view-angle capture (`usercmd_availability.json` says the props exist) - OPEN |
+| V-4 | Pointer too small / disappears | Pin marker with a 1.7 R nose; heading falls back to last known instead of vanishing; direction computed in pixel space (v3.1 mixed world and pixel units) | DONE v3.3 |
+| V-5 | Nade arcs looked invented | Removed the bezier. Throw spot and time now come from `weapon_fire` (v3.1 wrongly used the thrower position at detonation). A straight dashed line joins throw spot to landing spot only while in flight; legend states the flight path is not recorded | DONE v3.3; true arcs/bounces need projectile positions - not in the data, OPEN |
+| V-6 | Nades should look better | Smoke at its in-game radius (144 units), duration from the real `smokegrenade_expired` event, dashed rim in the thrower's team colour, cloud/flame/burst icons | DONE v3.3 |
+| V-7 | Health / weapons / team panel like the reference | Roster under the viewer: HP bar, armour, equipped weapon, alive count, dead struck through. Money and utility inventory not shown yet | PARTIAL v3.3 |
+| V-8 | Kill feed | On-canvas feed (killer, weapon icon, headshot mark, victim); text feed kept for screen readers only | DONE v3.3 |
+| V-9 | Flashed players | White ring while `flash_duration` > 0.3 s | DONE v3.3 |
+| V-10 | Win vs loss distinction across viewers | Green/red left border, Won/Lost tag, filter bar by outcome and map | DONE v3.1 |
+| V-11 | Many viewers are messy | One drawer per round, first open, opening one closes the others; filter bar applies to drawers | DONE v3.1 |
+| V-12 | Coach limited to 4 teaching moments | Not a builder cap (the plan had 4). KeyMoments now allows 1-6 rounds per block | DONE v3.1 |
+| V-13 | Every moment has a 2D viewer and no charts | Dashboard of per-map, side and trend charts (owner likes graphs); design once the statistical layer (E-3, E-7) is fixed | OPEN (planned, see ROADMAP) |
 
 ## Self-found (S)
 | ID | Critique | Decision | Status |

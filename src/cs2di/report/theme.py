@@ -112,8 +112,23 @@ sup.fn a{text-decoration:none;color:var(--accent);font-weight:650;padding:0 1px}
 .v-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-width:640px;margin:8px auto 0}
 .v-ctl input[type=range]{flex:1 1 160px}.v-ctl button,.v-ctl select{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 .v-time{font-variant-numeric:tabular-nums;font-size:14px}
-.v-feed{max-width:640px;margin:6px auto 0;min-height:22px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.v-feed{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .v-feed b.CT{color:var(--ct)}.v-feed b.T{color:var(--t)}
+.v-roster{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:640px;margin:8px auto 0;font-size:13px}
+@media(max-width:480px){.v-roster{grid-template-columns:1fr}}
+.rt{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--panel)}
+.rt.CT{border-top:3px solid var(--ct)}.rt.T{border-top:3px solid var(--t)}
+.rh{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:2px}
+.rh b{color:var(--ink)}
+.rr{padding:3px 0;border-top:1px dashed var(--line)}
+.rr .l1{display:flex;gap:8px;align-items:center}
+.rr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.rr.me .nm{color:var(--accent)}
+.rr .hpb{width:54px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;flex:none}
+.rr .hpb i{display:block;height:100%;background:var(--good)}.rr .hpb i.lo{background:var(--bad)}
+.rr .hpn{width:30px;text-align:right;font-variant-numeric:tabular-nums;flex:none}
+.rr .wn{color:var(--muted);font-size:12.5px;line-height:1.3}
+.rr.dead{opacity:.45}.rr.dead .nm{text-decoration:line-through}
 .observed{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:8px 0}
 .observed li.sub{list-style:none;margin-left:-4px;font-variant-numeric:tabular-nums}
 @media (max-width:560px){.moment .mod{padding:10px 8px;margin-left:-8px;margin-right:-8px}.sit{padding:10px 8px;margin-left:-6px;margin-right:-6px}.observed{padding:8px}}

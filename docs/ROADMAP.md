@@ -34,6 +34,11 @@ and ask for coaching?**
 7. **Longitudinal coaching** (memory across batches: improved / stable / regressed / resolved).
 8. **Cope Barn**, kept walled off from all serious findings.
 
+## Planned after the viewer pass (owner request 2026-09-29)
+- **Dashboard tab**: per-map, per-side and over-time charts (owner likes graphs). Every moment currently has a 2D viewer and no chart. Build after the statistical corrections (E-3 advantage denominators, E-7 match-clustered tests) so the charts do not show numbers we are about to change. Use the dataviz skill.
+- **Continuous facing**: capture `usercmd_viewangle_y` for the rounds shown in viewers (probe already confirms the property exists) so pins and cones can follow real view direction throughout, not only at shots.
+- **Viewer roster**: add money and utility inventory (present on `weapon_fire.user_balance` / `user_inventory`).
+
 ## Parked (kept in scope, deliberately not started)
 Team / strategy / opponent modes, player comparison, training-resource registry, historical
 radar compatibility research, M10-M11 statistics gates as a report prerequisite.
