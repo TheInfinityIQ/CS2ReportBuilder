@@ -8,7 +8,7 @@ v7.8 (2026-09-28), behaviour change limited to damage; everything else is v7.7 v
     shares the start-of-tick user_health. Verified on 179 sampled demos across 8 batches:
     0.1-0.9% excess damage, 3.3% on Premier. See docs/KNOWN_PITFALLS.md row 27.
   - utility_effectiveness HE/fire damage now uses dmg_health_effective.
-  - Paths follow PROJECT_ROOT/demos/<folder> -> PROJECT_ROOT/v7dot7Analysis/analyzed_<folder>.
+  - Paths follow PROJECT_ROOT/01_Demos/<folder> -> PROJECT_ROOT/02_Analysis/analyzed_<folder>.
   Damage dealt after the round-end tick is still counted: FACEIT's ADR includes it.
 
 Changes from previous v5 (schema 2.2):
@@ -62,8 +62,8 @@ PROJECT_ROOT = Path(
 
 DEMO_FOLDER = "iTrilogy"
 
-DEMO_DIR = PROJECT_ROOT / "demos" / DEMO_FOLDER
-OUTPUT_DIR = PROJECT_ROOT / "v7dot7Analysis" / f"analyzed_{DEMO_FOLDER}"
+DEMO_DIR = PROJECT_ROOT / "01_Demos" / DEMO_FOLDER
+OUTPUT_DIR = PROJECT_ROOT / "02_Analysis" / f"analyzed_{DEMO_FOLDER}"
 
 # Set to a player name for classic single-target mode.
 # Set to None or "" for full-match (all-player) extraction.

@@ -2,15 +2,15 @@
 
 Put this file next to extract_viewer_tracks.py and run:
 
-    python run_all_tracks.py                      # everything under PROJECT_ROOT\\Demos
+    python run_all_tracks.py                      # everything under PROJECT_ROOT\\01_Demos
     python run_all_tracks.py --dry-run            # only show what would run and what is missing
     python run_all_tracks.py --batch mimy --batch iTrilogy
     python run_all_tracks.py --limit 2            # 2 demos per batch, as a trial
     python run_all_tracks.py --force              # redo demos that already have tracks
 
 What it does (additive; it never edits an existing file):
-  * every top-level folder of Demos is a batch: Demos\\<batch>\\**\\*.dem   (sub-folders are searched)
-  * each demo is paired with its analyzed folder: v7dot7Analysis\\analyzed_<batch>\\<demo file name>
+  * every top-level folder of 01_Demos is a batch: 01_Demos\\<batch>\\**\\*.dem   (sub-folders are searched)
+  * each demo is paired with its analyzed folder: 02_Analysis\\analyzed_<batch>\\<demo file name>
     (if that is missing it falls back to a folder of the same name in ANY analyzed_* folder, when unique)
   * for each pair it runs extract_viewer_tracks.process_demo, which writes viewer_tracks.csv.gz,
     grenade_throws.csv.gz, grenade_paths.csv.gz and viewer_tracks_meta.json beside the existing tables
@@ -32,8 +32,8 @@ from pathlib import Path
 import extract_viewer_tracks as evt  # must sit in the same folder
 
 PROJECT_ROOT = evt.PROJECT_ROOT
-DEMOS_ROOT = PROJECT_ROOT / "Demos"
-ANALYSIS_ROOT = PROJECT_ROOT / "v7dot7Analysis"
+DEMOS_ROOT = PROJECT_ROOT / "01_Demos"
+ANALYSIS_ROOT = PROJECT_ROOT / "02_Analysis"
 
 
 def log(msg: str = "") -> None:
@@ -74,9 +74,9 @@ def plan_batch(batch_dir: Path, analysis_root: Path, index: dict) -> tuple[list,
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Run extract_viewer_tracks over every demo under Demos, recursively.")
-    ap.add_argument("--root", type=Path, default=PROJECT_ROOT, help="folder that holds Demos and v7dot7Analysis")
-    ap.add_argument("--demos-name", default="Demos")
-    ap.add_argument("--analysis-name", default="v7dot7Analysis")
+    ap.add_argument("--root", type=Path, default=PROJECT_ROOT, help="folder that holds 01_Demos and 02_Analysis")
+    ap.add_argument("--demos-name", default="01_Demos")
+    ap.add_argument("--analysis-name", default="02_Analysis")
     ap.add_argument("--batch", action="append", default=[], help="only this batch folder name (repeatable)")
     ap.add_argument("--limit", type=int, default=0, help="at most N demos per batch (trial run)")
     ap.add_argument("--hz", type=int, default=evt.SAMPLE_HZ)

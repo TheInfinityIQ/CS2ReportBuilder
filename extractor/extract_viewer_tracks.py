@@ -83,8 +83,8 @@ PROJECT_ROOT = Path(
     r"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\replays\demoparser"
 )
 DEMO_FOLDER = "iTrilogy"
-DEMO_DIR = PROJECT_ROOT / "demos" / DEMO_FOLDER
-ANALYZED_DIR = PROJECT_ROOT / "v7dot7Analysis" / f"analyzed_{DEMO_FOLDER}"
+DEMO_DIR = PROJECT_ROOT / "01_Demos" / DEMO_FOLDER
+ANALYZED_DIR = PROJECT_ROOT / "02_Analysis" / f"analyzed_{DEMO_FOLDER}"
 
 SAMPLE_HZ = 8
 POST_ROUND_S = 4.0            # keep this many seconds after the round-end tick (matches the viewer)

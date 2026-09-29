@@ -35,7 +35,7 @@ burned by; each one becomes a regression test.
 ```
 python -m venv .venv && .venv\Scripts\activate      # Windows
 pip install -e ".[dev]"
-set CS2DI_ROOT=C:\...\replays\demoparser             # folder holding Demos\ and v7dot7Analysis\
+set CS2DI_ROOT=C:\...\replays\demoparser             # folder holding 01_Demos\ and 02_Analysis\
 cs2di gate mimy
 cs2di report mimy --steamid 76561199066695873 --plan examples\mimy\coach_plan.json --out out\MIMY_report.html
 pytest

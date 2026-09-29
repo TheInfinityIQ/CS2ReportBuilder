@@ -3,7 +3,7 @@
 **Goal.** Coaching tool for CS2: demos in, a report a player understands and trusts out.
 **Owner.** Dawson (CanadianIQ). 8,000 h player; the primary test subject and the domain check on every number.
 
-## Corpus (analysis root `v7dot7Analysis/`)
+## Corpus (analysis root `02_Analysis/`, formerly `v7dot7Analysis/`)
 | Batch | Source | Demos | Rounds |
 |---|---|---|---|
 | analyzed_faceit | FACEIT SourceTV (CanadianIQ B1-B4.5, donk, mezii) | 100 | 2,105 |

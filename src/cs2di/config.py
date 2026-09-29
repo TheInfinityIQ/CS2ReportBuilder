@@ -1,6 +1,6 @@
 """Single source of truth for filesystem layout (ADR-001).
 
-Set CS2DI_ROOT to the folder that contains ``demos/`` and ``v7dot7Analysis/``.
+Set CS2DI_ROOT to the folder that contains ``01_Demos/`` and ``02_Analysis/`` (layout in 00_LEGEND.md).
 Nothing else in the codebase may hard-code a path.
 """
 from __future__ import annotations
@@ -19,12 +19,12 @@ def root() -> Path:
 
 
 def demos_dir(batch: str) -> Path:
-    return root() / "Demos" / batch
+    return root() / "01_Demos" / batch
 
 
 def analysis_dir(batch: str) -> Path:
-    return root() / "v7dot7Analysis" / f"analyzed_{batch}"
+    return root() / "02_Analysis" / f"analyzed_{batch}"
 
 
 def outputs_dir() -> Path:
-    return root() / "Development" / "Outputs"
+    return root() / "07_Development" / "outputs"
