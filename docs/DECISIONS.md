@@ -74,3 +74,15 @@ Player Study (plain language, no maths on the surface, detail behind "How is thi
 and Analyst Desk (exact figures, denominators, limits, open questions) are tabs of one HTML file
 built from the same digest so they cannot disagree.
 
+## ADR-012: No "normal", "strong" or "weak" without a stated baseline
+Status: accepted 2026-09-28.
+A player's number only means something against a baseline. Until we have a real one, reports and
+analyst output say only what the data shows ("59% of opening fights in this sample") and name the
+comparison group when there is one ("the other 18 players in these 30 games"). Peer comparisons from
+the same games are a control, not a population norm. A finding about a player must also survive a
+peer baseline (pitfall 25) and a stability check before it can drive coaching. When many splits are
+tried, expect some to look meaningful by chance; guard against that (stability across halves of
+the batch, and a correction for the number of comparisons tried).
+Why: the owner pointed out that "his stats are normal" can also mean we are not extracting enough,
+or presenting it in a way that reveals nothing. Both are live possibilities.
+
