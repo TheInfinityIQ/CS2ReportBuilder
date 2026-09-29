@@ -230,21 +230,24 @@ function initViewer(root){
     for(const k of data.kills){ if(t<k.t) continue; if(k.vx!=null){const [x,y]=P(k.vx,k.vy); ctx.strokeStyle=k.vs?COL[k.vs]:'#999'; ctx.lineWidth=R/2.2;
         ctx.beginPath(); ctx.moveTo(x-R*.7,y-R*.7); ctx.lineTo(x+R*.7,y+R*.7); ctx.moveTo(x+R*.7,y-R*.7); ctx.lineTo(x-R*.7,y+R*.7); ctx.stroke();}
       if(t-k.t<2 && k.ax!=null && k.vx!=null){const [a,b]=P(k.ax,k.ay),[c,d]=P(k.vx,k.vy); ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=R/3; ctx.beginPath(); ctx.moveTo(a,b); ctx.lineTo(c,d); ctx.stroke();}}
-    ctx.font='600 '+Math.round(R*2.1)+'px system-ui,sans-serif'; ctx.textBaseline='middle';
+    ctx.textBaseline='middle';
     for(const p of data.players){const q=posAt(p,t); if(!q) continue; const [x,y]=P(q[0],q[1]);
       ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fillStyle=COL[p.side]; ctx.fill();
       ctx.lineWidth=p.me?R/2:R/5; ctx.strokeStyle=p.me?'#fff':'rgba(0,0,0,.6)'; ctx.stroke();
-      if(p.me){ctx.fillStyle='#fff'; ctx.strokeStyle='#000'; ctx.lineWidth=3; ctx.strokeText(p.name,x+R*1.4,y); ctx.fillText(p.name,x+R*1.4,y);} }
+      const fs=p.me?Math.round(R*2.1):Math.round(R*1.7); ctx.font=(p.me?'700 ':'500 ')+fs+'px system-ui,sans-serif';
+      ctx.fillStyle=p.me?'#fff':'rgba(255,255,255,.85)'; ctx.strokeStyle='#000'; ctx.lineWidth=p.me?3:2;
+      ctx.strokeText(p.name,x+R*1.4,y); ctx.fillText(p.name,x+R*1.4,y);}
     if(data.focus!=null && Math.abs(t-data.focus)<1.2){ctx.strokeStyle='#ffd400'; ctx.lineWidth=R/2; ctx.strokeRect(2,2,cv.width-4,cv.height-4);}
     range.value=t; lab.textContent=fmt(t)+' / '+fmt(T);
     const feed=root.querySelector('.v-feed'); const recent=data.kills.filter(k=>k.t<=t&&t-k.t<4).slice(-3);
-    feed.innerHTML=recent.map(k=>'<span><b class="'+(k.as||'')+'">'+(k.a||'World')+'</b> '+(k.w?'['+k.w+'] ':'')+'<b class="'+(k.vs||'')+'">'+k.v+'</b></span>').join('');
+    const nextHtml=recent.map(k=>'<span><b class="'+(k.as||'')+'">'+(k.a||'World')+'</b> '+(k.w?'['+k.w+'] ':'')+'<b class="'+(k.vs||'')+'">'+k.v+'</b></span>').join('');
+    if(feed.innerHTML!==nextHtml) feed.innerHTML=nextHtml;
   }
   function loop(ts){ if(!playing) return; if(last) t+=(ts-last)/1000*parseFloat(spd.value); last=ts;
     if(t>=T){t=T; playing=false; btn.textContent='Play'; btn.setAttribute('aria-pressed','false');} draw(); if(playing) requestAnimationFrame(loop);}
   btn.addEventListener('click',()=>{playing=!playing; btn.textContent=playing?'Pause':'Play'; btn.setAttribute('aria-pressed',String(playing)); last=0; if(playing){ if(t>=T) t=0; requestAnimationFrame(loop);} });
   range.addEventListener('input',()=>{t=parseFloat(range.value); draw();});
-  root.querySelector('.v-jump').addEventListener('click',()=>{t=Math.max(0,(data.focus||0)-5); draw();});
+  root.querySelector('.v-jump').addEventListener('click',()=>{t=Math.max(0,(data.focus||0)-5); draw(); playing=false; btn.textContent='Play'; btn.setAttribute('aria-pressed','false');});
   img.onload=draw; draw();
 }
 document.querySelectorAll('.viewer').forEach(initViewer);
@@ -269,7 +272,7 @@ def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick
             f'<canvas role="img" aria-label="Top-down replay of the round"></canvas>'
             f'<div class="v-feed" aria-live="polite"></div>'
             f'<div class="v-ctl"><button class="v-play" aria-pressed="false">Play</button>'
-            f'<button class="v-jump">Go to the moment</button>'
+            f'<button class="v-jump">Lead-in (−5 s)</button>'
             f'<input type="range" min="0" step="0.1" aria-label="Round time">'
             f'<span class="v-time"></span><select aria-label="Speed"><option value="0.5">0.5×</option>'
             f'<option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>'

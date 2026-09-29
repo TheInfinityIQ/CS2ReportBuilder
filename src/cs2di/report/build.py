@@ -92,8 +92,9 @@ def _player_study(plan: dict, d: dict, ctx: Ctx) -> str:
     moments = "".join(_moment(m, ctx, notes) for m in plan["moments"])
     head = (f'<div class="header"><div class="eyebrow">Player Study</div><h1>{name}</h1>'
             f'<div class="sub">{esc(rep.get("subtitle", ""))}</div></div>')
+    moments_section = f'<div id="moments-wrap"><div class="moments-filters" id="moments-filter-bar"></div><div id="moments-list">{moments}</div></div>'
     return (f'{_coverage(d)}{head}<section class="agenda"><div class="label">What this study covers</div>{agenda}</section>'
-            f'{moments}{_summary(plan.get("summary", {}))}{notes.list_html()}')
+            f'{moments_section}{_summary(plan.get("summary", {}))}{notes.list_html()}')
 
 
 def _c(v):
@@ -236,6 +237,58 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
  document.querySelectorAll('.tab-btn').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',p.id===b.dataset.target)});
  window.scrollTo(0,0);});});
+(function(){
+ var bar=document.getElementById('moments-filter-bar');
+ if(!bar) return;
+ var sits=Array.from(document.querySelectorAll('#moments-list .sit'));
+ if(!sits.length) return;
+ var maps=[...new Set(sits.map(function(s){return s.dataset.map;}).filter(Boolean))];
+ var outcomes=['win','loss'];
+ var active={outcome:null,map:null};
+ function applyFilter(){
+   sits.forEach(function(s){
+     var show=true;
+     if(active.outcome && s.dataset.outcome!==active.outcome) show=false;
+     if(active.map && s.dataset.map!==active.map) show=false;
+     if(show) s.removeAttribute('hidden'); else s.setAttribute('hidden','');
+   });
+   bar.querySelectorAll('.filter-btn').forEach(function(b){
+     var isActive=(b.dataset.outcome&&b.dataset.outcome===active.outcome)||(b.dataset.map&&b.dataset.map===active.map)||(b.dataset.reset&&!active.outcome&&!active.map);
+     b.classList.toggle('active',!!isActive);
+   });
+ }
+ function makeBtn(label,cls,data){
+   var b=document.createElement('button');
+   b.className='filter-btn'+(cls?' '+cls:'');
+   b.textContent=label;
+   Object.assign(b.dataset,data);
+   b.addEventListener('click',function(){
+     if(data.reset){active.outcome=null;active.map=null;}
+     else if(data.outcome){active.outcome=active.outcome===data.outcome?null:data.outcome;}
+     else if(data.map){active.map=active.map===data.map?null:data.map;}
+     applyFilter();
+   });
+   return b;
+ }
+ var lbl=document.createElement('span');
+ lbl.className='filter-label'; lbl.textContent='Filter:';
+ bar.appendChild(lbl);
+ bar.appendChild(makeBtn('All','active',{reset:'1'}));
+ outcomes.forEach(function(o){
+   var n=sits.filter(function(s){return s.dataset.outcome===o;}).length;
+   if(n) bar.appendChild(makeBtn(o==='win'?'Won ('+n+')':'Lost ('+n+')',o,{outcome:o}));
+ });
+ if(maps.length>1){
+   var sep=document.createElement('span'); sep.className='filter-label'; sep.style.marginLeft='8px'; sep.textContent='Map:';
+   bar.appendChild(sep);
+   maps.forEach(function(m){
+     var label=m.replace('de_','').replace(/_/g,' ');
+     label=label.charAt(0).toUpperCase()+label.slice(1);
+     bar.appendChild(makeBtn(label,'',{map:m}));
+   });
+ }
+ applyFilter();
+})();
 """
 
 

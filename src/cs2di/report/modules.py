@@ -331,8 +331,8 @@ def _moments_check(spec, ctx):
     _only(spec, {"title", "finding", "picks"}, "KeyMoments")
     f = ctx.finding(_req(spec, "finding", str, "KeyMoments"))
     picks = _req(spec, "picks", list, "KeyMoments")
-    if not 1 <= len(picks) <= 3:
-        raise ModuleError("KeyMoments: choose 1 to 3 picks")
+    if not 1 <= len(picks) <= 6:
+        raise ModuleError("KeyMoments: choose 1 to 6 picks")
     for i, pk in enumerate(picks):
         w = f"KeyMoments.picks[{i}]"
         if not isinstance(pk, dict):
@@ -371,8 +371,10 @@ def _moments_render(spec, ctx):
         res = '<span class="tag win">Round won</span>' if s["win"] else '<span class="tag loss">Round lost</span>'
         facts = observed_facts(ctx.batch_dir, demo, rnd, ctx.steamid, tick)
         view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps)
+        outcome = "win" if s["win"] else "loss"
         cards.append(
-            f'<div class="sit"><div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}'
+            f'<div class="sit" data-outcome="{outcome}" data-map="{esc(s["map"])}">'
+            f'<div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}'
             + (f' · {fmt.clock(e["round_time_s"])}' if e.get("round_time_s") is not None else "")
             + f'</strong><span><span class="tag">{esc(s["side"])}</span> {res}</span></div>'
             f'<div class="observed"><div class="eyebrow">What happened (from the demo)</div>'
