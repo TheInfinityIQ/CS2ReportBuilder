@@ -27,3 +27,7 @@ Sourced from the project's chat history and handoffs. "Where" names the origin.
 | 21 | Aggregate subtraction assumes subset relationships (255-237 != 18) | Compute round-level overlap | V3-D4.1 |
 | 22 | Raw ticks are not player language | Semantic anchors; seconds only when tickrate validated | V3/V4 |
 | 23 | Extractor `engagements.csv` tags a kill made just after a round ended to the NEXT parser round. It can invent an "opening" (MIMY: 61 opening kills vs true 60; Anubis 9-13 vs true 8-12) or hide a real one | Derive openings from events using the round window in `digest.py`; do not read openings from `engagements.csv` | MIMY check 2026-09-28 |
+| 24 | `player_death.weapon` is a lowercase code (`awp`); `*_active_weapon_name` is a display name (`AWP`, `SSG 08`). Filtering one column with the other's spelling silently drops half the rows (a fake "0 wins vs snipers", then a fake "27 of 27") | Normalize weapon names in one place before any weapon filter; test with both spellings | exploration 2026-09-28 |
+| 25 | A striking split can be true of everyone (MIMY wins 67% when holding vs 38% when moving into a holder, but so does every other player: 70% vs 30%) | A finding about a player needs a peer baseline from the same games before it may be called personal | exploration 2026-09-28 |
+| 26 | Some patterns are normal and should be recorded as such (trade rate 21% vs teammates 18%; unused grenades at death 43% vs everyone 44%) | Keep null results in the analyst output so the coach does not chase them | exploration 2026-09-28 |
+
