@@ -86,8 +86,22 @@ sup.fn a{text-decoration:none;color:var(--accent);font-weight:650;padding:0 1px}
 .bar-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 .verdict{margin:8px 0 0;font-size:14px;font-weight:600;color:var(--muted)}
 .verdict.credible{color:var(--ink)}
-.moments{display:grid;gap:12px}
+.moments{display:grid;gap:8px}
 .sit[hidden]{display:none}
+/* accordion drawers for KeyMoments picks */
+.km-accordion{display:grid;gap:6px}
+.km-drawer{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
+.km-drawer[data-outcome=win]{border-left:4px solid var(--good)}
+.km-drawer[data-outcome=loss]{border-left:4px solid var(--bad)}
+.km-drawer[hidden]{display:none}
+.km-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;list-style:none;user-select:none;font-weight:600}
+.km-summary::-webkit-details-marker{display:none}
+.km-summary::before{content:'▶';font-size:.7rem;color:var(--muted);margin-right:6px;transition:transform .18s;flex-shrink:0}
+.km-drawer[open]>.km-summary::before{transform:rotate(90deg)}
+.km-label{flex:1;font-size:.92rem}
+.km-res{flex-shrink:0}
+.km-drawer>.sit{border:none;border-radius:0;padding:0 16px 16px;background:transparent;border-left:none;margin:0}
+.km-drawer[open]>.sit{display:block}
 .moments-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
 .moments-filters .filter-label{font-size:.78rem;font-weight:650;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
 .filter-btn{font:inherit;font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:background .1s}

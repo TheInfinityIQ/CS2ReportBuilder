@@ -237,16 +237,26 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
  document.querySelectorAll('.tab-btn').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',p.id===b.dataset.target)});
  window.scrollTo(0,0);});});
+/* accordion: close siblings when one km-drawer opens */
+document.querySelectorAll('.km-accordion').forEach(function(acc){
+ acc.querySelectorAll('.km-drawer').forEach(function(d){
+   d.addEventListener('toggle',function(){
+     if(d.open) acc.querySelectorAll('.km-drawer').forEach(function(s){if(s!==d) s.open=false;});
+   });
+ });
+});
 (function(){
  var bar=document.getElementById('moments-filter-bar');
  if(!bar) return;
- var sits=Array.from(document.querySelectorAll('#moments-list .sit'));
- if(!sits.length) return;
- var maps=[...new Set(sits.map(function(s){return s.dataset.map;}).filter(Boolean))];
+ /* target km-drawers when present, fall back to bare .sit cards */
+ var items=Array.from(document.querySelectorAll('#moments-list .km-drawer'));
+ if(!items.length) items=Array.from(document.querySelectorAll('#moments-list .sit'));
+ if(!items.length) return;
+ var maps=[...new Set(items.map(function(s){return s.dataset.map;}).filter(Boolean))];
  var outcomes=['win','loss'];
  var active={outcome:null,map:null};
  function applyFilter(){
-   sits.forEach(function(s){
+   items.forEach(function(s){
      var show=true;
      if(active.outcome && s.dataset.outcome!==active.outcome) show=false;
      if(active.map && s.dataset.map!==active.map) show=false;
@@ -275,7 +285,7 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
  bar.appendChild(lbl);
  bar.appendChild(makeBtn('All','active',{reset:'1'}));
  outcomes.forEach(function(o){
-   var n=sits.filter(function(s){return s.dataset.outcome===o;}).length;
+   var n=items.filter(function(s){return s.dataset.outcome===o;}).length;
    if(n) bar.appendChild(makeBtn(o==='win'?'Won ('+n+')':'Lost ('+n+')',o,{outcome:o}));
  });
  if(maps.length>1){

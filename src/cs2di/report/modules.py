@@ -363,8 +363,8 @@ def _moments_render(spec, ctx):
 
     f = ctx.finding(spec["finding"])
     title = f'<div class="mod-title">{esc(spec["title"])}</div>' if spec.get("title") else ""
-    cards = []
-    for pk in spec["picks"]:
+    drawers = []
+    for i, pk in enumerate(spec["picks"]):
         e = f["examples"][pk["example"]]
         demo, rnd, tick = e["demo_id"], int(e["round"]), e.get("tick")
         s = ctx.situation(demo, rnd)
@@ -372,20 +372,31 @@ def _moments_render(spec, ctx):
         facts = observed_facts(ctx.batch_dir, demo, rnd, ctx.steamid, tick)
         view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps)
         outcome = "win" if s["win"] else "loss"
-        cards.append(
-            f'<div class="sit" data-outcome="{outcome}" data-map="{esc(s["map"])}">'
+        clock_str = fmt.clock(e["round_time_s"]) if e.get("round_time_s") is not None else ""
+        summary_label = (f'{esc(fmt.map_name(s["map"]))} · round {s["round"]}'
+                         + (f' · {clock_str}' if clock_str else "")
+                         + f' · {esc(s["side"])}')
+        open_attr = " open" if i == 0 else ""
+        card_inner = (
             f'<div class="sit-head"><strong>{esc(fmt.map_name(s["map"]))}, round {s["round"]}'
-            + (f' · {fmt.clock(e["round_time_s"])}' if e.get("round_time_s") is not None else "")
+            + (f' · {clock_str}' if clock_str else "")
             + f'</strong><span><span class="tag">{esc(s["side"])}</span> {res}</span></div>'
             f'<div class="observed"><div class="eyebrow">What happened (from the demo)</div>'
             f'<ul>{"".join(f"<li class=sub>{esc(x.strip())}</li>" if x.startswith("  ") else f"<li>{esc(x)}</li>" for x in facts)}</ul></div>'
             f'{view}<p class="why"><b>Coach\'s read:</b> {esc(pk["note"])}</p>'
-            f'<details class="disc"><summary>Show every kill in the round</summary><div class="disc-body">{_timeline(s, tick)}</div></details></div>')
+            f'<details class="disc"><summary>Show every kill in the round</summary>'
+            f'<div class="disc-body">{_timeline(s, tick)}</div></details>')
+        drawers.append(
+            f'<details class="km-drawer" data-outcome="{outcome}" data-map="{esc(s["map"])}"{open_attr}>'
+            f'<summary class="km-summary"><span class="km-label">{summary_label}</span>'
+            f'<span class="km-res">{res}</span></summary>'
+            f'<div class="sit">{card_inner}</div>'
+            f'</details>')
     disc = _disclosure("Why these rounds?", [
         ("Where they come from", f"Rounds from your games that fit: {f['situation'].lower()}."),
         ("What is fact and what is opinion", "'What happened' is computed from the demo. 'Coach's read' is interpretation."),
         ("Caution", "A few rounds show what the pattern looks like; the card above shows how often it happens.")])
-    return f'<div class="mod">{title}<div class="moments">{"".join(cards)}</div>{disc}</div>'
+    return f'<div class="mod">{title}<div class="moments km-accordion">{"".join(drawers)}</div>{disc}</div>'
 
 
 # ------------------------------------------------------------------- Registry
