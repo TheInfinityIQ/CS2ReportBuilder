@@ -17,7 +17,7 @@ Sourced from the project's chat history and handoffs. "Where" names the origin.
 | 11 | Clutch counted 146 vs true 45 in 322 rounds | Max one 1vX transition per round, from ordered deaths | coach chat |
 | 12 | Buy type from round_start equipment made 71% "eco" | Classify from freeze-end economy; split pistol rounds | coach chat |
 | 13 | Kill -> death in under 1 s is a trade/active-fight window, not "failed to disengage" | Separate 0-1 s, 1-3 s and true reposition analysis | coach chat |
-| 14 | Deaths outside the round interval (post-round) skew K/D | Exclude and reconcile with scoreboard, report residual | coach chat |
+| 14 | Kills/deaths just after the round-end tick still happen and the scoreboard counts them | Window each round from freeze end to the NEXT round's start so K/D matches the scoreboard; never let a post-round kill be an opening | coach chat, MIMY check 2026-09-28 |
 | 15 | Bomb-site ids are unstable across sources | Do not use raw site id as A/B identity | E0 |
 | 16 | Horizontal yaw error is not crosshair placement | No vertical/head claims | prompt |
 | 17 | Null contact latency is unknown, not 0 (3 s left-censored window) | Report only uncensored; state coverage | prompt |
@@ -26,3 +26,4 @@ Sourced from the project's chat history and handoffs. "Where" names the origin.
 | 20 | Pro means are not targets for a solo-queue player | Context only; report both sample sizes | prompt |
 | 21 | Aggregate subtraction assumes subset relationships (255-237 != 18) | Compute round-level overlap | V3-D4.1 |
 | 22 | Raw ticks are not player language | Semantic anchors; seconds only when tickrate validated | V3/V4 |
+| 23 | Extractor `engagements.csv` tags a kill made just after a round ended to the NEXT parser round. It can invent an "opening" (MIMY: 61 opening kills vs true 60; Anubis 9-13 vs true 8-12) or hide a real one | Derive openings from events using the round window in `digest.py`; do not read openings from `engagements.csv` | MIMY check 2026-09-28 |

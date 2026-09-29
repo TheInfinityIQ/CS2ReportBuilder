@@ -50,3 +50,27 @@ Claim ceilings (AI may weaken, never strengthen), no causal language from
 before/after data, one example is not a tendency, spatial sensors are not
 tactical truth, reference pros are context not targets. These are tests and
 validator rules, not prose.
+
+## ADR-009: The coach writes content; software owns every number and every pixel
+Status: accepted 2026-09-28.
+A report is a plan (JSON: words, plus choices from a fixed list of modules that reference
+metric ids and round ids). Software computes the metrics (`digest.py`), builds each module
+(`report/modules.py`), styles everything from one file (`report/theme.py`), and assembles the
+page (`report/build.py`). The plan has no fields for HTML, CSS, layout details or raw figures.
+Why: the owner wanted the AI to focus on coaching, and earlier reports drifted visually and
+numerically. The MIMY check showed a coach can be accurate, but it still tagged one post-round
+kill wrongly through the extractor's table, so the software must be the source of numbers.
+Consequences: a bad plan fails loudly with every problem listed; a new visual needs a new module.
+
+## ADR-010: Product first, then rigor
+Status: accepted 2026-09-28.
+Milestones end in something the owner can open. Validation effort stays proportional to product
+value; a new gate needs a failure it would have caught. Supersedes the earlier roadmap order
+(digest and validator before any report).
+
+## ADR-011: One file, two tabs, two audiences
+Status: accepted 2026-09-28.
+Player Study (plain language, no maths on the surface, detail behind "How is this calculated?")
+and Analyst Desk (exact figures, denominators, limits, open questions) are tabs of one HTML file
+built from the same digest so they cannot disagree.
+

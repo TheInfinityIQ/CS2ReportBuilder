@@ -1,0 +1,146 @@
+{
+  "report": {"player": "MIMY", "subtitle": "Dust2, Inferno, Anubis, Mirage and Cache"},
+  "agenda": "Four things stand out in these games. You win more first fights than you lose, and that is worth keeping. Cache and Anubis look like two different games. After you win the first fight, the next decision matters more than it seems. And your movement when a rifle fight begins is worth a closer look.",
+  "moments": [
+    {
+      "id": "first-fights",
+      "intent": "REINFORCE",
+      "title": "You win more first fights than you lose",
+      "question": "Are you getting the round started well?",
+      "blocks": [
+        {
+          "layout": "side_by_side",
+          "text": "The first kill of a round sets the tone for everyone. Across these games you got that first kill more often than you gave it away, and that is a real strength to build on.\n\nThis is the habit to protect. Later sections look at where it slips and what happens straight after.",
+          "module": {
+            "type": "MetricPair",
+            "title": "First fights of the round",
+            "left": {"metric": "opening_kills", "caption": "Rounds you got the first kill", "tone": "good"},
+            "right": {"metric": "opening_deaths", "caption": "Rounds you were first to die", "tone": "bad"}
+          }
+        }
+      ],
+      "takeaway": "Keep taking first fights the way you have been. It is working overall, and the next sections are about making it work everywhere.",
+      "analyst": {
+        "alternatives": ["Teammate support and the enemy team's setups also decide who wins a first fight; this data does not capture either."],
+        "limitations": ["A first fight is the first kill of the round, not necessarily the first time you were shot at.", "About a hundred first fights is enough to see the direction, not enough to split finely by side or map."]
+      }
+    },
+    {
+      "id": "cache-vs-anubis",
+      "intent": "UNDERSTAND",
+      "title": "Cache and Anubis look like two different games",
+      "question": "Is this a map problem or a you problem?",
+      "blocks": [
+        {
+          "layout": "text_above",
+          "text": "Overall you are fine, but the maps tell different stories. On Cache you win the first fight far more often than you lose it. On Anubis it goes the other way.\n\nThat gap is one clue that something about how you get into fights on Anubis differs from Cache. It is not proof that you are worse on Anubis, because the maps ask different things of you.[[note:maps]]",
+          "module": {"type": "ContextBreakdown", "measure": "opening_balance", "highlight": ["de_cache", "de_anubis"]}
+        },
+        {
+          "layout": "text_above",
+          "text": "Grenade damage shows the same split. You hurt enemies with grenades much more on Cache than on Anubis, so it is worth asking whether your grenades on Anubis are landing where enemies actually walk.",
+          "module": {"type": "ContextBreakdown", "measure": "utility_damage", "highlight": ["de_cache", "de_anubis"]}
+        },
+        {
+          "layout": "module_only",
+          "module": {
+            "type": "SituationContrast",
+            "title": "A first fight on each map",
+            "left": {"demo": "1-b9b10763-1dfd-49b7-8054-f6b5adb68758-1-1", "round": 8, "label": "Anubis: first to die", "why": "A typical Anubis round where you were the first to die, from an AK-47, and the round was lost."},
+            "right": {"demo": "1-ce568833-9dae-4c14-b7d4-60c33c0c8fdd-1-1", "round": 10, "label": "Cache: first kill", "why": "A typical Cache round where you opened with an AK-47 kill from Mid and the team won."}
+          }
+        }
+      ],
+      "takeaway": "Treat Cache as a model of how you like to get into fights, then watch your Anubis openings for what is different: the route, the timing, and how exposed you are.",
+      "analyst": {
+        "alternatives": ["Opponent quality and exact team assignments may differ by map.", "Your role on each map is not recorded in the data."],
+        "limitations": ["This compares maps inside one batch, not a trend over time.", "The data does not say what you were trying to do in each fight."]
+      }
+    },
+    {
+      "id": "after-the-opening-kill",
+      "intent": "ACTION",
+      "title": "After the opening kill, decide before you fight again",
+      "question": "What happens to you after you win the first fight?",
+      "blocks": [
+        {
+          "layout": "text_above",
+          "text": "Most of the time you win the first fight, you also die later in the same round. The rounds where you got the first kill and stayed alive were all won.\n\nThat does not mean staying alive wins rounds by itself. Some of those rounds were already going well. It does tell us the moment right after a first kill is worth treating as its own decision.[[note:survival]]",
+          "module": {
+            "type": "MetricCluster",
+            "title": "Rounds where you got the first kill",
+            "metrics": [
+              {"metric": "opening_kill_rounds", "caption": "Rounds with your first kill"},
+              {"metric": "opening_kill_died_later", "caption": "You died later in the round", "tone": "bad"},
+              {"metric": "opening_kill_survived", "caption": "You stayed alive", "tone": "good"},
+              {"metric": "opening_kill_survived_won", "caption": "Stayed alive and the team won", "tone": "good"}
+            ]
+          }
+        },
+        {
+          "layout": "module_only",
+          "module": {
+            "type": "SituationContrast",
+            "title": "Two rounds after a first kill",
+            "left": {"demo": "1-1327e5fa-6f02-4d99-aff7-01d8238cff92-1-1", "round": 11, "label": "Inferno: fought again and died", "why": "You got the opening AK-47 kill and died within a second, in the same area, and the round was lost."},
+            "right": {"demo": "1-db726e64-a49b-46a2-8e9f-2650b92f9f7b-1-1", "round": 14, "label": "Cache: took it and stayed alive", "why": "You got the opening kill, stayed alive, and the team converted the round."}
+          }
+        }
+      ],
+      "takeaway": "After you win a first fight, pause and ask: should I disappear, move to a new spot, or take a second fight with a teammate close? Make that choice on purpose.",
+      "analyst": {
+        "alternatives": ["Staying alive may partly reflect rounds that were already favourable.", "Some later deaths are correct trades or objective plays."],
+        "limitations": ["The data cannot say whether a given re-peek was a good decision; watching the round is required."]
+      }
+    },
+    {
+      "id": "movement-in-rifle-fights",
+      "intent": "WATCH",
+      "title": "Watch how fast you are moving when a rifle fight starts",
+      "question": "Are you set before the fight begins?",
+      "blocks": [
+        {
+          "layout": "side_by_side",
+          "text": "When you win rifle fights you are usually moving slowly or stopped at the moment you first shoot. When you lose them, you are typically moving faster at the moment the enemy first shoots.[[note:speed]]\n\nThis fits a familiar pattern: fights that start while you are still carrying speed are harder to win. It does not tell us why. It could be your route, your timing, or being caught while moving somewhere necessary.",
+          "module": {
+            "type": "MetricPair",
+            "title": "Your speed at the start of rifle fights",
+            "left": {"metric": "rifle_kill_speed", "caption": "When you win (units per second)", "tone": "good"},
+            "right": {"metric": "rifle_death_speed", "caption": "When you lose (units per second)", "tone": "bad"}
+          }
+        },
+        {
+          "layout": "module_only",
+          "module": {
+            "type": "SituationContrast",
+            "title": "Moving versus set",
+            "left": {"demo": "1-18266140-2a36-4f92-a4bc-901f73cc4332-1-1", "round": 8, "label": "Anubis: caught moving", "why": "You were moving fast when the enemy first shot, in a rifle fight you lost."},
+            "right": {"demo": "1-09974c0c-8881-44e9-af7c-6b423584c185-1-1", "round": 8, "label": "Mirage: set and shooting", "why": "You were standing still when you first shot, and the fight was won."}
+          }
+        }
+      ],
+      "takeaway": "When you review a rifle death, first ask whether you had stopped before the fight started. Then use the replay to decide if the fix is your route, your timing, or your stopping.",
+      "analyst": {
+        "alternatives": ["Some fast deaths are unavoidable rotations rather than failed stops.", "The kill and death speeds are measured at different moments, which limits the comparison."],
+        "limitations": ["The data has no key-by-key movement history, so we cannot see how you stopped.", "Speed is in game units, not converted to anything else."]
+      }
+    }
+  ],
+  "summary": {
+    "covered": ["You win more first fights than you lose, and that is worth protecting.", "Cache and Anubis behave differently for you, in first fights and in grenade damage.", "The moment after an opening kill deserves its own decision.", "Your speed at the start of rifle fights differs between wins and losses."],
+    "watch": ["First fights on Anubis.", "Your next fight after an opening kill."],
+    "retest": ["After the next batch of games, check whether the rounds where you survive an opening kill increase.", "Check whether your speed when losing rifle fights comes down."]
+  },
+  "notes": {
+    "maps": "Each map has a different number of games behind it, so the smaller maps move around more than Dust2. Details are under the calculation notes and in the Analyst Desk.",
+    "survival": "Staying alive and winning go together, but this data cannot show that one causes the other.",
+    "speed": "Standing still is 0. A full run with a rifle is about 215."
+  },
+  "analyst": {
+    "open_questions": [
+      "Are the high-speed rifle deaths mostly late stopping, exposed routes, or unavoidable movement?",
+      "Which deaths after an opening kill were avoidable, and which were correct trades or objective plays?",
+      "Why is grenade damage so much lower on Anubis than on Cache?"
+    ]
+  }
+}
