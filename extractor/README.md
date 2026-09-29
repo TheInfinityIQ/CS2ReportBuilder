@@ -28,3 +28,14 @@ Design and measurements: `docs/VIEWER_DATA_OPTIONS_2026-09-29.md`. Needs the ori
 
 ## Using the sidecar in the report (viewer v3.4)
 Nothing to configure. `cs2di report` looks for `viewer_tracks.csv.gz`, `grenade_throws.csv.gz` and `grenade_paths.csv.gz` in each demo folder of the analyzed batch. When they exist the viewer draws the recorded 8 Hz view angle and the real grenade flight path, and the "What happened" box gains a line about where the player's view pointed before a kill or death. Demos without them use the event-only drawing (aim after shots, straight throw line).
+
+## Run the sidecar over every batch: `run_all_tracks.py`
+Next to `extract_viewer_tracks.py`. Walks `Demos\<batch>\**\*.dem` (sub-folders included), pairs each demo with
+`v7dot7Analysis\analyzed_<batch>\<demo file name>` (falls back to a unique same-named folder in any `analyzed_*`), and runs the
+sidecar. Resumable, one failure never stops the run, demos without an analyzed folder are listed, not processed.
+
+    python run_all_tracks.py --dry-run          # what is ready / missing
+    python run_all_tracks.py --limit 2          # 2 demos per batch as a trial
+    python run_all_tracks.py                    # everything (summary: ALL_TRACKS_RUN_SUMMARY.json in the demoparser folder)
+
+v7.8 is v7.7 plus `dmg_health_effective` only: same tables, same sampling. The 8 Hz data exists only in the sidecar files.
