@@ -24,7 +24,7 @@ When you change a truth, update every copy in the same task (post-work hat), or 
 | Packets: what exists, how many | each packet's `MANIFEST.json` on the device | packets `README.md`, legend Section 8, `agent/STATE.md` | manual (regenerate README from manifests) |
 | Eligible units per player | `docs/PLAYER_UNIT_COUNTS.csv` | `agent/STATE.md` mentions only the notable ones | manual |
 | Current design document | Design v5 (Claude Doc, linked from Project `claude/Design_v5.md`) | none (history docs in `docs/history/` are context only) | manual |
-| Hats, router, start-here | `agent/` and `CLAUDE.md` | Claude Project `claude/START_HERE.md` | path test |
+| Hats, router, start-here | `agent/` and `CLAUDE.md` | Claude Project `claude/START_HERE.md`; pointer file `CS2ReportBuilder\CLAUDE.md` on the device (points to the repo, restates nothing) | path test |
 | Pipeline overview | root `README.md` | Design v5 pipeline section, `CLAUDE.md` one-line description | manual |
 
 ## Known open conflicts (decisions for Dawson)

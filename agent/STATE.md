@@ -13,7 +13,7 @@ Last updated: 2026-09-29.
 - Design v5 exists as a Claude Doc / Project doc `claude/Design_v5.md`; it does not yet mention packets or this `agent/` system.
 
 ## Open
-- **Design v5 Claude Doc needs one edit** (left alone because Dawson has it open): its authority line says "code and tests > docs/DECISIONS.md and owner rulings > Design v5 > docs/history/". Change to: owner rulings > preferences > DECISIONS > RULES/PITFALLS/CRITIQUES > Design v5 > history (see CLAUDE.md), and mention ADR-005A and the packets.
+- Device has no git checkout of the repo; a local AI session there needs `git clone ... repo` (see the pointer file) before it can read `CLAUDE.md`.
 - Known defects: H-1 (example rounds are file-order and loss-skewed), H-2 (self-kill examples), H-3 (validator gaps: small and spelled-out numbers), H-4..H-9 in `docs/CRITIQUES.md`.
 - Decision for Dawson: lift the KeyMoments 1–6 round cap and the MetricCluster 2–4 cards limit?
 - Pro (tournament) packets lack flash-blind, footstep and reload streams (unknown, not zero).
@@ -28,6 +28,7 @@ Last updated: 2026-09-29.
 3. Intake steward: move ADR-014..017 into DECISIONS.md if approved; update Design v5.
 
 ## Recent work (newest first; keep the last 10 lines)
+- 2026-09-29: Rolled out. Design v5 Doc updated (authority order, ADR-005A, packets, agent loop). Pointer `CLAUDE.md` placed in the data workspace root (`CS2ReportBuilder\`). No git checkout exists on the device; all commits are made from the cloud container.
 - 2026-09-29: Consistency audit. Fixed: root README and extractor README (v7.8 current), ADR-005A, stale ROADMAP, COACHING_LESSONS vs RULES, retired handoff pack and PASTE_TO_FRESH_AI moved to `_archive/`, legend rows (coach prompt, design, onboarding). Added `agent/TRUTH_MAP.md` and `tests/test_docs_consistency.py`.
 - 2026-09-29: Stress-tested the hats system: dry run by a fresh read-only agent on 3 prompts (4 donk packets, review a visibility claim, reword 'no detectable difference'). It chose the right hats and pushed back where it should. Fixed 12 doc gaps (reading order, router paths, no-device fallback, wording route, unit counts, tail handles). Added authority/pushback clause, log tags and caps, agent/README.md.
 - 2026-09-29: Added pre-work and post-work hats and the judgement-call tail. Built the `agent/` hats system (`CLAUDE.md`, router, five hats, logs). Moved data folder to `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`. Built and delivered 8 packets; removed the Teaching Moment count rule.
