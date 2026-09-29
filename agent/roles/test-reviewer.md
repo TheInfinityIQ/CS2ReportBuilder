@@ -12,6 +12,8 @@
 
 **Output.** A findings list: claim, evidence, verdict, severity. New software/doc defects get the next H-n row in `docs/CRITIQUES.md`. Write down the good things too: they are what must not regress.
 
+**Independence.** If you built or edited the thing under review in this session, label the review "self-review" at the top, rely on mechanical checks, and recommend a fresh reviewer session before Dawson relies on it.
+
 **Do not** fix code in this hat (switch to Developer); soften a defect because the report looks good.
 
 **Done** = every defect logged with an ID and a proposed owner (software, prompt, or validator).
