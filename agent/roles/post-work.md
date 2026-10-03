@@ -23,7 +23,7 @@
 | left any doc stating something now false | fix it now, or list it in `agent/STATE.md` > Open |
 
 3. **Verify the record.** `git pull --rebase` before writing logs (append-only; two sessions may be editing). If the work is unfinished, write an `In progress` line in `agent/STATE.md` saying what is done, what is not, and where the partial files are.
-    Run `python -m pytest -q` if the repo changed (the agent-docs test catches dead paths). Commit and push docs changes with code. Confirm files delivered to the device exist.
+    After source changes, run `python scripts/navigation.py build` then `check`; review flagged summaries. Data changes need the local data-profile build/check. See `docs/NAVIGATION.md`. Run `python -m pytest -q` if the repo changed. Commit and push docs changes with code. Confirm files delivered to the device exist.
 4. **Write the reply.** What came out, the file, one natural next step. No recap of steps. Then the **tail** (below).
 
 **Fast path** (only if no file changed at all; writing any log or code leaves it): skip the sweep except "did Dawson state a preference or decision?"; still write the tail if a judgement call was made.

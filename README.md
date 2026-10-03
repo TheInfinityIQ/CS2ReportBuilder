@@ -21,6 +21,11 @@ Which document is the truth for which fact: `agent/TRUTH_MAP.md`. Design: Design
 Owner rulings and how to read the history: `docs/OWNER_RULINGS.md`, `docs/HOW_TO_READ_THE_HISTORY.md`. Data traps (each a regression test): `docs/KNOWN_PITFALLS.md`.
 
 ## Layout
+For AI file discovery, use [00_INDEX.md](00_INDEX.md) and the relevant folder map.
+[Navigation maintenance](docs/NAVIGATION.md) explains the searchable catalog,
+document chronology, and CI freshness check. The local data tree has separate
+maps; demo/analysis data and its catalog remain off GitHub.
+
 | Path | Purpose |
 |---|---|
 | `CLAUDE.md`, `agent/` | Start-here file, task router, role hats, preference/regression/state logs, source-of-truth map |

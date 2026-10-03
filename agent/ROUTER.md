@@ -16,6 +16,7 @@ A task not listed: pick the closest hat, and add a row here when you finish.
 | "Write the design / roadmap / handoff doc" | Intake steward, then Developer if code follows | `docs/ROADMAP.md`, `docs/DECISIONS.md`, Design v5 (Claude Project doc `claude/Design_v5.md`) | Doc written, stale claims removed |
 | "Write the coach plan for packet X" | (Not this agent's job in a normal session. A fresh, context-free coach does it from inside the packet folder, never from this repo.) | The packet only | `plan.json` passes the validator |
 | "Change the hats / router / logs / tail" | Intake steward | `agent/README.md` | Change made, `CLAUDE.md`, router and Project copy consistent, recorded in STATE |
+| "Improve the file directory", "refresh navigation", "index the documents" | Intake steward -> Developer | `docs/NAVIGATION.md`, `navigation/metadata.json`, `agent/TRUTH_MAP.md` | Maps/catalog refreshed, edited curated summaries reviewed, check and tests pass; local data stays local |
 
 ## Where things live
 - Code, tests, docs, coach prompts: this repo (GitHub TheInfinityIQ/cs2-demo-intelligence).

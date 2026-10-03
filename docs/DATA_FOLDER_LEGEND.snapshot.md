@@ -1,4 +1,4 @@
-<!-- SNAPSHOT of the data folder's 00_LEGEND.md taken 2026-09-29 (after the consistency audit). The device copy is authoritative; refresh this when it changes. Its purpose: a session with no device link still knows the layout. -->
+<!-- SNAPSHOT of the data folder legend taken 2026-10-03. Device copy is authoritative; refresh when it changes. -->
 
 # 00_LEGEND: start here
 
@@ -8,7 +8,7 @@ If you know nothing about this project, read this file, find your question in Se
 **Root location:** `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`
 (Moved from the Steam directory on 2026-09-29 to avoid Steam file-access restrictions.)
 
-Last updated: 2026-09-29. If you add or move anything, update this file (Section 7 says how).
+Last updated: 2026-10-03 (navigation added; older corpus/version tables retain their snapshot context). If you add or move anything, update this file (Section 7 says how).
 
 ---
 
@@ -16,6 +16,7 @@ Last updated: 2026-09-29. If you add or move anything, update this file (Section
 
 | I want to... | Go to |
 |---|---|
+| Find a file without reading whole folders | `00_INDEX.md`, then the relevant folder map; query the local catalog using repo `scripts/navigation.py` |
 | Add a file and sort it later | `00_ORGANIZE_ME/` |
 | Find a raw demo (.dem) | `01_Demos/<batch>/` (Section 3) |
 | Find the extracted data for a demo | `02_Analysis/analyzed_<batch>/<demo name>/` (Section 4) |
@@ -144,7 +145,7 @@ v7.8 = v7.7 plus two damage columns (`dmg_health_effective`, `same_tick_multi_hu
 1. New files go in `00_ORGANIZE_ME/`. Ask Claude to sort them; it will move them, log each move in `MOVES_MANIFEST.tsv`, and update this file.
 2. New batch: create `01_Demos/<batch>/`, run the extractor, confirm `02_Analysis/analyzed_<batch>/` appears, add a row to Section 3.
 3. New script version: put it in `current/`, move the old one to `archive/`, update Section 5.
-4. Nothing in this folder should sit loose at the top level besides `00_LEGEND.md`, `MOVES_MANIFEST.tsv` and `README.md`.
+4. Human-maintained root documents are `00_LEGEND.md`, `MOVES_MANIFEST.tsv` and `README.md`. Generated `00_INDEX.md` and `.navigation/` provide file discovery (Section 10); do not edit them by hand.
 
 Note: `v7dot7Analysis/` and `report_v3.3_report/` at the top level are empty leftovers that could not be removed automatically. Ignore or delete them.
 
@@ -161,9 +162,9 @@ A packet is a self-contained folder for a fresh AI coach: open `PROMPT.md` insid
 | `P_pug_MIMY` | MIMY | pug | 30 | |
 | `P_pug_iTrilogyy` | iTrilogyy | pug | 30 | |
 | `P_pug_shakestx` | shakestx | pug | 30 | |
-| `P_pro_ZywOo` | ZywOo | pro | 30 | Austin Major 2025 maps |
-| `P_pro_karrigan` | karrigan | pro | 30 | Austin Major 2025 maps |
-| `P_pro_xertioN` | xertioN | pro | 30 | Austin Major 2025 maps |
+| `P_pro_ZywOo` | ZywOo | pro | 30 | Austin 5, Cologne 12, Starladder 13 (assignment.csv) |
+| `P_pro_karrigan` | karrigan | pro | 30 | Austin 5, Cologne 16, Starladder 9 (assignment.csv) |
+| `P_pro_xertioN` | xertioN | pro | 30 | Austin 14, Cologne 6, Starladder 10 (assignment.csv) |
 
 `packets/README.md` has a full table with maps, rounds and finding counts. `_work/` holds build inputs (tarballs, assignment); a coach ignores it.
 
@@ -184,3 +185,25 @@ Example (Windows PowerShell, one session):
 $env:CS2DI_ROOT = "D:\NewLocation\demoparser"
 python -m cs2di.cli report ...
 ```
+
+## 10. Generated file discovery (2026-10-03)
+
+Open `00_INDEX.md`, then the folder map relevant to the task. Every included file
+has a catalog entry, including files beyond the compact Markdown page. Repetitive
+demo/analysis outputs use batch maps plus the catalog. Fresh-coach packet inputs
+are indexed without adding documents inside them. Browser profiles and caches
+are excluded.
+
+From the sibling Git checkout, run:
+```powershell
+python scripts/navigation.py build --root ../demoparser --profile data
+python scripts/navigation.py check --root ../demoparser --profile data
+python scripts/navigation.py find --root ../demoparser --profile data --query "ClaudeCoachingReportsTest" --limit 10
+```
+
+After source additions, edits, moves, or deletions, refresh the maps. Read and
+update a curated summary when its hash is flagged stale. See repo
+`docs/NAVIGATION.md` for review commands, chronology, exclusions, and limitations.
+This legend owns layout; original documents own their claims. Generated maps
+never establish that a historical design is current or accepted. All local data
+maps and catalogs stay off GitHub; the repository's own maps are checked in CI.

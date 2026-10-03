@@ -26,6 +26,7 @@ When you change a truth, update every copy in the same task (post-work hat), or 
 | Current design document | Design v5 (Claude Doc, linked from Project `claude/Design_v5.md`) | none (history docs in `docs/history/` are context only) | manual |
 | Hats, router, start-here | `agent/` and `CLAUDE.md` | Claude Project `claude/START_HERE.md`; pointer file `CS2ReportBuilder\CLAUDE.md` on the device (points to the repo, restates nothing) | path test |
 | Pipeline overview | root `README.md` | Design v5 pipeline section, `CLAUDE.md` one-line description | manual |
+| File discovery descriptions and chronology | original files + reviewed `navigation/metadata.json` | generated `00_INDEX.md` maps and catalog; maintenance in `docs/NAVIGATION.md` | navigation check + test_navigation |
 
 ## Known open conflicts (decisions for Dawson)
 None currently open. Resolved 2026-09-29: three versions of the Teaching Moment limit; v7.7 vs v7.8 naming; stale roadmap items; retired handoff process on the device; legend calling Architecture v4.1 current.

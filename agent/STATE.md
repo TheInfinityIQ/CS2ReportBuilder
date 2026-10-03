@@ -32,3 +32,11 @@ Last updated: 2026-09-29.
 - 2026-09-29: Consistency audit. Fixed: root README and extractor README (v7.8 current), ADR-005A, stale ROADMAP, COACHING_LESSONS vs RULES, retired handoff pack and PASTE_TO_FRESH_AI moved to `_archive/`, legend rows (coach prompt, design, onboarding). Added `agent/TRUTH_MAP.md` and `tests/test_docs_consistency.py`.
 - 2026-09-29: Stress-tested the hats system: dry run by a fresh read-only agent on 3 prompts (4 donk packets, review a visibility claim, reword 'no detectable difference'). It chose the right hats and pushed back where it should. Fixed 12 doc gaps (reading order, router paths, no-device fallback, wording route, unit counts, tail handles). Added authority/pushback clause, log tags and caps, agent/README.md.
 - 2026-09-29: Added pre-work and post-work hats and the judgement-call tail. Built the `agent/` hats system (`CLAUDE.md`, router, five hats, logs). Moved data folder to `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`. Built and delivered 8 packets; removed the Teaching Moment count rule.
+
+## Superseding status 2026-10-03
+- A local Git checkout now exists at CS2ReportBuilder/repo; the earlier no-checkout statement is superseded.
+- Eight fresh-coach outputs exist locally with plan/report/review; claims and human usefulness remain unaudited. The earlier no-plans statement is superseded.
+- Navigation maps/catalog and source-hash summary reviews are implemented; repository freshness is checked in CI. See docs/NAVIGATION.md.
+- Claude Project START_HERE and cloud Design v5 copies need synchronization; local tools do not provide access to those project documents.
+- Current next work remains owner-selected; the eight saved coach outputs can be reviewed without repeating the runs.
+- 2026-10-03 recent work: generated 29 repository and 192 local maps; 79 tests pass. CI now checks map freshness and explicit core lint rules. Source artifacts remain in place.

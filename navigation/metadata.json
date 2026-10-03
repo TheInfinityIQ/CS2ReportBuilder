@@ -1,0 +1,272 @@
+{
+  "repo": {
+    "statuses": [
+      [
+        "docs/history/",
+        "history; not instruction"
+      ],
+      [
+        "research/",
+        "research; not product code"
+      ],
+      [
+        "coach/prompts/",
+        "legacy; retired"
+      ],
+      [
+        "reference/",
+        "historical snapshot"
+      ],
+      [
+        "examples/",
+        "format example; not player evidence"
+      ],
+      [
+        "assets/",
+        "presentation asset"
+      ],
+      [
+        "tests/",
+        "executable check"
+      ],
+      [
+        "src/",
+        "product implementation"
+      ],
+      [
+        "agent/",
+        "agent workflow; authority per CLAUDE.md"
+      ],
+      [
+        "docs/",
+        "project reference; authority per CLAUDE.md"
+      ]
+    ],
+    "folders": {
+      ".": "Start with CLAUDE.md and agent/STATE.md, choose a task in agent/ROUTER.md, then open one relevant folder map. Do not recursively read these indexes.",
+      "agent": "Current agent workflow and source-of-truth routing. Read logs by task area, not end to end.",
+      "agent/roles": "Task-specific hats. Read only the roles selected by the router, plus pre-work and post-work.",
+      "agent/archive": "Archived workflow records; consult only for a historical question.",
+      "docs": "Rulings, decisions, critiques, plans, and audit references. Current status belongs in agent/STATE.md.",
+      "docs/history": "Historical context, not present instructions. Dates describe documents, not authority.",
+      "docs/history/design": "Historical designs and onboarding snapshots; version/date ordering does not mean acceptance.",
+      "docs/history/handoffs": "Recorded experiment results; PASS is not proof of product usefulness.",
+      "src": "Product source code. The cs2di package contains the pipeline.",
+      "src/cs2di": "Evidence, digest, findings, repairs, CLI, and report package.",
+      "src/cs2di/report": "Product-owned plan validation, modules, styling, and replay rendering.",
+      "src/cs2di/evidence": "Integrity gate before evidence enters analysis.",
+      "coach": "Current packet templates and explicitly retired prompts.",
+      "coach/handoff": "Current fresh-coach instructions. Do not add agent workflow context to generated packets.",
+      "coach/prompts": "Legacy prompts retained for provenance, not current coaching instructions.",
+      "scripts": "Operational helpers for packets, replay facts, and navigation maintenance.",
+      "extractor": "Current extractor and additive viewer tracks; v7.7 is superseded.",
+      "reference": "Frozen corpus/capability snapshots. CURRENT in a filename is not a freshness guarantee.",
+      "research": "Historical implementations outside the active product pipeline.",
+      "research/stage3_legacy": "M3-M5 reconstruction/spatial experiments, retained as research.",
+      "tests": "Synthetic checks; tests do not require downloading demo data.",
+      "examples": "Content-only coach plans. These illustrate format, not evidence for another player.",
+      "assets": "Map art and transforms used in presentation.",
+      "assets/maps": "Radar images and map metadata; asset presence alone does not validate historical compatibility.",
+      "navigation": "Curated descriptions and policy for generated discovery maps.",
+      ".github/workflows": "GitHub checks, including navigation freshness."
+    },
+    "files": {
+      "CLAUDE.md": {
+        "summary": "Session entry point: authority, task hats, pre/post-work loop, and context-free coach boundary.",
+        "read_when": "every development session",
+        "reviewed_sha256": "8848909e60dcab9fb23dddd0eaee6e3c7ab75b5a01fde256e9175279441672b7"
+      },
+      "agent/STATE.md": {
+        "summary": "Mutable current status and unfinished work. Historical entries are superseded by newer status notes.",
+        "read_when": "session startup",
+        "reviewed_sha256": "9b9f4c85382f77ab1026d12d812856d8a7ea14e4ebaf7170148f90d2958ce9fa"
+      },
+      "agent/ROUTER.md": {
+        "summary": "Maps task intent to hats, required source files, and completion criteria.",
+        "read_when": "choosing the task route",
+        "reviewed_sha256": "eb6a61251811cc48837a06ce5d6c247b8c99c19ae2484182715802a028137e68"
+      },
+      "agent/TRUTH_MAP.md": {
+        "summary": "Names the authoritative file and dependent copies for repeated facts.",
+        "read_when": "a fact appears in several documents",
+        "reviewed_sha256": "1b7fdf03310db4c7ac850f51dc7c7d48f158adb5879dc7042b94ce1f16e292e1"
+      },
+      "docs/OWNER_RULINGS.md": {
+        "summary": "Owner decisions with reasons and firmness; use the precedence in CLAUDE.md.",
+        "read_when": "changing goals, scope, or product behaviour",
+        "reviewed_sha256": "11f8141271a04cb78c5f762b8494168e9d45e5cabe396c3290d8f747555e7a4a"
+      },
+      "docs/DECISIONS.md": {
+        "summary": "Append-only architecture decisions and superseding entries.",
+        "read_when": "a change affects an established design choice",
+        "reviewed_sha256": "c9b3fb5422623c52abcb11112ba106133dfd5e47bec4794580db805814ac978a"
+      },
+      "docs/CRITIQUES.md": {
+        "summary": "Tracked product defects and review findings; check status before implementing a fix.",
+        "read_when": "reviewing or fixing report output",
+        "reviewed_sha256": "e74f2f8a1579ec26e42297b9ef5d9184540e6cb034eee5f0294b09e282cbdce1"
+      },
+      "docs/KNOWN_PITFALLS.md": {
+        "summary": "Failure-derived data traps and corresponding checks.",
+        "read_when": "changing evidence or interpreting suspect data",
+        "reviewed_sha256": "05123ad6c11656cec61c6ea66add11100e65d1d1003ad8e2dce76b9e3609877a"
+      },
+      "docs/HOW_TO_READ_THE_HISTORY.md": {
+        "summary": "How to recover owner intent from historical designs without treating old solutions as requirements.",
+        "reviewed_sha256": "1fece8880aba1e934f19e1ddaaa433d791e7470a3a3b1d845203d32a509835d4"
+      },
+      "docs/DATA_FOLDER_LEGEND.snapshot.md": {
+        "summary": "Dated copy of the local data-folder legend; the device legend wins.",
+        "status": "layout snapshot",
+        "reviewed_sha256": "6eccbf455c2f3288166184a309123ce02efd2f9b47820e36f41a2fece9a54edb"
+      },
+      "extractor/extract_demos_v7dot7.py": {
+        "status": "superseded extractor"
+      },
+      "docs/history/design/CS2_Demo_Intelligence_Master_Architecture_v4.1.docx": {
+        "summary": "Candidate v4.1 architecture: governed interpretation, teaching eligibility, selection, composition, and fallback. Historical, not a current freeze.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "c06dd7b132ee402c9552208716e6dfcd487fabe91a9791e081932bee4dbc2464"
+      },
+      "docs/history/design/CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx": {
+        "summary": "Stage 1-4 evolution and failure-derived lessons; descriptive history rather than requirements.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "214d64e0ea5a54a30c5ae3fd94bcd5c7f0a02ca72c4e87a897ce0093bd5ad80f"
+      },
+      "docs/history/design/CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx": {
+        "summary": "Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
+      }
+    }
+  },
+  "data": {
+    "statuses": [
+      [
+        "01_Demos/",
+        "raw local demo"
+      ],
+      [
+        "02_Analysis/",
+        "derived local evidence"
+      ],
+      [
+        "03_Scripts/archive/",
+        "superseded script"
+      ],
+      [
+        "03_Scripts/current/",
+        "local script; compare with Git checkout"
+      ],
+      [
+        "04_Reports/",
+        "report or presentation output"
+      ],
+      [
+        "05_Coach_Knowledge/architecture_review/",
+        "historical design; not instruction"
+      ],
+      [
+        "05_Coach_Knowledge/ai_chat_history/",
+        "historical chat; not instruction"
+      ],
+      [
+        "05_Coach_Knowledge/onboarding",
+        "historical onboarding snapshot"
+      ],
+      [
+        "05_Coach_Knowledge/cs2_profile_build/answers/",
+        "candidate extraction; unverified"
+      ],
+      [
+        "05_Coach_Knowledge/cs2_profile_build/",
+        "knowledge-build artifact; see source verification"
+      ],
+      [
+        "05_Coach_Knowledge/content_creator_transcripts/",
+        "creator transcript; captions may be wrong"
+      ],
+      [
+        "06_Handoff_and_Tests/packets/",
+        "isolated packet snapshot"
+      ],
+      [
+        "06_Handoff_and_Tests/test_coaches/",
+        "coach-test output; build is not claims audit"
+      ],
+      [
+        "07_Development/",
+        "historical development artifact"
+      ],
+      [
+        "_archive/",
+        "archived; not current authority"
+      ]
+    ],
+    "folders": {
+      ".": "Local data/document map. Code authority is in the sibling Git checkout; the local legend owns data layout. Bulk files are catalogued without parsing demos or repeating schemas.",
+      "00_ORGANIZE_ME": "Unsorted intake and review notes; these do not override source evidence.",
+      "01_Demos": "Raw local demos. Open the batch map, then query filenames; no demo bytes are decoded by navigation.",
+      "02_Analysis": "Extracted evidence. Batch maps and the catalog avoid thousands of repeated per-demo index files.",
+      "03_Scripts": "Local runnable extractors and archives; compare current copies with the Git repository.",
+      "04_Reports": "Rendered reports and presentation artifacts, never machine evidence sources.",
+      "05_Coach_Knowledge": "History, curriculum, transcripts, and sourced knowledge-profile work. Read only the branch relevant to the task.",
+      "05_Coach_Knowledge/ai_chat_history": "Historical development conversations. The three Claude exports explain the September 29 packet/profile pivot; they are not runtime instructions.",
+      "05_Coach_Knowledge/architecture_review": "Historical designs in documented-date/version order. Candidate, accepted, and superseded are separate concepts.",
+      "05_Coach_Knowledge/cs2_profile_build": "Sourced CS2 profile pilot plus the cheaper NotebookLM extraction route; raw claims still need verification.",
+      "05_Coach_Knowledge/content_creator_transcripts": "Creator-caption source library. Query creator, title, or date rather than reading a whole transcript tree.",
+      "06_Handoff_and_Tests": "Packet instructions and saved coach tests. Navigation writes no files inside fresh-coach packet directories.",
+      "06_Handoff_and_Tests/test_coaches": "Existing plans, reports, and reviews to audit before repeating coach runs.",
+      "07_Development": "Experiment history and local outputs. Current product implementation is in the Git checkout.",
+      "07_Development/stage_steps": "Milestone result folders in natural stage/version order; a result does not make its old next-step instruction current.",
+      "08_Demo_Downloading": "Demo downloader code. Browser profiles, caches, and credential-like files are excluded from indexing.",
+      "_archive": "Superseded artifacts retained for provenance."
+    },
+    "files": {
+      "00_LEGEND.md": {
+        "summary": "Human-maintained data layout and quick finder. Check dated claims against current files; generated indexes handle file discovery.",
+        "reviewed_sha256": "c4816bc43f817f2564b404fff6ce5d8a7eb6fa0522513da6c9ee649a857b70bd"
+      },
+      "05_Coach_Knowledge/ai_chat_history/ClaudeDemoparserFilesReview.txt": {
+        "summary": "Developer handoff: shift to independent single-batch coaches, repository/Design v5 rollout, and packet testing as the next task.",
+        "reviewed_sha256": "60da817594fcfcda7d7642bb5977563fdb2cfaa4f967eaa30ca3b26047d2d06f"
+      },
+      "05_Coach_Knowledge/ai_chat_history/ClaudeAIKnowledgeBase.txt": {
+        "summary": "Owner requests transferable CS2 expertise without fake memory gaps; pilot verification and token-cost experiment lead to NotebookLM bundles.",
+        "reviewed_sha256": "4a1796e182a0bfb5adb7deeb9b0ffa711ece26a88fcbfc6ba49dea3f602be923"
+      },
+      "05_Coach_Knowledge/ai_chat_history/ClaudeCoachingReportsTest.txt": {
+        "summary": "Eight coach builds completed; wording/claims were not audited. Lists validator, replay-selection, and metric-definition issues.",
+        "reviewed_sha256": "aa6cef02d0a5e9ff6acc6e027cc3c055c1c9ecf18d290f08620c261fd74760dc"
+      },
+      "05_Coach_Knowledge/cs2_profile_build/README_BUILD.md": {
+        "summary": "Pilot pipeline and known issues. Its 1,578-source count predates the date filter; current retained sources are in triage_manifest.csv.",
+        "reviewed_sha256": "1b0c565ca18d0d8a189e16fc63ffa8d0513b568d4560c5ce36a3645d68d87483"
+      },
+      "05_Coach_Knowledge/player_knowledge_base/CS2_Experienced_Player_Knowledge_Base.md": {
+        "summary": "Earlier experienced-player evaluation persona. Its simulated limitations conflict with the owner's later transferable-knowledge profile requirement.",
+        "status": "earlier persona; not final profile",
+        "reviewed_sha256": "f0f9bd59d4df8400b4a28f33e804be521ff8a6ee54a746cd259723aff188ac16"
+      },
+      "06_Handoff_and_Tests/PASTE_TO_FRESH_AI.md": {
+        "summary": "Current isolated-coach test workflow; explicitly retires the older two-pass coach_analysis.json process.",
+        "reviewed_sha256": "606e9584c385c447193b8bf70e3e07a989b3d9e2591607f1b2a1c89b0468ff0f"
+      },
+      "05_Coach_Knowledge/architecture_review/CS2_Demo_Intelligence_Master_Architecture_v4.1.docx": {
+        "summary": "Historical candidate architecture with lifecycle, teaching eligibility, selection governance, and composition fallback; not a current implementation mandate.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "c06dd7b132ee402c9552208716e6dfcd487fabe91a9791e081932bee4dbc2464"
+      },
+      "05_Coach_Knowledge/architecture_review/CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx": {
+        "summary": "Stage 1-4 evolution and failure-derived lessons, descriptive rather than normative.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "214d64e0ea5a54a30c5ae3fd94bcd5c7f0a02ca72c4e87a897ce0093bd5ad80f"
+      },
+      "05_Coach_Knowledge/onboarding_document/CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx": {
+        "summary": "Historical continuity brief: support ACTION blocked and viewer work pending. Later packet experiments supersede its immediate work path.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
+      }
+    }
+  }
+}

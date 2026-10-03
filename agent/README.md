@@ -18,3 +18,8 @@
 **Changing the system.** Edits that change Dawson's authority, the tail, or the Non-goals need his OK. Other edits: make them, update the router and `CLAUDE.md`, note it in STATE Recent work.
 
 **Known limits.** Untested with a fresh agent until the dry run in STATE says otherwise. A hat is only as good as its Done line: if a session skips the post-work sweep, the logs go stale; the reviewer of that session should check.
+
+**Discovery maps (2026-10-03).** Open `00_INDEX.md`, then one task-relevant folder map;
+use `scripts/navigation.py` to page/search the catalog. `docs/NAVIGATION.md` owns
+maintenance instructions. Source edits require a build/check and review of stale
+curated descriptions. Generated summaries are not rulings, evidence, or new hats.

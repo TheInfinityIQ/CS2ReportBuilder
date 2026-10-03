@@ -112,3 +112,9 @@ does a bug exist, how large an effect can N games detect). Never as a norm in a 
 600-1,200 decided fights). Findings must say so; "no clear difference" is a valid result, and the
 coaching must also come from round-level behaviour (trades, value of kills, playing an advantage,
 utility purpose, economy, clutch discipline), see docs/COACHABLE_CONCEPTS.md.
+
+## ADR-018: Generated discovery maps with source-bound summaries
+
+Status: implemented 2026-10-03 for the owner's file-discovery request.
+Every non-internal Git folder has a compact 00_INDEX.md. Local authored-document/source folders and demo/analysis batches have maps; repetitive data directories use a paged JSONL catalog. No database or model call is required. The original files remain authoritative. Curated descriptions bind to normalized hashes and must be reviewed after source edits; extracted/filename descriptions carry explicit provenance. CI rejects stale repository output. Raw data/catalogs stay local, and generation never modifies fresh-coach packet inputs. Chronology uses explicit dates, then natural versions for undated records, never mtime.
+This navigation decision does not accept any proposed Design v5 ADR numbered 014-017; those proposals still require reconciliation.

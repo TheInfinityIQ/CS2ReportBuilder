@@ -87,3 +87,7 @@ default, revisit freely. **Open** = not settled; do not fill the gap with an ass
 
 - What the first "good enough" Viewer2D map looks like, given radar/historical limits.
 - Whether Analyst Desk should be editable or read-only in the first build.
+
+## File discovery (2026-10-03)
+
+- **Find relevant documents without reloading the history.** Folder-local references and descriptions should stay current after additions/edits; chronological context matters for designs. **Firm goal.** The owner explicitly invited practical alternatives to a handwritten MD file in every repetitive data folder. Generated compact maps and a complete local catalog are the developer's reversible implementation choice, not a new evidence authority.

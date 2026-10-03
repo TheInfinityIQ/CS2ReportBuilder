@@ -225,7 +225,10 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
             row = g.loc[t]
             if not alive[t]:
                 xy += [None, None]
-                hp.append(0); ar.append(0); wp.append(-1); fl.append(0)
+                hp.append(0)
+                ar.append(0)
+                wp.append(-1)
+                fl.append(0)
                 continue
             xy += [int(row.X), int(row.Y)]
             hp.append(int(row.health) if not pd.isna(row.health) else 0)
