@@ -34,21 +34,14 @@
         "product implementation"
       ],
       [
-        "agent/",
-        "agent workflow; authority per CLAUDE.md"
-      ],
-      [
         "docs/",
-        "project reference; authority per CLAUDE.md"
+        "reference; distinguish current state from historical claims"
       ]
     ],
     "folders": {
-      ".": "Start with CLAUDE.md and agent/STATE.md, choose a task in agent/ROUTER.md, then open one relevant folder map. Do not recursively read these indexes.",
-      "agent": "Current agent workflow and source-of-truth routing. Read logs by task area, not end to end.",
-      "agent/roles": "Task-specific hats. Read only the roles selected by the router, plus pre-work and post-work.",
-      "agent/archive": "Archived workflow records; consult only for a historical question.",
-      "docs": "Rulings, decisions, critiques, plans, and audit references. Current status belongs in agent/STATE.md.",
-      "docs/history": "Historical context, not present instructions. Dates describe documents, not authority.",
+      ".": "README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.",
+      "docs": "Current project status, optional navigation, and labeled historical references. Old priorities are not current instructions.",
+      "docs/history": "Historical sources and archived instructions. Retrieve only for a relevant question.",
       "docs/history/design": "Historical designs and onboarding snapshots; version/date ordering does not mean acceptance.",
       "docs/history/handoffs": "Recorded experiment results; PASS is not proof of product usefulness.",
       "src": "Product source code. The cs2di package contains the pipeline.",
@@ -68,57 +61,35 @@
       "assets": "Map art and transforms used in presentation.",
       "assets/maps": "Radar images and map metadata; asset presence alone does not validate historical compatibility.",
       "navigation": "Curated descriptions and policy for generated discovery maps.",
-      ".github/workflows": "GitHub checks, including navigation freshness."
+      ".github/workflows": "GitHub checks, including navigation freshness.",
+      "docs/history/agent-system": "Retired agent procedures retained as evidence, not active rules.",
+      "docs/history/agent-system/2026-10-03": "Verified snapshots of the rules reset; MIGRATION.json records original locations and hashes."
     },
     "files": {
-      "CLAUDE.md": {
-        "summary": "Session entry point: authority, task hats, pre/post-work loop, and context-free coach boundary.",
-        "read_when": "every development session",
-        "reviewed_sha256": "8848909e60dcab9fb23dddd0eaee6e3c7ab75b5a01fde256e9175279441672b7"
-      },
-      "agent/STATE.md": {
-        "summary": "Mutable current status and unfinished work. Historical entries are superseded by newer status notes.",
-        "read_when": "session startup",
-        "reviewed_sha256": "9b9f4c85382f77ab1026d12d812856d8a7ea14e4ebaf7170148f90d2958ce9fa"
-      },
-      "agent/ROUTER.md": {
-        "summary": "Maps task intent to hats, required source files, and completion criteria.",
-        "read_when": "choosing the task route",
-        "reviewed_sha256": "eb6a61251811cc48837a06ce5d6c247b8c99c19ae2484182715802a028137e68"
-      },
-      "agent/TRUTH_MAP.md": {
-        "summary": "Names the authoritative file and dependent copies for repeated facts.",
-        "read_when": "a fact appears in several documents",
-        "reviewed_sha256": "1b7fdf03310db4c7ac850f51dc7c7d48f158adb5879dc7042b94ce1f16e292e1"
-      },
       "docs/OWNER_RULINGS.md": {
-        "summary": "Owner decisions with reasons and firmness; use the precedence in CLAUDE.md.",
-        "read_when": "changing goals, scope, or product behaviour",
-        "reviewed_sha256": "11f8141271a04cb78c5f762b8494168e9d45e5cabe396c3290d8f747555e7a4a"
+        "summary": "Historical owner statements pending renewed product review; not the development-rule authority.",
+        "reviewed_sha256": "929f529a3034912542c76949e3c230df28a293942ce013b0f77a782d253a3870"
       },
       "docs/DECISIONS.md": {
-        "summary": "Append-only architecture decisions and superseding entries.",
-        "read_when": "a change affects an established design choice",
-        "reviewed_sha256": "c9b3fb5422623c52abcb11112ba106133dfd5e47bec4794580db805814ac978a"
+        "summary": "Historical architecture decisions and proposals. Existing implementation and current requirements must be distinguished.",
+        "reviewed_sha256": "1d75b31b8b4d28a85132e7dc2618f6ed82593c396cc35272cf8333b6eb808a77"
       },
       "docs/CRITIQUES.md": {
-        "summary": "Tracked product defects and review findings; check status before implementing a fix.",
-        "read_when": "reviewing or fixing report output",
-        "reviewed_sha256": "e74f2f8a1579ec26e42297b9ef5d9184540e6cb034eee5f0294b09e282cbdce1"
+        "summary": "Historical product critiques and reported completion states; verify against code and evidence before relying on them.",
+        "reviewed_sha256": "98daf195060cb065e17ae745dc3e82a86aea99976600d4b61188597170d28ba5"
       },
       "docs/KNOWN_PITFALLS.md": {
-        "summary": "Failure-derived data traps and corresponding checks.",
-        "read_when": "changing evidence or interpreting suspect data",
-        "reviewed_sha256": "05123ad6c11656cec61c6ea66add11100e65d1d1003ad8e2dce76b9e3609877a"
+        "summary": "Recorded data traps and purported prevention checks; use as technical evidence to verify, not an inherited process hierarchy.",
+        "reviewed_sha256": "0a083bc11edea5e3cd8e17735e3ddc71faafc78714d176e30908b82f37864bcc"
       },
       "docs/HOW_TO_READ_THE_HISTORY.md": {
-        "summary": "How to recover owner intent from historical designs without treating old solutions as requirements.",
-        "reviewed_sha256": "1fece8880aba1e934f19e1ddaaa433d791e7470a3a3b1d845203d32a509835d4"
+        "summary": "Superseded history-reading instructions retained at the original location; current rules are in AGENTS.md.",
+        "reviewed_sha256": "d3f1470996675f0d12bd59b3987df572c09902ea387fe9d5e1dd51db11b1676a"
       },
       "docs/DATA_FOLDER_LEGEND.snapshot.md": {
-        "summary": "Dated copy of the local data-folder legend; the device legend wins.",
+        "summary": "Dated layout snapshot with new entry references; historical process statements are not active rules.",
         "status": "layout snapshot",
-        "reviewed_sha256": "6eccbf455c2f3288166184a309123ce02efd2f9b47820e36f41a2fece9a54edb"
+        "reviewed_sha256": "6193ca1c77b841493163c250cce0ed11fe093df6f6283506c29f3de4ccc02695"
       },
       "extractor/extract_demos_v7dot7.py": {
         "status": "superseded extractor"
@@ -137,6 +108,149 @@
         "summary": "Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale.",
         "date": "2026-09-28",
         "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
+      },
+      "docs/history/agent-system/2026-10-03/workspace-startup-instructions.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "57fd848d9b17bf98f2f23c546573f1523cc27d0912b5c28e8b0f562086ffbcd6"
+      },
+      "docs/history/agent-system/2026-10-03/repository-startup-instructions.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "8848909e60dcab9fb23dddd0eaee6e3c7ab75b5a01fde256e9175279441672b7"
+      },
+      "docs/history/agent-system/2026-10-03/agent-entry-instructions.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "f823cd0e13dc7f3f593278e5985354bba792d68d9c021f5a9cfd3ee85eada5d2"
+      },
+      "docs/history/agent-system/2026-10-03/agent/archive/README.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "260ba6dd6f8789c440f1f8196c9cf798759af514a0af6b81425761615b26e5c5"
+      },
+      "docs/history/agent-system/2026-10-03/agent/PREFERENCES.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "ea1ab3930b8f3642c46187f3934e9ba1ca7383ec0082f8e2e7e308c385f0deed"
+      },
+      "docs/history/agent-system/2026-10-03/agent/README.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "5b2cabe72e971e3ceaf8bbc8d6371224ce2245c75a12653023bbadf08ee4d0a7"
+      },
+      "docs/history/agent-system/2026-10-03/agent/REGRESSIONS.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "199097634366ffc379e7f1fffb4c9b1e385cd64fb070e183f57509d9e5559aaf"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/developer.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "a66b79dc0be9ab1d89d4c02b35668e0d055a2d5aa3c24b6478267217bf80e3ba"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/intake-steward.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "23284fd933cf59d599823fb99afc20640f3e19e0cf91cfb25be95693cfa76aca"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/librarian.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "d55021224c020131a8bd189ce2fe67f0bc74cc78a2086ea72f56ecd22309475c"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/packet-builder.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "df0795290d5b51bf83554129ec8d47c9cfd4b04ff7caa1b98daf7d8fbd36651d"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/post-work.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "a57610b6849d2859310f0e0f0ab66cd2914eb8070ea48094ce3d06e626e11749"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/pre-work.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "5006cb4789c19e494a61d5efacfd77d2fc27ac9895cb37319463743f8d2f4a6c"
+      },
+      "docs/history/agent-system/2026-10-03/agent/roles/test-reviewer.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "3545e9ddbe9920ad06f58404a3293300d863feaa0612cdfdf058885f78fb6507"
+      },
+      "docs/history/agent-system/2026-10-03/agent/ROUTER.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "eb6a61251811cc48837a06ce5d6c247b8c99c19ae2484182715802a028137e68"
+      },
+      "docs/history/agent-system/2026-10-03/agent/STATE.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "9b9f4c85382f77ab1026d12d812856d8a7ea14e4ebaf7170148f90d2958ce9fa"
+      },
+      "docs/history/agent-system/2026-10-03/agent/TRUTH_MAP.md": {
+        "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
+        "status": "superseded agent-system history",
+        "date": "2026-10-03",
+        "read_when": "investigating the previous workflow",
+        "reviewed_sha256": "1b7fdf03310db4c7ac850f51dc7c7d48f158adb5879dc7042b94ce1f16e292e1"
+      },
+      "AGENTS.md": {
+        "summary": "Current working agreement: evidence-backed autonomy, case-by-case delegation, automatic verified commits/pushes, and selective context.",
+        "reviewed_sha256": "b3003152c7ee3c41f1db253a3e88f8f8f9de6bb2080331a58b9e3a39fd0d7164"
+      },
+      "CLAUDE.md": {
+        "summary": "Compatibility import of AGENTS.md; no independent rule copy or mandatory history loading.",
+        "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
+      },
+      "README.md": {
+        "summary": "Master project entry with task-oriented source links, implementation overview, and verified PowerShell CLI syntax.",
+        "reviewed_sha256": "58120cb6ec44ce5f9fa38e1d218cc31f0389bdd8f837c30abc0fca6eb6014f94"
+      },
+      "docs/PROJECT_STATUS.md": {
+        "summary": "Observed implementation, saved outputs, unresolved contradictions, and verification evidence; not inherited priorities.",
+        "reviewed_sha256": "1bb26843ac272fb239f22ed8e093e699c992f42a6589deb24de05c8fb9cdf3ed"
+      },
+      "docs/NAVIGATION.md": {
+        "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
+        "reviewed_sha256": "084b43f286e6ffc5b20fbe31077305d9f49aba7c1fe9f4b1f80e6bdeb327db59"
+      },
+      "docs/history/README.md": {
+        "summary": "Question-oriented references to historical designs, decisions, reviews, and archived instructions.",
+        "reviewed_sha256": "77434e88132ac6c318186bb23a821b0f258c700f486873d8af12b04691f0fb52"
       }
     }
   },
@@ -204,7 +318,7 @@
       ]
     ],
     "folders": {
-      ".": "Local data/document map. Code authority is in the sibling Git checkout; the local legend owns data layout. Bulk files are catalogued without parsing demos or repeating schemas.",
+      ".": "Local layout and optional file discovery. Project entry and development rules live in the sibling repo README.md and AGENTS.md.",
       "00_ORGANIZE_ME": "Unsorted intake and review notes; these do not override source evidence.",
       "01_Demos": "Raw local demos. Open the batch map, then query filenames; no demo bytes are decoded by navigation.",
       "02_Analysis": "Extracted evidence. Batch maps and the catalog avoid thousands of repeated per-demo index files.",
@@ -224,8 +338,8 @@
     },
     "files": {
       "00_LEGEND.md": {
-        "summary": "Human-maintained data layout and quick finder. Check dated claims against current files; generated indexes handle file discovery.",
-        "reviewed_sha256": "c4816bc43f817f2564b404fff6ce5d8a7eb6fa0522513da6c9ee649a857b70bd"
+        "summary": "Local layout and quick finder; new development entry references, with older corpus claims explicitly dated.",
+        "reviewed_sha256": "9d94d5a3e1dba9a3424ee3dccb9ab60057508c0d2a8b90140a9c6a4aa5d28b11"
       },
       "05_Coach_Knowledge/ai_chat_history/ClaudeDemoparserFilesReview.txt": {
         "summary": "Developer handoff: shift to independent single-batch coaches, repository/Design v5 rollout, and packet testing as the next task.",

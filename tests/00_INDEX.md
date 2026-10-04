@@ -15,10 +15,10 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
 | [conftest.py](conftest.py) | Python definitions: make_demo, played_demo | executable check / undated | extracted |
-| [test_agent_docs.py](test_agent_docs.py) | The agent start-here docs must not point at repo files that do not exist. | executable check / undated | extracted |
+| [test_agent_docs.py](test_agent_docs.py) | Check current entry links and preservation of archived instruction sources. | executable check / undated | extracted |
 | [test_analyst.py](test_analyst.py) | Python definitions: test_win_chance_edges_and_shrinkage, test_small_samples_never_become_findings, _analysis, ready, test_finding_blocks_render_with_verdict_and_calculation,… | executable check / undated | extracted |
 | [test_digest.py](test_digest.py) | Python definitions: test_counts_including_kill_after_round_end, test_late_kill_is_never_an_opening, test_damage_ignores_team_damage, test_unknown_is_not_zero, test_every_metric_has_a_plain_definition,… | executable check / undated | extracted |
-| [test_docs_consistency.py](test_docs_consistency.py) | Cheap guards that the documents which state the same fact still agree (see agent/TRUTH_MAP.md). | executable check / undated | extracted |
+| [test_docs_consistency.py](test_docs_consistency.py) | Checks for current runtime documentation and named product files. | executable check / undated | extracted |
 | [test_fights_findings.py](test_fights_findings.py) | Python definitions: test_weapon_display_and_event_names_agree, _fights, test_same_match_in_two_batches_is_kept_once, test_bh_is_monotone_and_bounded, test_small_samples_are_never_findings | executable check / undated | extracted |
 | [test_integrity.py](test_integrity.py) | Python definitions: test_clean_demo_passes, test_soft_warnings_do_not_fail, test_each_hard_failure_fails_closed, test_missing_file_fails_closed, test_malformed_json_fails_closed,… | executable check / undated | extracted |
 | [test_navigation.py](test_navigation.py) | Navigation must detect drift without altering evidence or isolated coach inputs. | executable check / undated | extracted |

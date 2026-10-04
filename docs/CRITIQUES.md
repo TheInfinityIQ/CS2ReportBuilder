@@ -1,3 +1,9 @@
+> Historical reference retained at its original path during cleanup.
+> Old instructions, priorities, and completion claims are not current
+> authority. Consult [AGENTS.md](../AGENTS.md) for development rules and
+> [PROJECT_STATUS.md](PROJECT_STATUS.md) for observed state. Verify
+> technical claims against their evidence before relying on them.
+
 # Critique log (regression guard)
 
 Every critique of the product, who raised it, what we decided, and whether it is done. Read this

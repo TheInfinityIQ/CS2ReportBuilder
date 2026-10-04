@@ -1,3 +1,9 @@
+> Historical reference retained at its original path during cleanup.
+> Old instructions, priorities, and completion claims are not current
+> authority. Consult [AGENTS.md](../AGENTS.md) for development rules and
+> [PROJECT_STATUS.md](PROJECT_STATUS.md) for observed state. Verify
+> technical claims against their evidence before relying on them.
+
 # Owner rulings (reasons first)
 
 DRAFT for owner review. Nothing here is authoritative until Dawson has corrected it.

@@ -1,3 +1,9 @@
+> Historical reference retained at its original path during cleanup.
+> Old instructions, priorities, and completion claims are not current
+> authority. Consult [AGENTS.md](../AGENTS.md) for development rules and
+> [PROJECT_STATUS.md](PROJECT_STATUS.md) for observed state. Verify
+> technical claims against their evidence before relying on them.
+
 # Roadmap
 
 Owner priority (from Stage 5): a usable product again. The engineering exists to make the

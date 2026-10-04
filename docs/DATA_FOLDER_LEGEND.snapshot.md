@@ -1,14 +1,14 @@
-<!-- SNAPSHOT of the data folder legend taken 2026-10-03. Device copy is authoritative; refresh when it changes. -->
+<!-- Layout snapshot taken 2026-10-03; local 00_LEGEND.md owns locations. Historical process instructions are not active rules. -->
 
 # 00_LEGEND: start here
 
 This is the map of the whole `demoparser` folder (CS2 demo analysis and coaching project).
-If you know nothing about this project, read this file, find your question in Section 1, and go to the path it names. Do not browse.
+Use this layout reference when locating local material. Project orientation and current development rules are in the sibling repo README.md and AGENTS.md; older process statements here are historical.
 
 **Root location:** `C:\Users\dawso\Developer\CS2ReportBuilder\demoparser`
 (Moved from the Steam directory on 2026-09-29 to avoid Steam file-access restrictions.)
 
-Last updated: 2026-10-03 (navigation added; older corpus/version tables retain their snapshot context). If you add or move anything, update this file (Section 7 says how).
+Last updated: 2026-10-03 (entry references refreshed after the rules reset; older corpus/version tables retain their snapshot context). Update affected layout references when locations change.
 
 ---
 
@@ -16,7 +16,7 @@ Last updated: 2026-10-03 (navigation added; older corpus/version tables retain t
 
 | I want to... | Go to |
 |---|---|
-| Find a file without reading whole folders | `00_INDEX.md`, then the relevant folder map; query the local catalog using repo `scripts/navigation.py` |
+| Find an unknown file | Targeted search; optionally one relevant `00_INDEX.md` or repo `scripts/navigation.py` catalog query |
 | Add a file and sort it later | `00_ORGANIZE_ME/` |
 | Find a raw demo (.dem) | `01_Demos/<batch>/` (Section 3) |
 | Find the extracted data for a demo | `02_Analysis/analyzed_<batch>/<demo name>/` (Section 4) |
@@ -29,7 +29,7 @@ Last updated: 2026-10-03 (navigation added; older corpus/version tables retain t
 | See screenshots of the report or of data | `04_Reports/screenshots/` |
 | Read the current coach prompt and rules | git repo `coach/handoff/PROMPT.md`, `RULES.md`, `MODULES.md` (each packet holds a copy). `05_Coach_Knowledge/onboarding_pack/` prompts are legacy |
 | Read what data the extractor can produce | `05_Coach_Knowledge/onboarding_pack/data_capability_report_current.md` |
-| Read the current design | Design v5 (a Claude Doc; the git repo `docs/DECISIONS.md` and `agent/TRUTH_MAP.md` say where). The `.docx` files in `05_Coach_Knowledge/` are history |
+| Understand current implementation and gaps | git repo `README.md` and `docs/PROJECT_STATUS.md`. Design v5 is an external historical reference whose contents are not verified here |
 | Read the old architecture and design history | `05_Coach_Knowledge/architecture_review/` (history only) |
 | Read pro-player and creator knowledge | `05_Coach_Knowledge/content_creator_transcripts/` and `player_knowledge_base/` |
 | Find the old AI chat logs (how decisions were made) | `05_Coach_Knowledge/ai_chat_history/` |
@@ -40,9 +40,9 @@ Last updated: 2026-10-03 (navigation added; older corpus/version tables retain t
 | Find the awpy / demoparser library source | `07_Development/repos/` |
 | Download FACEIT demos | `08_Demo_Downloading/` |
 | Undo a move or find where a file used to be | `MOVES_MANIFEST.tsv` (old path, new path) |
-| Find something that looks like junk or a duplicate | `_archive/` (safe to delete once you are happy) |
+| Find something that looks like junk or a duplicate | `_archive/` (historical material; inspect provenance and dependencies before deleting) |
 
-**AI agents: start with `CLAUDE.md` and `agent/STATE.md` in the git repo** (GitHub TheInfinityIQ/cs2-demo-intelligence). They define the task router and the role "hats"; this legend is the map of the data folder only.
+**Project entry:** git repo `README.md`; development rules: `AGENTS.md`; current state: `docs/PROJECT_STATUS.md`. The old hats/router are archived. This legend describes local layout, not development authority.
 
 The real source code for the report builder lives in the git repo `cs2-demo-intelligence` (GitHub: TheInfinityIQ/cs2-demo-intelligence), not in this folder. This folder holds data, scripts you run, and outputs.
 
@@ -122,7 +122,7 @@ Data dictionary: `05_Coach_Knowledge/onboarding_pack/data_capability_report_curr
 | Run tracks on everything | `03_Scripts/current/run_all_tracks.py` | none |
 | Player report | `MIMY_report_v3.3.html` (v3.4 lives in the git repo) | v2, v3.0, v3.2 |
 | Coach prompt | repo `coach/handoff/PROMPT.md` (each `06_.../packets/<id>/PROMPT.md` is a generated copy) | `05_.../onboarding_pack/` prompts, `_archive/handoff_2026-09-29_pre_packets/` |
-| Onboarding (a new contributor) | git repo `CLAUDE.md` then `agent/STATE.md` | `05_.../onboarding_document/...LIVING_ONBOARDING_CURRENT_v1.2.docx` (history; "CURRENT" in the name is stale) |
+| Onboarding (a new contributor) | git repo `README.md`, `AGENTS.md`, and task-relevant `docs/PROJECT_STATUS.md` | `05_.../onboarding_document/...LIVING_ONBOARDING_CURRENT_v1.2.docx` (history; "CURRENT" in the name is stale) |
 | Architecture and design | Design v5 (Claude Doc) | `...Master_Architecture_v4.1.docx`, v4.0, DesignV2, V2.1 |
 | Coach packets | `06_.../packets/P_<kind>_<player>/` | the single-player pack now in `_archive/handoff_2026-09-29_pre_packets/` |
 
