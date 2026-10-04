@@ -3,7 +3,7 @@ name = "cs2di"
 version = "0.1.0"
 description = "CS2 Demo Intelligence: evidence engine and Player Study product"
 requires-python = ">=3.11"
-dependencies = ["pandas>=2.2", "pyarrow>=15", "scipy>=1.11"]
+dependencies = ["pandas>=2.2", "pyarrow>=15", "scipy>=1.11", "Pillow>=10"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.5"]

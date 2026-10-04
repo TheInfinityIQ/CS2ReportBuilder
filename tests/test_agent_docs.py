@@ -13,6 +13,7 @@ ENTRY_DOCS = [REPO / p for p in (
     "docs/CLEANUP_2026-10-04.md", "docs/history/SOURCES.md",
     "docs/history/project-records/README.md", "docs/history/design/README.md",
     "docs/KNOWN_PITFALLS.md",
+    "docs/PACKET_BUILDER_UI.md",
 )]
 
 

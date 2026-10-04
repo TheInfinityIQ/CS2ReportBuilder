@@ -4,7 +4,7 @@
 Evidence, digest, findings, repairs, CLI, and report package.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **23 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **24 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -29,6 +29,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [findings.py](findings.py) | Analyst findings from the fight table: where and in what situations a player wins or loses fights, compared with a stated baseline. Every comparison is kept, including "no difference". Baseline (ADR-013): the… | product implementation / undated | extracted |
 | [ids.py](ids.py) | SteamID64 handling. IDs are strings/ints only, never floats (KNOWN_PITFALLS #3). | product implementation / undated | extracted |
 | [impact.py](impact.py) | Round impact: what each kill and death did to the team's chance of winning the round. Everything is learned from the batch itself (ADR-013). The win-chance table comes from the rounds in the submitted demos:… | product implementation / undated | extracted |
+| [packet_jobs.py](packet_jobs.py) | Local UI jobs: select evidence and publish a packet only after its build passes. | product implementation / undated | extracted |
 | [repair.py](repair.py) | Data-fix script for already-extracted v7.x output. Additive, verified, reversible. Repair ``effective_damage_v1`` (extractor <= v7.7, see KNOWN_PITFALLS 27): - ``events/player_hurt.csv.gz`` gains… | product implementation / undated | extracted |
 
 ## Find a specific file

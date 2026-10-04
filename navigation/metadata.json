@@ -204,12 +204,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Master project entry with task-oriented source links, implementation overview, and verified PowerShell CLI syntax.",
-        "reviewed_sha256": "e33e6e0ec2e999352b7b86c3e941c1a2971bf29eae154fe91c40f47f9ac43e71"
+        "summary": "Master project entry, local packet-builder launcher, implementation overview and setup.",
+        "reviewed_sha256": "af7e89ca1cf311c7dc9f47a3af11c9f19a210cd732a4301ccf360fe3ea624ace"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Observed implementation and open product gaps after documentation cleanup; report usefulness is not yet audited.",
-        "reviewed_sha256": "0965a2f1daf826fdee4526ff60e4fbf317fca576fc831763a22bd18fef722e35"
+        "summary": "Observed implementation, the local packet-builder window and open product gaps; reports are not independently audited.",
+        "reviewed_sha256": "7bf75d91d64637a96db615b69463bf8f01a91f1830eddcca9cfaa26550c23787"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",

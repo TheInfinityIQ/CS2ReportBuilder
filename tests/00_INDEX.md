@@ -4,7 +4,7 @@
 Synthetic checks; tests do not require downloading demo data.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **11 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **12 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -22,6 +22,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [test_fights_findings.py](test_fights_findings.py) | Python definitions: test_weapon_display_and_event_names_agree, _fights, test_same_match_in_two_batches_is_kept_once, test_bh_is_monotone_and_bounded, test_small_samples_are_never_findings | executable check / undated | extracted |
 | [test_integrity.py](test_integrity.py) | Python definitions: test_clean_demo_passes, test_soft_warnings_do_not_fail, test_each_hard_failure_fails_closed, test_missing_file_fails_closed, test_malformed_json_fails_closed,… | executable check / undated | extracted |
 | [test_navigation.py](test_navigation.py) | Navigation must detect drift without altering evidence or isolated coach inputs. | executable check / undated | extracted |
+| [test_packet_jobs.py](test_packet_jobs.py) | Python definitions: test_inspection_excludes_failures_and_groups_exact_player_ids, test_selects_an_example_for_another_player, fake_builder, test_jobs_preserve_sources_and_previous_packets,… | executable check / undated | extracted |
 | [test_repair.py](test_repair.py) | Python definitions: hurts, test_same_tick_hits_are_not_double_counted, test_row_order_does_not_matter_and_single_hits_unchanged, test_unknown_victim_is_never_chained_and_unknown_stays_unknown,… | executable check / undated | extracted |
 | [test_report.py](test_report.py) | Python definitions: ready, build, mutate, test_builds_with_both_tabs_and_shell, test_css_is_single_source_and_ai_cannot_style, test_player_surface_has_no_math_terms,… | executable check / undated | extracted |
 | [test_weapons.py](test_weapons.py) | Python definitions: test_every_seen_name_is_mapped, test_he_grenade_is_not_a_rifle, test_unmapped_name_becomes_unknown_and_fails_the_build, test_empty_names_are_no_icon, test_viewer_js_parses | executable check / undated | extracted |

@@ -67,7 +67,7 @@ This folder is a complete, self-contained task. Open `PROMPT.md` and follow it.
 - `PROMPT.md`  the task and the steps
 - `RULES.md`, `MODULES.md`  the rules and the plan format
 - `data/`  the evidence the software computed, and the matches behind it
-- `src/`, `tools/`, `assets/`  the report software and helper (Python 3.11+, pandas, pyarrow, scipy)
+- `src/`, `tools/`, `assets/`  the report software and helper (Python 3.11+, pandas, pyarrow, scipy, Pillow)
 
 Packet id: {pid}. {n} matches. Prepared {today}.
 """

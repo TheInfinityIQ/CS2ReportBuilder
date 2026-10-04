@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **51 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **52 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -23,8 +23,9 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [DATA_FOLDER_LEGEND.snapshot.md](DATA_FOLDER_LEGEND.snapshot.md) | Dated layout snapshot with new entry references; historical process statements are not active rules. | layout snapshot / undated | curated |
 | [KNOWN_PITFALLS.md](KNOWN_PITFALLS.md) | Data pitfalls: relocated source — The historical catalogue is preserved in | reference; distinguish current state from historical claims / undated | extracted |
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
+| [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Coach packet window — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. | reference; distinguish current state from historical claims / undated | extracted |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Observed implementation and open product gaps after documentation cleanup; report usefulness is not yet audited. | reference; distinguish current state from historical claims / 2026-10-04 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Observed implementation, the local packet-builder window and open product gaps; reports are not independently audited. | reference; distinguish current state from historical claims / 2026-10-04 | curated |
 
 ## Find a specific file
 

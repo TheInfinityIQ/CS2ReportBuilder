@@ -7,6 +7,9 @@ Date: 2026-10-04. Distinguish observed artifacts from verified behavior.
 - A local Git checkout exists at CS2ReportBuilder/repo, alongside demoparser.
 - Source implements extraction v7.8, viewer sidecar, integrity gating, digest,
   analysis, plan validation, packet generation, and HTML report rendering.
+- A local [packet-builder window](PACKET_BUILDER_UI.md) selects extracted batches
+  and players, builds isolated packets, and exports ZIPs. Each build uses a new
+  destination and reports excluded matches; raw demo extraction remains separate.
 - Eight saved run_2026-09-29_fresh_subagent directories exist for CanadianIQ_1,
   CanadianIQ_2, MIMY, iTrilogyy, shakestx, ZywOo, karrigan, and xertioN under
   demoparser/06_Handoff_and_Tests/test_coaches. Earlier inspection found plans,

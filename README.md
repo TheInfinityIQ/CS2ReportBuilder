@@ -18,6 +18,11 @@ coaching as a player; engineering choices are supported by evidence.
 
 ## Current implementation
 
+To prepare a coach packet with dropdowns and buttons, double-click
+[Open_Coach_Packet_Builder.cmd](Open_Coach_Packet_Builder.cmd).
+Select an extracted batch and player, then build, open or export the packet.
+See [the window guide](docs/PACKET_BUILDER_UI.md) for setup and scope.
+
 ```text
 demo -> extractor (v7.8, schema 3.8) -> extracted evidence
      -> viewer-tracks sidecar -> integrity gate -> digest -> analyst findings

@@ -4,7 +4,7 @@
 Product source code. The cs2di package contains the pipeline.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **23 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **24 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 

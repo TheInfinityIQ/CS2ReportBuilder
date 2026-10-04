@@ -4,7 +4,7 @@
 README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **144 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **149 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 ## Subfolders
 
@@ -30,8 +30,9 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [.gitignore](.gitignore) | .gitignore (file). | source / undated | filename |
 | [AGENTS.md](AGENTS.md) | Current working agreement: evidence-backed autonomy, case-by-case delegation, automatic verified commits/pushes, and selective context. | source / undated | curated |
 | [CLAUDE.md](CLAUDE.md) | Compatibility import of AGENTS.md; no independent rule copy or mandatory history loading. | source / undated | curated |
+| [Open_Coach_Packet_Builder.cmd](Open_Coach_Packet_Builder.cmd) | Open Coach Packet Builder (cmd). | source / undated | filename |
 | [pyproject.toml](pyproject.toml) | [project] — name = "cs2di" | source / undated | extracted |
-| [README.md](README.md) | Master project entry with task-oriented source links, implementation overview, and verified PowerShell CLI syntax. | source / undated | curated |
+| [README.md](README.md) | Master project entry, local packet-builder launcher, implementation overview and setup. | source / undated | curated |
 
 ## Find a specific file
 
