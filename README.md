@@ -12,7 +12,7 @@ coaching as a player; engineering choices are supported by evidence.
 | What exists and what is uncertain? | [Project status](docs/PROJECT_STATUS.md) | Observations, verification evidence, gaps, and current work. |
 | How does a demo become a report? | Pipeline below; [extractor guide](extractor/README.md) | Component orientation and extraction details. |
 | How are coach packets made? | [Packet builder](scripts/build_packet.py); [runtime templates](coach/handoff/PROMPT.md) | Generated inputs; consult RULES.md and MODULES.md when changing packets. |
-| Why did earlier versions make a choice? | [History guide](docs/history/README.md) | Historical decisions, reviews, and original evidence. |
+| Why did earlier versions make a choice? | [Source-linked history](docs/history/SOURCES.md) | Development sequence, preserved conflicts, and original chat/experiment locations. |
 | Where is local data and research? | [Layout snapshot](docs/DATA_FOLDER_LEGEND.snapshot.md) | Locations in the sibling demoparser tree; dated claims need checking. |
 | Where is an unknown file? | Targeted search; [optional navigation](docs/NAVIGATION.md) | Maps/catalog when paths are unclear. No mandatory index detour. |
 

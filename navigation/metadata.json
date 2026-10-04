@@ -40,7 +40,7 @@
     ],
     "folders": {
       ".": "README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.",
-      "docs": "Current project status, optional navigation, and labeled historical references. Old priorities are not current instructions.",
+      "docs": "Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.",
       "docs/history": "Historical sources and archived instructions. Retrieve only for a relevant question.",
       "docs/history/design": "Historical designs and onboarding snapshots; version/date ordering does not mean acceptance.",
       "docs/history/handoffs": "Recorded experiment results; PASS is not proof of product usefulness.",
@@ -63,51 +63,18 @@
       "navigation": "Curated descriptions and policy for generated discovery maps.",
       ".github/workflows": "GitHub checks, including navigation freshness.",
       "docs/history/agent-system": "Retired agent procedures retained as evidence, not active rules.",
-      "docs/history/agent-system/2026-10-03": "Verified snapshots of the rules reset; MIGRATION.json records original locations and hashes."
+      "docs/history/agent-system/2026-10-03": "Verified snapshots of the rules reset; MIGRATION.json records original locations and hashes.",
+      "docs/history/project-records": "Preserved earlier project accounts, proposals, critiques and reviews; original references may name pre-migration paths.",
+      "docs/history/cleanup-2026-10-04": "Migration ledger for broader documentation cleanup; original paths and content hashes."
     },
     "files": {
-      "docs/OWNER_RULINGS.md": {
-        "summary": "Historical owner statements pending renewed product review; not the development-rule authority.",
-        "reviewed_sha256": "929f529a3034912542c76949e3c230df28a293942ce013b0f77a782d253a3870"
-      },
-      "docs/DECISIONS.md": {
-        "summary": "Historical architecture decisions and proposals. Existing implementation and current requirements must be distinguished.",
-        "reviewed_sha256": "1d75b31b8b4d28a85132e7dc2618f6ed82593c396cc35272cf8333b6eb808a77"
-      },
-      "docs/CRITIQUES.md": {
-        "summary": "Historical product critiques and reported completion states; verify against code and evidence before relying on them.",
-        "reviewed_sha256": "98daf195060cb065e17ae745dc3e82a86aea99976600d4b61188597170d28ba5"
-      },
-      "docs/KNOWN_PITFALLS.md": {
-        "summary": "Recorded data traps and purported prevention checks; use as technical evidence to verify, not an inherited process hierarchy.",
-        "reviewed_sha256": "0a083bc11edea5e3cd8e17735e3ddc71faafc78714d176e30908b82f37864bcc"
-      },
-      "docs/HOW_TO_READ_THE_HISTORY.md": {
-        "summary": "Superseded history-reading instructions retained at the original location; current rules are in AGENTS.md.",
-        "reviewed_sha256": "d3f1470996675f0d12bd59b3987df572c09902ea387fe9d5e1dd51db11b1676a"
-      },
       "docs/DATA_FOLDER_LEGEND.snapshot.md": {
         "summary": "Dated layout snapshot with new entry references; historical process statements are not active rules.",
         "status": "layout snapshot",
-        "reviewed_sha256": "6193ca1c77b841493163c250cce0ed11fe093df6f6283506c29f3de4ccc02695"
+        "reviewed_sha256": "fe39e686c9e46d7c3e1350eb0dd560c33412deb85e84ef07c6ef891b65912b66"
       },
       "extractor/extract_demos_v7dot7.py": {
         "status": "superseded extractor"
-      },
-      "docs/history/design/CS2_Demo_Intelligence_Master_Architecture_v4.1.docx": {
-        "summary": "Candidate v4.1 architecture: governed interpretation, teaching eligibility, selection, composition, and fallback. Historical, not a current freeze.",
-        "date": "2026-09-28",
-        "reviewed_sha256": "c06dd7b132ee402c9552208716e6dfcd487fabe91a9791e081932bee4dbc2464"
-      },
-      "docs/history/design/CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx": {
-        "summary": "Stage 1-4 evolution and failure-derived lessons; descriptive history rather than requirements.",
-        "date": "2026-09-28",
-        "reviewed_sha256": "214d64e0ea5a54a30c5ae3fd94bcd5c7f0a02ca72c4e87a897ce0093bd5ad80f"
-      },
-      "docs/history/design/CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx": {
-        "summary": "Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale.",
-        "date": "2026-09-28",
-        "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
       },
       "docs/history/agent-system/2026-10-03/workspace-startup-instructions.md": {
         "summary": "Preserved pre-reset instruction/status source. Historical, not active; original location is recorded in MIGRATION.json.",
@@ -238,19 +205,58 @@
       },
       "README.md": {
         "summary": "Master project entry with task-oriented source links, implementation overview, and verified PowerShell CLI syntax.",
-        "reviewed_sha256": "58120cb6ec44ce5f9fa38e1d218cc31f0389bdd8f837c30abc0fca6eb6014f94"
+        "reviewed_sha256": "e33e6e0ec2e999352b7b86c3e941c1a2971bf29eae154fe91c40f47f9ac43e71"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Observed implementation, saved outputs, unresolved contradictions, and verification evidence; not inherited priorities.",
-        "reviewed_sha256": "1bb26843ac272fb239f22ed8e093e699c992f42a6589deb24de05c8fb9cdf3ed"
+        "summary": "Observed implementation and open product gaps after documentation cleanup; report usefulness is not yet audited.",
+        "reviewed_sha256": "0965a2f1daf826fdee4526ff60e4fbf317fca576fc831763a22bd18fef722e35"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
-        "reviewed_sha256": "084b43f286e6ffc5b20fbe31077305d9f49aba7c1fe9f4b1f80e6bdeb327db59"
+        "reviewed_sha256": "7bebafee9091096fc5227592366606f4b4cb4094218a90cbd8c2eca67207f0ae"
       },
       "docs/history/README.md": {
-        "summary": "Question-oriented references to historical designs, decisions, reviews, and archived instructions.",
-        "reviewed_sha256": "77434e88132ac6c318186bb23a821b0f258c700f486873d8af12b04691f0fb52"
+        "summary": "Question-driven historical collections; source guide and migration ledger provide context without mandatory reading chains.",
+        "reviewed_sha256": "54f17fd5a5e5a646350ba96e718a6a9c5e6e824f8ff401e513124423f47ef0ee"
+      },
+      "docs/history/project-records/owner-statements-draft.md": {
+        "summary": "Historical owner statements pending renewed product review; not the development-rule authority.",
+        "reviewed_sha256": "929f529a3034912542c76949e3c230df28a293942ce013b0f77a782d253a3870"
+      },
+      "docs/history/project-records/architecture-decisions.md": {
+        "summary": "Historical architecture decisions and proposals. Existing implementation and current requirements must be distinguished.",
+        "reviewed_sha256": "1d75b31b8b4d28a85132e7dc2618f6ed82593c396cc35272cf8333b6eb808a77"
+      },
+      "docs/history/project-records/history-reading-procedure.md": {
+        "summary": "Superseded history-reading procedure; retained as historical evidence, not current instructions.",
+        "reviewed_sha256": "d3f1470996675f0d12bd59b3987df572c09902ea387fe9d5e1dd51db11b1676a"
+      },
+      "docs/history/project-records/critiques.md": {
+        "summary": "Historical product critiques and reported completion states; verify against code and evidence before relying on them.",
+        "reviewed_sha256": "98daf195060cb065e17ae745dc3e82a86aea99976600d4b61188597170d28ba5"
+      },
+      "docs/history/project-records/data-pitfalls.md": {
+        "summary": "Recorded data traps and purported prevention checks; use as technical evidence to verify, not an inherited process hierarchy.",
+        "reviewed_sha256": "0a083bc11edea5e3cd8e17735e3ddc71faafc78714d176e30908b82f37864bcc"
+      },
+      "docs/history/design/architecture-v4.1-candidate.docx": {
+        "summary": "Candidate v4.1 architecture: governed interpretation, teaching eligibility, selection, composition, and fallback. Historical, not a current freeze.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "c06dd7b132ee402c9552208716e6dfcd487fabe91a9791e081932bee4dbc2464"
+      },
+      "docs/history/design/stage1-stage4-evolution-v1.0.docx": {
+        "summary": "Stage 1-4 evolution and failure-derived lessons; descriptive history rather than requirements.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "214d64e0ea5a54a30c5ae3fd94bcd5c7f0a02ca72c4e87a897ce0093bd5ad80f"
+      },
+      "docs/history/design/2026-09-28-stage5-onboarding-v1.2.docx": {
+        "summary": "Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale.",
+        "date": "2026-09-28",
+        "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
+      },
+      "docs/history/SOURCES.md": {
+        "summary": "Consolidated development sequence, source paths, preserved contradictions, and current knowledge-build artifact counts.",
+        "reviewed_sha256": "a4272dad2cd17cf17db84b0dde6f65952f562d58e9fd9e44c130fd6c5db035e6"
       }
     }
   },
@@ -339,7 +345,7 @@
     "files": {
       "00_LEGEND.md": {
         "summary": "Local layout and quick finder; new development entry references, with older corpus claims explicitly dated.",
-        "reviewed_sha256": "9d94d5a3e1dba9a3424ee3dccb9ab60057508c0d2a8b90140a9c6a4aa5d28b11"
+        "reviewed_sha256": "f63b9d1af271099720cc256445c9f8dfa5a3279b338e970b3b4af869ce4c9dd8"
       },
       "05_Coach_Knowledge/ai_chat_history/ClaudeDemoparserFilesReview.txt": {
         "summary": "Developer handoff: shift to independent single-batch coaches, repository/Design v5 rollout, and packet testing as the next task.",
@@ -366,20 +372,36 @@
         "summary": "Current isolated-coach test workflow; explicitly retires the older two-pass coach_analysis.json process.",
         "reviewed_sha256": "606e9584c385c447193b8bf70e3e07a989b3d9e2591607f1b2a1c89b0468ff0f"
       },
-      "05_Coach_Knowledge/architecture_review/CS2_Demo_Intelligence_Master_Architecture_v4.1.docx": {
+      "05_Coach_Knowledge/architecture_review/architecture-v4.1-candidate.docx": {
         "summary": "Historical candidate architecture with lifecycle, teaching eligibility, selection governance, and composition fallback; not a current implementation mandate.",
         "date": "2026-09-28",
         "reviewed_sha256": "c06dd7b132ee402c9552208716e6dfcd487fabe91a9791e081932bee4dbc2464"
       },
-      "05_Coach_Knowledge/architecture_review/CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx": {
+      "05_Coach_Knowledge/architecture_review/stage1-stage4-evolution-v1.0.docx": {
         "summary": "Stage 1-4 evolution and failure-derived lessons, descriptive rather than normative.",
         "date": "2026-09-28",
         "reviewed_sha256": "214d64e0ea5a54a30c5ae3fd94bcd5c7f0a02ca72c4e87a897ce0093bd5ad80f"
       },
-      "05_Coach_Knowledge/onboarding_document/CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx": {
+      "05_Coach_Knowledge/onboarding_document/2026-09-28-stage5-onboarding-v1.2.docx": {
         "summary": "Historical continuity brief: support ACTION blocked and viewer work pending. Later packet experiments supersede its immediate work path.",
         "date": "2026-09-28",
         "reviewed_sha256": "75dc7655bdfc4e706d7b386395ac6b6aed61187c8a905f8e29f3e18dec4241c4"
+      },
+      "05_Coach_Knowledge/README.md": {
+        "summary": "Knowledge collections and their purpose; historical sources separated from current state and unfinished candidate knowledge.",
+        "reviewed_sha256": "f72d002b76937cc1d4a78aa81b0de513a01f5f56ff0884f9e8463637c980a362"
+      },
+      "05_Coach_Knowledge/ai_chat_history/README.md": {
+        "summary": "Seventeen canonical chat sources described by topic, with aliases for deduplicated or renamed transcripts.",
+        "reviewed_sha256": "ea60ba9c902d2f4c1ffc57dc35298bbaf685c36653620ca8e5325f78990c7860"
+      },
+      "05_Coach_Knowledge/cs2_profile_build/README.md": {
+        "summary": "Current artifact counts and source lineage; candidate answers are not a validated knowledge profile.",
+        "reviewed_sha256": "1e38d00191ba18a4b3e5422f0c59c7c3b4b64c5f287defba832d23204a311004"
+      },
+      "07_Development/README.md": {
+        "summary": "Milestone collections, exact handoff evidence and preservation limits; current software is in the Git checkout.",
+        "reviewed_sha256": "3f08911254f139ca3911ea1846faa28a68d9425d1d5126c525af60d5deb1b7eb"
       }
     }
   }

@@ -1,21 +1,18 @@
 # Project history
 
-Retrieve history for a question, not as required startup reading. Dates and
-versions describe provenance, not acceptance. Historical instructions are not
-the current working agreement.
+Use [the source-linked history](SOURCES.md) to find the relevant experiment or
+chat lesson. Read originals when a decision depends on the details. This is
+historical evidence; the current agreement is [AGENTS.md](../../AGENTS.md).
 
-| Question | Source | Caution |
-|---|---|---|
-| What procedures were replaced? | [Agent-system archive](agent-system/2026-10-03/README.md) | Original instructions are preserved, not active. |
-| What did earlier architectures propose? | [Design collection](design/00_INDEX.md) | CURRENT filenames can describe old snapshots. |
-| What experiments were recorded? | [Handoff collection](handoffs/00_INDEX.md) | Interpret PASS against the specific check and data. |
-| What choices and owner statements were recorded? | [Old decisions](../DECISIONS.md), [owner statements](../OWNER_RULINGS.md) | Historical choices are not renewed requirements. |
-| What problems were reported? | [Critiques](../CRITIQUES.md), [pitfalls](../KNOWN_PITFALLS.md) | Verify completion and prevention claims. |
+| Collection | Contents |
+|---|---|
+| [Project records](project-records/README.md) | Earlier decisions, owner-statement draft, priorities, critiques, chat audit and UX reviews. |
+| [Design snapshots](design/README.md) | Versioned designs, evolution record and onboarding snapshot. |
+| [Experiment handoffs](handoffs/00_INDEX.md) | Recorded checks and outcomes; PASS describes a particular check. |
+| [Retired agent system](agent-system/2026-10-03/README.md) | Previous startup procedures and rules, preserved without activation. |
+| [Cleanup migration](cleanup-2026-10-04/MIGRATION.json) | Original paths, destinations, reasons and preservation hashes. |
 
-Full chats and experiments remain in the sibling demoparser tree:
-05_Coach_Knowledge/ai_chat_history/ and 07_Development/stage_steps/.
-Source-linked synthesis and verified chronology are pending. Preserve original
-transcripts and conflicting results while reviewing them.
-
-Open a known source directly. Collection maps above are optional aids when
-choosing among documents whose filenames are unclear.
+Full chats and development experiments stay in the local sibling demoparser
+tree. SOURCES.md includes their exact relative paths. Generated maps are optional.
+Historical originals retain references to their original locations; use the
+migration ledger for renamed paths. Archive dates do not establish author dates.

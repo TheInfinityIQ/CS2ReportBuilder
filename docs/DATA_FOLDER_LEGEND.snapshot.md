@@ -122,7 +122,7 @@ Data dictionary: `05_Coach_Knowledge/onboarding_pack/data_capability_report_curr
 | Run tracks on everything | `03_Scripts/current/run_all_tracks.py` | none |
 | Player report | `MIMY_report_v3.3.html` (v3.4 lives in the git repo) | v2, v3.0, v3.2 |
 | Coach prompt | repo `coach/handoff/PROMPT.md` (each `06_.../packets/<id>/PROMPT.md` is a generated copy) | `05_.../onboarding_pack/` prompts, `_archive/handoff_2026-09-29_pre_packets/` |
-| Onboarding (a new contributor) | git repo `README.md`, `AGENTS.md`, and task-relevant `docs/PROJECT_STATUS.md` | `05_.../onboarding_document/...LIVING_ONBOARDING_CURRENT_v1.2.docx` (history; "CURRENT" in the name is stale) |
+| Onboarding (a new contributor) | git repo `README.md`, `AGENTS.md`, and task-relevant `docs/PROJECT_STATUS.md` | `05_Coach_Knowledge/onboarding_document/2026-09-28-stage5-onboarding-v1.2.docx` (historical snapshot) |
 | Architecture and design | Design v5 (Claude Doc) | `...Master_Architecture_v4.1.docx`, v4.0, DesignV2, V2.1 |
 | Coach packets | `06_.../packets/P_<kind>_<player>/` | the single-player pack now in `_archive/handoff_2026-09-29_pre_packets/` |
 
@@ -188,7 +188,7 @@ python -m cs2di.cli report ...
 
 ## 10. Generated file discovery (2026-10-03)
 
-Open `00_INDEX.md`, then the folder map relevant to the task. Every included file
+Open a known source directly. For an unknown location, use targeted search or an optional relevant `00_INDEX.md`. Every included file
 has a catalog entry, including files beyond the compact Markdown page. Repetitive
 demo/analysis outputs use batch maps plus the catalog. Fresh-coach packet inputs
 are indexed without adding documents inside them. Browser profiles and caches

@@ -4,14 +4,14 @@
 README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **138 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **144 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 ## Subfolders
 
 - [.github](.github/00_INDEX.md): Open for local file references.
 - [assets](assets/00_INDEX.md): Map art and transforms used in presentation.
 - [coach](coach/00_INDEX.md): Current packet templates and explicitly retired prompts.
-- [docs](docs/00_INDEX.md): Current project status, optional navigation, and labeled historical references. Old priorities are not current instructions.
+- [docs](docs/00_INDEX.md): Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 - [examples](examples/00_INDEX.md): Content-only coach plans. These illustrate format, not evidence for another player.
 - [extractor](extractor/00_INDEX.md): Current extractor and additive viewer tracks; v7.7 is superseded.
 - [navigation](navigation/00_INDEX.md): Curated descriptions and policy for generated discovery maps.

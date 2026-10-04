@@ -4,15 +4,17 @@
 Historical sources and archived instructions. Retrieve only for a relevant question.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **26 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **44 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
 ## Subfolders
 
 - [agent-system](agent-system/00_INDEX.md): Retired agent procedures retained as evidence, not active rules.
+- [cleanup-2026-10-04](cleanup-2026-10-04/00_INDEX.md): Migration ledger for broader documentation cleanup; original paths and content hashes.
 - [design](design/00_INDEX.md): Historical designs and onboarding snapshots; version/date ordering does not mean acceptance.
 - [handoffs](handoffs/00_INDEX.md): Recorded experiment results; PASS is not proof of product usefulness.
+- [project-records](project-records/00_INDEX.md): Preserved earlier project accounts, proposals, critiques and reviews; original references may name pre-migration paths.
 
 ## Files (documented dates first, oldest to newest)
 
@@ -20,7 +22,8 @@ Undated entries use natural filename/version order; filesystem modification time
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [README.md](README.md) | Question-oriented references to historical designs, decisions, reviews, and archived instructions. | history; not instruction / undated | curated |
+| [README.md](README.md) | Question-driven historical collections; source guide and migration ledger provide context without mandatory reading chains. | history; not instruction / undated | curated |
+| [SOURCES.md](SOURCES.md) | Consolidated development sequence, source paths, preserved contradictions, and current knowledge-build artifact counts. | history; not instruction / undated | curated |
 | [stage5_chat_tail.txt](stage5_chat_tail.txt) | PS C:\Users\dawso\Downloads\Stage5_ProductVerticalSlice_v0.1\Stage5_ProductVerticalSlice_v0.1> Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; Get-ChildItem -Recurse -File / Unblock-File; &… | history; not instruction / undated | extracted |
 
 ## Find a specific file

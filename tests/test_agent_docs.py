@@ -10,6 +10,9 @@ ARCHIVE = REPO / "docs/history/agent-system/2026-10-03"
 ENTRY_DOCS = [REPO / p for p in (
     "AGENTS.md", "CLAUDE.md", "README.md", "docs/PROJECT_STATUS.md",
     "docs/history/README.md", "docs/NAVIGATION.md", "docs/CLEANUP_2026-10-03.md",
+    "docs/CLEANUP_2026-10-04.md", "docs/history/SOURCES.md",
+    "docs/history/project-records/README.md", "docs/history/design/README.md",
+    "docs/KNOWN_PITFALLS.md",
 )]
 
 
@@ -41,6 +44,20 @@ def test_archived_instruction_sources_are_unchanged():
         path = REPO / record["archive"]
         raw = path.read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(raw).hexdigest() == record["normalized_sha256"], record["original"]
+
+
+def test_broader_cleanup_preserves_repository_sources():
+    records = json.loads((REPO / "docs/history/cleanup-2026-10-04/MIGRATION.json").read_text(encoding="utf-8"))
+    repo_records = [r for r in records if r["original"].startswith("repo/")]
+    assert len(repo_records) == 18
+    for record in repo_records:
+        path = REPO / record["destination"].removeprefix("repo/")
+        assert path.resolve().is_relative_to(REPO.resolve())
+        raw = path.read_bytes()
+        if path.suffix == ".docx":
+            assert hashlib.sha256(raw).hexdigest() == record["sha256"], record["original"]
+        else:
+            assert hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest() == record["normalized_sha256"], record["original"]
 
 
 def test_history_does_not_contain_autoload_instruction_files():

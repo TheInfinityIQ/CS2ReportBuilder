@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-10-03. Distinguish observed artifacts from verified behavior.
+Date: 2026-10-04. Distinguish observed artifacts from verified behavior.
 
 ## Observed implementation and artifacts
 
@@ -18,20 +18,22 @@ Date: 2026-10-03. Distinguish observed artifacts from verified behavior.
 ## Known gaps
 
 - Independent factual and usefulness review of the eight reports remains open.
-- Old OWNER_RULINGS.md says no Teaching Moment minimum; plan.py rejects an empty
+- Archived owner-statement draft says no Teaching Moment minimum; plan.py rejects an empty
   moments list and MODULES.md requires at least one. Intended behavior needs
   a product decision; cleanup has not changed the validator.
 - Design v5 is referenced as an external Claude document. Its contents and
   synchronization cannot be verified through current local tools.
 - Old critique, roadmap, and capability documents contain dated claims. Check
   evidence and implementation before treating completion labels as current.
-- Chat synthesis, document renaming, and duplicate disposition still need
-  content/provenance review. Identical experiment inputs may be intentionally saved.
+- Transcript-derived knowledge still needs quote-entailment and game-correctness
+  review. Saved Q1-Q55 answer coverage is not proof of a validated profile.
 
 ## Current work
 
-The evidence-backed documentation cleanup is authorized. Its first batch resets
-development instructions and onboarding while preserving original evidence.
+The authorized documentation cleanup is complete within its authored-document
+scope. Source-linked history and collection guides consolidate retrieval context;
+historical accounts are archived and ambiguous snapshot names corrected. Original
+evidence, saved experiments and extraction-linked paths are preserved.
 README.md is the master entry and AGENTS.md the working agreement. The old agent
 system is archived under docs/history/agent-system/2026-10-03.
 
@@ -42,13 +44,14 @@ decisions do not become requirements merely because they appear in several files
 
 An earlier 2026-10-03 navigation change recorded 79 passing tests. First-batch
 cleanup verification is recorded in [CLEANUP_2026-10-03.md](CLEANUP_2026-10-03.md).
+Broader cleanup and verification are recorded in [CLEANUP_2026-10-04.md](CLEANUP_2026-10-04.md).
 Neither test-suite result substitutes for a coaching-claim audit.
 
 ## Evidence
 
 - [Source](../src/cs2di/), [packet builder](../scripts/build_packet.py),
   [validator](../src/cs2di/report/plan.py), [module guide](../coach/handoff/MODULES.md).
-- [Old owner statements](OWNER_RULINGS.md), [old roadmap](ROADMAP.md), and
+- [Old owner statements](history/project-records/owner-statements-draft.md), [old roadmap](history/project-records/roadmap.md), and
   [preserved agent state](history/agent-system/2026-10-03/agent/STATE.md).
 - Local saved coach outputs: demoparser/06_Handoff_and_Tests/test_coaches/.
 - Local pilot: Downloads/CS2_Index_Benchmark_2026-10-03/RESULTS.md.

@@ -18,7 +18,7 @@ content. A six-pair pilot found mixed discovery costs, including overhead with
 already known paths. It measured characters, not billed tokens.
 
 The generator remains installed to preserve existing CI checks during cleanup.
-Redesign or retirement is a separate evidence-backed choice, not part of this batch.
+Redesign or retirement is a separate evidence-backed choice, not required for this documentation cleanup.
 
 ## Search
 

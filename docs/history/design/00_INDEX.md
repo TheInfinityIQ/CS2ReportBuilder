@@ -4,7 +4,7 @@
 Historical designs and onboarding snapshots; version/date ordering does not mean acceptance.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **4 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **5 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -14,10 +14,11 @@ Undated entries use natural filename/version order; filesystem modification time
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [DesignV2.1_CURRENT.docx](DesignV2.1_CURRENT.docx) | CS2 Coaching Engine — Master Technical, Coaching & Product Architecture v2.1 — Subtitle: Conception-to-Current “Million-Dollar” Consultant Dossier — Coaching Knowledge → Measurement → Spatial Evidence →… | history; not instruction / 2026-09-26 | extracted |
-| [CS2_Demo_Intelligence_Master_Architecture_v4.1.docx](CS2_Demo_Intelligence_Master_Architecture_v4.1.docx) | Candidate v4.1 architecture: governed interpretation, teaching eligibility, selection, composition, and fallback. Historical, not a current freeze. | history; not instruction / 2026-09-28 | curated |
-| [CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx](CS2_Demo_Intelligence_Stage1_to_Stage4_Evolution_Record_v1.0.docx) | Stage 1-4 evolution and failure-derived lessons; descriptive history rather than requirements. | history; not instruction / 2026-09-28 | curated |
-| [CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx](CS2_Demo_Intelligence_Stage5_LIVING_ONBOARDING_CURRENT_v1.2.docx) | Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale. | history; not instruction / 2026-09-28 | curated |
+| [2026-09-26-design-v2.1.docx](2026-09-26-design-v2.1.docx) | CS2 Coaching Engine — Master Technical, Coaching & Product Architecture v2.1 — Subtitle: Conception-to-Current “Million-Dollar” Consultant Dossier — Coaching Knowledge → Measurement → Spatial Evidence →… | history; not instruction / 2026-09-26 | extracted |
+| [2026-09-28-stage5-onboarding-v1.2.docx](2026-09-28-stage5-onboarding-v1.2.docx) | Historical Stage 5 continuity brief; records blocked support ACTION and pending viewer work. Its CURRENT name is stale. | history; not instruction / 2026-09-28 | curated |
+| [architecture-v4.1-candidate.docx](architecture-v4.1-candidate.docx) | Candidate v4.1 architecture: governed interpretation, teaching eligibility, selection, composition, and fallback. Historical, not a current freeze. | history; not instruction / 2026-09-28 | curated |
+| [stage1-stage4-evolution-v1.0.docx](stage1-stage4-evolution-v1.0.docx) | Stage 1-4 evolution and failure-derived lessons; descriptive history rather than requirements. | history; not instruction / 2026-09-28 | curated |
+| [README.md](README.md) | Design snapshots — These are historical documents, preserved byte for byte. An internal statement | history; not instruction / undated | extracted |
 
 ## Find a specific file
 
