@@ -170,6 +170,8 @@ def build_packet(repo: Path, batch: Batch, player: Player, output_root: Path, *,
                 if identity:
                     identities.add(identity)
                 quality = replay_quality(demo, match.sha256 if match else None, owned=True)
+                if require_viewer and player.steamid in quality.unobserved_players:
+                    raise ValueError(f"{demo.name}: No recorded live viewer data for selected player")
                 if require_viewer and not quality.ready:
                     raise ValueError(f"{demo.name}: {quality.reason}. Prepare 16 Hz data first.")
                 record = match_provenance(match) if match else {"analysis": demo.name, "demo_sha256": None}

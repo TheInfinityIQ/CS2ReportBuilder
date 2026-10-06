@@ -41,7 +41,11 @@ viewer tracks by default. Its existing 2 Hz analytic tables/schema are unchanged
 
 Default **Require validated 16 Hz viewer data** checks actual sample cadence,
 finite positions/facing, roster/round coverage, demo pairing, interpolation
-validation, grenade-table readability, and checksums when recorded. The explicit
+validation, grenade-table readability, and checksums when recorded. Coverage
+uses live round windows and roster entries actually observed in the core position
+data. Unobserved roster entries and rounds without live play are disclosed,
+rather than supplied invented positions; an unobserved selected player cannot
+pass the default packet replay requirement. The explicit
 limited-replay override permits older/missing viewer data; it does not bypass
 core coaching integrity or fabricate facing/paths. Ready does not prove every
 movement, grenade boundary, or coaching claim correct.
@@ -49,7 +53,11 @@ movement, grenade boundary, or coaching claim correct.
 The queue defaults to **80% CPU**, **90% RAM**, and up to eight simultaneous jobs
 (or fewer on a smaller machine). Increase Max jobs if measurements justify it.
 It samples total system load, starts gradually, reserves estimated job memory,
-and limits supported native parser/math threads per worker. These are **soft
+and limits supported native parser/math threads per worker. Viewer-only repair
+uses a separate memory estimate from core extraction; smaller demos run first.
+Native parser threads reflect the estimated RAM-feasible worker count, and the
+complete job plan is saved beside each run summary. CLI hash caches remain bound
+to original file identity/stat changes. These are **soft
 admission targets**: existing jobs finish, and peaks can exceed predictions. Under
 pressure, it stops starting more jobs rather than terminating active extraction.
 Other applications and older terminals still count toward system load.

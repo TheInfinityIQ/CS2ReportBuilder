@@ -47,7 +47,13 @@ def worker(job, phase):
         quality = replay_quality(folder, identity, owned=True)
         if not quality.ready:
             raise ValueError(f"Viewer output not ready: {quality.reason}")
-    return {"status": outcome["status"], "hz": quality.hz, "paths": quality.paths}
+    return {
+        "status": outcome["status"],
+        "hz": quality.hz,
+        "paths": quality.paths,
+        "unobserved_players": quality.unobserved_players,
+        "nonlive_rounds": quality.nonlive_rounds,
+    }
 
 
 def main():
@@ -95,7 +101,8 @@ def main():
                 parser.error("One or more requested batches do not exist")
         for batch in batches:
             analysis = args.root / "02_Analysis" / ("analyzed_" + batch.name)
-            for match in scan_matches(analysis, batch):
+            print(f"Checking batch: {batch.name}", flush=True)
+            for match in scan_matches(analysis, batch, args.root / ".extraction_jobs/hashes_cli.json"):
                 if match.problem or (not match.core_ready and args.phase == "viewer"):
                     print(
                         f"Excluded: {match.raw.name}: {match.problem or 'core analysis missing/invalid'}",

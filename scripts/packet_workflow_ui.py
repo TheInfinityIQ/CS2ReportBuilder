@@ -163,7 +163,15 @@ class WorkflowWindow(PacketWindow):
     def update_actions(self):
         player = self.current_player()
         quality = {m.analysis: m.replay for m in self.matches}
-        ready = player and (not self.require_viewer.get() or all((quality[p].ready for p in player.demos)))
+        ready = player and (
+            not self.require_viewer.get()
+            or all(
+                (
+                    quality[p].ready and player.steamid not in quality[p].unobserved_players
+                    for p in player.demos
+                )
+            )
+        )
         self.build_button.configure(state="normal" if ready and (not self.busy) else "disabled")
         if hasattr(self, "prepare_button"):
             raw_selected = any(
@@ -355,7 +363,9 @@ class WorkflowWindow(PacketWindow):
             b.configure(state="disabled")
         if player:
             selected = [m for m in self.matches if m.analysis in player.demos]
-            ready = sum((m.replay.ready for m in selected))
+            ready = sum(
+                (m.replay.ready and player.steamid not in m.replay.unobserved_players for m in selected)
+            )
             self.selected.set(
                 f"Packet: {len(player.demos)} included matches featuring {player.name}; {ready}/{len(selected)} have validated 16 Hz viewer data."
             )
@@ -364,6 +374,11 @@ class WorkflowWindow(PacketWindow):
                 if ready == len(selected) or not self.require_viewer.get()
                 else "Prepare or repair viewer data before building; limited-replay override is available in the batch tab."
             )
+            missing_player = sum(player.steamid in m.replay.unobserved_players for m in selected)
+            if missing_player and self.require_viewer.get():
+                self.status.set(
+                    f"No recorded viewer positions for this player in {missing_player} included matches. Exclude those games or allow limited replays."
+                )
         else:
             self.selected.set(
                 "No player with usable included analysis yet. Prepare missing analysis or change inclusion."

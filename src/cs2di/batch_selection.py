@@ -64,6 +64,48 @@ class ReplayQuality:
     reason: str
     sha256: str | None = None
     paths: int = 0
+    unobserved_players: tuple[str, ...] = ()
+    nonlive_rounds: tuple[int, ...] = ()
+
+
+def expected_coverage(folder, tickrate):
+    """Require live windows; never invent tracks for unobserved roster entries."""
+    with (folder / "rounds.csv").open(encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = sorted(reader, key=lambda row: int(row["round"]))
+        columns = set(reader.fieldnames or [])
+    all_rounds = {int(row["round"]) for row in rows}
+    live = all_rounds
+    if {"freeze_end_tick", "end_tick"} <= columns:
+        usable = []
+        for row in rows:
+            if not row["freeze_end_tick"] or not row["end_tick"]:
+                continue
+            lo, end = float(row["freeze_end_tick"]), float(row["end_tick"])
+            if math.isfinite(lo) and math.isfinite(end):
+                usable.append((row, lo, end))
+        live = set()
+        for index, (row, lo, end) in enumerate(usable):
+            hi = end + 4 * tickrate
+            if index + 1 < len(usable):
+                start = usable[index + 1][0].get("start_tick")
+                if start and math.isfinite(float(start)):
+                    hi = min(hi, float(start))
+            if hi > lo:
+                live.add(int(row["round"]))
+    with (folder / "players.csv").open(encoding="utf-8-sig", newline="") as f:
+        roster = {r["steamid"].strip() for r in csv.DictReader(f)}
+    expected = roster
+    positions = folder / "player_positions.csv.gz"
+    if positions.exists():
+        with gzip.open(positions, "rt", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            if "steamid" not in (reader.fieldnames or []):
+                raise ValueError("Core position roster unavailable")
+            observed = {r["steamid"].strip() for r in reader}
+        if observed:
+            expected = roster & observed
+    return live, expected, roster, all_rounds - live
 
 
 def replay_quality(folder: Path, expected_hash=None, hz=16, *, owned=False):
@@ -84,10 +126,7 @@ def replay_quality(folder: Path, expected_hash=None, hz=16, *, owned=False):
         pc = meta.get("pairing_check", {})
         if not pc.get("checked") or pc.get("fraction", 0) < 0.8:
             raise ValueError("Demo/analysis pairing unverified")
-        with (folder / "rounds.csv").open(encoding="utf-8-sig", newline="") as f:
-            rounds = {int(r["round"]) for r in csv.DictReader(f)}
-        with (folder / "players.csv").open(encoding="utf-8-sig", newline="") as f:
-            roster = {r["steamid"].strip() for r in csv.DictReader(f)}
+        rounds, expected_players, roster, nonlive = expected_coverage(folder, float(meta["tickrate"]))
         players, seen_rounds, previous, gaps = set(), set(), {}, Counter()
         count = 0
         with gzip.open(folder / "viewer_tracks.csv.gz", "rt", encoding="utf-8", newline="") as f:
@@ -105,7 +144,13 @@ def replay_quality(folder: Path, expected_hash=None, hz=16, *, owned=False):
                 players.add(key[1])
                 seen_rounds.add(key[0])
                 count += 1
-        if not count or not roster <= players or not rounds <= seen_rounds:
+        if (
+            not count
+            or not rounds
+            or not expected_players
+            or not expected_players <= players
+            or not rounds <= seen_rounds
+        ):
             raise ValueError("Viewer roster or round coverage incomplete")
         if not gaps or gaps.most_common(1)[0][0] != int(meta["step_ticks"]):
             raise ValueError("Actual cadence disagrees with metadata")
@@ -130,7 +175,13 @@ def replay_quality(folder: Path, expected_hash=None, hz=16, *, owned=False):
                 raise ValueError("Unexpected viewer checksum entry")
             if hashlib.sha256((folder / name).read_bytes()).hexdigest() != digest:
                 raise ValueError("Viewer file checksum mismatch")
-        return ReplayQuality(True, rate, "Validated tracks", meta.get("demo_sha256"), len(path_ids))
+        missing = tuple(sorted(roster - players))
+        reason = "Validated tracks"
+        if missing or nonlive:
+            reason += f" ({len(missing)} unobserved roster entries; {len(nonlive)} nonlive rounds)"
+        return ReplayQuality(
+            True, rate, reason, meta.get("demo_sha256"), len(path_ids), missing, tuple(sorted(nonlive))
+        )
     except (OSError, ValueError, KeyError, TypeError, ZeroDivisionError) as exc:
         return ReplayQuality(False, rate, str(exc))
 

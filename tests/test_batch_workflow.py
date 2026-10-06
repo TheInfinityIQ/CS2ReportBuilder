@@ -255,3 +255,86 @@ def test_normal_v78_run_requests_validated_16hz_by_default(tmp_path, monkeypatch
     core.main()
     assert requested[0][0][2:] == (16, True, False)
     assert core.TICK_SAMPLE_EVERY == 32  # Existing analytic tables retain their cadence.
+
+
+def test_viewer_estimate_uses_measurements_with_headroom():
+    gib = 1024**3
+    assert queue.estimate_memory(gib, 0, "viewer") == 4 * gib
+    assert queue.estimate_memory(gib, 0, "prepare") == 8 * gib
+    assert queue.estimate_memory(100, 4 * gib, "viewer") == int(4 * gib * 1.3)
+
+
+def test_queue_starts_fitting_small_job_before_large_one(tmp_path):
+    small, large = tmp_path / "small.dem", tmp_path / "large.dem"
+    small.write_bytes(b"demo")
+    large.write_bytes(b"large demo")
+    jobs = [{"demo": str(p), "analysis": str(tmp_path / p.stem)} for p in (large, small)]
+    order = []
+
+    class Process:
+        pid = 99999999
+
+        def poll(self):
+            return 0
+
+    def spawn(command, **options):
+        job = json.loads(Path(command[command.index("--worker") + 1]).read_text())
+        order.append(Path(job["demo"]).name)
+        Path(command[command.index("--result") + 1]).write_text('{"status":"ok"}')
+        return Process()
+
+    result = queue.run_queue(
+        REPO,
+        jobs,
+        tmp_path / "work",
+        max_workers=1,
+        sampler=lambda: queue.Resources(20, 16 * 1024**3, 7 * 1024**3),
+        spawn=spawn,
+        sleep=lambda _: None,
+        log=lambda _: None,
+    )
+    assert order == ["small.dem", "large.dem"]
+    assert len(json.loads((Path(result["run_folder"]) / "jobs.json").read_text())) == 2
+
+
+def test_coverage_distinguishes_unobserved_roster_and_unplayed_surrender(make_demo):
+    folder = make_demo()
+    other = "76561198000000002"
+    with (folder / "players.csv").open("a") as f:
+        f.write(f"{other},Unobserved,3\n")
+    (folder / "rounds.csv").write_text("round,start_tick,freeze_end_tick,end_tick\n1,32,64,128\n2,200,,240\n")
+    with gzip.open(folder / "player_positions.csv.gz", "wt") as f:
+        f.write(f"steamid,tick\n{HERO},64\n")
+    tracks(folder)
+    quality = selection.replay_quality(folder)
+    assert quality.ready and quality.unobserved_players == (other,) and quality.nonlive_rounds == (2,)
+    with gzip.open(folder / "player_positions.csv.gz", "at") as f:
+        f.write(f"{other},64\n")
+    assert not selection.replay_quality(folder).ready  # Actually observed player must have tracks.
+    with (folder / "players.csv").open("w") as f:
+        f.write(f"steamid,name,team_number\n{HERO},Hero,3\n")
+    (folder / "rounds.csv").write_text(
+        "round,start_tick,freeze_end_tick,end_tick\n1,32,64,128\n2,200,220,240\n"
+    )
+    assert not selection.replay_quality(folder).ready  # Actually live round must have tracks.
+
+
+def test_packet_refuses_unobserved_selected_player(make_demo, tmp_path, monkeypatch):
+    folder = make_demo()
+    other = "76561198000000002"
+    with (folder / "players.csv").open("a") as f:
+        f.write(f"{other},Other,3\n")
+    with gzip.open(folder / "player_positions.csv.gz", "wt") as f:
+        f.write(f"steamid,tick\n{other},64\n")
+    tracks(folder)
+    with gzip.open(folder / "viewer_tracks.csv.gz", "rt") as f:
+        data = f.read().replace(HERO, other)
+    with gzip.open(folder / "viewer_tracks.csv.gz", "wt") as f:
+        f.write(data)
+    assert selection.replay_quality(folder).ready
+    batch = packet_jobs.inspect_batch(folder.parent)
+    player = next(p for p in batch.players if p.steamid == HERO)
+    monkeypatch.setattr(packet_jobs, "check_dependencies", lambda _: None)
+    output = tmp_path.parent / (tmp_path.name + "_packets")
+    with pytest.raises(RuntimeError, match="No recorded live viewer data"):
+        packet_jobs.build_packet(REPO, batch, player, output, require_viewer=True)

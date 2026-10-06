@@ -28,6 +28,20 @@ def can_start(resources, estimate, cpu_target=80, memory_target=90):
     return resources.cpu < cpu_target - 5 and resources.available - estimate >= reserve
 
 
+def estimate_memory(demo_bytes, observed_peak, phase):
+    # Bounded measurement: viewer-only used ~0.75 GB for a 314 MB demo;
+    # core+viewer used ~1.9 GB. Keep headroom and learn larger observed peaks.
+    multiplier = 4 if phase == "viewer" else 8
+    return max(2 * 1024**3, int(observed_peak * 1.3), demo_bytes * multiplier)
+
+
+def job_size(item):
+    try:
+        return Path(item[1]["demo"]).stat().st_size
+    except OSError:
+        return float("inf")
+
+
 def _run_queue(
     repo,
     jobs,
@@ -74,7 +88,8 @@ def _run_queue(
         run = work_root / (datetime.now().strftime("%Y%m%d_%H%M%S_") + uuid4().hex[:8])
         run.mkdir()
         result["run_folder"] = str(run)
-        pending, active, peak, cool = list(enumerate(jobs)), [], 0, 0
+        pending, active, peak, cool = sorted(enumerate(jobs), key=job_size), [], 0, 0
+        (run / "jobs.json").write_text(json.dumps(jobs, indent=2), encoding="utf-8")
         last_wait_log = -30
 
         def persist():
@@ -126,7 +141,7 @@ def _run_queue(
                 r = sampler()
                 job = pending[0][1]
                 try:
-                    estimate = max(2 * 1024**3, int(peak * 1.3), Path(job["demo"]).stat().st_size * 8)
+                    estimate = estimate_memory(Path(job["demo"]).stat().st_size, peak, phase)
                 except OSError as exc:
                     index, job = pending.pop(0)
                     result["results"].append(
@@ -144,6 +159,10 @@ def _run_queue(
                     spec, output = run / f"{index:04d}.job.json", run / f"{index:04d}.result.json"
                     spec.write_text(json.dumps(job), encoding="utf-8")
                     stream = (run / f"{index:04d}.log").open("w", encoding="utf-8")
+                    memory_budget = (
+                        r.available + sum(item[5] for item in active) - r.total * (1 - memory_target / 100)
+                    )
+                    cohort = min(max_workers, max(1, int(memory_budget / estimate)))
                     env = {
                         **os.environ,
                         "PYTHONUTF8": "1",
@@ -151,7 +170,7 @@ def _run_queue(
                         "OPENBLAS_NUM_THREADS": "1",
                         "MKL_NUM_THREADS": "1",
                         "RAYON_NUM_THREADS": str(
-                            max(1, int((os.cpu_count() or 1) * cpu_target / 100 / max_workers))
+                            max(1, int((os.cpu_count() or 1) * cpu_target / 100 / cohort))
                         ),
                     }
                     try:

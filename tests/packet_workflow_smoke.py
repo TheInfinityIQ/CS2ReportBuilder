@@ -57,6 +57,17 @@ def settle():
 settle()
 assert len(window.matches) == 1 and window.batch.accepted == 1
 assert str(window.build_button["state"]) == "disabled"
+original_matches = window.matches
+window.matches = (
+    replace(
+        window.matches[0],
+        replay=ReplayQuality(True, 16, "Validated tracks", unobserved_players=("76561198062530225",)),
+    ),
+)
+window.show_player()
+assert str(window.build_button["state"]) == "disabled"
+assert "No recorded viewer positions" in window.status.get()
+window.matches = original_matches
 window.require_viewer.set(False)
 window.show_player()
 assert str(window.build_button["state"]) == "normal"
