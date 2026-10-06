@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **52 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **53 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -25,7 +25,8 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Coach packet window — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. | reference; distinguish current state from historical claims / undated | extracted |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Observed implementation, the local packet-builder window with direct folder selection and open product gaps; reports are not independently audited. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Observed implementation, packet folder selection, viewer repairs and open product gaps; adaptive extraction remains a proposal and reports are not independently audited. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and proposed batch workflow — Evidence inspected | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 
 ## Find a specific file
 

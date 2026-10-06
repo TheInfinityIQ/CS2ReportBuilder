@@ -288,4 +288,4 @@ def build_report(plan: dict, digest: dict, *, batch_dir, steamid, analysis: dict
 <nav class="folder-tabs" role="tablist"><button class="tab-btn" role="tab" aria-selected="true" data-target="tab-study">Player Study</button>
 <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-desk">Analyst Desk</button></nav>
 <div class="wrap"><div class="tab-panel active" id="tab-study">{player}</div>
-<div class="tab-panel" id="tab-desk">{desk}</div>{footer}</div><script>{_JS}</script>{maps_script(ctx.maps)}</body></html>'''
+<div class="tab-panel" id="tab-desk">{desk}</div>{footer}</div><script>{_JS}</script>{maps_script(ctx.maps, ctx.weapon_assets)}</body></html>'''

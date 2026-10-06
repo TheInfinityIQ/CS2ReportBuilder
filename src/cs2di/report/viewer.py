@@ -13,6 +13,7 @@ from __future__ import annotations
 import base64
 import io
 import json
+from collections import Counter
 from functools import lru_cache
 from pathlib import Path
 
@@ -98,8 +99,21 @@ EXPIRE = {"smokegrenade_detonate": "smokegrenade_expired", "inferno_startburn": 
 SIDECAR_HZ_STEP = 8  # ticks between sidecar samples (8 Hz)
 
 
+def _track_step(d: Path, tracks: pd.DataFrame) -> int:
+    """Respect sidecar provenance; infer old files' regular spacing if metadata is absent."""
+    meta = d / "viewer_tracks_meta.json"
+    if meta.exists():
+        step = json.loads(meta.read_text(encoding="utf-8")).get("step_ticks")
+        if isinstance(step, int) and step > 0 and TICK % step == 0:
+            return step
+        raise ValueError(f"Invalid viewer track sample spacing in {meta}")
+    differences = tracks.sort_values("tick").groupby("steamid").tick.diff().dropna()
+    counts = Counter(int(x) for x in differences if x > 0 and TICK % int(x) == 0)
+    return counts.most_common(1)[0][0] if counts else SIDECAR_HZ_STEP
+
+
 def _sidecar_tracks(d: Path, round_no: int, lo: int, hi: int):
-    """Continuous facing + position from extractor/extract_viewer_tracks.py (8 Hz), or None when not present."""
+    """Recorded facing and position from the additive sidecar, or None when absent."""
     f = d / "viewer_tracks.csv.gz"
     if not f.exists():
         return None
@@ -158,12 +172,14 @@ def _nades(d: Path, lo: int, hi: int, side_of: dict, round_no: int | None = None
         for row in g.itertuples():
             sid = None if pd.isna(row.user_steamid) else int(row.user_steamid)
             d_s = dur
+            measured = False
             if ev in EXPIRE and getattr(row, "entityid", None) in ends:
                 later = [x for x in ends[int(row.entityid)] if x >= row.tick]
                 if later and (min(later) - row.tick) / TICK <= 30:  # entity ids get reused; ignore later rounds
-                    d_s = max(0.5, (min(later) - row.tick) / TICK)
+                    d_s = (min(later) - row.tick) / TICK
+                    measured = True
             n = {"t": (row.tick - lo) / TICK, "k": kind, "d": round(d_s, 2), "x": int(row.x), "y": int(row.y),
-                 "s": side_of.get(sid) if sid is not None else None,
+                 "s": side_of.get(sid) if sid is not None else None, "duration_recorded": measured,
                  "by": None if pd.isna(row.user_name) else str(row.user_name)}
             # match the nearest earlier unused throw of the same kind by the same player (flight < ~7 s)
             best = None
@@ -243,6 +259,7 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
             fl.append(1 if not pd.isna(row.flash_duration) and row.flash_duration > 0.3 else 0)
         sid_index[int(sid)] = len(players)
         players.append({"name": str(g.name.dropna().iloc[0]) if g.name.notna().any() else "?", "side": side,
+                        "sid": str(int(sid)),
                         "me": int(sid) == int(steamid), "xy": xy, "hp": hp, "ar": ar, "wp": wp, "fl": fl, "aim": []})
     # Recorded view angles (yaw). The demo stores them only at events (shots, hits, kills), never continuously,
     # so these are the only moments a facing direction is a fact rather than a guess.
@@ -269,7 +286,7 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
     for pl in players:
         pl["aim"] = sorted({(a, b) for a, b in pl["aim"]})
         pl["aim"] = [list(x) for x in pl["aim"]]
-    # State (health, armour, active item, flash) stays on the 2 Hz grid; position and facing move to 8 Hz when the
+    # State (health, armour, active item, flash) stays on the 2 Hz grid; position and facing use the sidecar cadence when the
     # viewer-tracks sidecar exists. Facing is then a recorded value at every sample (circular interpolation in the
     # browser), not an inference from events.
     sdt = (ticks[1] - ticks[0]) / TICK if len(ticks) > 1 else 0.5
@@ -279,7 +296,8 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
     sc = _sidecar_tracks(d, round_no, lo, hi)
     facing = False
     if sc is not None and sid_index and set(sid_index) <= set(int(x) for x in sc.steamid.unique()):
-        gt = list(range(lo, min(hi, int(sc.tick.max())) + 1, SIDECAR_HZ_STEP))
+        step = _track_step(d, sc)
+        gt = list(range(lo, min(hi, int(sc.tick.max())) + 1, step))
         for sid_, ix in sid_index.items():
             g = sc[sc.steamid == sid_].drop_duplicates("tick").set_index("tick").reindex(gt)
             ok = g["x"].notna().to_numpy()
@@ -295,7 +313,7 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
                     yw8.append(None)
                     fg8.append(0)
             players[ix].update({"xy": xy8, "yw": yw8, "fg": fg8})
-        grid = dict(dt=SIDECAR_HZ_STEP / TICK, t0=0.0, n=len(gt))
+        grid = dict(dt=step / TICK, t0=0.0, n=len(gt))
         facing = True
     dth = pd.read_csv(d / "events" / "player_death.csv.gz", dtype={"attacker_steamid": "Int64", "user_steamid": "Int64"},
                       usecols=lambda c: c in {"tick", "attacker_steamid", "user_steamid", "attacker_X", "attacker_Y",
@@ -305,6 +323,7 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
     for e in dth.itertuples():
         kills.append({"t": (e.tick - lo) / TICK, "a": None if pd.isna(e.attacker_name) else str(e.attacker_name),
                       "v": str(e.user_name), "ax": None if pd.isna(e.attacker_X) else int(e.attacker_X),
+                      "vsid": None if pd.isna(e.user_steamid) else str(int(e.user_steamid)),
                       "ay": None if pd.isna(e.attacker_Y) else int(e.attacker_Y),
                       "vx": None if pd.isna(e.user_X) else int(e.user_X), "vy": None if pd.isna(e.user_Y) else int(e.user_Y),
                       "as": side_of.get(int(e.attacker_steamid)) if not pd.isna(e.attacker_steamid) else None,
@@ -323,14 +342,15 @@ def round_payload(batch_dir, demo_id: str, round_no: int, steamid: int, focus_ti
             bomb = {"t": (int(b.tick.iloc[0]) - lo) / TICK, "x": int(b.user_X.iloc[0]), "y": int(b.user_Y.iloc[0])}
     return {"map": ms.get("map_name"), "dt": grid["dt"], "t0": grid["t0"], "n": grid["n"],
             "sdt": float(sdt), "st0": float(st0), "sn": sn, "facing": facing,
-            "players": players, "weapons": weapons, "wi": [wmap.icon_id(w) for w in weapons], "kills": kills,
+            "players": players, "weapons": weapons, "wi": [wmap.icon_id(w) for w in weapons],
+            "wa": [wmap.asset_id(w) for w in weapons], "kills": kills,
             "nades": nades, "bomb": bomb, "focus": None if focus_tick is None else (focus_tick - lo) / TICK,
             "end": (int(r.end_tick) - lo) / TICK}
 
 
 def _view_offsets(d: Path, round_no: int, tick: int, me: int, other: int):
     """How far (degrees) the player's recorded view was from the other player, 1.0 s and 0.5 s before `tick`.
-    Needs the viewer-tracks sidecar (8 Hz view angle); returns None without it."""
+    Needs recorded viewer-track angles; returns None without them."""
     f = d / "viewer_tracks.csv.gz"
     if not f.exists():
         return None
@@ -430,10 +450,15 @@ def observed_facts(batch_dir, demo_id: str, round_no: int, steamid: int, focus_t
 VIEWER_JS = (Path(__file__).with_name("viewer.js")).read_text(encoding="utf-8")
 
 
-def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick: int | None, maps: dict) -> str:
+def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick: int | None, maps: dict,
+                weapon_assets: set | None = None) -> str:
     if not (Path(batch_dir) / demo_id / "player_positions.csv.gz").exists():
         return '<p class="muted small">No position data for this game, so the map replay is not available.</p>'
     data = round_payload(batch_dir, demo_id, round_no, steamid, focus_tick)
+    if weapon_assets is not None:
+        weapon_assets.update(x for x in data["wa"] if x)
+        if data["bomb"]:
+            weapon_assets.add("c4")
     if data["map"] not in maps:
         bg = background(batch_dir, data["map"])
         if bg is None:
@@ -444,22 +469,24 @@ def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick
             "Map outline drawn from where players stood in these games; radar images not installed yet.")
     payload = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
     real = data["facing"]
-    face_note = ("Each pin points where that player was actually looking (view angle recorded 8 times a second)."
+    face_note = (f"Direction lines use recorded view angles sampled {1 / data['dt']:g} times a second."
                  if real else
-                 "Each pin points where that player last aimed, but only right after a shot, hit or kill (held 1.5 s); "
-                 "between those moments the demo has no view angle here, so a moving player gets a short trail and a "
-                 "still player a plain dot.")
+                 "Continuous view angles are missing. Direction lines show only the last recorded aim for 1.5 seconds "
+                 "after a shot, hit or kill; player markers remain circles throughout.")
     paths = any("pa" in n for n in data["nades"])
-    nade_note = ("Grenades follow their recorded flight path, bounces included." if paths else
+    nade_note = ("Recorded grenade flight paths include bounces; any dashed straight connection has no recorded path." if paths else
                  "A dashed line joins where a grenade was thrown to where it landed (a straight line: the flight path "
                  "is not recorded for this game).")
     how = (f'<details class="disc v-how"><summary>How to read this replay</summary><div class="disc-body">'
-           f'<p>{note} You are the white-outlined pin. {face_note} The icon by each name is the kind of item the player '
-           f'is holding (rifle, pistol, grenade, knife, bomb); the exact item is in the list under the map. '
-           f'Smoke and fire are drawn at their in-game size. {nade_note} Crosses mark deaths and a thin line flashes from '
+           f'<p>{note} You are the white-outlined circle. {face_note} Icons show the exact active weapon or knife model, '
+           f'using Valve equipment silhouettes; names are also in the roster. '
+           f'Smoke and fire circles are approximate areas, not recorded boundaries. Their labels count down remaining '
+           f'effect time; ~ means estimated because no expiry event was available. {nade_note} Crosses mark deaths and a thin line flashes from '
            f'killer to victim. A white ring means flashed; a green dashed ring means defusing. Coloured ticks on the timeline '
            f'are kills, the bomb plant, the moment being discussed (yellow) and the round end.</p></div></details>')
     return (f'<div class="viewer"><script type="application/json">{payload}</script>'
+            f'<p class="v-quality muted small">Positions: {1 / data["dt"]:g} Hz · '
+            f'{"recorded facing" if real else "continuous facing unavailable"}</p>'
             f'<div class="v-stage"><canvas role="img" aria-label="Top-down replay of the round"></canvas>'
             f'<button class="v-expand" aria-pressed="false">Expand replay</button></div>'
             f'<div class="v-feed" aria-live="polite"></div>'
@@ -478,10 +505,13 @@ def viewer_html(batch_dir, demo_id: str, round_no: int, steamid: int, focus_tick
             f'<button data-layer="facing" aria-pressed="true">Facing</button>'
             f'<button data-layer="util" aria-pressed="true">Utility</button>'
             f'<button data-layer="feed" aria-pressed="true">Feed</button></div>'
+            f'<div class="v-utility" hidden></div>'
             f'<div class="v-roster"></div>{how}</div>')
 
 
-def maps_script(maps: dict) -> str:
+def maps_script(maps: dict, weapon_assets=None) -> str:
     if not maps:
         return ""
-    return "<script>window.__MAPS=" + json.dumps(maps, separators=(",", ":")) + ";</script><script>" + VIEWER_JS + "</script>"
+    return ("<script>window.__MAPS=" + json.dumps(maps, separators=(",", ":")) +
+            ";window.__WEAPONS=" + json.dumps(wmap.image_payload(weapon_assets), separators=(",", ":")) +
+            ";</script><script>" + VIEWER_JS + "</script>")

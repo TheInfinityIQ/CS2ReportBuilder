@@ -28,6 +28,7 @@ class Ctx:
     analysis: dict | None = None
     _sit: dict = field(default_factory=dict)
     maps: dict = field(default_factory=dict)  # map backgrounds used by viewers (emitted once per page)
+    weapon_assets: set = field(default_factory=set)
 
     def finding(self, fid: str) -> dict:
         for f in (self.analysis or {}).get("findings", []):
@@ -393,7 +394,7 @@ def _moments_render(spec, ctx):
         s = ctx.situation(demo, rnd)
         res = '<span class="tag win">Round won</span>' if s["win"] else '<span class="tag loss">Round lost</span>'
         facts = observed_facts(ctx.batch_dir, demo, rnd, ctx.steamid, tick)
-        view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps)
+        view = viewer_html(ctx.batch_dir, demo, rnd, ctx.steamid, tick, ctx.maps, ctx.weapon_assets)
         outcome = "win" if s["win"] else "loss"
         sits.append((outcome, s["map"]))
         clock_str = fmt.clock(e["round_time_s"]) if e.get("round_time_s") is not None else ""

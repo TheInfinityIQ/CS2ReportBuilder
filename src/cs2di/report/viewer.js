@@ -1,8 +1,12 @@
-/* 2D round viewer (v3.4). Everything drawn comes from the demo:
-   - facing: recorded 8 Hz view angle when data.facing, else recorded aim events (held AIM_HOLD s), else movement tail, else a plain dot
+/* 2D round viewer (v3.5). Everything drawn comes from the demo:
+   - facing: recorded sidecar view angle when data.facing, else recorded aim events (held AIM_HOLD s), else facing unknown; marker shape stays circular
    - grenades: real projectile path when n.pa exists, else a straight line between the recorded throw and landing spots
    Heading is stateless: it depends only on the data at time t, never on how the viewer got there. */
 (function(){
+const weaponImages={};
+const weaponsReady=Promise.all(Object.entries(window.__WEAPONS||{}).map(([id,src])=>new Promise(resolve=>{
+  const im=new Image();weaponImages[id]=im;im.onload=resolve;im.onerror=resolve;im.src=src;
+})));
 const COL={CT:'#3f8fe0',T:'#e39a35'}, EDGE={CT:'#173f73',T:'#7a4a0c'}, RGB={CT:'63,143,224',T:'227,154,53'};
 const PILL={CT:'rgba(24,52,92,.92)',T:'rgba(96,58,10,.92)'};
 const TXT={CT:'#8fc3f5',T:'#f5c27a'};
@@ -19,24 +23,27 @@ function initViewer(root){
   const P=(x,y)=>[(x-bg.x0)/bg.s,(bg.y0-y)/bg.s];
   const range=root.querySelector('input[type=range]'), btn=root.querySelector('.v-play'), lab=root.querySelector('.v-time'), spd=root.querySelector('select');
   const rosterEl=root.querySelector('.v-roster'), feed=root.querySelector('.v-feed'), marks=root.querySelector('.v-marks');
+  const utilityEl=root.querySelector('.v-utility');
   const T=data.t0+(data.n-1)*data.dt; range.max=T;
-  let t=Math.max(0,(data.focus==null?0:data.focus-8)); let playing=false, last=0;
+  let t=Math.max(data.t0,(data.focus==null?data.t0:data.focus-8)); let playing=false, last=null, raf=null;
   const R=Math.max(5,bg.w/110), W=cv.width, H=cv.height;
   const layer={names:true,facing:true,util:true,feed:true};
   let rosterHtml='';
 
   const clampT=x=>Math.max(data.t0,Math.min(T,x));
-  const clampS=x=>Math.max(data.st0,Math.min(data.st0+(data.sn-1)*data.sdt,x));
-  function fIx(tt){return Math.max(0,Math.min(data.n-1,Math.round((tt-data.t0)/data.dt)));}      /* position / facing grid */
-  function sIx(tt){return Math.max(0,Math.min(data.sn-1,Math.round((tt-data.st0)/data.sdt)));}   /* health / item grid */
+  function fIx(tt){return Math.max(0,Math.min(data.n-1,Math.floor((tt-data.t0)/data.dt)));}
+  function sIx(tt){return tt<data.st0?-1:Math.min(data.sn-1,Math.floor((tt-data.st0)/data.sdt));} /* unknown before first state */
+  const deathAt=new Map();
+  for(const k of data.kills) if(k.vsid!=null) deathAt.set(k.vsid,Math.min(deathAt.get(k.vsid)??Infinity,k.t));
+  const aliveAt=(p,tt)=>p.sid==null||tt<(deathAt.get(p.sid)??Infinity);
   function posAt(p,tt){const f=(clampT(tt)-data.t0)/data.dt, i=Math.floor(f), j=Math.min(i+1,data.n-1);
     const a=[p.xy[2*i],p.xy[2*i+1]], b=[p.xy[2*j],p.xy[2*j+1]];
-    if(a[0]==null) return null; if(b[0]==null) return a; const k=f-i; return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];}
+    if(a[0]==null||!aliveAt(p,tt)) return null; if(b[0]==null) return a; const k=f-i; return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];}
   function scale(){return Math.min(2.4,cv.width/Math.max(1,cv.clientWidth||cv.width));}   /* canvas px per css px: keeps labels a fixed on-screen size */
 
   /* ---- facing (stateless) ---- */
   function lastAim(p,tt){let r=null; for(const a of p.aim){ if(a[0]<=tt) r=a; else break; } return r;}
-  function yawAt(p,tt){ /* recorded 8 Hz yaw, circular interpolation */
+  function yawAt(p,tt){ /* recorded yaw, circular interpolation */
     const f=(clampT(tt)-data.t0)/data.dt, i=Math.floor(f), j=Math.min(i+1,data.n-1), a=p.yw[i], b=p.yw[j];
     if(a==null&&b==null) return null; if(a==null) return b; if(b==null||i===j) return a;
     let d=((b-a+540)%360)-180; return a+d*(f-i);}
@@ -44,34 +51,15 @@ function initViewer(root){
     if(data.facing&&p.yw){const y=yawAt(p,tt); return y==null?null:{th:-y*Math.PI/180,src:'real'};}
     const a=lastAim(p,tt);
     if(a&&tt-a[0]<=AIM_HOLD) return {th:-a[1]*Math.PI/180,src:'aim',age:tt-a[0]};
-    const A=posAt(p,tt-data.dt), B=posAt(p,tt+data.dt);
-    if(A&&B){const [ax,ay]=P(A[0],A[1]),[bx,by]=P(B[0],B[1]); if(Math.hypot(bx-ax,by-ay)>1.2) return {th:Math.atan2(by-ay,bx-ax),src:'move'};}
     return null;
   }
 
   /* ---- drawing helpers ---- */
   function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-  function glyph(c,x,y,w,h,col){ /* category icon (the kind of item, not the exact model) in box left=x, centre=y */
-    ctx.fillStyle=col; ctx.strokeStyle=col; ctx.lineWidth=Math.max(1,h*.13);
-    const F=(a,b,cw,ch)=>ctx.fillRect(x+w*a,y+h*b,w*cw,h*ch);
-    const poly=pts=>{ctx.beginPath();pts.forEach((q,i)=>i?ctx.lineTo(x+w*q[0],y+h*q[1]):ctx.moveTo(x+w*q[0],y+h*q[1]));ctx.closePath();ctx.fill();};
-    const ball=(cx,cy,r)=>{ctx.beginPath();ctx.arc(x+w*cx,y+h*cy,h*r,0,7);ctx.fill();};
-    if(c==='rifle'){F(0,-.05,.22,.32);F(.14,-.2,.42,.34);F(.5,-.13,.5,.16);poly([[.36,.12],[.5,.12],[.44,.5],[.32,.5]]);}
-    else if(c==='sniper'){F(0,-.05,.2,.3);F(.14,-.16,.4,.3);F(.5,-.1,.5,.13);F(.3,-.36,.3,.14);poly([[.36,.1],[.48,.1],[.44,.42],[.34,.42]]);}
-    else if(c==='lmg'){F(0,-.05,.2,.3);F(.14,-.2,.44,.36);F(.5,-.13,.5,.15);F(.3,.12,.26,.34);}
-    else if(c==='smg'){F(.1,-.18,.5,.34);F(.55,-.1,.32,.14);poly([[.3,.14],[.44,.14],[.4,.5],[.28,.5]]);F(0,-.02,.14,.2);}
-    else if(c==='shotgun'){F(0,-.05,.2,.3);F(.15,-.16,.3,.28);F(.4,-.16,.6,.11);F(.4,-.02,.5,.1);}
-    else if(c==='pistol'){F(.2,-.3,.6,.26);poly([[.22,-.05],[.42,-.05],[.36,.5],[.2,.5]]);}
-    else if(c==='knife'){poly([[.05,.35],[.62,-.4],[.95,-.42],[.5,.05],[.2,.42]]);}
-    else if(c==='smoke'){ctx.fillStyle='#c9ced6';ball(.5,.05,.42);ctx.fillStyle='#8a919c';F(.4,-.62,.2,.2);}
-    else if(c==='flash'){ctx.fillStyle='#f4f6fb';ball(.5,.08,.4);ctx.fillStyle='#9aa3b2';F(.42,-.58,.16,.22);}
-    else if(c==='he'){ctx.fillStyle='#8ea05a';ball(.5,.08,.4);ctx.fillStyle='#d9d9c8';F(.42,-.58,.16,.22);}
-    else if(c==='fire'){ctx.fillStyle='#ff9a3c';poly([[.5,-.5],[.85,.1],[.7,.5],[.3,.5],[.15,.1]]);}
-    else if(c==='decoy'){ctx.fillStyle='#b8b8b8';ball(.5,.08,.36);}
-    else if(c==='zeus'){ctx.fillStyle='#ffe066';poly([[.55,-.5],[.2,.1],[.48,.1],[.4,.5],[.8,-.1],[.5,-.1]]);}
-    else if(c==='c4'){ctx.fillStyle='#ff5c5c';F(.15,-.3,.7,.6);ctx.fillStyle='#fff';F(.25,-.15,.5,.1);}
-    else { /* gear / unknown: plain rounded box, never a guess at a weapon */
-      ctx.globalAlpha=.85;rr(x+w*.2,y-h*.32,w*.6,h*.64,h*.12);ctx.stroke();ctx.globalAlpha=1;}
+  function equipment(id,x,y,w,h){
+    const im=weaponImages[id];if(!im||!im.complete||!im.naturalWidth)return;
+    const k=Math.min(w/im.naturalWidth,h/im.naturalHeight),iw=im.naturalWidth*k,ih=im.naturalHeight*k;
+    ctx.drawImage(im,x+(w-iw)/2,y-ih/2,iw,ih);
   }
   function cloud(x,y,r,a){ctx.fillStyle='rgba(255,255,255,'+a+')';
     [[-.5,.1,.42],[.1,-.15,.55],[.6,.1,.4]].forEach(function(c){ctx.beginPath();ctx.arc(x+r*c[0],y+r*c[1],r*c[2],0,7);ctx.fill();});}
@@ -86,10 +74,6 @@ function initViewer(root){
     ctx.fillStyle=fill;ctx.fill();ctx.lineJoin='round';ctx.lineWidth=me?R*.42:R*.24;ctx.strokeStyle=me?'#fff':edge;ctx.stroke();
     ctx.beginPath();ctx.arc(x,y,R*.4,0,7);ctx.fillStyle='rgba(255,255,255,.95)';ctx.fill();
   }
-  function tail(x,y,th,col){ /* movement only: a short trail behind the dot, not a facing claim */
-    ctx.beginPath();ctx.moveTo(x-Math.cos(th)*R*1.1,y-Math.sin(th)*R*1.1);ctx.lineTo(x-Math.cos(th)*R*2.6,y-Math.sin(th)*R*2.6);
-    ctx.lineCap='round';ctx.lineWidth=R*.5;ctx.strokeStyle=col;ctx.globalAlpha=.55;ctx.stroke();ctx.globalAlpha=1;ctx.lineCap='butt';}
-
   function drawNade(n){
     const age=t-n.t; if(age<0||age>n.d) return; const [x,y]=P(n.x,n.y), col=n.s?RGB[n.s]:'200,200,200';
     if(n.k==='smoke'){ /* real in-game radius (~144 units), pops out then fades in its last 1.5 s */
@@ -135,8 +119,7 @@ function initViewer(root){
       ctx.strokeStyle='rgba(235,240,250,'+a+')';ctx.lineWidth=Math.max(1.2,R*.16);ctx.setLineDash([R*.5,R*.45]);
       ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(nx,ny);ctx.stroke();ctx.setLineDash([]);
       ctx.beginPath();ctx.arc(tx,ty,R*.35,0,7);ctx.fillStyle='rgba(235,240,250,'+a+')';ctx.fill();
-      if(flying){const f=(t-n.tt)/Math.max(.1,n.t-n.tt); ctx.beginPath();ctx.arc(tx+(nx-tx)*f,ty+(ny-ty)*f,R*.5,0,7);
-        ctx.fillStyle=colr;ctx.fill();ctx.lineWidth=1;ctx.strokeStyle='rgba(0,0,0,.6)';ctx.stroke();}
+      /* Missing flight data: show only the recorded endpoints, never animate an invented trajectory. */
     }
     ctx.restore();
   }
@@ -149,7 +132,7 @@ function initViewer(root){
     if(data.bomb&&t>=data.bomb.t){const [x,y]=P(data.bomb.x,data.bomb.y),ph=((t-data.bomb.t)*1.2)%1;
       ctx.beginPath();ctx.arc(x,y,R*(1+ph*2),0,7);ctx.strokeStyle='rgba(255,70,70,'+(.7*(1-ph))+')';ctx.lineWidth=R*.3;ctx.stroke();
       ctx.beginPath();ctx.arc(x,y,R*.9,0,7);ctx.fillStyle='#e03434';ctx.fill();ctx.lineWidth=R*.25;ctx.strokeStyle='#ffb0b0';ctx.stroke();
-      glyph('c4',x-R*.55,y,R*1.1,R*1.1,'#fff');}
+      equipment('c4',x-R*.55,y,R*1.1,R*1.1);}
     const vis=[], fi=fIx(t), si=sIx(t);
     for(const p of data.players){const q=posAt(p,t); if(!q) continue; const [x,y]=P(q[0],q[1]); vis.push({p,x,y,f:facing(p,t),fg:p.fg?p.fg[fi]:0});}
     /* view wedges: real facing for everyone (subtle, brighter for you), or the recorded-aim cone that fades over AIM_HOLD */
@@ -167,12 +150,12 @@ function initViewer(root){
         ctx.moveTo(x-R*.6,y-R*.6);ctx.lineTo(x+R*.6,y+R*.6);ctx.moveTo(x+R*.6,y-R*.6);ctx.lineTo(x-R*.6,y+R*.6);ctx.stroke();}}
     for(const v of vis){ if(v.p.fl[si]){ctx.beginPath();ctx.arc(v.x,v.y,R*1.9,0,7);ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=R*.3;ctx.stroke();}
       if(v.fg&16){ctx.beginPath();ctx.arc(v.x,v.y,R*2.3,0,7);ctx.strokeStyle='rgba(120,255,160,.95)';ctx.setLineDash([R*.5,R*.4]);ctx.lineWidth=R*.3;ctx.stroke();ctx.setLineDash([]);}
-      const th=v.f&&v.f.src!=='move'?v.f.th:null;
-      if(v.f&&v.f.src==='move') tail(v.x,v.y,v.f.th,COL[v.p.side]);
-      pin(v.x,v.y,th,COL[v.p.side],EDGE[v.p.side],v.p.me);}
-    /* name pills (fixed on-screen size); the icon is the kind of active item, exact names are in the roster */
-    if(layer.names){const placed=[]; vis.sort((a,b)=>(b.p.me-a.p.me)||(a.y-b.y));
-      for(const v of vis){const p=v.p, cat=data.wi[p.wp[si]]||'', showG=!narrow&&cat, fs=(p.me?13:12)*S, gw=showG?fs*2.1:0;
+      if(v.f){ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.lineTo(v.x+Math.cos(v.f.th)*R*2.7,v.y+Math.sin(v.f.th)*R*2.7);
+        ctx.strokeStyle=COL[v.p.side];ctx.lineWidth=R*.35;ctx.stroke();}
+      pin(v.x,v.y,null,COL[v.p.side],EDGE[v.p.side],v.p.me);}
+    /* name pills (fixed on-screen size); exact Valve active-item silhouettes; names are in the roster */
+    if(layer.names){const placed=[]; vis.sort((a,b)=>(b.p.me-a.p.me));
+      for(const v of vis){const p=v.p, id=(data.wa||[])[p.wp[si]]||'', showG=!narrow&&id, fs=(p.me?13:12)*S, gw=showG?fs*2.1:0;
         ctx.font=(p.me?'700 ':'600 ')+fs+'px system-ui,sans-serif';ctx.textBaseline='middle';
         const tw=ctx.measureText(p.name).width, pad=fs*.55, pw=tw+gw+pad*2+(gw?fs*.35:0), ph=fs*1.7;
         let px=Math.max(3,Math.min(W-pw-3,v.x-pw/2)), py=v.y-R*2.2-ph-2, dir=-1;
@@ -180,7 +163,7 @@ function initViewer(root){
         for(let i=0;i<8;i++){const hit=placed.some(o=>px<o[0]+o[2]+2&&px+pw+2>o[0]&&py<o[1]+o[3]+2&&py+ph+2>o[1]); if(!hit) break; py+=dir*(ph+2);}
         py=Math.max(3,Math.min(H-ph-3,py)); placed.push([px,py,pw,ph]);
         rr(px,py,pw,ph,ph/2.6);ctx.fillStyle=PILL[p.side];ctx.fill();if(p.me){ctx.lineWidth=fs*.14;ctx.strokeStyle='#fff';ctx.stroke();}
-        if(gw) glyph(cat,px+pad,py+ph/2,gw,ph*.7,'#e9edf3');
+        if(gw) equipment(id,px+pad,py+ph/2,gw,ph*.7);
         ctx.fillStyle=p.me?'#fff':TXT[p.side];ctx.fillText(p.name,px+pad+gw+(gw?fs*.35:0),py+ph/2+1);}}
     /* kill feed, top right: exact weapon name as text (an icon would say "rifle" for both AK and M4) */
     const recent=layer.feed?data.kills.filter(k=>k.t<=t&&t-k.t<6).slice(-(narrow?3:4)):[];
@@ -195,12 +178,16 @@ function initViewer(root){
     range.value=t;lab.textContent=fmt(t)+' / '+fmt(T);
     const nextHtml=data.kills.filter(k=>k.t<=t&&t-k.t<6).slice(-4).map(k=>'<span><b class="'+(k.as||'')+'">'+esc(k.a||'World')+'</b> '+(k.w?'['+esc(k.w)+'] ':'')+'<b class="'+(k.vs||'')+'">'+esc(k.v)+'</b></span>').join('');
     if(feed.innerHTML!==nextHtml) feed.innerHTML=nextHtml;
+    if(utilityEl){const html=layer.util?data.nades.filter(n=>(n.k==='smoke'||n.k==='fire')&&t>=n.t&&t<n.t+n.d).map(n=>
+      '<span title="'+(n.duration_recorded?'Recorded expiry':'Estimated expiry')+'">'+(n.k==='smoke'?'Smoke ':'Fire ')+
+      (n.duration_recorded?'':'~')+(n.d-(t-n.t)).toFixed(1)+'s'+(n.by?' · '+esc(n.by):'')+'</span>').join(''):'';
+      if(utilityEl.innerHTML!==html)utilityEl.innerHTML=html;utilityEl.hidden=!html;}
     /* roster: health, armour and the active item for both teams */
     let h='';
-    for(const side of ['CT','T']){const ps=data.players.filter(p=>p.side===side); const alive=ps.filter(p=>p.xy[2*fi]!=null).length;
+    for(const side of ['CT','T']){const ps=data.players.filter(p=>p.side===side); const alive=ps.filter(p=>p.xy[2*fi]!=null&&aliveAt(p,t)).length;
       h+='<div class="rt '+side+'"><div class="rh"><b>'+side+'</b><span>'+alive+' alive</span></div>';
-      for(const p of ps){const up=p.xy[2*fi]!=null, hp=p.hp[si], wn=data.weapons[p.wp[si]]||'', dfz=p.fg&&(p.fg[fi]&16);
-        h+='<div class="rr'+(up?'':' dead')+(p.me?' me':'')+'"><div class="l1"><span class="nm">'+esc(p.name)+'</span><span class="hpb"><i class="'+(hp<=30?'lo':hp<=60?'mid':'')+'" style="width:'+(up?Math.max(3,hp):0)+'%"></i></span><span class="hpn">'+(up?hp:'dead')+'</span></div>'
+      for(const p of ps){const up=p.xy[2*fi]!=null&&aliveAt(p,t), hp=p.hp[si]??null, wn=data.weapons[p.wp[si]]||'', dfz=p.fg&&(p.fg[fi]&16);
+        h+='<div class="rr'+(up?'':' dead')+(p.me?' me':'')+'"><div class="l1"><span class="nm">'+esc(p.name)+'</span><span class="hpb"><i class="'+(hp<=30?'lo':hp<=60?'mid':'')+'" style="width:'+(up&&hp!=null?Math.max(3,hp):0)+'%"></i></span><span class="hpn">'+(up?(hp??'?'):'dead')+'</span></div>'
           +'<div class="wn">'+(up?esc(wn)+(p.ar[si]?' · armor':'')+(dfz?' · defusing':''):'&nbsp;')+'</div></div>';}
       h+='</div>';}
     if(h!==rosterHtml){rosterHtml=h;rosterEl.innerHTML=h;}
@@ -208,11 +195,15 @@ function initViewer(root){
 
   /* ---- controls ---- */
   function setT(x){t=clampT(x); draw();}
-  function stop(){playing=false; btn.textContent='Play'; btn.setAttribute('aria-pressed','false');}
-  function loop(ts){ if(!playing) return; if(last) t+=(ts-last)/1000*parseFloat(spd.value); last=ts;
-    if(t>=T){t=T; stop();} draw(); if(playing) requestAnimationFrame(loop);}
-  btn.addEventListener('click',()=>{playing=!playing; btn.textContent=playing?'Pause':'Play'; btn.setAttribute('aria-pressed',String(playing)); last=0; if(playing){ if(t>=T) t=0; requestAnimationFrame(loop);} });
-  range.addEventListener('input',()=>{t=parseFloat(range.value); draw();});
+  function stop(){playing=false;if(raf!=null)cancelAnimationFrame(raf);raf=null;last=null;btn.textContent='Play';btn.setAttribute('aria-pressed','false');}
+  function loop(ts){raf=null;if(!playing)return;if(last!=null)t+=(ts-last)/1000*parseFloat(spd.value);last=ts;
+    if(t>=T){t=T;stop();}draw();if(playing)raf=requestAnimationFrame(loop);}
+  btn.addEventListener('click',()=>{if(playing){stop();return;}playing=true;btn.textContent='Pause';btn.setAttribute('aria-pressed','true');last=null;
+    if(t>=T)t=data.t0;raf=requestAnimationFrame(loop);});
+  range.min=data.t0;
+  range.addEventListener('input',()=>{stop();setT(parseFloat(range.value));});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+  const drawer=root.closest('details');if(drawer)drawer.addEventListener('toggle',()=>{if(!drawer.open)stop();});
   const j=root.querySelector('.v-jump'); if(j) j.addEventListener('click',()=>{stop(); setT(Math.max(0,(data.focus||0)-5));});
   root.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{stop(); setT(t+parseFloat(b.dataset.step));}));
   /* events: kills, plant, focus, round end (also drawn as markers on the timeline) */
@@ -233,7 +224,7 @@ function initViewer(root){
     root.classList.add('v-full'); document.body.classList.add('v-lock'); ex.textContent='Close'; ex.setAttribute('aria-pressed','true'); draw();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root.classList.contains('v-full')) fullOff();});
   if(window.ResizeObserver) new ResizeObserver(()=>draw()).observe(cv);
-  img.onload=draw; draw();
+  img.onload=draw;weaponsReady.then(draw);draw();
 }
 /* lazy start: a replay inside a closed drawer is set up the first time the drawer opens */
 document.querySelectorAll('.viewer').forEach(function(v){

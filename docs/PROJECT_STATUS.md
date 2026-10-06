@@ -12,6 +12,9 @@ Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
   destination and reports excluded matches; raw demo extraction remains separate.
   Batches can also be selected directly with Choose folder; player selection
   stays inside that folder and does not search or combine other batches.
+- [Viewer review and repairs](VIEWER_REVIEW_2026-10-06.md) preserve sidecar cadence,
+  use exact Valve weapon icons, show utility countdowns and correct playback/state
+  timing. Raw-folder selection and adaptive extraction are proposals awaiting approval.
 - Eight saved run_2026-09-29_fresh_subagent directories exist for CanadianIQ_1,
   CanadianIQ_2, MIMY, iTrilogyy, shakestx, ZywOo, karrigan, and xertioN under
   demoparser/06_Handoff_and_Tests/test_coaches. Earlier inspection found plans,

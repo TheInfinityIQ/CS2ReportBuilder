@@ -31,7 +31,18 @@ Design and measurements: `docs/VIEWER_DATA_OPTIONS_2026-09-29.md`. Needs the ori
 
 
 ## Using the sidecar in the report (viewer v3.4)
-Nothing to configure. `cs2di report` looks for `viewer_tracks.csv.gz`, `grenade_throws.csv.gz` and `grenade_paths.csv.gz` in each demo folder of the analyzed batch. When they exist the viewer draws the recorded 8 Hz view angle and the real grenade flight path, and the "What happened" box gains a line about where the player's view pointed before a kill or death. Demos without them use the event-only drawing (aim after shots, straight throw line).
+`cs2di report` looks for `viewer_tracks.csv.gz`, `viewer_tracks_meta.json`,
+`grenade_throws.csv.gz` and `grenade_paths.csv.gz` in each demo folder. It preserves
+the cadence recorded in sidecar metadata, including 16 Hz (`--hz 16`), and draws
+recorded facing and grenade flight paths when available. The default extraction
+rate remains 8 Hz. Changing `--hz` now reprocesses output from a different rate
+instead of silently skipping it. v7.8 core player_positions remain 2 Hz.
+
+Demos without sidecars show stable circle markers and event-only direction lines;
+their replay notice identifies missing continuous facing. Dashed straight throw
+connections indicate missing paths and do not animate invented trajectories.
+See [the viewer review](../docs/VIEWER_REVIEW_2026-10-06.md) for verified behavior,
+remaining limitations and the proposed preparation workflow.
 
 ## Run the sidecar over every batch: `run_all_tracks.py`
 Next to `extract_viewer_tracks.py`. Walks `01_Demos\<batch>\**\*.dem` (sub-folders included), pairs each demo with

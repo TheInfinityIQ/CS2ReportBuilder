@@ -112,6 +112,9 @@ sup.fn a{text-decoration:none;color:var(--accent);font-weight:650;padding:0 1px}
 .v-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-width:640px;margin:8px auto 0}
 .v-ctl input[type=range]{flex:1 1 160px}.v-ctl button,.v-ctl select{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 .v-time{font-variant-numeric:tabular-nums;font-size:14px}
+.v-quality,.v-utility{max-width:640px;margin:8px auto;font-size:12px}
+.v-utility{display:flex;flex-wrap:wrap;gap:4px 8px;font-variant-numeric:tabular-nums}
+.v-utility[hidden]{display:none}.v-utility span{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 7px}
 .v-feed{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .v-feed b.CT{color:var(--ct)}.v-feed b.T{color:var(--t)}
 .v-roster{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:640px;margin:8px auto 0;font-size:13px}

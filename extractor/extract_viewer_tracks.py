@@ -408,7 +408,8 @@ def process_demo(dem: Path, folder: Path, hz: int, validate: bool, force: bool) 
     meta_path = folder / "viewer_tracks_meta.json"
     if not force and meta_path.exists() and all((folder / f).exists() for f in NEW_FILES):
         try:
-            if json.loads(meta_path.read_text(encoding="utf-8")).get("script_version") == SCRIPT_VERSION:
+            previous = json.loads(meta_path.read_text(encoding="utf-8"))
+            if previous.get("script_version") == SCRIPT_VERSION and previous.get("sample_hz") == hz:
                 return {"status": "skipped_done"}
         except Exception:
             pass
