@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-10-04. Distinguish observed artifacts from verified behavior.
+Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
 
 ## Observed implementation and artifacts
 
@@ -10,6 +10,8 @@ Date: 2026-10-04. Distinguish observed artifacts from verified behavior.
 - A local [packet-builder window](PACKET_BUILDER_UI.md) selects extracted batches
   and players, builds isolated packets, and exports ZIPs. Each build uses a new
   destination and reports excluded matches; raw demo extraction remains separate.
+  Batches can also be selected directly with Choose folder; player selection
+  stays inside that folder and does not search or combine other batches.
 - Eight saved run_2026-09-29_fresh_subagent directories exist for CanadianIQ_1,
   CanadianIQ_2, MIMY, iTrilogyy, shakestx, ZywOo, karrigan, and xertioN under
   demoparser/06_Handoff_and_Tests/test_coaches. Earlier inspection found plans,

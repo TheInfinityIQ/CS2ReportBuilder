@@ -208,8 +208,8 @@
         "reviewed_sha256": "af7e89ca1cf311c7dc9f47a3af11c9f19a210cd732a4301ccf360fe3ea624ace"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Observed implementation, the local packet-builder window and open product gaps; reports are not independently audited.",
-        "reviewed_sha256": "7bf75d91d64637a96db615b69463bf8f01a91f1830eddcca9cfaa26550c23787"
+        "summary": "Observed implementation, the local packet-builder window with direct folder selection and open product gaps; reports are not independently audited.",
+        "reviewed_sha256": "23105768ebe09d221285c0e1e351a428dd87b650f2e9603e1bb4b8da5a6e485e"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",

@@ -29,6 +29,7 @@ class PacketWindow:
         self.batch = None
         self.packet = None
         self.batches = []
+        self.custom_batch = None
         self.generation = 0
         self.analysis = tk.StringVar(value=str(config.root() / "02_Analysis"))
         self.destination = tk.StringVar(value=str(config.root() / "06_Handoff_and_Tests/packets"))
@@ -65,11 +66,14 @@ class PacketWindow:
                                        (5, "Match type", self.kind, ["PUG / FACEIT / Premier", "Tournament / pro"])):
             ttk.Label(page, text=label).grid(row=row, column=0, sticky="w", pady=6)
             combo = ttk.Combobox(page, textvariable=var, values=values, state="readonly")
-            combo.grid(row=row, column=1, columnspan=2, sticky="ew", pady=6)
+            combo.grid(row=row, column=1, columnspan=1 if row == 3 else 2, sticky="ew", pady=6)
             self.inputs.append(combo)
             if row == 3:
                 self.batch_combo = combo
                 combo.bind("<<ComboboxSelected>>", lambda e: self.load_batch())
+                button = ttk.Button(page, text="Choose folder…", command=self.browse_batch)
+                button.grid(row=row, column=2, padx=(10, 0))
+                self.inputs.append(button)
             elif row == 4:
                 self.player_combo = combo
                 combo.bind("<<ComboboxSelected>>", lambda e: self.show_player())
@@ -137,7 +141,9 @@ class PacketWindow:
                 self.events.put(("error", token, str(exc)))
         threading.Thread(target=work, daemon=True).start()
 
-    def refresh(self):
+    def refresh(self, preferred=None):
+        if preferred is None and self.batch and self.batch.path.parent == Path(self.analysis.get()).resolve():
+            preferred = self.batch.path
         self.generation += 1
         self.batch = None
         self.packet = None
@@ -148,14 +154,16 @@ class PacketWindow:
         self.player_name.set("")
         self.selected.set("")
         self.batches = discover_batches(Path(self.analysis.get()))
+        if self.custom_batch and self.custom_batch.is_dir() and self.custom_batch not in self.batches:
+            self.batches.append(self.custom_batch)
         self.batch_combo.configure(values=[p.name for p in self.batches])
         self.build_button.configure(state="disabled")
         if self.batches:
-            self.batch_combo.current(0)
+            self.batch_combo.current(self.batches.index(preferred) if preferred in self.batches else 0)
             self.load_batch()
         else:
             self.batch_name.set("")
-            self.summary.set("No analysed batches found. Browse to a folder containing analyzed_* batches.")
+            self.summary.set("No analysed batches found. Use Choose folder to select an extracted batch directly.")
             self.status.set("Waiting for an analysed batch.")
 
     def load_batch(self):
@@ -172,6 +180,7 @@ class PacketWindow:
         self.clear()
         self.status.set("Reading players and checking match integrity…")
         path = self.batches[self.batch_combo.current()]
+        self.summary.set(f"Selected folder: {path}")
         self.background(lambda: inspect_batch(path), "batch", self.generation)
 
     def show_player(self):
@@ -206,7 +215,7 @@ class PacketWindow:
                 self.append(value)
             elif kind == "batch":
                 self.batch = value
-                self.summary.set(f"{value.accepted} usable matches · {len(value.excluded)} excluded · "
+                self.summary.set(f"Selected folder: {value.path}\n{value.accepted} usable matches · {len(value.excluded)} excluded · "
                                  f"{value.ignored} temporary or unrelated folders ignored")
                 labels = [f"{p.name} — {len(p.demos)} matches — {p.steamid}" for p in value.players]
                 self.player_combo.configure(values=labels)
@@ -236,8 +245,19 @@ class PacketWindow:
     def browse_analysis(self):
         folder = filedialog.askdirectory(title="Choose the folder containing analyzed_* batches", initialdir=self.analysis.get())
         if folder:
+            self.custom_batch = None
+            self.batch = None
             self.analysis.set(folder)
             self.refresh()
+
+    def browse_batch(self):
+        folder = filedialog.askdirectory(
+            title="Choose an extracted batch folder containing match folders",
+            initialdir=str(self.batch.path) if self.batch else self.analysis.get())
+        if folder:
+            self.custom_batch = Path(folder).resolve()
+            self.analysis.set(str(self.custom_batch.parent))
+            self.refresh(preferred=self.custom_batch)
 
     def browse_destination(self):
         folder = filedialog.askdirectory(title="Choose where packets will be saved", initialdir=self.destination.get())
