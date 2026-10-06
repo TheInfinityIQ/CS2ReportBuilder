@@ -1,6 +1,6 @@
-# Viewer review and proposed batch workflow
+# Viewer review and batch workflow
 
-## Evidence inspected
+## Evidence inspected before these repairs
 
 Reviewed Downloads/report.html and the 30.04-second Downloads/2DViewer.mp4,
 including recording frames at 5, 15 and 25 seconds. The report uses the current
@@ -12,7 +12,9 @@ packet, not claims that all local analysis lacks viewer tracks.
 Both repo/extractor/extract_demos_v7dot8.py and the local
 demoparser/03_Scripts/current copy still sample player_positions every 32 ticks:
 2 Hz at 64 ticks/second. v7.8 changed damage accounting, not that sampling rate.
-The separate viewer-track extractor defaults to 8 Hz and accepts `--hz 16`.
+At inspection the separate viewer-track extractor defaulted to 8 Hz and accepted `--hz 16`.
+The subsequent approved implementation defaults it to 16 Hz and invokes it after
+normal core extraction; see the [current workflow guide](PACKET_BUILDER_UI.md).
 Existing files and packets remain snapshots; updating software does not add
 missing measurements to them.
 
@@ -59,8 +61,9 @@ the two layouts.
 
 Recommended first UI milestone: raw-folder mapping, inclusion preview and replay
 readiness. Then add viewer preparation and the resource-aware queue. This is a
-workflow proposal requiring Dawson's approval before implementation; this review
-did not move data or launch extraction across the repository.
+workflow proposal that Dawson subsequently approved on 2026-10-06. It is now
+implemented; the [current guide](PACKET_BUILDER_UI.md) describes controls and repair
+commands. Verification used copied analysis and a bounded fresh extraction.
 
 ## Adaptive extraction design
 

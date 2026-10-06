@@ -77,10 +77,19 @@ def test_requesting_higher_track_rate_does_not_skip_old_output(tmp_path, monkeyp
     spec.loader.exec_module(module)
     for name in module.NEW_FILES:
         (tmp_path / name).write_text("test")
-    (tmp_path / "viewer_tracks_meta.json").write_text(json.dumps({"script_version": module.SCRIPT_VERSION, "sample_hz": 8}))
-    assert module.process_demo(tmp_path / "missing.dem", tmp_path, 8, False, False)["status"] == "skipped_done"
-    with pytest.raises(FileNotFoundError):  # tries to read the demo instead of silently reusing 8 Hz
-        module.process_demo(tmp_path / "missing.dem", tmp_path, 16, False, False)
+    demo = tmp_path / "sample.dem"
+    demo.write_bytes(b"original demo")
+    (tmp_path / "viewer_tracks_meta.json").write_text(json.dumps({
+        "script_version": module.SCRIPT_VERSION, "sample_hz": 8,
+        "demo_sha256": module.sha256_of(demo),
+        "sha256_files": {name: module.sha256_of(tmp_path / name)
+                         for name in module.NEW_FILES if name.endswith(".gz")}}))
+    assert module.process_demo(demo, tmp_path, 8, False, False)["status"] == "skipped_done"
+    with pytest.raises(FileNotFoundError):  # reads rounds.csv instead of reusing 8 Hz
+        module.process_demo(demo, tmp_path, 16, False, False)
+    demo.write_bytes(b"changed original")
+    with pytest.raises(FileNotFoundError):
+        module.process_demo(demo, tmp_path, 8, False, False)
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")

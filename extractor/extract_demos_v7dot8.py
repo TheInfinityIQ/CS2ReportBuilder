@@ -1,7 +1,7 @@
 """
 CS2 demo extraction for coaching analysis — v7.8 / schema 3.8
 
-v7.8 (2026-09-28), behaviour change limited to damage; everything else is v7.7 verbatim:
+v7.8 (2026-09-28), core table changes limited to damage:
   - player_hurt gains dmg_health_effective + same_tick_multi_hurt. The legacy
     dmg_health_capped (= user_health - health) is kept unchanged for comparability, but it
     double-counts when one victim takes several hits on the same tick, because every row
@@ -28,6 +28,10 @@ FULL-MATCH / TARGETLESS MODE
 All earlier correctness fixes (SteamID repair, match-start fallback,
 per-round freeze-end fallback, capped damage, silent-prop logging,
 FACEIT-unavailable props dropped, etc.) are preserved.
+
+2026-10-06: successful core extraction now adds validated 16 Hz viewer sidecars.
+Core analytic tables keep their existing cadence and schema. Per-demo locks
+protect core publication and additive viewer preparation.
 
 Usage:
     Put .dem files in DEMO_DIR.
@@ -57,7 +61,7 @@ from demoparser2 import DemoParser
 # ============================================================
 
 PROJECT_ROOT = Path(
-    r"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\replays\demoparser"
+    r"C:\Users\dawso\Developer\CS2ReportBuilder\demoparser"
 )
 
 DEMO_FOLDER = "iTrilogy"
@@ -86,6 +90,8 @@ DEEP_MODE = COACHING_PROFILE == "deep"
 RUN_INTERNAL_SELF_TESTS = True
 
 TICK_SAMPLE_EVERY = 32      # player_positions sampling (32 = 2 Hz)
+VIEWER_SAMPLE_HZ = 16      # separate additive tracks; core coaching tables stay unchanged
+EXTRACT_VIEWER_DATA = True
 
 # Profile-derived settings.  Do not toggle these independently: batch mode is
 # intentionally coherent so a size-saving switch cannot accidentally disable a
@@ -2282,7 +2288,7 @@ def write_batch_validation_summary(output_dir: Path):
 # MAIN PER-DEMO PIPELINE
 # ============================================================
 
-def analyze_demo(demo_path: Path) -> bool:
+def _analyze_demo_unlocked(demo_path: Path) -> bool:
     print(f"\n{'='*80}\nDEMO: {demo_path.name}\n{'='*80}")
     final_out_dir = OUTPUT_DIR / demo_path.stem
     out_dir = OUTPUT_DIR / f".{demo_path.stem}.v75_tmp"
@@ -2555,6 +2561,15 @@ def analyze_demo(demo_path: Path) -> bool:
         return False
 
 
+def analyze_demo(demo_path: Path) -> bool:
+    try:
+        from cs2di.job_lock import exclusive, lock_path
+    except ImportError:
+        from job_lock import exclusive, lock_path
+    with exclusive(lock_path(OUTPUT_DIR / demo_path.stem)):
+        return _analyze_demo_unlocked(demo_path)
+
+
 def main():
     if RUN_INTERNAL_SELF_TESTS:
         run_internal_self_tests()
@@ -2565,11 +2580,8 @@ def main():
         print(f"No .dem files found in: {DEMO_DIR.resolve()}")
         return
 
-    # Clean stale temporary directories only.  Never delete completed match
-    # outputs merely because the current DEMO_DIR contains a subset of demos.
-    for child in OUTPUT_DIR.iterdir():
-        if child.is_dir() and child.name.startswith(".") and ".v75_tmp" in child.name:
-            shutil.rmtree(child, ignore_errors=True)
+    # Each demo cleans its own staging folder while holding its output lock.
+    # A batch-wide cleanup could delete another running job's work.
 
     print(f"Found {len(demos)} demo(s). Mode: " +
           (f"target={TARGET_PLAYER}" if TARGET_PLAYER else "full-match"))
@@ -2608,6 +2620,18 @@ def main():
     for demo in demos:
         ok = bool(analyze_demo(demo))
         rec = {"demo": demo.name, "stem": demo.stem, "success": ok}
+        if ok and EXTRACT_VIEWER_DATA:
+            try:
+                import extract_viewer_tracks
+                viewer = extract_viewer_tracks.process_demo(demo, OUTPUT_DIR / demo.stem, VIEWER_SAMPLE_HZ, True, False)
+                rec["viewer_status"] = viewer["status"]
+                rec["viewer_hz"] = VIEWER_SAMPLE_HZ
+                if not (viewer.get("meta") or {}).get("interpolation_check", {}).get("ok") and viewer["status"] != "skipped_done":
+                    rec["viewer_status"] = "validation_failed"
+            except Exception as exc:
+                rec["viewer_status"] = "failed"
+                rec["viewer_error"] = str(exc)
+                print(f"Viewer data failed for {demo.name}: {exc}. Core analysis is preserved.")
         canonical_sm = OUTPUT_DIR / demo.stem / "match_summary.json"
         invalid_dir = OUTPUT_DIR / f"{demo.stem}__INVALID_v77"
         invalid_sm = invalid_dir / "match_summary.json"
@@ -2640,6 +2664,7 @@ def main():
         "success_count": len([r for r in results if r.get("success")]),
         "failure_count": len(failures),
         "invalid_count": len(invalid),
+        "viewer_failure_count": sum(r.get("viewer_status") in {"failed", "validation_failed"} for r in results),
         "results": results,
     }, OUTPUT_DIR / "batch_run_summary.json")
 
@@ -2654,6 +2679,9 @@ def main():
         print(f"Zip it up with:  zip -r {OUTPUT_DIR}.zip {OUTPUT_DIR}/")
     else:
         print("DO NOT TREAT THIS BATCH AS CANONICAL until FAILED/INVALID demos are reviewed.")
+    viewer_failed = [r["demo"] for r in results if r.get("viewer_status") in {"failed", "validation_failed"}]
+    if viewer_failed:
+        print("CORE GATES AND VIEWER READINESS ARE SEPARATE. Run fix_viewer_data.py for: " + ", ".join(viewer_failed))
 
 
 if __name__ == "__main__":

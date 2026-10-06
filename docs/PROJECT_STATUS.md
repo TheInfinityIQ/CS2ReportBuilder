@@ -7,14 +7,17 @@ Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
 - A local Git checkout exists at CS2ReportBuilder/repo, alongside demoparser.
 - Source implements extraction v7.8, viewer sidecar, integrity gating, digest,
   analysis, plan validation, packet generation, and HTML report rendering.
-- A local [packet-builder window](PACKET_BUILDER_UI.md) selects extracted batches
-  and players, builds isolated packets, and exports ZIPs. Each build uses a new
-  destination and reports excluded matches; raw demo extraction remains separate.
-  Batches can also be selected directly with Choose folder; player selection
-  stays inside that folder and does not search or combine other batches.
-- [Viewer review and repairs](VIEWER_REVIEW_2026-10-06.md) preserve sidecar cadence,
-  use exact Valve weapon icons, show utility countdowns and correct playback/state
-  timing. Raw-folder selection and adaptive extraction are proposals awaiting approval.
+- The [packet-builder window](PACKET_BUILDER_UI.md) maps a raw batch or subfolder
+  to one analysis collection, previews inclusion and duplicate identities, saves
+  selections, and prepares or repairs data. A resource-aware queue defaults to
+  80% CPU / 90% RAM soft admission targets, with logs, cancellation and retry.
+  Packets require validated 16 Hz replay data unless explicitly overridden.
+- [Viewer repairs](VIEWER_REVIEW_2026-10-06.md) preserve sidecar cadence, use exact
+  Valve weapon icons, show utility countdowns and correct playback/state timing.
+  Normal v7.8 extraction now adds validated 16 Hz viewer sidecars by default;
+  existing analytic-table cadence/schema stays unchanged. The approved
+  [workflow plan](PACKET_WORKFLOW_PLAN_2026-10-06.md) is implemented. Old packets
+  remain unchanged and must be rebuilt to use repaired source analysis.
 - Eight saved run_2026-09-29_fresh_subagent directories exist for CanadianIQ_1,
   CanadianIQ_2, MIMY, iTrilogyy, shakestx, ZywOo, karrigan, and xertioN under
   demoparser/06_Handoff_and_Tests/test_coaches. Earlier inspection found plans,

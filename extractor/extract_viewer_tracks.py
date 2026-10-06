@@ -1,14 +1,14 @@
 """
-CS2 viewer-tracks sidecar  --  extract_viewer_tracks.py  (v1.0)
+CS2 viewer-tracks sidecar  --  extract_viewer_tracks.py  (v1.1)
 
 WHAT IT DOES
     Adds two thin data sets that the 2D viewer and several coaching measures need but the frozen v7.x
-    extractor never wrote.  It is ADDITIVE: it never edits or deletes an existing extractor file, so the
+    extractor never wrote.  It is ADDITIVE: it replaces only its additive viewer files, so the
     schema-3.7/3.8 output stays byte-for-byte as it is and nothing needs re-extracting.
 
     For every demo folder in the analyzed batch it writes, next to rounds.csv:
 
-      viewer_tracks.csv.gz      8 Hz player tracks, live-round windows only, alive players only
+      viewer_tracks.csv.gz      16 Hz player tracks, live-round windows only, alive players only
       grenade_throws.csv.gz     one row per grenade thrown (who, when, where, aim, landing)
       grenade_paths.csv.gz      the real flight path of each grenade (simplified, bounces kept)
       viewer_tracks_meta.json   provenance + self-checks for that demo
@@ -34,7 +34,7 @@ HOW TO RUN
 OPTIONS
     --demos DIR       folder with the .dem files          (default: from the constants below)
     --analyzed DIR    the analyzed_<batch> output folder  (default: from the constants below)
-    --hz N            track sample rate, must divide the tick rate (default 8)
+    --hz N            track sample rate, must divide the tick rate (default 16)
     --only STEM       process only this demo (repeatable)
     --limit N         process at most N demos (for a quick trial)
     --force           overwrite existing outputs (default: skip demos already done by this version)
@@ -73,7 +73,7 @@ import numpy as np
 import pandas as pd
 from demoparser2 import DemoParser
 
-SCRIPT_VERSION = "1.0"
+SCRIPT_VERSION = "1.1"
 SCHEMA = 1
 
 # ============================================================
@@ -86,7 +86,7 @@ DEMO_FOLDER = "iTrilogy"
 DEMO_DIR = PROJECT_ROOT / "01_Demos" / DEMO_FOLDER
 ANALYZED_DIR = PROJECT_ROOT / "02_Analysis" / f"analyzed_{DEMO_FOLDER}"
 
-SAMPLE_HZ = 8
+SAMPLE_HZ = 16
 POST_ROUND_S = 4.0            # keep this many seconds after the round-end tick (matches the viewer)
 PATH_TOLERANCE = 12.0         # game units; grenade path simplification error bound
 UNDETONATED_MAX_S = 10.0      # cap the path of a grenade that never detonated
@@ -225,7 +225,7 @@ def build_tracks(parser: DemoParser, windows: pd.DataFrame, step: int, meta: dic
 
 
 def validate_tracks(parser: DemoParser, tracks: pd.DataFrame, windows: pd.DataFrame) -> dict:
-    """Re-read one round at full rate and measure how far the interpolated 8 Hz table is from the truth."""
+    """Re-read one round at full rate and measure how far the interpolated sampled table is from the truth."""
     if tracks.empty:
         return {"ok": False, "reason": "no tracks"}
     w = windows.iloc[len(windows) // 2]
@@ -403,13 +403,20 @@ def _r(row, col, nd=0):
 # ============================================================
 # one demo
 # ============================================================
-def process_demo(dem: Path, folder: Path, hz: int, validate: bool, force: bool) -> dict:
+def _process_demo_unlocked(dem: Path, folder: Path, hz: int, validate: bool, force: bool) -> dict:
     t_start = time.time()
+    if hz <= 0 or 64 % hz:
+        raise ValueError("Sample rate must be a positive divisor of 64")
+    source_hash = sha256_of(dem)
     meta_path = folder / "viewer_tracks_meta.json"
-    if not force and meta_path.exists() and all((folder / f).exists() for f in NEW_FILES):
+    if not force and not (folder / ".viewer_tracks_updating").exists() and meta_path.exists() and all((folder / f).exists() for f in NEW_FILES):
         try:
             previous = json.loads(meta_path.read_text(encoding="utf-8"))
-            if previous.get("script_version") == SCRIPT_VERSION and previous.get("sample_hz") == hz:
+            if (previous.get("script_version") == SCRIPT_VERSION and previous.get("sample_hz") == hz
+                    and previous.get("demo_sha256") == source_hash
+                    and (not validate or previous.get("interpolation_check", {}).get("ok"))
+                    and all(previous.get("sha256_files", {}).get(f) == sha256_of(folder / f)
+                            for f in NEW_FILES if f.endswith(".gz"))):
                 return {"status": "skipped_done"}
         except Exception:
             pass
@@ -421,7 +428,7 @@ def process_demo(dem: Path, folder: Path, hz: int, validate: bool, force: bool) 
         raise ValueError(f"--hz {hz} does not divide the tick rate {tickrate}")
     step = tickrate // hz
     meta = {"script_version": SCRIPT_VERSION, "schema": SCHEMA, "demo_file": dem.name, "demo_bytes": dem.stat().st_size,
-            "demo_sha256": sha256_of(dem), "tickrate": tickrate, "sample_hz": hz, "step_ticks": step,
+            "demo_sha256": source_hash, "tickrate": tickrate, "sample_hz": hz, "step_ticks": step,
             "path_tolerance_units": PATH_TOLERANCE, "python": sys.version.split()[0], "pandas": pd.__version__,
             "demoparser2": importlib.metadata.version("demoparser2"), "warnings": []}
     windows = load_windows(folder, tickrate)
@@ -444,17 +451,23 @@ def process_demo(dem: Path, folder: Path, hz: int, validate: bool, force: bool) 
         except Exception as exc:
             meta["interpolation_check"] = {"ok": False, "reason": f"{type(exc).__name__}: {exc}"}
     throws, paths = build_grenades(parser, windows, tickrate, meta)
+    if sha256_of(dem) != source_hash:
+        raise RuntimeError("Original demo changed during extraction")
     tmp = folder / ".viewer_tracks_tmp"
     tmp.mkdir(exist_ok=True)
     try:
         write_csv_gz(tracks, tmp / "viewer_tracks.csv.gz")
         write_csv_gz(throws if len(throws) else pd.DataFrame(columns=["round", "throw_id"]), tmp / "grenade_throws.csv.gz")
-        write_csv_gz(paths, tmp / "grenade_paths.csv.gz")
+        write_csv_gz(paths if len(paths) else pd.DataFrame(columns=["round", "throw_id", "tick", "x", "y", "z"]), tmp / "grenade_paths.csv.gz")
         meta["bytes"] = {f: (tmp / f).stat().st_size for f in NEW_FILES if f.endswith(".gz")}
+        meta["sha256_files"] = {f: sha256_of(tmp / f) for f in NEW_FILES if f.endswith(".gz")}
         meta["elapsed_s"] = round(time.time() - t_start, 1)
         write_json(meta, tmp / "viewer_tracks_meta.json")
+        marker = folder / ".viewer_tracks_updating"
+        marker.write_text("Publication incomplete until metadata and all tables are replaced", encoding="utf-8")
         for f in NEW_FILES:
             (tmp / f).replace(folder / f)
+        marker.unlink()
     finally:
         for f in tmp.glob("*"):
             f.unlink(missing_ok=True)
@@ -462,11 +475,20 @@ def process_demo(dem: Path, folder: Path, hz: int, validate: bool, force: bool) 
     return {"status": "ok", "meta": meta}
 
 
+def process_demo(dem: Path, folder: Path, hz: int = SAMPLE_HZ, validate: bool = True, force: bool = False) -> dict:
+    try:
+        from cs2di.job_lock import exclusive, lock_path
+    except ImportError:
+        from job_lock import exclusive, lock_path
+    with exclusive(lock_path(folder)):
+        return _process_demo_unlocked(dem, folder, hz, validate, force)
+
+
 # ============================================================
 # batch
 # ============================================================
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Write 8 Hz view-angle tracks and real grenade paths beside an analyzed batch.")
+    ap = argparse.ArgumentParser(description="Write 16 Hz view-angle tracks and real grenade paths beside an analyzed batch.")
     ap.add_argument("--demos", type=Path, default=DEMO_DIR)
     ap.add_argument("--analyzed", type=Path, default=ANALYZED_DIR)
     ap.add_argument("--hz", type=int, default=SAMPLE_HZ)

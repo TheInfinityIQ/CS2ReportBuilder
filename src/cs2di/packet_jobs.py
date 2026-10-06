@@ -16,6 +16,8 @@ from pathlib import Path
 from uuid import uuid4
 
 from .evidence import check_demo
+from .batch_selection import Match, demo_hash, evidence_hash, match_provenance, replay_quality
+from .job_lock import exclusive, lock_path
 
 
 @dataclass(frozen=True)
@@ -32,6 +34,7 @@ class Batch:
     accepted: int
     excluded: tuple[str, ...]
     ignored: int
+    matches: tuple[Match, ...] = ()
 
 
 def discover_batches(analysis_root: Path) -> list[Path]:
@@ -42,14 +45,17 @@ def discover_batches(analysis_root: Path) -> list[Path]:
                   key=lambda p: p.name.casefold())
 
 
-def inspect_batch(path: Path) -> Batch:
+def inspect_batch(path: Path, selected=None, matches=()) -> Batch:
     """Read rosters as strings, gate candidates, and expose exclusions to the user."""
     path = path.resolve()
     coverage: dict[str, list[Path]] = {}
     names: dict[str, Counter] = {}
     excluded = []
     ignored = accepted = 0
-    for demo in sorted(path.iterdir()):
+    candidates = path.iterdir() if selected is None else selected
+    for demo in sorted(candidates):
+        if demo.resolve().parent != path or demo.is_symlink():
+            raise ValueError("Selected match must be directly inside this analysis collection")
         if not demo.is_dir():
             continue
         if demo.is_symlink() or demo.name.startswith("."):
@@ -81,7 +87,7 @@ def inspect_batch(path: Path) -> Batch:
             names.setdefault(sid, Counter())[name] += 1
     players = [Player(sid, names[sid].most_common(1)[0][0], tuple(demos)) for sid, demos in coverage.items()]
     players.sort(key=lambda p: (-len(p.demos), p.name.casefold(), p.steamid))
-    return Batch(path, tuple(players), accepted, tuple(excluded), ignored)
+    return Batch(path, tuple(players), accepted, tuple(excluded), ignored, tuple(matches))
 
 
 def python_for(repo: Path) -> Path:
@@ -119,7 +125,7 @@ def choose_example(repo: Path, steamid: str) -> Path:
 
 
 def build_packet(repo: Path, batch: Batch, player: Player, output_root: Path, *,
-                 kind="pug", on_log=lambda line: None, runner=None) -> Path:
+                 kind="pug", on_log=lambda line: None, runner=None, require_viewer=False) -> Path:
     repo, output_root = repo.resolve(), output_root.resolve()
     if output_root.is_relative_to(batch.path) or batch.path.is_relative_to(output_root):
         raise ValueError("Choose a packet destination outside the analysis folder and its parents.")
@@ -144,10 +150,35 @@ def build_packet(repo: Path, batch: Batch, player: Player, output_root: Path, *,
             fh.write(line + "\n")
         on_log(line)
     try:
+        provenance, identities = [], set()
+        selected_matches = {m.analysis: m for m in batch.matches}
         ignore = shutil.ignore_patterns("__pycache__", "*.pyc", "_repair_backup", "00_INDEX.md")
         for i, demo in enumerate(player.demos, 1):
             log(f"Preparing match {i}/{len(player.demos)}: {demo.name}")
-            shutil.copytree(demo, snapshot / demo.name, ignore=ignore)
+            with exclusive(lock_path(demo)):
+                if not check_demo(demo).passed or (demo / ".viewer_tracks_updating").exists():
+                    raise ValueError(f"Analysis changed or publication was interrupted: {demo.name}")
+                match = selected_matches.get(demo)
+                if match and match.problem:
+                    raise ValueError(f"Blocked match: {match.problem}")
+                if match and match.raw and demo_hash(match.raw, {}) != match.sha256:
+                    raise ValueError(f"Original demo changed: {match.raw.name}. Refresh selection.")
+                identity = match.sha256 if match else None
+                identity = identity or evidence_hash(demo)
+                if identity and identity in identities:
+                    raise ValueError(f"Duplicate match identity: {demo.name}")
+                if identity:
+                    identities.add(identity)
+                quality = replay_quality(demo, match.sha256 if match else None, owned=True)
+                if require_viewer and not quality.ready:
+                    raise ValueError(f"{demo.name}: {quality.reason}. Prepare 16 Hz data first.")
+                record = match_provenance(match) if match else {"analysis": demo.name, "demo_sha256": None}
+                record["replay"] = quality.__dict__
+                record["extractor"] = json.loads((demo / "match_summary.json").read_text(encoding="utf-8")).get("runtime_environment")
+                provenance.append(record)
+                shutil.copytree(demo, snapshot / demo.name, ignore=ignore)
+                if match and match.raw and demo_hash(match.raw, {}) != match.sha256:
+                    raise ValueError("Original demo changed during snapshot creation")
         command = [str(python), "-u", str(repo / "scripts/build_packet.py"),
                    "--id", pid, "--player", player.name, "--steamid", player.steamid,
                    "--batch-dir", str(snapshot), "--out", str(packet), "--expect", str(len(player.demos)),
@@ -170,6 +201,16 @@ def build_packet(repo: Path, batch: Batch, player: Player, output_root: Path, *,
         manifest = json.loads((packet / "MANIFEST.json").read_text(encoding="utf-8"))
         if manifest["steamid"] != player.steamid or manifest["matches"] != len(player.demos):
             raise RuntimeError("Built packet does not match the selected player and matches.")
+        try:
+            revision = subprocess.run(["git", "-c", f"safe.directory={repo}", "-C", str(repo), "rev-parse", "HEAD"],
+                                      capture_output=True, text=True, **process_options())
+            revision_text = revision.stdout.strip() if revision.returncode == 0 else "unknown"
+        except OSError:
+            revision_text = "unknown"
+        manifest.update(software_revision=revision_text,
+                        replay_requirement="validated_16hz" if require_viewer else "limited_replay_allowed",
+                        selected_matches=provenance)
+        (packet / "MANIFEST.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         snapshot.rename(packet / "data/batch")
         logs = output_root / ".build_logs"
         logs.mkdir(exist_ok=True)

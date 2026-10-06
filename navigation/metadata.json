@@ -204,12 +204,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Master project entry, local packet-builder launcher, implementation overview and setup.",
-        "reviewed_sha256": "af7e89ca1cf311c7dc9f47a3af11c9f19a210cd732a4301ccf360fe3ea624ace"
+        "summary": "Master entry for the CS2 coaching pipeline, batch preparation UI, setup, current documentation and optional navigation.",
+        "reviewed_sha256": "ee7af30932794fd2c2768761ad5848d52d4ad2c1c4d92bd659ee8142366c1ab4"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Observed implementation, packet folder selection, viewer repairs and open product gaps; adaptive extraction remains a proposal and reports are not independently audited.",
-        "reviewed_sha256": "675f7914225bd80fdd73944264362476e98a3cff4abde7b36bab82aee1cd2868"
+        "summary": "Current implementation, validated 16 Hz batch preparation, known product gaps, verification limits and source evidence.",
+        "reviewed_sha256": "f938519c7411d758b4d98a3659a2c7739ded54ee4611c3d77e690b03d9c48e54"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",

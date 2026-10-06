@@ -50,7 +50,7 @@ class PacketWindow:
         page.pack(fill="both", expand=True)
         page.columnconfigure(1, weight=1)
         ttk.Label(page, text="Build a coach packet", style="Title.TLabel").grid(row=0, column=0, columnspan=3, sticky="w")
-        ttk.Label(page, text="Choose analysed matches and a player. Hand the finished packet to a fresh AI coach.",
+        ttk.Label(page, text="Choose a demo batch, prepare its data, then build a packet for a fresh AI coach.",
                   wraplength=840).grid(row=1, column=0, columnspan=3, sticky="w", pady=(6, 20))
         self.inputs = []
         for row, label, var, browse in ((2, "Analysis folder", self.analysis, self.browse_analysis),
@@ -132,6 +132,7 @@ class PacketWindow:
             self.progress.start(12)
         else:
             self.progress.stop()
+            self.progress["value"] = 0
 
     def background(self, fn, kind, token=None):
         def work():
@@ -154,7 +155,7 @@ class PacketWindow:
         self.player_name.set("")
         self.selected.set("")
         self.batches = discover_batches(Path(self.analysis.get()))
-        if self.custom_batch and self.custom_batch.is_dir() and self.custom_batch not in self.batches:
+        if self.custom_batch and self.custom_batch not in self.batches:
             self.batches.append(self.custom_batch)
         self.batch_combo.configure(values=[p.name for p in self.batches])
         self.build_button.configure(state="disabled")
@@ -290,8 +291,10 @@ class PacketWindow:
 
 
 def main():
+    sys.modules.setdefault("packet_ui", sys.modules[__name__])
+    from packet_workflow_ui import WorkflowWindow
     root = tk.Tk()
-    PacketWindow(root)
+    WorkflowWindow(root)
     if "--smoke-test" in sys.argv:
         root.update()
         root.destroy()

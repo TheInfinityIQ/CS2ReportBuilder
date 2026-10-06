@@ -1,82 +1,132 @@
 # Coach packet window
 
-Double-click **Open_Coach_Packet_Builder.cmd** in the repository root.
-No command arguments are needed. The window uses standard Windows Python's
-Tkinter; packet calculations run with the repository's `.venv` when it exists.
+Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an
+already running window to load updates. Tk uses installed Windows Python;
+calculation and extraction use the repository `.venv` when available.
 
-1. Choose an **extracted** batch from the Demo batch dropdown, or use **Choose
-   folder…** to select a specific batch directly, including folders without an
-   `analyzed_` prefix. Select the folder containing the individual match folders.
-   Browse beside Analysis folder changes the parent folder used for the dropdown
-   (normally the local `02_Analysis` folder).
-2. Choose the player. The dropdown shows names, match counts and exact SteamIDs.
-   The packet contains only usable matches featuring that player. Excluded
-   matches and validation reasons are visible; temporary folders are ignored.
-   Player names come from match rosters, not demo filenames. Selection stays
-   within the displayed batch folder; it never combines batches or searches
-   other folders for that player's games. Refresh preserves the selected batch.
-3. Choose PUG/FACEIT/Premier or tournament/pro, then click **Build coach packet**.
-4. Once ready, open the packet folder and copy the AI instructions. Start a fresh
-   AI session in that folder, or export a ZIP for an environment that supports
-   uploaded files and Python execution. A text-only chat cannot run the renderer.
+## Choose exactly the games you want
 
-The default destination is local `06_Handoff_and_Tests/packets`. Each build has
-a unique folder, including when multiple windows run. Prior packets and reports
-are preserved. Calculations and rendering checks use the existing packet builder.
-Only after a successful build is a complete packet published. Errors retain a
-diagnostic log in a hidden `.P_*.building` folder; completed logs are in `.build_logs`.
+1. Select an analysis collection in **Demo batch**, or **Choose folder…** for a
+   custom collection containing individual match directories.
+2. In **Batch selection and preparation**, optionally **Choose raw folder…**:
+   choose a batch or subfolder such as `CanadianIQ_demos/batch_001`. Under the
+   normal `01_Demos` layout it selects `analyzed_CanadianIQ_demos` automatically,
+   even if that collection has not been created. For outside raw folders, choose
+   the corresponding analysis collection explicitly. Matching uses exact demo
+   stems inside this collection; it never searches other players or collections.
+3. Review the match table. Double-click highlighted rows to toggle inclusion,
+   or include/exclude visible rows. Map and name/date-text filters affect only
+   visibility; hidden included rows remain selected. Dates are filename text,
+   not inferred chronological metadata. Save/load JSON selections when useful.
+4. Choose a player from the included usable matches. SteamIDs come from rosters,
+   rather than filenames. The packet includes only selected matches featuring
+   that player. Source analysis is not moved or renamed.
 
-The window stays responsive during copying, analysis and ZIP creation. Progress
-shows copying stages and builder output; it does not invent a percent or ETA
-while statistical calculations run. Finish the current operation before closing.
+The table shows core integrity and replay readiness. Exact raw byte duplicates
+are excluded by SHA-256, including renamed copies; an existing valid extraction
+is preferred. Repeated stems in multiple raw subfolders are blocked until you
+select a narrower folder. Without originals, recorded hashes or identical
+extraction evidence detect duplicates where possible. Distinct recordings of the
+same game may have different hashes and are not automatically proven duplicates.
+Original identity uncertainty is visible. Saved selections are rescanned and
+known identities must match before reuse.
 
-## Scope
+## Prepare, repair, then build
 
-This version uses already-extracted analysis, with any positive match count.
-Each packet uses one batch folder. Copies of the same match already present
-inside that folder are not currently detected as duplicates.
-The old CLI default of 30 matches is not an interface requirement. Small samples
-still have the software's existing evidence limitations; no useful-finding
-threshold is weakened. Raw `.dem` extraction is a separate step.
+**Prepare missing analysis + 16 Hz** extracts missing/invalid core analysis, then
+adds viewer data; valid core analysis is reused. **Repair viewer data** replaces
+only the four additive viewer files for included, core-valid games. Both require
+original `.dem` files. Normal v7.8 extraction now also adds validated **16 Hz**
+viewer tracks by default. Its existing 2 Hz analytic tables/schema are unchanged.
 
-Source analysis is copied into a private snapshot before calculation, then moved
-into the packet. Avoid actively extracting into a batch while building from it.
-Failed copies or evidence checks do not produce a ready packet. Discovery here
-does not depend on generated navigation catalogs, which can lag new batches.
+Default **Require validated 16 Hz viewer data** checks actual sample cadence,
+finite positions/facing, roster/round coverage, demo pairing, interpolation
+validation, grenade-table readability, and checksums when recorded. The explicit
+limited-replay override permits older/missing viewer data; it does not bypass
+core coaching integrity or fabricate facing/paths. Ready does not prove every
+movement, grenade boundary, or coaching claim correct.
 
-## Setup and troubleshooting
+The queue defaults to **80% CPU**, **90% RAM**, and up to eight simultaneous jobs
+(or fewer on a smaller machine). Increase Max jobs if measurements justify it.
+It samples total system load, starts gradually, reserves estimated job memory,
+and limits supported native parser/math threads per worker. These are **soft
+admission targets**: existing jobs finish, and peaks can exceed predictions. Under
+pressure, it stops starting more jobs rather than terminating active extraction.
+Other applications and older terminals still count toward system load.
 
-Standard Windows Python includes Tkinter. If the window cannot open, use an
-installation with working Tcl/Tk. Scientific dependencies need only be installed
-in the calculation environment. From the repository, the usual one-time setup is:
+**Cancel queued jobs** leaves active jobs to finish. **Retry failed** retries only
+failed jobs from the current source selection. Rerunning preparation resumes by
+skipping validated ready output; cancelled jobs can be prepared later. Logs and
+summary JSON remain in local `.extraction_jobs/<run>/`. A shared per-match lock
+protects extraction and packet copying. Only proven dead same-host owners are
+automatically recovered; unreadable or foreign locks require review. Stop older
+unmodified extraction terminals before switching to this queue.
+
+Click **Build coach packet** after selecting player/type. The source is rechecked
+under locks and copied into an isolated snapshot. Each build gets a new folder;
+failed builds retain diagnostics instead of publishing a ready packet. The
+manifest records selected identities, replay quality, extraction provenance and
+software revision. Once ready, open the folder or export a ZIP. Copy the AI
+instructions into a fresh AI session with access to those files and Python.
+
+The default destination is `06_Handoff_and_Tests/packets`. Prior packets and
+reports stay unchanged. **After repair, build a new packet** to include 16 Hz
+tracks and current report software. ZIP exports refuse overwrites.
+
+## Run the data fix from PowerShell
+
+From the repository (`CS2ReportBuilder/repo`), review a plan first:
 
 ```powershell
-py -m venv .venv
-& .venv/Scripts/python.exe -m pip install -e '.[dev]'
+& .venv/Scripts/python.exe scripts/fix_viewer_data.py --dry-run
 ```
 
-Do not recreate a working environment. `py build_packet.py` selects the Windows
-launcher's default Python, which may lack SciPy; the window deliberately chooses
-the repository environment for packet builds. The CLI still requires arguments.
+Repair all eligible core-valid analysis, or choose a bounded first trial:
 
-No AI calls, credentials or automatic uploads are involved. Evaluation of the
-resulting coaching remains separate from packet/build validation.
+```powershell
+& .venv/Scripts/python.exe scripts/fix_viewer_data.py --batch CanadianIQ_demos --limit 1 --max-workers 1
+& .venv/Scripts/python.exe scripts/fix_viewer_data.py
+```
 
-## Verification (2026-10-04)
+`--limit` applies to the total jobs, unlike the legacy per-batch runner. Planning
+hashes original demos and skips validated ready matches. Use `--phase prepare`
+only when you also want missing/invalid core analysis extracted. `--batch` may be
+repeated. `--root` overrides the data root; otherwise `CS2DI_ROOT` or the normal
+local demoparser path is used. Ctrl+C stops admissions and waits for active jobs.
+The script uses primary `analyzed_<batch>` collections only. For unusual pairings,
+use the UI to choose the analysis collection and raw folder explicitly.
 
-The window opened with installed Windows Python 3.14; batch/player dropdown
-callbacks selected CanadianIQ's four matches from the FoxC batch. A real job
-computed evidence for 102 rounds, passed the packet's report-rendering smoke
-test and exported a ZIP. Test outputs are local in
-Downloads/CS2_Packet_UI_Verification_2026-10-04, not in the repository.
+This fixes viewer data. It is separate from `cs2di repair`, which upgrades old
+core damage tables, and from the legacy `run_all_tracks.py` runner. The latter
+also inherits the 16 Hz sidecar default but runs serially and has an older
+cross-collection lookup fallback.
 
-The test exposed Pillow as an undeclared dependency of the existing viewer's
-map-outline fallback. It is now declared in pyproject.toml and checked before
-building. Synthetic job tests cover source preservation, prior-packet preservation,
-failed-build isolation, player coverage, example identity and ZIP overwrite refusal.
+## Setup and verification
 
-On 2026-10-06, a Tkinter callback check verified direct selection of a custom
-batch name, the displayed source path, selection preservation after refresh,
-and passing only that folder's player matches to the build job. Changing the
-analysis parent clears the custom selection. This check used a stub build;
-the real calculation and rendering verification above remains the build record.
+Do not recreate a working environment. Install the declared parser dependencies
+in the existing calculation environment if needed:
+
+```powershell
+& .venv/Scripts/python.exe -m pip install -e '.[dev,parse]'
+```
+
+A normal Windows Python with working Tcl/Tk is required to open the window.
+No AI calls, credentials or uploads happen automatically. Packet/render checks
+remain distinct from useful and correct coaching.
+
+2026-10-06 verification exercised real Tk callbacks for raw mapping, inclusion,
+filters, save/load, readiness gating, cancellation and a new batch with no analysis
+yet. A bounded repair of copied CanadianIQ analysis produced validated 16 Hz
+tracks and 496 recorded grenade paths; all 54 original core files stayed identical.
+Fresh preparation of that same original demo passed core/replay gates, and all
+47 comparable core tables matched the existing extraction after decompression.
+The report payload used 0.0625 seconds/sample and continuous facing. A new
+one-match packet built successfully for 24 rounds and passed its report-rendering
+smoke check using the repaired sidecars. Test data,
+logs and hash comparisons are in local
+`Downloads/CS2_Workflow_Verification_2026-10-06`, outside Git.
+
+Earlier 2026-10-04 verification built a four-match packet, passed rendering and
+exported a ZIP. Automated workflow tests also cover ambiguous names, changed
+originals, corrupt data, locks, resource admission, cancellation, failed job
+isolation, packet provenance, and default 16 Hz extraction.
