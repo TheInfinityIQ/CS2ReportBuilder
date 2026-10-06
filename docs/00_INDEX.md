@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **54 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **55 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -21,12 +21,13 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [CLEANUP_2026-10-03.md](CLEANUP_2026-10-03.md) | Documentation cleanup — first batch — Date: 2026-10-03. Authorized by Dawson after reviewing the plan and delegating | reference; distinguish current state from historical claims / 2026-10-03 | extracted |
 | [CLEANUP_2026-10-04.md](CLEANUP_2026-10-04.md) | Broader documentation cleanup — Date: 2026-10-04. Completes the authorized documentation cleanup, following | reference; distinguish current state from historical claims / 2026-10-04 | extracted |
 | [DATA_FOLDER_LEGEND.snapshot.md](DATA_FOLDER_LEGEND.snapshot.md) | Dated layout snapshot with new entry references; historical process statements are not active rules. | layout snapshot / undated | curated |
+| [DATA_REPAIR_2026-10-06.md](DATA_REPAIR_2026-10-06.md) | Full viewer-data repair: 2026-10-06 — Dawson authorized repairing every eligible demo. All **351 demos across nine | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [KNOWN_PITFALLS.md](KNOWN_PITFALLS.md) | Data pitfalls: relocated source — The historical catalogue is preserved in | reference; distinguish current state from historical claims / undated | extracted |
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Coach packet window — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an | reference; distinguish current state from historical claims / undated | extracted |
 | [PACKET_WORKFLOW_PLAN_2026-10-06.md](PACKET_WORKFLOW_PLAN_2026-10-06.md) | Approved packet workflow implementation plan — Dawson approved implementation on 2026-10-06. | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, validated 16 Hz batch preparation, known product gaps, verification limits and source evidence. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, completed 351-demo 16 Hz repair, known product gaps, verification limits and source evidence. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
 | [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and batch workflow — Evidence inspected before these repairs | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 
 ## Find a specific file

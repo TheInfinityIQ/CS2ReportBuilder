@@ -208,8 +208,8 @@
         "reviewed_sha256": "ee7af30932794fd2c2768761ad5848d52d4ad2c1c4d92bd659ee8142366c1ab4"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation, validated 16 Hz batch preparation, known product gaps, verification limits and source evidence.",
-        "reviewed_sha256": "f938519c7411d758b4d98a3659a2c7739ded54ee4611c3d77e690b03d9c48e54"
+        "summary": "Current implementation, completed 351-demo 16 Hz repair, known product gaps, verification limits and source evidence.",
+        "reviewed_sha256": "cda3c45e8262ba2e340a25bcd0e52cece0c940068bc7c1d35464838894c255df"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",

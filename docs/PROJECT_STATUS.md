@@ -18,6 +18,10 @@ Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
   existing analytic-table cadence/schema stays unchanged. The approved
   [workflow plan](PACKET_WORKFLOW_PLAN_2026-10-06.md) is implemented. Old packets
   remain unchanged and must be rebuilt to use repaired source analysis.
+- [Full viewer repair](DATA_REPAIR_2026-10-06.md) completed across 351 demos in
+  nine collections. Every planned demo passed a final 16 Hz readiness audit;
+  no failures remain. Observational omissions are disclosed rather than filled
+  with invented tracks.
 - Eight saved run_2026-09-29_fresh_subagent directories exist for CanadianIQ_1,
   CanadianIQ_2, MIMY, iTrilogyy, shakestx, ZywOo, karrigan, and xertioN under
   demoparser/06_Handoff_and_Tests/test_coaches. Earlier inspection found plans,
