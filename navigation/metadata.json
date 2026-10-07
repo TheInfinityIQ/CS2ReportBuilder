@@ -205,12 +205,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Project entry with pipeline, packet window, local game catalog, setup and data-root guidance.",
-        "reviewed_sha256": "9d39e6a12b318e1058398d8851e6eb05a72f4d98ff08724094b8028f4ebe43cc"
+        "summary": "Project entry with pipeline, packet window, game catalog, player knowledge and data-root guidance.",
+        "reviewed_sha256": "aab4dabd8a43f483a91ab0138b4fe262fc60c0affb759848c118c2497ba12536"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation, catalog measurements, experimental player-persona files and unresolved verification gaps.",
-        "reviewed_sha256": "3c5710d8f6871e48b61d177990a1625f771a9d66514d171ce1ffe7527990f62e"
+        "summary": "Current implementation, catalog measurements, expanded player knowledge and unresolved verification gaps.",
+        "reviewed_sha256": "46f88bef00698bb2e5b9a1974924343dc36da217a12a9797ad53d27d3a7fe216"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -292,8 +292,24 @@
         "reviewed_sha256": "34a73526de3ef5dd789945df00ce9d861e667c7c1d4421fe7620b547b14446fb"
       },
       "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
-        "summary": "Version 0.2 qualitative CS2 knowledge without assigned ability; provenance and unvalidated factual/calibration limits are explicit.",
-        "reviewed_sha256": "30493fc3e63e02cf81723f635cf6de0c0d496307cda1c2ab1f12f9a085bd8b7c"
+        "summary": "Version 0.3 contextual CS2 understanding with source register, qualified map examples and explicit factual/calibration limits.",
+        "reviewed_sha256": "a7a79dd36138efcdd1160bb6360252c394552f0f1e6399e2f9d74bceb1c61cdf"
+      },
+      "docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md": {
+        "summary": "Corpus inventory, quote-location results, contextual review scope, corrected claims, short-source audit and remaining verification boundaries.",
+        "reviewed_sha256": "b0d68304c519dd8b5c6bc982ae94aaefb5d9079b7720c2764f3acc1cec88c7c1"
+      },
+      "docs/player_knowledge_sources.json": {
+        "summary": "Metadata-only ledger of 81 reviewed candidate items, source links, context hashes and synthesis decisions; no raw transcript text.",
+        "reviewed_sha256": "8692ed48f44d6034fddba8992baeba7fcb52d19af2e211d34ed546bb4ea0a727"
+      },
+      "scripts/audit_player_knowledge.py": {
+        "summary": "Reproducible local inventory and conservative quote-location audit for NotebookLM candidate knowledge; no entailment certification.",
+        "reviewed_sha256": "7b8f17a22587050303379cffe488cc803f3c75a4ba2782252773cc946aeaaf22"
+      },
+      "tests/test_player_knowledge_audit.py": {
+        "summary": "Checks answer parsing, question boundaries and conservative handling of ambiguous, ellipsis and missing quote locations.",
+        "reviewed_sha256": "bd4e3ed85e46d5fa1dcb93c47301b8e2b28d0782a641094b937bf628ae86c57a"
       }
     }
   },

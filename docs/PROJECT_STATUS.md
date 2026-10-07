@@ -43,11 +43,13 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 - A portable [player setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md)
   and [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) now exist
-  as working drafts (knowledge version 0.2). Setup uses supplied understanding
+  as working drafts (knowledge version 0.3). The [knowledge rebuild](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md)
+  expands situational understanding with reviewed source links and correction notes.
+  Setup uses supplied understanding
   without assigning skill level, competitive status, strengths, weaknesses or
   fabricated player history; independent judgment remains explicit.
-  Knowledge is condensed from the earlier persona; factual auditing and
-  calibration against Dawson remain open. Prompting alone does not guarantee
+  Knowledge now includes selected NotebookLM, pilot and recovered-short contexts;
+  comprehensive factual auditing and calibration against Dawson remain open. Prompting alone does not guarantee
   freedom from agreement-seeking. The design draws on Anthropic guidance for
   [role prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
   and [sycophancy research](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models).

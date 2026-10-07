@@ -1,0 +1,1262 @@
+{
+  "edition": "0.3",
+  "reviewer": "Codex; not independent human verification",
+  "reviewed_candidates": [
+    {
+      "candidate": "Q1-002",
+      "source": {
+        "id": "cs2_bundle_10:041",
+        "bundle": "cs2_bundle_10.txt",
+        "creator": "isk 1-500",
+        "date": "2026-05-19",
+        "title": "Every CS2 Peek Explained (Mechanical Breakdown)",
+        "url": "https://www.youtube.com/watch?v=QJeGiRN77kU"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "e7ef2a2ce4fa56a3f80d38b8728b11e9f6dbdb3f67975f7316dedee9e3d9ddd7"
+    },
+    {
+      "candidate": "Q1-009",
+      "source": {
+        "id": "cs2_bundle_09:046",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-11-18",
+        "title": "High elo players abuse this movement mechanic",
+        "url": "https://www.youtube.com/watch?v=OD9x-KZ3xsw"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "e6fcf55b1074f95cdb84f2ca7e0eda982a4d87a2356c0f20d07e1774494d94f4"
+    },
+    {
+      "candidate": "Q1-011",
+      "source": {
+        "id": "cs2_bundle_07:018",
+        "bundle": "cs2_bundle_07.txt",
+        "creator": "austincs",
+        "date": "2026-08-04",
+        "title": "🔴TOP 100 NA - AUSTINCS🔴",
+        "url": "https://www.youtube.com/watch?v=POrjz69aMLc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "6c91183d17d1f82f619f514eeba31de50255bd2073de6c4269fc9e90f6383362"
+    },
+    {
+      "candidate": "Q2-003",
+      "source": {
+        "id": "cs2_bundle_10:091",
+        "bundle": "cs2_bundle_10.txt",
+        "creator": "isk 1-500",
+        "date": "2026-07-24",
+        "title": "how pro players clear angles #cs2tips #csgo #counterstrike #cs2",
+        "url": "https://www.youtube.com/watch?v=sxt_mP-H1pg"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "bf10f41e61ea5a2bd6cf2347356c21c0a7d6196f1a4d665cef118bbe32828adb"
+    },
+    {
+      "candidate": "Q3-002",
+      "source": {
+        "id": "cs2_bundle_10:004",
+        "bundle": "cs2_bundle_10.txt",
+        "creator": "isk 1-500",
+        "date": "2026-04-13",
+        "title": "key tip to consistency in cs2 #cs2tips #csgo #cs2",
+        "url": "https://www.youtube.com/watch?v=BxrIAjBzlRg"
+      },
+      "review_note": "Remove fixed spray percentage; source explicitly permits long-range/headshot exceptions.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "6045057ad0859dce5ec78b18400045677d34b22dea8a40dabd8fff0cf0f26f23"
+    },
+    {
+      "candidate": "Q3-007",
+      "source": {
+        "id": "cs2_bundle_01:032",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2025-11-16",
+        "title": "[CS2 DEMO REVIEW COACHING] 2180 FACEIT elo | Pre-Aim With Your Keyboard & How to Make Your Aim Crisp",
+        "url": "https://www.youtube.com/watch?v=XZl4u2Bg-p0"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "5471ab5e08aa0c96ab1259be1f53d839fec0274b2f039f0e39a3dd43d56dada0"
+    },
+    {
+      "candidate": "Q5-001",
+      "source": {
+        "id": "cs2_bundle_07:033",
+        "bundle": "cs2_bundle_07.txt",
+        "creator": "austincs",
+        "date": "2026-09-10",
+        "title": "Your Aim Isn't Bad. You're Just Aiming Wrong",
+        "url": "https://www.youtube.com/watch?v=FHMDUsmKfYw"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "a271262437d5d27d11f3f81c96f114c33e10b32f07ba82de6bc30ad987ce2102"
+    },
+    {
+      "candidate": "Q5-006",
+      "source": {
+        "id": "cs2_bundle_01:064",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-07-01",
+        "title": "How You’re Ruining Your Aim in Deathmatch",
+        "url": "https://www.youtube.com/watch?v=LIyuqCTy-YA"
+      },
+      "review_note": "Exercise-specific recommendation, not a general prohibition on game audio.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "fa59f0fa4d0122e64982b5b1ee8b0abb7cefed81d1295ae98cbdbfa35ad935e8"
+    },
+    {
+      "candidate": "Q6-006",
+      "source": {
+        "id": "cs2_bundle_09:114",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2026-04-07",
+        "title": "How to Choose Your PERFECT CS2 Resolution",
+        "url": "https://www.youtube.com/watch?v=OobPkQz8ou4"
+      },
+      "review_note": "Preserve personal preference, player differences and native visual-awareness advantage.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "f8158474346011d7a3f574521d536a3487858bf315db7046deba9ca3cc2ecde9"
+    },
+    {
+      "candidate": "Q39-Q51-065",
+      "source": {
+        "id": "cs2_bundle_05:012",
+        "bundle": "cs2_bundle_05.txt",
+        "creator": "austincs",
+        "date": "2025-08-06",
+        "title": "CS2 Tips That Will Help You Win More ELO",
+        "url": "https://www.youtube.com/watch?v=rr-CIwEuALs"
+      },
+      "review_note": "Reject Overpass attribution: passage is within Dust2 cat-execute section.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "efc43cdd779839b5adb61e2d6deed884f5d9aba8fe7eb3bc9a7eee418ce02002"
+    },
+    {
+      "candidate": "Q39-Q51-066",
+      "source": {
+        "id": "cs2_bundle_06:007",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-03-31",
+        "title": "Reading the Other Team | Guide to Solo Queue Episode 7",
+        "url": "https://www.youtube.com/watch?v=O-mo5lpFvWc"
+      },
+      "review_note": "Correct to Ancient cave: source introduction explicitly names Ancient. Facing caveat retained.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "99c5bde9dc4c7352ac076e1fd0789db7aa7330108d4d730d4344a56661f7cd72"
+    },
+    {
+      "candidate": "Q39-Q51-095",
+      "source": {
+        "id": "cs2_bundle_02:038",
+        "bundle": "cs2_bundle_02.txt",
+        "creator": "austincs",
+        "date": "2024-05-30",
+        "title": "The First Pro Match of New Vertigo (austincs)",
+        "url": "https://www.youtube.com/watch?v=cQAoo483h9Q"
+      },
+      "review_note": "Historical illustrative execute, not a mandatory current utility recipe.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "f607a9ee123d9eef53e19e6a4e1e70ccee42869f3fe3b0edaf52628c93b7dddc"
+    },
+    {
+      "candidate": "Q9-001",
+      "source": {
+        "id": "cs2_bundle_04:032",
+        "bundle": "cs2_bundle_04.txt",
+        "creator": "austincs",
+        "date": "2025-04-06",
+        "title": "start getting more out of your utility in CS2",
+        "url": "https://www.youtube.com/watch?v=3t-TCdfMMN8"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "29bed99ae221895763d3904526cdd89f72c482a795aff2fdee8764fdacc6a7dc"
+    },
+    {
+      "candidate": "Q9-003",
+      "source": {
+        "id": "cs2_bundle_06:023",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-05-20",
+        "title": "TOP 100 NA CS PLAYER (LIVE)",
+        "url": "https://www.youtube.com/watch?v=WoWUwDqPVJs"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "7b47df8140098819adc7c12e4346eb77c99c17caecf5acda047fd9f24ac5a4d4"
+    },
+    {
+      "candidate": "Q9-009",
+      "source": {
+        "id": "cs2_bundle_13:020",
+        "bundle": "cs2_bundle_13.txt",
+        "creator": "pienix 1-500",
+        "date": "2026-02-14",
+        "title": "If you feel like you're always doing the wrong play watch this video (CS2)",
+        "url": "https://www.youtube.com/watch?v=DLcASHeOrFs"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "537621c1d22974f7f316c10d20bdb256d81d9dc38236add363a3f510b1a9dfd5"
+    },
+    {
+      "candidate": "Q10-002",
+      "source": {
+        "id": "cs2_bundle_01:001",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "Grashog",
+        "date": "2026-09-03",
+        "title": "Top Puggers Analysis - npl (Cache)",
+        "url": "https://www.youtube.com/watch?v=t2QPAdzlxgM"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "858d3d286e7f97dccda5dbe0826e3850e7f1d53825385b60f47e0b66dbfc41c4"
+    },
+    {
+      "candidate": "Q11-006",
+      "source": {
+        "id": "cs2_bundle_11:016",
+        "bundle": "cs2_bundle_11.txt",
+        "creator": "its voo",
+        "date": "2024-08-18",
+        "title": "Navi Extend Their Mirage Streak",
+        "url": "https://www.youtube.com/watch?v=Nyou03mwhTo"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "c737553abe4d833435a2cc91d821f28f036f306173e07963c7db1cd131e79347"
+    },
+    {
+      "candidate": "Q13-Q21-008",
+      "source": {
+        "id": "cs2_bundle_06:046",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-06-30",
+        "title": "FaZe just REPLACED Broky with WHO!? | New FaZe Player Demo Review",
+        "url": "https://www.youtube.com/watch?v=xvQDF1aiPkw"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "d7151dd57a3b6beabdc1c50395fae23a9afbe5ebed6b676f6cd923e5ab5a33cb"
+    },
+    {
+      "candidate": "Q13-Q21-026",
+      "source": {
+        "id": "cs2_bundle_01:043",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-01-01",
+        "title": "I Reviewed a 3625 FACEIT elo Player's ESEA Main Game [Gameplay Analysis]",
+        "url": "https://www.youtube.com/watch?v=TLSQnzmxVYc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "be146337e255a6cfb0df16ff79ec8b4c23eaebf74efda42af48842fa63b5b2cc"
+    },
+    {
+      "candidate": "Q13-Q21-032",
+      "source": {
+        "id": "cs2_bundle_11:058",
+        "bundle": "cs2_bundle_11.txt",
+        "creator": "its voo",
+        "date": "2024-12-18",
+        "title": "He's my GOAT Already",
+        "url": "https://www.youtube.com/watch?v=K384dAN1DsI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "dedc7e4b3a490665e9689967ec0601fbf8c295ea48669faf9fe2f2eefd7f3326"
+    },
+    {
+      "candidate": "Q13-Q21-040",
+      "source": {
+        "id": "cs2_bundle_11:033",
+        "bundle": "cs2_bundle_11.txt",
+        "creator": "its voo",
+        "date": "2024-09-27",
+        "title": "How Much Help does DONK Actually GET?",
+        "url": "https://www.youtube.com/watch?v=Pb5mla74ygo"
+      },
+      "review_note": "Source calls this a rule of thumb; connected firing lines, not identical routes, are the mechanism.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "229fbd255a54758a2e1a144fbf6d27270418557159a71a60c60d6a39ce2adb75"
+    },
+    {
+      "candidate": "Q13-Q21-042",
+      "source": {
+        "id": "cs2_bundle_01:037",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2025-11-28",
+        "title": "Stop Giving Your Opponents Too Much Respect! [DEMO REVIEW CS2 COACHING] 3127 FACEIT elo",
+        "url": "https://www.youtube.com/watch?v=c5bZM8NKC_w"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "535a3204600c9890257011d80bd0e043c16fbb35b66543642d0c4438b7134955"
+    },
+    {
+      "candidate": "Q13-Q21-049",
+      "source": {
+        "id": "cs2_bundle_09:001",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-09-15",
+        "title": "ill stream, coaching cs2 players and chatting",
+        "url": "https://www.youtube.com/watch?v=Qen_SAGyUJ4"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "bd1a979baf23dc7c6f2dbdbe95471890d27dcc06d566370acfcca2cc41835b31"
+    },
+    {
+      "candidate": "Q13-Q21-052",
+      "source": {
+        "id": "cs2_bundle_01:076",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-08-28",
+        "title": "The Difference Between You and a Pro Mindset",
+        "url": "https://www.youtube.com/watch?v=Zy_v_sDkORA"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "132191d8501d78dd7980af4425c6b6f36d37e6ee8afae4febfb334016ba23af3"
+    },
+    {
+      "candidate": "Q13-Q21-058",
+      "source": {
+        "id": "cs2_bundle_06:017",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-05-07",
+        "title": "Give Better Information | Guide to Solo Queue Episode 13",
+        "url": "https://www.youtube.com/watch?v=iC5DQEDkm2E"
+      },
+      "review_note": "Confirmed observations prioritized; do not invent certainty or ban useful qualified hypotheses.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "75f52d685ff58852fee5008ac38a90ebf561016bf536601d64d7731d01083d25"
+    },
+    {
+      "candidate": "Q13-Q21-073",
+      "source": {
+        "id": "cs2_bundle_05:055",
+        "bundle": "cs2_bundle_05.txt",
+        "creator": "austincs",
+        "date": "2026-02-27",
+        "title": "Guide to Solo Queue Episode 2: When You Don’t Win",
+        "url": "https://www.youtube.com/watch?v=rviShJUfbM4"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "cbfa070bffc929a011fb2af6de3d4f15d8e27d6fdd13bd6e6aa79c70cc5400c6"
+    },
+    {
+      "candidate": "Q22-Q33-034",
+      "source": {
+        "id": "cs2_bundle_01:077",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-09-01",
+        "title": "Pro Coach Fixes Their Dust2 in 17 Minutes",
+        "url": "https://www.youtube.com/watch?v=u_c8_UCafE8"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "9b5600d8711dc10b9224c51a8846ade8ac3061ed961b844ecda070fcd185ff94"
+    },
+    {
+      "candidate": "Q22-Q33-010",
+      "source": {
+        "id": "cs2_bundle_09:037",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-10-28",
+        "title": "🔴CS2 COACHING🔴",
+        "url": "https://www.youtube.com/watch?v=Cg6GThlpRYk"
+      },
+      "review_note": "Anchor handover case, not absolute anchor/AWP rotation ordering.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "5779392c21d41b48204a8c6ce6b49283245c87d03be1695672b2b8d4247844c7"
+    },
+    {
+      "candidate": "Q22-Q33-015",
+      "source": {
+        "id": "cs2_bundle_07:010",
+        "bundle": "cs2_bundle_07.txt",
+        "creator": "austincs",
+        "date": "2026-07-20",
+        "title": "The Small Mistakes That Cost FaZe (Demo Review)",
+        "url": "https://www.youtube.com/watch?v=e8e35UQdkp8"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "fc69281f27cd9f8d33b58ab868725d6357a58a24b722395504378ca36cc25a7b"
+    },
+    {
+      "candidate": "Q22-Q33-025",
+      "source": {
+        "id": "cs2_bundle_04:002",
+        "bundle": "cs2_bundle_04.txt",
+        "creator": "austincs",
+        "date": "2024-12-02",
+        "title": "Shanghai Major 2024 Watch Party!",
+        "url": "https://www.youtube.com/watch?v=WB96E9LqHRk"
+      },
+      "review_note": "Do not promote: located ellipsis fragments do not establish the claimed 2v3 retake rule.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "29d02824ef6ceba98aad94b9ee101cb288c962d0036815af87510877b54555c2"
+    },
+    {
+      "candidate": "Q22-Q33-028",
+      "source": {
+        "id": "cs2_bundle_01:071",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-08-09",
+        "title": "The OP Dust2 CT Angles Pros Use for Free Kills",
+        "url": "https://www.youtube.com/watch?v=4PdI1NheRDI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "913f77711c4f954fc7ef68441722d4e6cc16f67304938ec07b221817423a1944"
+    },
+    {
+      "candidate": "Q22-Q33-037",
+      "source": {
+        "id": "cs2_bundle_12:013",
+        "bundle": "cs2_bundle_12.txt",
+        "creator": "its voo",
+        "date": "2025-03-04",
+        "title": "Are IGLs Less Important in CS2?",
+        "url": "https://www.youtube.com/watch?v=NVraaHrnp3g"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "4b2bd76e4321c7f05860b8d0ada65ae390ddb6dfcd9565ced4d80a631e76c4e4"
+    },
+    {
+      "candidate": "Q22-Q33-042",
+      "source": {
+        "id": "cs2_bundle_02:032",
+        "bundle": "cs2_bundle_02.txt",
+        "creator": "austincs",
+        "date": "2024-05-14",
+        "title": "is he the next karrigan?",
+        "url": "https://www.youtube.com/watch?v=1_0t0DK-_Qc"
+      },
+      "review_note": "Recover specific Mirage coverage problem; reject blanket prohibition on playing site.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "88423dade692512550cbaa872a2272a6e520de4b832b4c5911961e65a3519e2b"
+    },
+    {
+      "candidate": "Q22-Q33-067",
+      "source": {
+        "id": "cs2_bundle_08:001",
+        "bundle": "cs2_bundle_08.txt",
+        "creator": "austincs",
+        "date": "2026-09-13",
+        "title": "🔴GUIDE TO SOLO QUEUE & VIEWER REVIEWS - AUSTINCS🔴",
+        "url": "https://www.youtube.com/watch?v=4RxSYaphfJw"
+      },
+      "review_note": "Reject CT-side attribution: surrounding passage discusses T-side action; claimed rule not supported.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "ff1fc572eceecd4e615976079cee73b87281a4d39e953260fa5e028d7dfeb0f3"
+    },
+    {
+      "candidate": "Q22-Q33-086",
+      "source": {
+        "id": "cs2_bundle_01:079",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-09-16",
+        "title": "How to Play Every Inferno CT Role Like a Top 1k FACEIT Player",
+        "url": "https://www.youtube.com/watch?v=6vo9kFifFWA"
+      },
+      "review_note": "No universal three-to-four-round threshold established by surrounding passage.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "2f1d4f0bf212d8060243d7fe976397b4182e8f106ca197514dfdf893b7f8e2f5"
+    },
+    {
+      "candidate": "Q22-Q33-092",
+      "source": {
+        "id": "cs2_bundle_02:025",
+        "bundle": "cs2_bundle_02.txt",
+        "creator": "austincs",
+        "date": "2024-04-17",
+        "title": "NiKo is FINALLY BACK | PGL Copenhagen CS2 Major Demo Review",
+        "url": "https://www.youtube.com/watch?v=aF_8r6s9bpg"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "dbca24bdbdcb49648d5b485bf80b444779523a1a8a4553aec050d218e974b71a"
+    },
+    {
+      "candidate": "Q34-Q38-014",
+      "source": {
+        "id": "cs2_bundle_13:014",
+        "bundle": "cs2_bundle_13.txt",
+        "creator": "pienix 1-500",
+        "date": "2026-01-29",
+        "title": "pov: your mechanics are insane but you can't go out of LVL7",
+        "url": "https://www.youtube.com/watch?v=dKTxpfgoDXI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "0eef099ebfd229d55f63f56e516a0f0985c6fc63fcdcec72505df91bcf38219f"
+    },
+    {
+      "candidate": "Q34-Q38-016",
+      "source": {
+        "id": "cs2_bundle_10:078",
+        "bundle": "cs2_bundle_10.txt",
+        "creator": "isk 1-500",
+        "date": "2026-07-06",
+        "title": "This is why you're bad at holding angles",
+        "url": "https://www.youtube.com/watch?v=fje3ag0gKOY"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "7aeabc6ab4ac6744b7ff478d41789267fb93018e28ae6fcad3c338471c261555"
+    },
+    {
+      "candidate": "Q34-Q38-017",
+      "source": {
+        "id": "cs2_bundle_13:008",
+        "bundle": "cs2_bundle_13.txt",
+        "creator": "pienix 1-500",
+        "date": "2026-01-19",
+        "title": "This is why you feel stuck after hitting faceit LVL10",
+        "url": "https://www.youtube.com/watch?v=ZnwksSe9jwE"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "7c076df8adb6220a414247cfe294b618cafed6efd76b198b728e1813b4bded7f"
+    },
+    {
+      "candidate": "Q34-Q38-019",
+      "source": {
+        "id": "cs2_bundle_06:027",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-05-24",
+        "title": "TOP 200 FACEIT POV (LIVE)",
+        "url": "https://www.youtube.com/watch?v=nzcHVjsqqwI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "73c98bd1758e4b837ca0f4ec5d9e155757f03c11c95a8da3cb613797e9c41161"
+    },
+    {
+      "candidate": "Q34-Q38-036",
+      "source": {
+        "id": "cs2_bundle_06:043",
+        "bundle": "cs2_bundle_06.txt",
+        "creator": "austincs",
+        "date": "2026-06-24",
+        "title": "🔴GUIDE TO SOLO QUEUE LIVE🔴",
+        "url": "https://www.youtube.com/watch?v=-mYvVjnNS3I"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "0e3939a21208e162c7a91f9a56918cf29a32320fd6765998dc2a18ff25ebda49"
+    },
+    {
+      "candidate": "Q34-Q38-042",
+      "source": {
+        "id": "cs2_bundle_11:050",
+        "bundle": "cs2_bundle_11.txt",
+        "creator": "its voo",
+        "date": "2024-10-25",
+        "title": "New BlameF Hater Stats Just Dropped",
+        "url": "https://www.youtube.com/watch?v=RdUN_5_epeA"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "95b89d239ca0c38ddd1932cab2dab84f956803e56a3bb4e460238c0292bfd295"
+    },
+    {
+      "candidate": "Q39-Q51-001",
+      "source": {
+        "id": "cs2_bundle_09:081",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2026-02-04",
+        "title": "This is why you need a structured default | ESEA Main Coaching",
+        "url": "https://www.youtube.com/watch?v=xlJhDeYtPD4"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "840e80213f92371b1cf6a6a17609d7fdb63c194fe737420e9e477cb1d50b0c82"
+    },
+    {
+      "candidate": "Q39-Q51-005",
+      "source": {
+        "id": "cs2_bundle_09:081",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2026-02-04",
+        "title": "This is why you need a structured default | ESEA Main Coaching",
+        "url": "https://www.youtube.com/watch?v=xlJhDeYtPD4"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "19e5c3d5ee837db00dd252e04e5d0e7c32329d8d999b6646022655e9f8d4ff7f"
+    },
+    {
+      "candidate": "Q39-Q51-016",
+      "source": {
+        "id": "cs2_bundle_01:043",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-01-01",
+        "title": "I Reviewed a 3625 FACEIT elo Player's ESEA Main Game [Gameplay Analysis]",
+        "url": "https://www.youtube.com/watch?v=TLSQnzmxVYc"
+      },
+      "review_note": "Reject Mirage attribution; surrounding tunnels/window/double-door setup does not establish Mirage B rule.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "2ad5fd48dd0e92b52969b32dd5390877cbbf2bdce3ef00175ef4b0b30b548d08"
+    },
+    {
+      "candidate": "Q39-Q51-017",
+      "source": {
+        "id": "cs2_bundle_01:059",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-05-05",
+        "title": "This ESEA IGL’s Inferno Was WRONG… I Fixed It",
+        "url": "https://www.youtube.com/watch?v=z42eESeXLOc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "a88d8b55d75cea3154481470e818de618294b03755ad48c6077e5a8e83818693"
+    },
+    {
+      "candidate": "Q39-Q51-018",
+      "source": {
+        "id": "cs2_bundle_09:048",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-11-22",
+        "title": "ESSENTIAL CS2 Util Sets For All Maps | Must Know",
+        "url": "https://www.youtube.com/watch?v=lORRLDC3ujM"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "6a0ca06ad9c15d70038561308965111148f27c9dba8cd46a396abf64e90cf4f0"
+    },
+    {
+      "candidate": "Q39-Q51-021",
+      "source": {
+        "id": "cs2_bundle_01:059",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-05-05",
+        "title": "This ESEA IGL’s Inferno Was WRONG… I Fixed It",
+        "url": "https://www.youtube.com/watch?v=z42eESeXLOc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "a63c99d05b71e992d3a2c6afa165b2be49809a625bb339c5c71994955b7bdade"
+    },
+    {
+      "candidate": "Q39-Q51-025",
+      "source": {
+        "id": "cs2_bundle_01:079",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-09-16",
+        "title": "How to Play Every Inferno CT Role Like a Top 1k FACEIT Player",
+        "url": "https://www.youtube.com/watch?v=6vo9kFifFWA"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "998d1294beb57987e9b7398fc3bd0401034843e16fefab990c782438e7cc80cd"
+    },
+    {
+      "candidate": "Q39-Q51-027",
+      "source": {
+        "id": "cs2_bundle_05:001",
+        "bundle": "cs2_bundle_05.txt",
+        "creator": "austincs",
+        "date": "2025-06-13",
+        "title": "How Vitality's Win Streak Ended",
+        "url": "https://www.youtube.com/watch?v=AVBXK__-ahI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "c45dc069c24d6ffdd8cb64a4f0ec6219c6506120a89d38c563fb615ce95b6ca5"
+    },
+    {
+      "candidate": "Q39-Q51-034",
+      "source": {
+        "id": "cs2_bundle_01:042",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2025-12-21",
+        "title": "Are You Using Your Utility Right? [CS2 Demo Analysis Coaching] FACEIT lvl 8",
+        "url": "https://www.youtube.com/watch?v=tI638-wdzVk"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "b9fe33da6bc569326f653433f5a5c1e488a948d666e129513b7743c83369e04c"
+    },
+    {
+      "candidate": "Q39-Q51-041",
+      "source": {
+        "id": "cs2_bundle_01:071",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-08-09",
+        "title": "The OP Dust2 CT Angles Pros Use for Free Kills",
+        "url": "https://www.youtube.com/watch?v=4PdI1NheRDI"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "40a3af66f360e816f071f1741466fd4ef4063e0d3c19d1900fa5ef4c2e8806fb"
+    },
+    {
+      "candidate": "Q39-Q51-062",
+      "source": {
+        "id": "cs2_bundle_09:030",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-10-16",
+        "title": "🔴CS2 PLAYER COACHING🔴",
+        "url": "https://www.youtube.com/watch?v=2gMCx1rGdso"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "81aa21c5218ed0fdd39c35e5dd2cf46b92e55f7582216700e40661e03aa721d5"
+    },
+    {
+      "candidate": "Q39-Q51-073",
+      "source": {
+        "id": "cs2_bundle_05:012",
+        "bundle": "cs2_bundle_05.txt",
+        "creator": "austincs",
+        "date": "2025-08-06",
+        "title": "CS2 Tips That Will Help You Win More ELO",
+        "url": "https://www.youtube.com/watch?v=rr-CIwEuALs"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "1e7b879aaa8f631e2b63d2c057662629647b22f97ef8a603da982d7502216379"
+    },
+    {
+      "candidate": "Q39-Q51-076",
+      "source": {
+        "id": "cs2_bundle_09:016",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-10-02",
+        "title": "🔴 COACHING PLAYERS 🔴 SKILL IMPROVE 🔴 ELO GAINS 🔴",
+        "url": "https://www.youtube.com/watch?v=efWqZSahW0A"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "1f5301a33f3d9552e3648a657ff8c9230407f1b2cb8ad31bffdf831f047b5814"
+    },
+    {
+      "candidate": "Q39-Q51-080",
+      "source": {
+        "id": "cs2_bundle_09:048",
+        "bundle": "cs2_bundle_09.txt",
+        "creator": "isk 1-500",
+        "date": "2025-11-22",
+        "title": "ESSENTIAL CS2 Util Sets For All Maps | Must Know",
+        "url": "https://www.youtube.com/watch?v=lORRLDC3ujM"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "2b36141282923338336c6099cc3f4a7ae0c24f3392a5d99026d3d8414c1eb1b2"
+    },
+    {
+      "candidate": "Q39-Q51-083",
+      "source": {
+        "id": "cs2_bundle_05:056",
+        "bundle": "cs2_bundle_05.txt",
+        "creator": "austincs",
+        "date": "2026-03-02",
+        "title": "55 Minutes of CS2 Tips to Win More Solo Queue Games",
+        "url": "https://www.youtube.com/watch?v=BP8cZU-n5yo"
+      },
+      "review_note": "Map attribution unresolved (source names Ancient; answer Anubis). Recover teammate-drop prerequisite only.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "2d364c3dcbe6e6d7d62a063c938605bd78812fb3ad7db5b9858343180dc61e50"
+    },
+    {
+      "candidate": "Q39-Q51-085",
+      "source": {
+        "id": "cs2_bundle_01:052",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-04-03",
+        "title": "I Reviewed a 3235 ELO 13 Year Old… The Next donk?!",
+        "url": "https://www.youtube.com/watch?v=fTl6aWpjnLQ"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "5747d693daff55ff87ce06fa288af5edc8147517375115813bcddabe4c23ac8f"
+    },
+    {
+      "candidate": "Q39-Q51-094",
+      "source": {
+        "id": "cs2_bundle_02:038",
+        "bundle": "cs2_bundle_02.txt",
+        "creator": "austincs",
+        "date": "2024-05-30",
+        "title": "The First Pro Match of New Vertigo (austincs)",
+        "url": "https://www.youtube.com/watch?v=cQAoo483h9Q"
+      },
+      "review_note": "Historical May 2024 Vertigo geometry; no current-version guarantee.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "b9d073a6fd3d5643576a69bc866d793eb564ede8ffef8ec14531a2938e907ac1"
+    },
+    {
+      "candidate": "Q39-Q51-097",
+      "source": {
+        "id": "cs2_bundle_01:119",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "NadeKing 1-500",
+        "date": "2025-02-16",
+        "title": "CS2 Tricks but they get increasingly more insane.. #2",
+        "url": "https://www.youtube.com/watch?v=24GuRoi3odo"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "6bb60d578fd45819d8a8851310e9d4e88671bb2d0cc131a4debda93099e54f48"
+    },
+    {
+      "candidate": "Q39-Q51-098",
+      "source": {
+        "id": "cs2_bundle_01:119",
+        "bundle": "cs2_bundle_01.txt",
+        "creator": "NadeKing 1-500",
+        "date": "2025-02-16",
+        "title": "CS2 Tricks but they get increasingly more insane.. #2",
+        "url": "https://www.youtube.com/watch?v=24GuRoi3odo"
+      },
+      "review_note": "Preserve source admission of unreliable difficult setup; no text-only geometry prescription.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "a0924f7527661e885d942ff5bb59eec5141ad2e20416186793265cb2fd4eff08"
+    },
+    {
+      "candidate": "Q39-Q51-104",
+      "source": {
+        "id": "cs2_bundle_08:031",
+        "bundle": "cs2_bundle_08.txt",
+        "creator": "fl0m 1-500",
+        "date": "2026-05-11",
+        "title": "Your CT Side Cache SUCKS... here's how to fix it",
+        "url": "https://www.youtube.com/watch?v=FWeodgP4BCo"
+      },
+      "review_note": "Explicit five-stack setup; no persona status jokes, no generic PUG buy recommendation.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "1a8b93bf8e205e93c3c88749a682df83964833bc05f839a8115d00900677e1d1"
+    },
+    {
+      "candidate": "C363",
+      "source": {
+        "id": "P23",
+        "creator": "austincs",
+        "date": "2025-05-15",
+        "title": "A First Look at FaZe S1mple",
+        "url": "https://www.youtube.com/watch?v=SvuJCqWCzdc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "a4889b0afcf38875dfb647ab1eb26ac33c12880ed0e12cd6276629570e67b0e5"
+    },
+    {
+      "candidate": "C521",
+      "source": {
+        "id": "P33",
+        "creator": "its voo",
+        "date": "2024-06-05",
+        "title": "Vitality Euthanize Donk",
+        "url": "https://www.youtube.com/watch?v=_J3lhQGoYXo"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "cb6bf58d4c9a2adbb725578c97de9a7fdbad98af7816863094d957c183b6e6a3"
+    },
+    {
+      "candidate": "C240",
+      "source": {
+        "id": "P17",
+        "creator": "pienix 1-500",
+        "date": "2026-08-13",
+        "title": "Fundamentals that make you dominate faceit lobbies",
+        "url": "https://www.youtube.com/watch?v=nzupO-HY7iQ"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "8336c69e670a989bffb846b9182b8b7f1bb3395c18339fd3b0cd462d0eb51cc9"
+    },
+    {
+      "candidate": "C297",
+      "source": {
+        "id": "P20",
+        "creator": "austincs",
+        "date": "2025-08-11",
+        "title": "A First Look at S1mple's New Team",
+        "url": "https://www.youtube.com/watch?v=-3Ud1xaHU2o"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "23537a2c9d8a164bd91c41eefc963a2415a218afb15ff356b73fec769426d2d2"
+    },
+    {
+      "candidate": "C289",
+      "source": {
+        "id": "P19",
+        "creator": "pienix 1-500",
+        "date": "2026-05-07",
+        "title": "If you are stuck in LVL8 and can't gain elo this video will find you",
+        "url": "https://www.youtube.com/watch?v=e-_8wlPjiLM"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "69b27dc69fa44b76a7e86c87cd5d8e463f88be24826919b01cc11f1a3e955221"
+    },
+    {
+      "candidate": "C328",
+      "source": {
+        "id": "P22",
+        "creator": "austincs",
+        "date": "2026-07-14",
+        "title": "Become a Better Lurker | Guide to Solo Queue Episode 21",
+        "url": "https://www.youtube.com/watch?v=tgNQwVx3Zh4"
+      },
+      "review_note": "Recovered supporting passage at 05:58; inherited timestamp differs. Preserve described follow-up options.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "ad279ed66b0fef3e11d8deaa55d0c486964efc0007830134f9d0f02d52138833"
+    },
+    {
+      "candidate": "C023",
+      "source": {
+        "id": "P04",
+        "creator": "isk 1-500",
+        "date": "2025-09-10",
+        "title": "How to dominate on CT side Inferno (AWP Guide)",
+        "url": "https://www.youtube.com/watch?v=w3YKDJdSNWw"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "5956cb7259bb2202f7a9d6b2dcde0f05db4e9640f07c3ee8e4e48b2f11793d6a"
+    },
+    {
+      "candidate": "C024",
+      "source": {
+        "id": "P04",
+        "creator": "isk 1-500",
+        "date": "2025-09-10",
+        "title": "How to dominate on CT side Inferno (AWP Guide)",
+        "url": "https://www.youtube.com/watch?v=w3YKDJdSNWw"
+      },
+      "review_note": "Position rationale can be useful; do not assign universal AWP frequency from coach preference.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "83b205b957707a6a86aeef7e34af1d09443a9432d08f13b072048abe75ea5336"
+    },
+    {
+      "candidate": "C034",
+      "source": {
+        "id": "P05",
+        "creator": "pienix 1-500",
+        "date": "2026-09-08",
+        "title": "Coaching a stuck LVL8 player how to play Inferno",
+        "url": "https://www.youtube.com/watch?v=ckQCEd9e8Rc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "abbc9edd88a81858bea1d6200523a8f079afabd3e59dcebf0fd8ac2c61c84435"
+    },
+    {
+      "candidate": "C035",
+      "source": {
+        "id": "P05",
+        "creator": "pienix 1-500",
+        "date": "2026-09-08",
+        "title": "Coaching a stuck LVL8 player how to play Inferno",
+        "url": "https://www.youtube.com/watch?v=ckQCEd9e8Rc"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "9858d44c7de4b22a9c57ad0b2070d856d7eab28c7b1faf3965c88316c19f9c3c"
+    },
+    {
+      "candidate": "C011",
+      "source": {
+        "id": "P02",
+        "creator": "pienix 1-500",
+        "date": "2026-07-23",
+        "title": "This is why he lost all the duels on Inferno - CS2 coaching",
+        "url": "https://www.youtube.com/watch?v=Wq76u_FwASQ"
+      },
+      "review_note": "Original context includes possibility of opponent hitting; reject guarantee of missed no-scope.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "45277b4bdfb8a6ff332923ddebcca7f8fa9127e3e98be09a3b4b377aee01998e"
+    },
+    {
+      "candidate": "C067",
+      "source": {
+        "id": "P07",
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-07-27",
+        "title": "Why You Lose Mid Fights on Ancient",
+        "url": "https://www.youtube.com/watch?v=fvN6IbX2_r0"
+      },
+      "review_note": "Surrounding passage read; use only its contextual mechanism, without upgrading preference to engine fact.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "020aa28685225ac59187a9b6dde4ab15119ca18191d51205ded76924ce881f3b"
+    },
+    {
+      "candidate": "SHORT-1",
+      "source": {
+        "creator": "isk 1-500",
+        "date": "2026-06-06",
+        "title": "op b push flash used at the major #cs2tips #csgo #cs2 #counterstrike",
+        "url": "https://www.youtube.com/watch?v=LU5x6rCTrMk"
+      },
+      "review_note": "Useful candidate flash but map/aim references require video; no lineup promoted.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "32ee025124be4855c72207ea502064ed07472b748e96a1140a81c973dd247346"
+    },
+    {
+      "candidate": "SHORT-2",
+      "source": {
+        "creator": "isk 1-500",
+        "date": "2026-07-22",
+        "title": "Stop holding angles like a noob #cs2tips #csgo #counterstrike #cs2",
+        "url": "https://www.youtube.com/watch?v=VSp677FRDh4"
+      },
+      "review_note": "Active holding example agrees with existing lesson; remove broad all-pros rhetoric.",
+      "used_in_source_register": false,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "8e868f84fc791012ce07fe36dd2d4bb25405858ccdeeb3450e716c7341e95622"
+    },
+    {
+      "candidate": "SHORT-3",
+      "source": {
+        "creator": "pienix 1-500",
+        "date": "2026-03-13",
+        "title": "Winning fights but getting traded? This is why 🤫 #cs2 #cs2tips",
+        "url": "https://www.youtube.com/watch?v=xowrANaG8ns"
+      },
+      "review_note": "Purposeful crouching versus automatic crouching; no weakness assigned.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "9559e3ca30c6ebe30fe38fc7f6df779b7ee66fc094074e14ebf3febd3e538a83"
+    },
+    {
+      "candidate": "SHORT-4",
+      "source": {
+        "creator": "pienix 1-500",
+        "date": "2026-09-09",
+        "title": "How to play Inferno banana explained in 1min🧠#cs2 #cs2tips",
+        "url": "https://www.youtube.com/watch?v=gG9vVpokaQw"
+      },
+      "review_note": "Sequencing concept retained; exact throws and timing require video.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "c2ee7e3341873f797d704221581e05b01815a10fd507cdf9ef0e1876902c89ff"
+    },
+    {
+      "candidate": "SHORT-5",
+      "source": {
+        "creator": "austincs",
+        "date": "2026-07-19",
+        "title": "easy Z smoke for t side cache #cs2 #shorts",
+        "url": "https://www.youtube.com/watch?v=bHxQGrsyUq4"
+      },
+      "review_note": "Z isolation purpose retained; no current map-pool or exact throw claim.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "efbc970cee03b7fd188ae2490b59160b0060b865a0ec9fbac253e9c6434a3dd8"
+    },
+    {
+      "candidate": "SHORT-6",
+      "source": {
+        "creator": "austincs",
+        "date": "2026-09-01",
+        "title": "#1 rule in post plants in CS2",
+        "url": "https://www.youtube.com/watch?v=4ABryuk73UI"
+      },
+      "review_note": "Post-plant objective retained; remove unbreakable/unlosable guarantee.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "26f54ac90ab6f3d86edbc5f9b802d276a0635926f9a505ae2010958ee8a9cfaf"
+    },
+    {
+      "candidate": "SHORT-7",
+      "source": {
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-08-20",
+        "title": "How To Ferrari Peek Your Opponents In CS2",
+        "url": "https://www.youtube.com/watch?v=h29N95F77PM"
+      },
+      "review_note": "Specific peek demonstration; do not universalize close-wall approach.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
+      "context_sha256": "83723034dc22a8860fa20f2bea5600f4095bbd426623b2f88f36259b1b9af8c8"
+    }
+  ],
+  "source_aliases": {
+    "peeking": "Q1-002",
+    "active-holding": "Q1-009",
+    "posted-hold": "Q1-011",
+    "clearing": "Q2-003",
+    "spray-recommendation": "Q3-002",
+    "range": "Q3-007",
+    "practice": "Q5-001",
+    "deathmatch-purpose": "Q5-006",
+    "resolution": "Q6-006",
+    "utility-purpose": "Q9-001",
+    "support-flash": "Q9-003",
+    "flash-calls": "Q9-009",
+    "displacement": "Q10-002",
+    "he-timing": "Q11-006",
+    "awp-money": "Q13-Q21-008",
+    "spacing": "Q13-Q21-026",
+    "retreat-room": "Q13-Q21-032",
+    "entry-routes": "Q13-Q21-040",
+    "lurk-pressure": "Q13-Q21-042",
+    "lurk-exit": "Q13-Q21-049",
+    "plan-b": "Q13-Q21-052",
+    "information-calls": "Q13-Q21-058",
+    "radar": "Q13-Q21-073",
+    "default-development": "Q22-Q33-034",
+    "rotation-handover": "Q22-Q33-010",
+    "ancient-response": "Q22-Q33-015",
+    "dust2-angles": "Q22-Q33-028",
+    "pop-timing": "Q22-Q33-037",
+    "plant-relationships": "Q22-Q33-042",
+    "inferno-roles": "Q39-Q51-025",
+    "conditioning": "Q22-Q33-092",
+    "visualization": "Q34-Q38-014",
+    "study-focus": "Q34-Q38-016",
+    "death-review": "Q34-Q38-017",
+    "mental-response": "Q34-Q38-019",
+    "team-context": "Q34-Q38-036",
+    "buy-context": "Q34-Q38-042",
+    "mirage-default": "Q39-Q51-001",
+    "inferno-default": "Q39-Q51-017",
+    "utility-sets": "Q39-Q51-018",
+    "cheating-defender": "Q39-Q51-027",
+    "dust2-long": "Q39-Q51-034",
+    "nuke-outside": "Q39-Q51-062",
+    "donut-smoke": "Q39-Q51-073",
+    "donut-trade": "Q39-Q51-076",
+    "ancient-cave": "Q39-Q51-066",
+    "awp-roles": "C023",
+    "delay-exception": "C240",
+    "retained-smoke": "C328",
+    "reconnect": "C034",
+    "wait-window": "C035",
+    "clutch-gamble": "C521",
+    "bomb-uncertainty": "C363",
+    "overpass-funnel": "C297",
+    "save-decision": "C289",
+    "crouch-choice": "SHORT-3",
+    "fast-peek": "SHORT-7",
+    "banana-sequence": "SHORT-4",
+    "post-plant-restraint": "SHORT-6",
+    "cache-smoke": "SHORT-5",
+    "anubis-space": "Q39-Q51-085",
+    "shared-utility": "Q39-Q51-083",
+    "vertigo-revision": "Q39-Q51-094",
+    "train-examples": "Q39-Q51-098",
+    "cache-setup": "Q39-Q51-104"
+  }
+}
