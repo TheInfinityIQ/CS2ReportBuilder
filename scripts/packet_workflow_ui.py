@@ -8,6 +8,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 from uuid import uuid4
+import sqlite3
 from packet_ui import PacketWindow, REPO
 from cs2di import config
 from cs2di.evidence import check_demo
@@ -25,12 +26,14 @@ class WorkflowWindow(PacketWindow):
         self.memory_target = tk.StringVar(root, value="90")
         self.workers = tk.StringVar(root, value=str(min(8, os.cpu_count() or 1)))
         self.matches = ()
+        self.rosters = {}
         self.included = set()
         self.last_source = None
         self.pending_record = None
         self.failed_jobs = []
         self.retry_phase = "prepare"
         self.cancel_path = None
+        self.force_catalog = False
         self.operation = None
         self.cache_path = config.root() / ".extraction_jobs" / ("hashes_" + uuid4().hex + ".json")
         super().__init__(root)
@@ -52,6 +55,11 @@ class WorkflowWindow(PacketWindow):
         # A raw-folder pairing belongs to one collection, never another dropdown choice.
         self.raw.set("")
         self.load_batch()
+
+    def refresh_catalog(self):
+        if not self.busy:
+            self.force_catalog = True
+            self.load_batch()
 
     def reset_filters(self):
         self.map_filter.set("All maps")
@@ -158,10 +166,22 @@ class WorkflowWindow(PacketWindow):
         self.match_details.set("Highlight a game to see its validation details.")
         self.operation = "scan"
         self.set_busy(True)
-        self.status.set("Mapping demos and checking duplicate identities, integrity and viewer coverage…")
+        self.status.set("Loading game catalog and validating new or changed games…")
+
+        force = self.force_catalog
+        self.force_catalog = False
 
         def scan():
-            matches = scan_matches(path, raw, self.cache_path)
+            from cs2di.game_catalog import open_catalog
+
+            try:
+                catalog = open_catalog(recover=force, log=lambda line: self.events.put(("log", None, line)))
+                matches = scan_matches(path, raw, self.cache_path, catalog=catalog, force=force)
+                rosters = catalog.rosters(path)
+            except (OSError, ValueError, sqlite3.DatabaseError) as exc:
+                self.events.put(("log", None, f"Catalog unavailable; using full validation: {exc}"))
+                matches = scan_matches(path, raw, self.cache_path)
+                rosters = {}
             if record:
                 names, identities = (set(record["included"]), record.get("identities", {}))
                 included = {
@@ -181,8 +201,9 @@ class WorkflowWindow(PacketWindow):
                 path,
                 [m.analysis for i, m in enumerate(matches) if str(i) in included and m.core_ready],
                 matches,
+                rosters=rosters,
             )
-            return (matches, included, batch, old_sid)
+            return (matches, included, batch, old_sid, rosters)
 
         self.background(scan, "scan", self.generation)
 
@@ -261,6 +282,7 @@ class WorkflowWindow(PacketWindow):
                 self.batch.path,
                 [m.analysis for i, m in enumerate(self.matches) if str(i) in self.included and m.core_ready],
                 self.matches,
+                rosters=self.rosters,
             )
             self.show_batch(old_sid)
 
@@ -460,7 +482,7 @@ class WorkflowWindow(PacketWindow):
             if kind == "log":
                 self.append(value)
             elif kind == "scan":
-                self.matches, self.included, self.batch, sid = value
+                self.matches, self.included, self.batch, sid, self.rosters = value
                 self.map_combo.configure(values=["All maps"] + sorted({m.map_name for m in self.matches}))
                 self.map_filter.set("All maps")
                 self.render_matches()

@@ -188,6 +188,9 @@ def build_layout(w):
         text="Change game inclusion in Packet Builder. Preparation uses included games with available originals.",
     ).pack(anchor="w", pady=4)
     ttk.Button(selection_info, text="Back to Packet Builder", command=w.open_builder).pack(anchor="w")
+    w.control(selection_info, "Refresh catalog for selected collection", w.refresh_catalog).pack(
+        anchor="w", pady=4
+    )
     preparation = ttk.LabelFrame(utilities, text="Prepare or repair data", padding=8)
     preparation.grid(row=1, column=0, sticky="ew", pady=8)
     ttk.Label(

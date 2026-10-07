@@ -4,7 +4,7 @@
 Evidence, digest, findings, repairs, CLI, and report package.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **28 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **29 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -30,6 +30,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [extraction_queue.py](extraction_queue.py) | Resource-aware admission for independent demo subprocesses, with durable results. | product implementation / undated | extracted |
 | [fights.py](fights.py) | Fight episodes: every gunfight between two opposing players, not only the ones that end in a death. A fight starts at the first gun damage between two opposing players (either direction) and continues while… | product implementation / undated | extracted |
 | [findings.py](findings.py) | Analyst findings from the fight table: where and in what situations a player wins or loses fights, compared with a stated baseline. Every comparison is kept, including "no difference". Baseline (ADR-013): the… | product implementation / undated | extracted |
+| [game_catalog.py](game_catalog.py) | Rebuildable SQLite game/roster catalog with freshness checks, transactional publication and standalone pending records. | product implementation / undated | curated |
 | [ids.py](ids.py) | SteamID64 handling. IDs are strings/ints only, never floats (KNOWN_PITFALLS #3). | product implementation / undated | extracted |
 | [impact.py](impact.py) | Round impact: what each kill and death did to the team's chance of winning the round. Everything is learned from the batch itself (ADR-013). The win-chance table comes from the rounds in the submitted demos:… | product implementation / undated | extracted |
 | [job_lock.py](job_lock.py) | Exclusive local extraction and snapshot ownership, using only the stdlib. | product implementation / undated | extracted |

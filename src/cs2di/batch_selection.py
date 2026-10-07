@@ -197,7 +197,9 @@ class Match:
     replay: ReplayQuality
 
 
-def scan_matches(analysis: Path, raw: Path | None = None, cache_path: Path | None = None):
+def scan_matches(
+    analysis: Path, raw: Path | None = None, cache_path: Path | None = None, *, catalog=None, force=False
+):
     analysis = analysis.resolve()
     cache = {}
     if cache_path and cache_path.exists():
@@ -233,7 +235,12 @@ def scan_matches(analysis: Path, raw: Path | None = None, cache_path: Path | Non
             if len(choices) > 1:
                 problem = "Ambiguous analysis folder"
             target = choices[0] if len(choices) == 1 else analysis / demo.stem
-            candidates.append((target, demo, demo_hash(demo, cache), problem))
+            source_stamp = fingerprint(demo) if catalog else None
+            sha = catalog.source_hash(demo) if catalog else None
+            sha = sha or demo_hash(demo, cache)
+            if catalog:
+                catalog.register_source(demo, target, sha, stamp=source_stamp)
+            candidates.append((target, demo, sha, problem))
     else:
         for choices in folders.values():
             for folder in choices:
@@ -249,8 +256,13 @@ def scan_matches(analysis: Path, raw: Path | None = None, cache_path: Path | Non
     candidates.sort(key=lambda item: (not check_demo(item[0]).passed, str(item[0]).casefold()))
     matches, seen = [], {}
     for folder, demo, sha, problem in candidates:
+        saved = catalog.get(folder, sha) if catalog and not force else None
+        if catalog and not saved:
+            from .game_catalog import signature
+
+            before = signature(folder)
         try:
-            identity = sha or evidence_hash(folder)
+            identity = sha or (saved.get("evidence_identity") if saved else evidence_hash(folder))
         except (OSError, EOFError) as exc:
             identity = None
             problem = f"Unreadable identity evidence: {exc}"
@@ -259,12 +271,37 @@ def scan_matches(analysis: Path, raw: Path | None = None, cache_path: Path | Non
                 problem = f"Duplicate of {seen[identity]}"
             else:
                 seen[identity] = folder.name
+        if saved:
+            data = saved["replay"]
+            data["unobserved_players"] = tuple(data.get("unobserved_players", ()))
+            data["nonlive_rounds"] = tuple(data.get("nonlive_rounds", ()))
+            matches.append(
+                Match(
+                    folder, demo, sha, problem, saved["core_ready"], saved["map_name"], ReplayQuality(**data)
+                )
+            )
+            continue
         gate = check_demo(folder)
         try:
             map_name = read_json(folder / "match_summary.json").get("map_name", "unknown")
         except (OSError, ValueError):
             map_name = "unknown"
-        matches.append(Match(folder, demo, sha, problem, gate.passed, map_name, replay_quality(folder, sha)))
+        quality = replay_quality(folder, sha)
+        matches.append(Match(folder, demo, sha, problem, gate.passed, map_name, quality))
+        if catalog:
+            catalog.put(
+                folder,
+                sha,
+                before,
+                {
+                    "core_ready": gate.passed,
+                    "map_name": map_name,
+                    "replay": asdict(quality),
+                    "evidence_identity": identity,
+                },
+            )
+    if catalog:
+        catalog.prune(analysis)
     if cache_path:
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_text(json.dumps(cache), encoding="utf-8")

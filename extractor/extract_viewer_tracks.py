@@ -484,7 +484,14 @@ def process_demo(dem: Path, folder: Path, hz: int = SAMPLE_HZ, validate: bool = 
     except ImportError:
         from job_lock import exclusive, lock_path
     with exclusive(lock_path(folder)):
-        return _process_demo_unlocked(dem, folder, hz, validate, force)
+        try:
+            from cs2di.game_catalog import notify_output, file_stamp
+        except ImportError:
+            from game_catalog import notify_output, file_stamp
+        source_stamp = file_stamp(dem)
+        result = _process_demo_unlocked(dem, folder, hz, validate, force)
+        notify_output(folder, dem, owned=True, source_sha=result.get("meta", {}).get("demo_sha256"), source_stamp=source_stamp)
+        return result
 
 
 # ============================================================

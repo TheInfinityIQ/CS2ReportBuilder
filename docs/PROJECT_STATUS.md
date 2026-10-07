@@ -17,6 +17,12 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
   selections, and prepares or repairs data. A resource-aware queue defaults to
   80% CPU / 90% RAM soft admission targets, with logs, cancellation and retry.
   Packets require validated 16 Hz replay data unless explicitly overridden.
+- The local [game catalog](GAME_CATALOG.md) caches player rosters, source paths,
+  identities and replay readiness. Extraction/repair updates and a Utilities
+  refresh control are connected. On 2026-10-07 it indexed 453 analyzed games
+  (351 replay-ready, 102 historical analysis-only games) and 351 raw demos.
+  Measured cached collection scans took 0.8-2.4 seconds, compared with
+  25-103 seconds for initial validation; packet builds still revalidate sources.
 - [Viewer repairs](VIEWER_REVIEW_2026-10-06.md) preserve sidecar cadence, use exact
   Valve weapon icons, show utility countdowns and correct playback/state timing.
   Normal v7.8 extraction now adds validated 16 Hz viewer sidecars by default;

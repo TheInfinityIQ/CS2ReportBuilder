@@ -23,6 +23,8 @@ To prepare a coach packet with dropdowns and buttons, double-click
 In **Packet Builder**, choose games and a player, then build, open or export.
 Use **Utilities** to analyze missing games, repair 16 Hz replays and view logs.
 Both tabs share the same selected batch and show readiness before building.
+A local [game catalog](docs/GAME_CATALOG.md) caches rosters and replay readiness
+for faster collection loading; extraction and repairs update it automatically.
 See [the window guide](docs/PACKET_BUILDER_UI.md) for setup and scope.
 
 ```text

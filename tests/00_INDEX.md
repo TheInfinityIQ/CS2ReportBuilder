@@ -4,7 +4,7 @@
 Synthetic checks; tests do not require downloading demo data.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **17 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **18 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -23,6 +23,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [test_digest.py](test_digest.py) | Python definitions: test_counts_including_kill_after_round_end, test_late_kill_is_never_an_opening, test_damage_ignores_team_damage, test_unknown_is_not_zero, test_every_metric_has_a_plain_definition,… | executable check / undated | extracted |
 | [test_docs_consistency.py](test_docs_consistency.py) | Checks for current runtime documentation and named product files. | executable check / undated | extracted |
 | [test_fights_findings.py](test_fights_findings.py) | Python definitions: test_weapon_display_and_event_names_agree, _fights, test_same_match_in_two_batches_is_kept_once, test_bh_is_monotone_and_bounded, test_small_samples_are_never_findings | executable check / undated | extracted |
+| [test_game_catalog.py](test_game_catalog.py) | Catalog reuse, invalidation, publication, concurrency, recovery and fresh packet-validation checks. | executable check / undated | curated |
 | [test_integrity.py](test_integrity.py) | Python definitions: test_clean_demo_passes, test_soft_warnings_do_not_fail, test_each_hard_failure_fails_closed, test_missing_file_fails_closed, test_malformed_json_fails_closed,… | executable check / undated | extracted |
 | [test_navigation.py](test_navigation.py) | Navigation must detect drift without altering evidence or isolated coach inputs. | executable check / undated | extracted |
 | [test_packet_jobs.py](test_packet_jobs.py) | Python definitions: test_inspection_excludes_failures_and_groups_exact_player_ids, test_selects_an_example_for_another_player, fake_builder, test_jobs_preserve_sources_and_previous_packets,… | executable check / undated | extracted |

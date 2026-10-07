@@ -19,3 +19,6 @@ __pycache__/
 # Generated outputs
 out/
 Outputs/
+
+# Rebuildable local game catalog (including journals and recovery copies)
+game_catalog.sqlite3*

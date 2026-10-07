@@ -4,7 +4,7 @@
 README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **236 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **241 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 ## Subfolders
 
@@ -33,7 +33,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [CLAUDE.md](CLAUDE.md) | Compatibility import of AGENTS.md; no independent rule copy or mandatory history loading. | source / undated | curated |
 | [Open_Coach_Packet_Builder.cmd](Open_Coach_Packet_Builder.cmd) | Open Coach Packet Builder (cmd). | source / undated | filename |
 | [pyproject.toml](pyproject.toml) | [project] — name = "cs2di" | source / undated | extracted |
-| [README.md](README.md) | Project entry point: task-based packet builder and data utilities, software setup, and separate raw replay and analysis roots. | source / undated | curated |
+| [README.md](README.md) | Project entry with pipeline, packet window, local game catalog, setup and data-root guidance. | source / undated | curated |
 
 ## Find a specific file
 

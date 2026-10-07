@@ -23,6 +23,9 @@ def worker(job, phase):
     demo, folder = source.resolve(), Path(job["analysis"]).resolve()
     if source.is_symlink() or not demo.is_file():
         raise ValueError("Original demo missing or linked")
+    from cs2di.game_catalog import file_stamp
+
+    source_stamp = file_stamp(demo)
     identity = demo_hash(demo, {})
     if identity != job["sha256"]:
         raise ValueError("Original demo changed after planning; refresh")
@@ -47,6 +50,9 @@ def worker(job, phase):
         quality = replay_quality(folder, identity, owned=True)
         if not quality.ready:
             raise ValueError(f"Viewer output not ready: {quality.reason}")
+        from cs2di.game_catalog import notify_output
+
+        notify_output(folder, demo, quality, owned=True, source_sha=identity, source_stamp=source_stamp)
     return {
         "status": outcome["status"],
         "hz": quality.hz,

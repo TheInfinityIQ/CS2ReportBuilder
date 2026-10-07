@@ -2569,7 +2569,13 @@ def analyze_demo(demo_path: Path) -> bool:
     except ImportError:
         from job_lock import exclusive, lock_path
     with exclusive(lock_path(OUTPUT_DIR / demo_path.stem)):
-        return _analyze_demo_unlocked(demo_path)
+        result = _analyze_demo_unlocked(demo_path)
+        try:
+            from cs2di.game_catalog import notify_output
+        except ImportError:
+            from game_catalog import notify_output
+        notify_output(OUTPUT_DIR / demo_path.stem, demo_path, owned=True)
+        return result
 
 
 def main():

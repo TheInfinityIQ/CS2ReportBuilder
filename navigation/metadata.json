@@ -204,12 +204,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Project entry point: task-based packet builder and data utilities, software setup, and separate raw replay and analysis roots.",
-        "reviewed_sha256": "78dd97b03f350827d5185352a72c07937f4d57cfb87dcbcaa6772ce548045dba"
+        "summary": "Project entry with pipeline, packet window, local game catalog, setup and data-root guidance.",
+        "reviewed_sha256": "9d39e6a12b318e1058398d8851e6eb05a72f4d98ff08724094b8028f4ebe43cc"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation: shared-selection Packet Builder and Utilities tabs, verified 16 Hz repair and Steam raw-demo layout; known coaching gaps and verification records.",
-        "reviewed_sha256": "25ec4ebd56c7681ecf6837357ff56beeb52f42a6c7aec146f2d5777706c5f993"
+        "summary": "Current observed implementation, catalog measurements, verification evidence and unresolved coaching gaps.",
+        "reviewed_sha256": "7905aa83de528d7d27c8a327f0d85a88cb100925b20549902f2f372d5d91026d"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -257,6 +257,34 @@
       "docs/history/SOURCES.md": {
         "summary": "Consolidated development sequence, source paths, preserved contradictions, and current knowledge-build artifact counts.",
         "reviewed_sha256": "a4272dad2cd17cf17db84b0dde6f65952f562d58e9fd9e44c130fd6c5db035e6"
+      },
+      "docs/PACKET_BUILDER_UI.md": {
+        "summary": "Two-tab packet workflow, cached game loading, selection, preparation, replay repair and handoff instructions.",
+        "reviewed_sha256": "71b4b22f8b785e224caff04d6ab69b451e91cb41f1dda13e8ac08b2cbbfeb2c0"
+      },
+      "docs/GAME_CATALOG.md": {
+        "summary": "Local SQLite catalog contents, freshness checks, extraction updates, refresh/query commands and measured loading improvements.",
+        "reviewed_sha256": "94cc61f23834a1c83f2073e9c9aec47fe290d0e9aa66979fde02696b5c800f16"
+      },
+      "extractor/README.md": {
+        "summary": "Current v7.8 core and viewer sidecar usage, raw/analysis roots and standalone catalog publication requirements.",
+        "reviewed_sha256": "41c34d0af48c88276874311fe3f55830eb6967af81c69838bc57b6861c53527a"
+      },
+      "src/cs2di/game_catalog.py": {
+        "summary": "Rebuildable SQLite game/roster catalog with freshness checks, transactional publication and standalone pending records.",
+        "reviewed_sha256": "62c9605b8c3b3a05e8cd5537ec02c5111e2bd1c4b2bc5ac84418eb3ef4211d04"
+      },
+      "extractor/game_catalog.py": {
+        "summary": "Identical stdlib catalog helper shipped with standalone demo extractors.",
+        "reviewed_sha256": "62c9605b8c3b3a05e8cd5537ec02c5111e2bd1c4b2bc5ac84418eb3ef4211d04"
+      },
+      "scripts/catalog_games.py": {
+        "summary": "Populate, rebuild or query the local game catalog; link original demos with fingerprint-verified hash reuse.",
+        "reviewed_sha256": "0f90a5bae96ddefc6ca7419159eb99fe0444e77d9eccafdd20416b6817b632bf"
+      },
+      "tests/test_game_catalog.py": {
+        "summary": "Catalog reuse, invalidation, publication, concurrency, recovery and fresh packet-validation checks.",
+        "reviewed_sha256": "f1c2ae15e1971df2865003aee0c6df2ed76c0eb40b4283497ff7b1f578538fc7"
       }
     }
   },

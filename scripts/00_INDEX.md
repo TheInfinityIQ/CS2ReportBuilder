@@ -4,7 +4,7 @@
 Operational helpers for packets, replay facts, and navigation maintenance.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **8 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **9 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -15,6 +15,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
 | [build_packet.py](build_packet.py) | Build one hand-off packet: everything a fresh AI coach needs to write a Player Study for one player. python scripts/build_packet.py --id P_pug_iTrilogyy --player iTrilogyy --steamid 76561198181834733… | source / undated | extracted |
+| [catalog_games.py](catalog_games.py) | Populate, rebuild or query the local game catalog; link original demos with fingerprint-verified hash reuse. | source / undated | curated |
 | [fix_viewer_data.py](fix_viewer_data.py) | Plan or run resumable 16 Hz repair; the same queue is used by the packet UI. | source / undated | extracted |
 | [import_weapon_icons.py](import_weapon_icons.py) | Import exact Valve equipment SVGs from an installed CS2 VPK (read-only source). | source / undated | extracted |
 | [moment_facts.py](moment_facts.py) | Print the software's facts about the example rounds of a finding, so a coach can check a claim before writing it. Usage: python <this file> <batch_dir> <steamid> <analysis.json> <finding_id> [example_index… | source / undated | extracted |

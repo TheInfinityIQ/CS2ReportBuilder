@@ -14,6 +14,16 @@ preserves selections; selection changes are disabled while a job is running.
 Errors open Utilities. Both pages scroll on smaller screens.
 See [the workflow plan](TOOL_UI_PLAN_2026-10-07.md) for decisions and evidence.
 
+## Faster collection loading
+
+The local [game catalog](GAME_CATALOG.md) retains rosters, identities and readiness
+results. Loading checks file metadata and validates new or changed games;
+unchanged compressed replay tables are reused. Extraction and repair publish
+updates automatically. Utilities has **Refresh catalog for selected collection**
+to force validation of the current selection. A missing catalog is populated on
+first use; an unavailable catalog falls back to full validation. Packet creation
+still validates source evidence under locks and hashes selected originals afresh.
+
 ## Choose exactly the games you want
 
 1. Select an analysis collection in **Analyzed collection**, or **Choose analyzed folder…** for a

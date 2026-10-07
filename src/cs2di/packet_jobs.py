@@ -45,7 +45,7 @@ def discover_batches(analysis_root: Path) -> list[Path]:
                   key=lambda p: p.name.casefold())
 
 
-def inspect_batch(path: Path, selected=None, matches=()) -> Batch:
+def inspect_batch(path: Path, selected=None, matches=(), *, rosters=None) -> Batch:
     """Read rosters as strings, gate candidates, and expose exclusions to the user."""
     path = path.resolve()
     coverage: dict[str, list[Path]] = {}
@@ -69,8 +69,11 @@ def inspect_batch(path: Path, selected=None, matches=()) -> Batch:
             excluded.append(f"{demo.name}: {', '.join(gate.reasons)}")
             continue
         try:
-            with (demo / "players.csv").open(encoding="utf-8-sig", newline="") as fh:
-                rows = list(csv.DictReader(fh))
+            if rosters is not None and demo in rosters:
+                rows = rosters[demo]
+            else:
+                with (demo / "players.csv").open(encoding="utf-8-sig", newline="") as fh:
+                    rows = list(csv.DictReader(fh))
             roster = {}
             for row in rows:
                 sid = row["steamid"].strip()

@@ -65,5 +65,8 @@ Current extractors use separate roots. See [raw-demo locations](../docs/RAW_DEMO
 `DEMO_FOLDER` remains the logical analysis collection ID (for example,
 `CanadianIQ_demos`); its raw folder resolves to `replays/CanadianIQ`.
 Both v7.8 and the sidecar scan nested series/batch folders and reject repeated
-stems before extraction. Ship `demo_layout.py` and `job_lock.py` alongside the
-standalone scripts. The superseded v7.7 is retained unchanged as historical code.
+stems before extraction. Ship `demo_layout.py`, `job_lock.py` and `game_catalog.py` alongside the
+standalone scripts. Successful core/sidecar publication updates the local
+[game catalog](../docs/GAME_CATALOG.md). Without the full cs2di package, standalone
+updates record rosters and source locations as pending; the UI validates them
+before showing ready. Catalog errors emit warnings without failing extraction. The superseded v7.7 is retained unchanged as historical code.
