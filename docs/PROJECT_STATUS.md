@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
+Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 ## Observed implementation and artifacts
 
@@ -11,7 +11,9 @@ Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
 - Source implements extraction v7.8, viewer sidecar, integrity gating, digest,
   analysis, plan validation, packet generation, and HTML report rendering.
 - The [packet-builder window](PACKET_BUILDER_UI.md) maps a raw batch or subfolder
-  to one analysis collection, previews inclusion and duplicate identities, saves
+  to one analysis collection. Dedicated Packet Builder and Utilities tabs share
+  selections and progress; the [UI plan](TOOL_UI_PLAN_2026-10-07.md) records the
+  workflow and verification. The window previews inclusion and duplicate identities, saves
   selections, and prepares or repairs data. A resource-aware queue defaults to
   80% CPU / 90% RAM soft admission targets, with logs, cancellation and retry.
   Packets require validated 16 Hz replay data unless explicitly overridden.

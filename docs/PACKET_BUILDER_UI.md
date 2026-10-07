@@ -1,14 +1,24 @@
-# Coach packet window
+# CS2 Coach Tools
 
 Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an
 already running window to load updates. Tk uses installed Windows Python;
 calculation and extraction use the repository `.venv` when available.
 
+## Two tabs, one selection
+
+**Packet Builder** follows three steps: choose games, choose the player, then
+build and hand off. **Utilities** contains data preparation/repair, resource
+settings, retry/cancel controls, analysis-root configuration and detailed logs.
+The collection/raw-folder controls and progress status are shared. Switching tabs
+preserves selections; selection changes are disabled while a job is running.
+Errors open Utilities. Both pages scroll on smaller screens.
+See [the workflow plan](TOOL_UI_PLAN_2026-10-07.md) for decisions and evidence.
+
 ## Choose exactly the games you want
 
-1. Select an analysis collection in **Demo batch**, or **Choose folder…** for a
+1. Select an analysis collection in **Analyzed collection**, or **Choose analyzed folder…** for a
    custom collection containing individual match directories.
-2. In **Batch selection and preparation**, optionally **Choose raw folder…**:
+2. In the shared source controls, optionally **Choose demo batch…**:
    choose a batch or subfolder such as `CanadianIQ/batch_001`. Under the
    Steam `replays` layout it selects `analyzed_CanadianIQ_demos` automatically,
    when that collection already exists. For a new player collection, choose its
@@ -17,7 +27,8 @@ calculation and extraction use the repository `.venv` when available.
    stems inside this collection; it never searches other players or collections.
 3. Review the match table. Double-click highlighted rows to toggle inclusion,
    or include/exclude visible rows. Map and name/date-text filters affect only
-   visibility; hidden included rows remain selected. Dates are filename text,
+   visibility; hidden included rows remain selected and their count is shown.
+   **Reset filters** restores the whole list. Dates are filename text,
    not inferred chronological metadata. Save/load JSON selections when useful.
 4. Choose a player from the included usable matches. SteamIDs come from rosters,
    rather than filenames. The packet includes only selected matches featuring
@@ -34,13 +45,13 @@ known identities must match before reuse.
 
 ## Prepare, repair, then build
 
-**Prepare missing analysis + 16 Hz** extracts missing/invalid core analysis, then
-adds viewer data; valid core analysis is reused. **Repair viewer data** replaces
+In **Utilities**, **Analyze missing games + replays** extracts missing/invalid core analysis, then
+adds viewer data; valid core analysis is reused. **Repair replay data** replaces
 only the four additive viewer files for included, core-valid games. Both require
 original `.dem` files. Normal v7.8 extraction now also adds validated **16 Hz**
 viewer tracks by default. Its existing 2 Hz analytic tables/schema are unchanged.
 
-Default **Require validated 16 Hz viewer data** checks actual sample cadence,
+Default **Require validated 16 Hz replays in packets** checks actual sample cadence,
 finite positions/facing, roster/round coverage, demo pairing, interpolation
 validation, grenade-table readability, and checksums when recorded. Coverage
 uses live round windows and roster entries actually observed in the core position
@@ -108,7 +119,7 @@ use the UI to choose the analysis collection and raw folder explicitly.
 This fixes viewer data. It is separate from `cs2di repair`, which upgrades old
 core damage tables, and from the legacy `run_all_tracks.py` runner. The latter
 also inherits the 16 Hz sidecar default but runs serially and has an older
-cross-collection lookup fallback.
+collection-scoped lookup. Its former cross-collection fallback was removed.
 
 ## Setup and verification
 
@@ -139,3 +150,8 @@ Earlier 2026-10-04 verification built a four-match packet, passed rendering and
 exported a ZIP. Automated workflow tests also cover ambiguous names, changed
 originals, corrupt data, locks, resource admission, cancellation, failed job
 isolation, packet provenance, and default 16 Hz extraction.
+
+2026-10-07: the full two-tab workflow replaces the nested preparation tabs.
+The builder previews packet contents without requiring users to read source code.
+The receiving AI still needs file access and Python to validate/render the report.
+Packet structure and coaching prompt content have not changed in this UI redesign.

@@ -4,7 +4,7 @@
 Operational helpers for packets, replay facts, and navigation maintenance.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **7 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **8 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -19,6 +19,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [import_weapon_icons.py](import_weapon_icons.py) | Import exact Valve equipment SVGs from an installed CS2 VPK (read-only source). | source / undated | extracted |
 | [moment_facts.py](moment_facts.py) | Print the software's facts about the example rounds of a finding, so a coach can check a claim before writing it. Usage: python <this file> <batch_dir> <steamid> <analysis.json> <finding_id> [example_index… | source / undated | extracted |
 | [navigation.py](navigation.py) | Build compact folder maps and a local searchable catalog without using a model. Generated maps are discovery aids, never evidence or project authority. Repository maps are checked in CI; data maps and their… | source / undated | extracted |
+| [packet_layout.py](packet_layout.py) | Two task-oriented tabs; shared selection and progress, no extraction logic. | source / undated | extracted |
 | [packet_ui.py](packet_ui.py) | Launch the local coach-packet window; no scientific packages required to open it. | source / undated | extracted |
 | [packet_workflow_ui.py](packet_workflow_ui.py) | Batch workflow controls layered on the packet window's existing build/export UI. | source / undated | extracted |
 

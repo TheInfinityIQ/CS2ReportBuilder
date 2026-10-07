@@ -204,12 +204,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Project entry point, packet-builder launch, software setup, and separate raw replay and analysis roots.",
-        "reviewed_sha256": "650ebd5dd65630b17526c035481f8ecc39e616d715e9b0400c0ce1572db72e1d"
+        "summary": "Project entry point: task-based packet builder and data utilities, software setup, and separate raw replay and analysis roots.",
+        "reviewed_sha256": "78dd97b03f350827d5185352a72c07937f4d57cfb87dcbcaa6772ce548045dba"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Verified implementation, full 16 Hz repair, raw replay relocation, current gaps and verification records.",
-        "reviewed_sha256": "6af62f42811bc5b9379916d09dc63552341231838e45696c671b0d18714903eb"
+        "summary": "Current implementation: shared-selection Packet Builder and Utilities tabs, verified 16 Hz repair and Steam raw-demo layout; known coaching gaps and verification records.",
+        "reviewed_sha256": "25ec4ebd56c7681ecf6837357ff56beeb52f42a6c7aec146f2d5777706c5f993"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",

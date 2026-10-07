@@ -20,8 +20,9 @@ coaching as a player; engineering choices are supported by evidence.
 
 To prepare a coach packet with dropdowns and buttons, double-click
 [Open_Coach_Packet_Builder.cmd](Open_Coach_Packet_Builder.cmd).
-Choose a raw batch folder or extracted collection, preview included matches,
-prepare/repair validated 16 Hz viewer data, then build, open or export a packet.
+In **Packet Builder**, choose games and a player, then build, open or export.
+Use **Utilities** to analyze missing games, repair 16 Hz replays and view logs.
+Both tabs share the same selected batch and show readiness before building.
 See [the window guide](docs/PACKET_BUILDER_UI.md) for setup and scope.
 
 ```text

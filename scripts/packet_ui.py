@@ -1,4 +1,5 @@
 """Launch the local coach-packet window; no scientific packages required to open it."""
+
 from __future__ import annotations
 
 import os
@@ -46,24 +47,40 @@ class PacketWindow:
         style.configure("Title.TLabel", font=("Segoe UI", 20, "bold"))
         style.configure("Heading.TLabel", font=("Segoe UI", 11, "bold"))
         root.option_add("*Font", "{Segoe UI} 10")
+        self.build_layout()
+        root.protocol("WM_DELETE_WINDOW", self.close)
+        self.refresh()
+        root.after(100, self.poll)
+
+    def build_layout(self):
+        root = self.root
         page = ttk.Frame(root, padding=24)
         page.pack(fill="both", expand=True)
         page.columnconfigure(1, weight=1)
-        ttk.Label(page, text="Build a coach packet", style="Title.TLabel").grid(row=0, column=0, columnspan=3, sticky="w")
-        ttk.Label(page, text="Choose a demo batch, prepare its data, then build a packet for a fresh AI coach.",
-                  wraplength=840).grid(row=1, column=0, columnspan=3, sticky="w", pady=(6, 20))
+        ttk.Label(page, text="Build a coach packet", style="Title.TLabel").grid(
+            row=0, column=0, columnspan=3, sticky="w"
+        )
+        ttk.Label(
+            page,
+            text="Choose a demo batch, prepare its data, then build a packet for a fresh AI coach.",
+            wraplength=840,
+        ).grid(row=1, column=0, columnspan=3, sticky="w", pady=(6, 20))
         self.inputs = []
-        for row, label, var, browse in ((2, "Analysis folder", self.analysis, self.browse_analysis),
-                                        (6, "Save packets in", self.destination, self.browse_destination)):
+        for row, label, var, browse in (
+            (2, "Analysis folder", self.analysis, self.browse_analysis),
+            (6, "Save packets in", self.destination, self.browse_destination),
+        ):
             ttk.Label(page, text=label).grid(row=row, column=0, sticky="w", padx=(0, 12), pady=6)
             entry = ttk.Entry(page, textvariable=var, state="readonly")
             entry.grid(row=row, column=1, sticky="ew", pady=6)
             button = ttk.Button(page, text="Browse…", command=browse)
             button.grid(row=row, column=2, padx=(10, 0))
             self.inputs.append(button)
-        for row, label, var, values in ((3, "Demo batch", self.batch_name, []),
-                                       (4, "Player", self.player_name, []),
-                                       (5, "Match type", self.kind, ["PUG / FACEIT / Premier", "Tournament / pro"])):
+        for row, label, var, values in (
+            (3, "Demo batch", self.batch_name, []),
+            (4, "Player", self.player_name, []),
+            (5, "Match type", self.kind, ["PUG / FACEIT / Premier", "Tournament / pro"]),
+        ):
             ttk.Label(page, text=label).grid(row=row, column=0, sticky="w", pady=6)
             combo = ttk.Combobox(page, textvariable=var, values=values, state="readonly")
             combo.grid(row=row, column=1, columnspan=1 if row == 3 else 2, sticky="ew", pady=6)
@@ -77,18 +94,26 @@ class PacketWindow:
             elif row == 4:
                 self.player_combo = combo
                 combo.bind("<<ComboboxSelected>>", lambda e: self.show_player())
-        ttk.Label(page, textvariable=self.summary, wraplength=820).grid(row=7, column=0, columnspan=3, sticky="w", pady=(12, 4))
-        ttk.Label(page, textvariable=self.selected, style="Heading.TLabel", wraplength=820).grid(row=8, column=0, columnspan=3, sticky="w")
+        ttk.Label(page, textvariable=self.summary, wraplength=820).grid(
+            row=7, column=0, columnspan=3, sticky="w", pady=(12, 4)
+        )
+        ttk.Label(page, textvariable=self.selected, style="Heading.TLabel", wraplength=820).grid(
+            row=8, column=0, columnspan=3, sticky="w"
+        )
         controls = ttk.Frame(page)
         controls.grid(row=9, column=0, columnspan=3, sticky="ew", pady=(12, 10))
-        self.build_button = ttk.Button(controls, text="Build coach packet", command=self.start_build, state="disabled")
+        self.build_button = ttk.Button(
+            controls, text="Build coach packet", command=self.start_build, state="disabled"
+        )
         self.build_button.pack(side="left")
         self.refresh_button = ttk.Button(controls, text="Refresh batches", command=self.refresh)
         self.refresh_button.pack(side="left", padx=12)
         self.inputs.append(self.refresh_button)
         self.progress = ttk.Progressbar(page, mode="indeterminate")
         self.progress.grid(row=10, column=0, columnspan=3, sticky="ew")
-        ttk.Label(page, textvariable=self.status, wraplength=820).grid(row=11, column=0, columnspan=3, sticky="w", pady=8)
+        ttk.Label(page, textvariable=self.status, wraplength=820).grid(
+            row=11, column=0, columnspan=3, sticky="w", pady=8
+        )
         details = ttk.LabelFrame(page, text="Progress and excluded matches", padding=8)
         details.grid(row=12, column=0, columnspan=3, sticky="nsew")
         page.rowconfigure(12, weight=1)
@@ -97,18 +122,20 @@ class PacketWindow:
         self.log.configure(yscrollcommand=scroll.set)
         self.log.pack(side="left", fill="both", expand=True)
         scroll.pack(side="right", fill="y")
-        ttk.Label(page, textvariable=self.location, wraplength=820).grid(row=13, column=0, columnspan=3, sticky="w", pady=(10, 4))
+        ttk.Label(page, textvariable=self.location, wraplength=820).grid(
+            row=13, column=0, columnspan=3, sticky="w", pady=(10, 4)
+        )
         result = ttk.Frame(page)
         result.grid(row=14, column=0, columnspan=3, sticky="w")
         self.result_buttons = []
-        for label, action in (("Open packet folder", self.open_packet), ("Copy AI instructions", self.copy_instruction),
-                              ("Export ZIP…", self.save_zip)):
+        for label, action in (
+            ("Open packet folder", self.open_packet),
+            ("Copy AI instructions", self.copy_instruction),
+            ("Export ZIP…", self.save_zip),
+        ):
             button = ttk.Button(result, text=label, command=action, state="disabled")
             button.pack(side="left", padx=(0, 10))
             self.result_buttons.append(button)
-        root.protocol("WM_DELETE_WINDOW", self.close)
-        self.refresh()
-        root.after(100, self.poll)
 
     def append(self, text):
         self.log.configure(state="normal")
@@ -124,14 +151,20 @@ class PacketWindow:
     def set_busy(self, busy):
         self.busy = busy
         for widget in self.inputs:
-            widget.configure(state="disabled" if busy else "readonly" if isinstance(widget, ttk.Combobox) else "normal")
-        self.build_button.configure(state="disabled" if busy or not self.batch or not self.batch.players else "normal")
+            widget.configure(
+                state="disabled" if busy else "readonly" if isinstance(widget, ttk.Combobox) else "normal"
+            )
+        self.build_button.configure(
+            state="disabled" if busy or not self.batch or not self.batch.players else "normal"
+        )
         for button in self.result_buttons:
             button.configure(state="normal" if self.packet and not busy else "disabled")
         if busy:
+            self.progress.configure(mode="indeterminate")
             self.progress.start(12)
         else:
             self.progress.stop()
+            self.progress.configure(mode="determinate")
             self.progress["value"] = 0
 
     def background(self, fn, kind, token=None):
@@ -140,6 +173,7 @@ class PacketWindow:
                 self.events.put((kind, token, fn()))
             except Exception as exc:
                 self.events.put(("error", token, str(exc)))
+
         threading.Thread(target=work, daemon=True).start()
 
     def refresh(self, preferred=None):
@@ -164,7 +198,9 @@ class PacketWindow:
             self.load_batch()
         else:
             self.batch_name.set("")
-            self.summary.set("No analysed batches found. Use Choose folder to select an extracted batch directly.")
+            self.summary.set(
+                "No analysed batches found. Use Choose folder to select an extracted batch directly."
+            )
             self.status.set("Waiting for an analysed batch.")
 
     def load_batch(self):
@@ -192,7 +228,9 @@ class PacketWindow:
                 button.configure(state="disabled")
             p = self.batch.players[self.player_combo.current()]
             self.selected.set(f"Packet will contain {len(p.demos)} usable matches featuring {p.name}.")
-            self.status.set("Ready to build. Other players' matches and excluded matches will not be included.")
+            self.status.set(
+                "Ready to build. Other players' matches and excluded matches will not be included."
+            )
 
     def start_build(self):
         if self.busy or not self.batch or not self.batch.players:
@@ -203,9 +241,20 @@ class PacketWindow:
         self.packet = None
         self.location.set("")
         self.set_busy(True)
-        self.status.set("Building packet. This window stays responsive; detailed analysis may take several minutes.")
-        self.background(lambda: build_packet(REPO, batch, player, destination, kind=kind,
-                        on_log=lambda line: self.events.put(("log", None, line))), "packet")
+        self.status.set(
+            "Building packet. This window stays responsive; detailed analysis may take several minutes."
+        )
+        self.background(
+            lambda: build_packet(
+                REPO,
+                batch,
+                player,
+                destination,
+                kind=kind,
+                on_log=lambda line: self.events.put(("log", None, line)),
+            ),
+            "packet",
+        )
 
     def poll(self):
         while not self.events.empty():
@@ -216,8 +265,10 @@ class PacketWindow:
                 self.append(value)
             elif kind == "batch":
                 self.batch = value
-                self.summary.set(f"Selected folder: {value.path}\n{value.accepted} usable matches · {len(value.excluded)} excluded · "
-                                 f"{value.ignored} temporary or unrelated folders ignored")
+                self.summary.set(
+                    f"Selected folder: {value.path}\n{value.accepted} usable matches · {len(value.excluded)} excluded · "
+                    f"{value.ignored} temporary or unrelated folders ignored"
+                )
                 labels = [f"{p.name} — {len(p.demos)} matches — {p.steamid}" for p in value.players]
                 self.player_combo.configure(values=labels)
                 for exclusion in value.excluded:
@@ -231,7 +282,9 @@ class PacketWindow:
             elif kind == "packet":
                 self.packet = value
                 self.location.set(str(value))
-                self.status.set("Packet ready. Start a fresh AI session in this folder, or export it as a ZIP.")
+                self.status.set(
+                    "Packet ready. Start a fresh AI session in this folder, or export it as a ZIP."
+                )
                 self.set_busy(False)
             elif kind == "zip":
                 self.status.set(f"ZIP saved: {value}")
@@ -244,7 +297,9 @@ class PacketWindow:
         self.root.after(100, self.poll)
 
     def browse_analysis(self):
-        folder = filedialog.askdirectory(title="Choose the folder containing analyzed_* batches", initialdir=self.analysis.get())
+        folder = filedialog.askdirectory(
+            title="Choose the folder containing analyzed_* batches", initialdir=self.analysis.get()
+        )
         if folder:
             self.custom_batch = None
             self.batch = None
@@ -254,14 +309,17 @@ class PacketWindow:
     def browse_batch(self):
         folder = filedialog.askdirectory(
             title="Choose an extracted batch folder containing match folders",
-            initialdir=str(self.batch.path) if self.batch else self.analysis.get())
+            initialdir=str(self.batch.path) if self.batch else self.analysis.get(),
+        )
         if folder:
             self.custom_batch = Path(folder).resolve()
             self.analysis.set(str(self.custom_batch.parent))
             self.refresh(preferred=self.custom_batch)
 
     def browse_destination(self):
-        folder = filedialog.askdirectory(title="Choose where packets will be saved", initialdir=self.destination.get())
+        folder = filedialog.askdirectory(
+            title="Choose where packets will be saved", initialdir=self.destination.get()
+        )
         if folder:
             self.destination.set(folder)
 
@@ -272,11 +330,18 @@ class PacketWindow:
     def copy_instruction(self):
         self.root.clipboard_clear()
         self.root.clipboard_append(COACH_INSTRUCTION)
-        self.status.set("Instructions copied. Use them in a fresh AI session opened inside the packet folder.")
+        self.status.set(
+            "Instructions copied. Use them in a fresh AI session opened inside the packet folder."
+        )
 
     def save_zip(self):
-        destination = filedialog.asksaveasfilename(title="Export coach packet", initialdir=str(self.packet.parent),
-                    initialfile=self.packet.name + ".zip", defaultextension=".zip", filetypes=[("ZIP archive", "*.zip")])
+        destination = filedialog.asksaveasfilename(
+            title="Export coach packet",
+            initialdir=str(self.packet.parent),
+            initialfile=self.packet.name + ".zip",
+            defaultextension=".zip",
+            filetypes=[("ZIP archive", "*.zip")],
+        )
         if destination:
             packet = self.packet
             self.set_busy(True)
@@ -285,7 +350,11 @@ class PacketWindow:
 
     def close(self):
         if self.busy:
-            messagebox.showinfo("Build in progress", "Please let the current build or export finish before closing.", parent=self.root)
+            messagebox.showinfo(
+                "Build in progress",
+                "Please let the current build or export finish before closing.",
+                parent=self.root,
+            )
         else:
             self.root.destroy()
 
@@ -293,6 +362,7 @@ class PacketWindow:
 def main():
     sys.modules.setdefault("packet_ui", sys.modules[__name__])
     from packet_workflow_ui import WorkflowWindow
+
     root = tk.Tk()
     WorkflowWindow(root)
     if "--smoke-test" in sys.argv:

@@ -34,122 +34,28 @@ class WorkflowWindow(PacketWindow):
         self.operation = None
         self.cache_path = config.root() / ".extraction_jobs" / ("hashes_" + uuid4().hex + ".json")
         super().__init__(root)
-        root.geometry("1100x980")
-        root.minsize(920, 820)
-        page = self.build_button.master.master
-        old_details = self.log.master
-        old_details.grid_remove()
-        tabs = ttk.Notebook(page)
-        tabs.grid(row=12, column=0, columnspan=3, sticky="nsew")
-        matches = ttk.Frame(tabs, padding=8)
-        tabs.add(matches, text="Batch selection and preparation")
-        matches.columnconfigure(1, weight=1)
-        matches.rowconfigure(3, weight=1)
-        ttk.Label(matches, text="Raw demo batch (optional)").grid(row=0, column=0, sticky="w", padx=(0, 8))
-        ttk.Entry(matches, textvariable=self.raw, state="readonly").grid(row=0, column=1, sticky="ew")
-        source_buttons = ttk.Frame(matches)
-        source_buttons.grid(row=0, column=2, sticky="w")
-        self.control(source_buttons, "Choose raw folder…", self.browse_raw).pack(side="left", padx=4)
-        self.control(source_buttons, "Clear", self.clear_raw).pack(side="left")
-        check = ttk.Checkbutton(
-            matches,
-            text="Require validated 16 Hz viewer data (uncheck to intentionally allow limited replays)",
-            variable=self.require_viewer,
-            command=self.show_player,
-        )
-        check.grid(row=1, column=0, columnspan=3, sticky="w", pady=6)
-        self.inputs.append(check)
-        filters = ttk.Frame(matches)
-        filters.grid(row=2, column=0, columnspan=3, sticky="w", pady=(0, 6))
-        ttk.Label(filters, text="Map").pack(side="left")
-        self.map_combo = ttk.Combobox(
-            filters, textvariable=self.map_filter, values=["All maps"], state="readonly", width=17
-        )
-        self.map_combo.pack(side="left", padx=6)
-        self.inputs.append(self.map_combo)
-        ttk.Label(filters, text="Name/date contains").pack(side="left", padx=(10, 4))
-        entry = ttk.Entry(filters, textvariable=self.name_filter, width=24)
-        entry.pack(side="left")
-        self.inputs.append(entry)
-        self.map_filter.trace_add("write", lambda *a: self.render_matches())
-        self.name_filter.trace_add("write", lambda *a: self.render_matches())
-        self.tree = ttk.Treeview(
-            matches,
-            columns=("use", "match", "map", "core", "viewer", "identity"),
-            show="headings",
-            selectmode="extended",
-            height=8,
-        )
-        for col, title, width in (
-            ("use", "Use", 40),
-            ("match", "Match", 270),
-            ("map", "Map", 85),
-            ("core", "Analysis", 90),
-            ("viewer", "Viewer readiness", 210),
-            ("identity", "Identity / exclusion", 170),
-        ):
-            self.tree.heading(col, text=title)
-            self.tree.column(col, width=width, minwidth=35)
-        self.tree.grid(row=3, column=0, columnspan=3, sticky="nsew")
-        self.tree.bind("<Double-1>", lambda e: self.toggle_rows())
-        scroll = ttk.Scrollbar(matches, command=self.tree.yview)
-        scroll.grid(row=3, column=3, sticky="ns")
-        self.tree.configure(yscrollcommand=scroll.set)
-        selection = ttk.Frame(matches)
-        selection.grid(row=4, column=0, columnspan=3, sticky="w", pady=6)
-        for label, action in (
-            ("Toggle highlighted", self.toggle_rows),
-            ("Include visible", lambda: self.set_visible(True)),
-            ("Exclude visible", lambda: self.set_visible(False)),
-            ("Save selection…", self.save_selection),
-            ("Load selection…", self.load_selection),
-        ):
-            self.control(selection, label, action).pack(side="left", padx=(0, 6))
-        ttk.Label(
-            matches,
-            text="Filters only change the visible list. Inclusion determines the packet; the player is chosen from included games.",
-            wraplength=1000,
-        ).grid(row=5, column=0, columnspan=3, sticky="w")
-        settings = ttk.Frame(matches)
-        settings.grid(row=6, column=0, columnspan=3, sticky="w", pady=8)
-        for label, var, lo, hi in (
-            ("CPU target %", self.cpu_target, 10, 95),
-            ("RAM limit %", self.memory_target, 20, 95),
-            ("Max jobs", self.workers, 1, max(8, os.cpu_count() or 1)),
-        ):
-            ttk.Label(settings, text=label).pack(side="left", padx=(0, 4))
-            spin = ttk.Spinbox(settings, textvariable=var, from_=lo, to=hi, width=4)
-            spin.pack(side="left", padx=(0, 12))
-            self.inputs.append(spin)
-        preparation = ttk.Frame(matches)
-        preparation.grid(row=7, column=0, columnspan=3, sticky="w")
-        self.prepare_button = self.control(
-            preparation, "Prepare missing analysis + 16 Hz", lambda: self.start_prepare("prepare")
-        )
-        self.repair_button = self.control(
-            preparation, "Repair viewer data", lambda: self.start_prepare("viewer")
-        )
-        self.retry_button = self.control(
-            preparation, "Retry failed", lambda: self.start_prepare("prepare", retry=True)
-        )
-        for b in (self.prepare_button, self.repair_button, self.retry_button):
-            b.pack(side="left", padx=(0, 6))
-        self.cancel_button = ttk.Button(
-            preparation, text="Cancel queued jobs", command=self.cancel, state="disabled"
-        )
-        self.cancel_button.pack(side="left")
-        self.match_details = tk.StringVar(
-            root, value="Highlight a match for its full name and validation details."
-        )
-        ttk.Label(matches, textvariable=self.match_details, wraplength=1000).grid(
-            row=8, column=0, columnspan=3, sticky="w", pady=(8, 0)
-        )
-        self.tree.bind("<<TreeviewSelect>>", self.describe_row)
-        logs = ttk.Frame(tabs, padding=8)
-        tabs.add(logs, text="Progress and errors")
-        self.log = tk.Text(logs, height=8, wrap="word", state="disabled", font=("Consolas", 9))
-        self.log.pack(fill="both", expand=True)
-        self.set_busy(self.busy)
+
+    def build_layout(self):
+        from packet_layout import build_layout
+
+        build_layout(self)
+
+    def open_utilities(self):
+        self.tabs.select(self.utilities_tab)
+
+    def open_builder(self):
+        self.tabs.select(self.packet_tab)
+
+    def select_collection(self):
+        if self.busy:
+            return
+        # A raw-folder pairing belongs to one collection, never another dropdown choice.
+        self.raw.set("")
+        self.load_batch()
+
+    def reset_filters(self):
+        self.map_filter.set("All maps")
+        self.name_filter.set("")
 
     def control(self, parent, label, command):
         button = ttk.Button(parent, text=label, command=command)
@@ -174,11 +80,13 @@ class WorkflowWindow(PacketWindow):
         )
         self.build_button.configure(state="normal" if ready and (not self.busy) else "disabled")
         if hasattr(self, "prepare_button"):
-            raw_selected = any(
-                (str(i) in self.included and m.raw and (not m.problem) for i, m in enumerate(self.matches))
-            )
-            for b in (self.prepare_button, self.repair_button):
-                b.configure(state="normal" if raw_selected and (not self.busy) else "disabled")
+            raw_matches = [
+                m for i, m in enumerate(self.matches) if str(i) in self.included and m.raw and not m.problem
+            ]
+            prepare_needed = any(not m.core_ready or not m.replay.ready for m in raw_matches)
+            repair_needed = any(m.core_ready and not m.replay.ready for m in raw_matches)
+            self.prepare_button.configure(state="normal" if prepare_needed and not self.busy else "disabled")
+            self.repair_button.configure(state="normal" if repair_needed and not self.busy else "disabled")
             self.retry_button.configure(
                 state="normal" if self.failed_jobs and (not self.busy) else "disabled"
             )
@@ -195,6 +103,12 @@ class WorkflowWindow(PacketWindow):
         if self.busy:
             return
         super().refresh(preferred)
+        index = self.batch_combo.current()
+        self.batch_combo.configure(
+            values=[p.name.removeprefix("analyzed_").removesuffix("_demos") for p in self.batches]
+        )
+        if index >= 0:
+            self.batch_combo.current(index)
 
     def browse_analysis(self):
         if self.busy:
@@ -233,6 +147,7 @@ class WorkflowWindow(PacketWindow):
         self.last_source = (path, raw)
         if not same:
             self.failed_jobs = []
+            self.reset_filters()
         record = self.pending_record
         self.pending_record = None
         old_sid = self.current_player().steamid if self.current_player() else None
@@ -240,6 +155,7 @@ class WorkflowWindow(PacketWindow):
         self.batch = None
         self.packet = None
         self.location.set("")
+        self.match_details.set("Highlight a game to see its validation details.")
         self.operation = "scan"
         self.set_busy(True)
         self.status.set("Mapping demos and checking duplicate identities, integrity and viewer coverage…")
@@ -298,6 +214,13 @@ class WorkflowWindow(PacketWindow):
                     f"{m.replay.hz:g} Hz · {m.replay.reason}",
                     identity,
                 ),
+            )
+
+        if hasattr(self, "visible_summary"):
+            visible = set(self.tree.get_children())
+            hidden = len(self.included - visible)
+            self.visible_summary.set(
+                f"{len(visible)} of {len(self.matches)} games visible · {len(self.included)} included · {hidden} included games hidden by filters"
             )
 
     def describe_row(self, event=None):
@@ -372,7 +295,7 @@ class WorkflowWindow(PacketWindow):
             self.status.set(
                 "Ready to build."
                 if ready == len(selected) or not self.require_viewer.get()
-                else "Prepare or repair viewer data before building; limited-replay override is available in the batch tab."
+                else "Replay data needs attention. Open Utilities to prepare or repair it."
             )
             missing_player = sum(player.steamid in m.replay.unobserved_players for m in selected)
             if missing_player and self.require_viewer.get():
@@ -383,7 +306,18 @@ class WorkflowWindow(PacketWindow):
             self.selected.set(
                 "No player with usable included analysis yet. Prepare missing analysis or change inclusion."
             )
-            self.status.set("Choose raw demos to prepare analysis, or change match inclusion.")
+            self.status.set(
+                "Include at least one usable game."
+                if not self.included
+                else "Selected games need analysis. Open Utilities to analyze them."
+                if self.raw.get()
+                else "Choose an analyzed collection or an original demo batch to begin."
+            )
+        self.utilities_button.configure(
+            text="Open Utilities / logs"
+            if player and (ready == len(selected) or not self.require_viewer.get())
+            else "Prepare data in Utilities"
+        )
         self.update_actions()
 
     def start_build(self):
@@ -395,6 +329,7 @@ class WorkflowWindow(PacketWindow):
         self.packet = None
         self.location.set("")
         self.operation = "build"
+        self.status.set("Building and validating the packet. Progress is available in Utilities.")
         self.set_busy(True)
         self.background(
             lambda: build_packet(
@@ -444,7 +379,7 @@ class WorkflowWindow(PacketWindow):
             ]
         )
         if not jobs:
-            self.status.set("No eligible missing data. Choose a raw folder for preparation.")
+            self.status.set("Nothing to process. Selected games are ready, or need an original demo folder.")
             return
         work = config.root() / ".extraction_jobs" / ("ui_" + uuid4().hex)
         work.mkdir(parents=True)
@@ -455,6 +390,7 @@ class WorkflowWindow(PacketWindow):
         self.packet = None
         self.location.set("")
         self.operation = "prepare"
+        self.open_utilities()
         self.set_busy(True)
         self.status.set("Preparing selected matches. Cancel stops queued jobs; active jobs finish safely.")
 
@@ -505,7 +441,7 @@ class WorkflowWindow(PacketWindow):
                     self.events.put(("log", None, line.rstrip()))
                 code = process.wait()
             if not report.exists():
-                raise RuntimeError(f"Preparation exited {code}. See Progress and errors.")
+                raise RuntimeError(f"Preparation exited {code}. See the Utilities log.")
             return json.loads(report.read_text(encoding="utf-8"))
 
         self.background(run, "prepared")
@@ -551,9 +487,10 @@ class WorkflowWindow(PacketWindow):
                 self.set_busy(False)
                 self.status.set(f"ZIP saved: {value}")
             elif kind == "error":
+                self.open_utilities()
                 self.append(value)
                 self.set_busy(False)
-                self.status.set("Step failed; see Progress and errors.")
+                self.status.set("Step failed. See the Utilities log for details.")
                 messagebox.showerror("Packet builder", value, parent=self.root)
         self.root.after(100, self.poll)
 

@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **56 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **57 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -24,11 +24,12 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [DATA_REPAIR_2026-10-06.md](DATA_REPAIR_2026-10-06.md) | Full viewer-data repair: 2026-10-06 — Dawson authorized repairing every eligible demo. All **351 demos across nine | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [KNOWN_PITFALLS.md](KNOWN_PITFALLS.md) | Data pitfalls: relocated source — The historical catalogue is preserved in | reference; distinguish current state from historical claims / undated | extracted |
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
-| [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Coach packet window — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an | reference; distinguish current state from historical claims / undated | extracted |
+| [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | CS2 Coach Tools — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an | reference; distinguish current state from historical claims / undated | extracted |
 | [PACKET_WORKFLOW_PLAN_2026-10-06.md](PACKET_WORKFLOW_PLAN_2026-10-06.md) | Approved packet workflow implementation plan — Dawson approved implementation on 2026-10-06. | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Verified implementation, full 16 Hz repair, raw replay relocation, current gaps and verification records. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation: shared-selection Packet Builder and Utilities tabs, verified 16 Hz repair and Steam raw-demo layout; known coaching gaps and verification records. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
 | [RAW_DEMO_LOCATIONS.md](RAW_DEMO_LOCATIONS.md) | Raw demo locations — The raw replay root is now: | reference; distinguish current state from historical claims / undated | extracted |
+| [TOOL_UI_PLAN_2026-10-07.md](TOOL_UI_PLAN_2026-10-07.md) | CS2 Coach Tools: workflow plan and implementation — Goal: let Dawson select the games and player, prepare evidence when needed, then | reference; distinguish current state from historical claims / 2026-10-07 | extracted |
 | [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and batch workflow — Evidence inspected before these repairs | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 
 ## Find a specific file
