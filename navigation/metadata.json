@@ -210,7 +210,7 @@
       },
       "docs/PROJECT_STATUS.md": {
         "summary": "Current implementation, catalog measurements, expanded player knowledge and unresolved verification gaps.",
-        "reviewed_sha256": "da58ce58a70b2a8436bd6e31c835fc372750e1825f48c1e7cc05c33ee54193cd"
+        "reviewed_sha256": "02f04a4729186b39003f0d5f8fa11f1cadb16e2bc5af42c1b0510ddd51dc0d2e"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -292,12 +292,12 @@
         "reviewed_sha256": "34a73526de3ef5dd789945df00ce9d861e667c7c1d4421fe7620b547b14446fb"
       },
       "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
-        "summary": "Portable CS2 understanding v0.4: navigation, glossary, conditional examples, source-linked tactics and dated mechanics; no assigned player ability.",
-        "reviewed_sha256": "ca4b4d6e0cd60438d88e37b073f749196ed2373e4f02f17a45bdf92138ae2bd4"
+        "summary": "Partial CS2 knowledge synthesis v0.4; intended target is comprehensive coach/pro/analyst knowledge across all available sources, without assigned gameplay ability.",
+        "reviewed_sha256": "3f49679f7907012a96e6de0d09b1ea00207215bbd610821682e0534069205974"
       },
       "docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md": {
-        "summary": "Knowledge v0.3 rebuild and v0.4 sufficiency revision evidence, source review counts, corrections and validation boundaries.",
-        "reviewed_sha256": "8cd91fc021d991172a5072615b47648a2e0ae47c50370baefeca096bba16995c"
+        "summary": "Knowledge build evidence and corrected proposal for comprehensive source coverage; full rebuild not yet performed.",
+        "reviewed_sha256": "ab54a7b7ef20cfa5ff4ba05bb12e54ee93a52de1085f724657b1ae22650793d7"
       },
       "docs/player_knowledge_sources.json": {
         "summary": "Metadata ledger for 87 reviewed knowledge candidates, source aliases, context hashes and four additional official mechanics reference groups.",
@@ -312,8 +312,8 @@
         "reviewed_sha256": "bd4e3ed85e46d5fa1dcb93c47301b8e2b28d0782a641094b937bf628ae86c57a"
       },
       "docs/PLAYER_KNOWLEDGE_EVALUATION.md": {
-        "summary": "Sufficiency assessment and 16 unrun behavioral cases for the portable CS2 player persona; separate from setup and assigned knowledge.",
-        "reviewed_sha256": "7029d52c612d7b6520e77f8a77ac7e2e53a6cd8de210ccd71b118226b89ab568"
+        "summary": "Partial coverage assessment and 16 unrun preliminary cases; v0.4 does not fulfill the comprehensive knowledge scope.",
+        "reviewed_sha256": "c1aaed90edf835ceaf3af63c307affcb51531c481bf698876493ec57a4ab51d4"
       }
     }
   },

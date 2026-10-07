@@ -48,6 +48,9 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
   Version 0.4 adds navigation, glossary, worked situations, equipment/economy depth
   and dated mechanics. The [sufficiency assessment and evaluation cases](PLAYER_KNOWLEDGE_EVALUATION.md)
   separate document coverage from behavioral validation; the cases have not been run.
+  The owner clarified the target is comprehensive coach/pro/analyst knowledge
+  across all available sources. Version 0.4 is partial and does not fulfill that
+  scope; a full-coverage rebuild is documented but not performed.
   Setup uses supplied understanding
   without assigning skill level, competitive status, strengths, weaknesses or
   fabricated player history; independent judgment remains explicit.

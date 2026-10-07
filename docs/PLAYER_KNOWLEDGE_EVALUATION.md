@@ -2,11 +2,17 @@
 
 Reviewed 2026-10-07 against knowledge version 0.4.
 
-The two-file persona is sufficient to begin broad, evidence-aware discussion of
-CS2 coaching. It is not an exhaustive game reference, a validated model of human
-feedback, or evidence that an agent will reliably retrieve and apply every idea.
-That judgment follows document inspection and selected source review; no fresh
-model evaluation was run during this revision.
+The intended deliverable is one comprehensive CS2 knowledge document containing
+all distinct, relevant knowledge available in the project's sources, at the depth
+used by coaches, professional players and analysts. Version 0.4 does not meet
+that scope. Its limited use in preliminary feedback trials is not an acceptance
+criterion for completion. Extensive knowledge is desired; personal gameplay
+ability and history remain separate. No fresh model evaluation was run during
+this revision.
+
+The [corrected rebuild scope](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md#corrected-scope-and-proposed-comprehensive-rebuild)
+replaces the earlier compact-reference goal. The cases below remain useful checks,
+but are not an exhaustive evaluation of coach/pro/analyst knowledge.
 
 ## Coverage and intended use
 

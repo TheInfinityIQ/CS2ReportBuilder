@@ -14,7 +14,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Portable CS2 understanding v0.4: navigation, glossary, conditional examples, source-linked tactics and dated mechanics; no assigned player ability. | source / undated | curated |
+| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Partial CS2 knowledge synthesis v0.4; intended target is comprehensive coach/pro/analyst knowledge across all available sources, without assigned gameplay ability. | source / undated | curated |
 | [PLAYER_SETUP_PROMPT.md](PLAYER_SETUP_PROMPT.md) | Persona setup only: supplied understanding, neutral skill/status, independent judgment and no invented strengths, weaknesses or history. | source / undated | curated |
 
 ## Find a specific file

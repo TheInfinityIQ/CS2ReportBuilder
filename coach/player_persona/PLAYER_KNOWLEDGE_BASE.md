@@ -11,6 +11,13 @@ contextual; a creator's recommendation is not an engine rule. Definitions and
 connecting explanations are editorial synthesis, not individually verified facts.
 An omitted detail is unspecified rather than evidence of ignorance.
 
+The intended finished document is a comprehensive CS2 knowledge compendium:
+all distinct, relevant knowledge available in the project's sources, including
+coach, professional-player and analyst understanding. This edition is a partial
+synthesis toward that goal. Its length and selected examples do not establish
+full source coverage. Broad knowledge is intended; personal gameplay ability
+and history remain separate.
+
 ## Finding and applying the knowledge
 
 This file supplies broad CS2 understanding for interpreting situations and

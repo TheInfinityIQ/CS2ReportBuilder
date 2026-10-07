@@ -9,6 +9,11 @@ are copied to Downloads for handoff. They are not added to coach-generation pack
 
 ## Available material and audit
 
+**Scope correction:** the owner clarified that a compact coaching-feedback
+reference is not the intended deliverable. Version 0.4 remains a partial synthesis,
+not completion of the comprehensive knowledge document. See the corrected plan
+below. Earlier sufficiency statements apply only to preliminary trials.
+
 Counts below come from the actual local manifest, bundle headers, saved answers
 and pilot file, rather than the older README's pre-date-filter totals.
 
@@ -186,3 +191,64 @@ The two-file persona has not yet undergone behavioral calibration with Dawson.
 Source traceability and plausible explanations do not prove useful simulated
 feedback or representative human behavior. The independent-judgment prompt
 reduces neither of those questions to a guaranteed outcome.
+
+## Corrected scope and proposed comprehensive rebuild
+
+The finished handoff should make all distinct, relevant CS2 knowledge in the
+available collection accessible in one document, at coach/pro-player/analyst
+depth. Avoiding invented execution strengths or weaknesses must not restrict
+the supplied knowledge. Token efficiency governs organization, deduplication and
+processing reuse; it is not a reason to omit substantive knowledge or impose an
+arbitrary word limit.
+
+Evidence for the correction includes the original local `README_BUILD.md`, which
+already describes one drag-and-drop expert-level knowledge document, the owner's
+explicit scope clarification, and the discrepancy between 87 reviewed items and
+the full source inventory. Existing examples cannot certify corpus completeness.
+
+The proposed substantial rebuild is:
+
+1. **Account for every source.** Start with all 2,988 transcript manifest entries,
+   not just the 1,089 retained bundles. Reconsider short and deferred sources;
+   length or format alone does not establish lack of knowledge. Include the saved
+   answers, 570 pilot claims, earlier knowledge file and the available Cache
+   stratbook. Inspect other local knowledge documents for substantive game
+   material; historical software instructions are not game knowledge. Give every
+   source a review status and documented disposition.
+2. **Extract distinct lessons with context.** Preserve definitions, mechanisms,
+   cues, available actions, prerequisites, failure conditions, alternatives and
+   worked applications. Retain source location, map, side, equipment, era and
+   certainty. Repeated wording can merge; exceptions and meaningfully different
+   applications must survive. NotebookLM answers and inherited verification labels
+   are candidate material requiring source review, not complete truth sets.
+3. **Build a coverage matrix before composing.** Cover mechanics and weapons;
+   movement and geometry; information and sound; utility and counterplay;
+   economy and round sequences; individual roles; T and CT map playbooks;
+   coordinated protocols; IGL planning and adaptation; opponent scouting and
+   conditioning; clutches and objectives; practice and team development; demo
+   analysis and statistical interpretation. Record explicit gaps instead of
+   treating general principles as substitutes for detailed applications.
+4. **Reconcile claims without erasing knowledge.** Separate current mechanics,
+   historical mechanics, contextual recommendations, conflicting viewpoints and
+   unresolved claims. Check version-sensitive facts and visual dependencies with
+   appropriate evidence. Preserve what an old example teaches without presenting
+   its geometry, timing or professional tendency as current. Reject caption or
+   attribution errors with recorded reasons, not silent omission.
+5. **Compile one complete handoff.** Organize by game concepts and map/side,
+   with navigation, glossary, internal cross-references and traceable sources.
+   Processing records can remain separate internal artifacts; the agent-facing
+   document must not require them to obtain the actual knowledge. Do not replace
+   depth with a generic summary or a list of links. State any real receiving
+   model/file limits once measured; do not assume an arbitrary size cap.
+6. **Audit completeness and application.** Every source and candidate gets an
+   incorporated, duplicate, historical, irrelevant, rejected-with-reason or
+   unresolved disposition. Compare extracted lessons with the compiled document
+   and inspect for lost qualifications. Test coverage across the complete matrix,
+   including unfamiliar situations and conflicting advice; the current 16 cases
+   alone are insufficient. Full-corpus coverage and behavioral reliability remain
+   different claims.
+
+This records the corrected design before a substantial processing workflow is
+implemented, as required by the working agreement. The comprehensive pass has
+not been performed. No additional agents or external paid processing have been
+authorized for it; delegation would require case-specific approval.
