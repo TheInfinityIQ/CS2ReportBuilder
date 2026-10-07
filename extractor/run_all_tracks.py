@@ -1,24 +1,9 @@
-"""Run the viewer-tracks sidecar over EVERY demo under the Demos folder, recursively.
+"""Run viewer sidecars recursively over the raw replay root.
 
-Put this file next to extract_viewer_tracks.py and run:
-
-    python run_all_tracks.py                      # everything under PROJECT_ROOT\\01_Demos
-    python run_all_tracks.py --dry-run            # only show what would run and what is missing
-    python run_all_tracks.py --batch mimy --batch iTrilogy
-    python run_all_tracks.py --limit 2            # 2 demos per batch, as a trial
-    python run_all_tracks.py --force              # redo demos that already have tracks
-
-What it does (additive; it never edits an existing file):
-  * every top-level folder of 01_Demos is a batch: 01_Demos\\<batch>\\**\\*.dem   (sub-folders are searched)
-  * each demo is paired with its analyzed folder: 02_Analysis\\analyzed_<batch>\\<demo file name>
-    (if that is missing it falls back to a folder of the same name in ANY analyzed_* folder, when unique)
-  * for each pair it runs extract_viewer_tracks.process_demo, which writes viewer_tracks.csv.gz,
-    grenade_throws.csv.gz, grenade_paths.csv.gz and viewer_tracks_meta.json beside the existing tables
-  * demos already done are skipped (safe to stop with Ctrl+C and run again); one failing demo never stops the run
-  * demos with no analyzed folder are LISTED, not processed: run the v7.8 extractor on that batch first
-  * writes viewer_tracks_batch_summary.json in every analyzed folder and ALL_TRACKS_RUN_SUMMARY.json in PROJECT_ROOT
-
-The old v7.7 / v7.8 tables are not touched and not needed to change. Nothing here re-extracts them.
+CS2DI_DEMOS_ROOT (or --demos-root) selects raw demos. CS2DI_ROOT (or --root)
+selects the analysis data root. Player folders resolve to existing analyzed_*_demos
+collections; tournaments retain their collection names. --demos-name supports a
+legacy raw subfolder under --root. --dry-run does not extract or write outputs.
 """
 from __future__ import annotations
 
@@ -27,12 +12,15 @@ import json
 import sys
 import time
 import traceback
+from collections import Counter
 from pathlib import Path
+
+from demo_layout import collection_name, demos_root
 
 import extract_viewer_tracks as evt  # must sit in the same folder
 
 PROJECT_ROOT = evt.PROJECT_ROOT
-DEMOS_ROOT = PROJECT_ROOT / "01_Demos"
+DEMOS_ROOT = demos_root()
 ANALYSIS_ROOT = PROJECT_ROOT / "02_Analysis"
 
 
@@ -40,31 +28,19 @@ def log(msg: str = "") -> None:
     print(msg, flush=True)
 
 
-def analyzed_index(root: Path) -> dict[str, list[Path]]:
-    """demo stem -> every analyzed_*/<stem> folder that has a rounds.csv (for the fallback lookup)."""
-    idx: dict[str, list[Path]] = {}
-    for a in sorted(root.glob("analyzed_*")):
-        if not a.is_dir():
-            continue
-        for f in a.iterdir():
-            if f.is_dir() and (f / "rounds.csv").exists():
-                idx.setdefault(f.name, []).append(f)
-    return idx
-
-
-def plan_batch(batch_dir: Path, analysis_root: Path, index: dict) -> tuple[list, list, list]:
+def plan_batch(batch_dir: Path, analysis_root: Path) -> tuple[list, list, list]:
     """-> (pairs [(dem, folder)], missing [dem], duplicates [dem]) for one batch."""
-    primary = analysis_root / f"analyzed_{batch_dir.name}"
-    pairs, missing, dups, seen = [], [], [], set()
-    for dem in sorted(batch_dir.rglob("*.dem"), key=lambda p: str(p).lower()):
-        if dem.stem in seen:  # same file name twice in one batch: the analyzed folder can only match one
+    primary = analysis_root / f"analyzed_{collection_name(batch_dir, analysis_root)}"
+    pairs, missing, dups = [], [], []
+    files = sorted((p for p in batch_dir.rglob("*") if p.is_file() and p.suffix.lower() == ".dem"), key=lambda p: str(p).casefold())
+    counts = Counter(p.stem.casefold() for p in files)
+    for dem in files:
+        if counts[dem.stem.casefold()] > 1:
             dups.append(dem)
             continue
-        seen.add(dem.stem)
         folder = primary / dem.stem
         if not (folder / "rounds.csv").exists():
-            alt = [f for f in index.get(dem.stem, []) if f.parent.name != primary.name]
-            folder = alt[0] if len(alt) == 1 else None
+            folder = None
         if folder is None:
             missing.append(dem)
         else:
@@ -74,8 +50,9 @@ def plan_batch(batch_dir: Path, analysis_root: Path, index: dict) -> tuple[list,
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Run extract_viewer_tracks over every demo under Demos, recursively.")
-    ap.add_argument("--root", type=Path, default=PROJECT_ROOT, help="folder that holds 01_Demos and 02_Analysis")
-    ap.add_argument("--demos-name", default="01_Demos")
+    ap.add_argument("--root", type=Path, default=PROJECT_ROOT, help="data folder that holds 02_Analysis")
+    ap.add_argument("--demos-root", type=Path, default=DEMOS_ROOT)
+    ap.add_argument("--demos-name", help="legacy raw subfolder of --root; overrides --demos-root")
     ap.add_argument("--analysis-name", default="02_Analysis")
     ap.add_argument("--batch", action="append", default=[], help="only this batch folder name (repeatable)")
     ap.add_argument("--limit", type=int, default=0, help="at most N demos per batch (trial run)")
@@ -85,20 +62,19 @@ def main(argv=None) -> int:
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
 
-    demos_root, analysis_root = a.root / a.demos_name, a.root / a.analysis_name
-    for p in (demos_root, analysis_root):
+    raw_root = a.root / a.demos_name if a.demos_name else a.demos_root
+    analysis_root = a.root / a.analysis_name
+    for p in (raw_root, analysis_root):
         if not p.is_dir():
             log(f"ERROR: folder not found: {p}")
             return 2
-    batches = sorted(d for d in demos_root.iterdir() if d.is_dir())
+    batches = sorted(d for d in raw_root.iterdir() if d.is_dir())
     if a.batch:
         want = {b.lower() for b in a.batch}
-        batches = [b for b in batches if b.name.lower() in want]
-    index = analyzed_index(analysis_root)
-
-    plans = {b: plan_batch(b, analysis_root, index) for b in batches}
+        batches = [b for b in batches if b.name.lower() in want or collection_name(b, analysis_root).lower() in want]
+    plans = {b: plan_batch(b, analysis_root) for b in batches}
     total = sum(len(p[0][: a.limit] if a.limit else p[0]) for p in plans.values())
-    log(f"Demos folder: {demos_root}")
+    log(f"Demos folder: {raw_root}")
     for b, (pairs, missing, dups) in plans.items():
         done = sum((f / "viewer_tracks_meta.json").exists() for _, f in pairs)
         log(f"  {b.name:28} demos={len(pairs) + len(missing) + len(dups):4}  ready={len(pairs):4}  "

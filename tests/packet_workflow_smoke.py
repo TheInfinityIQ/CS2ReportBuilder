@@ -11,6 +11,7 @@ from tempfile import mkdtemp
 
 ROOT = Path(mkdtemp(prefix="cs2_gui_", dir=Path.home() / "Downloads"))
 os.environ["CS2DI_ROOT"] = str(ROOT)
+os.environ["CS2DI_DEMOS_ROOT"] = str(ROOT / "replays")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import packet_ui  # noqa: E402
 from packet_workflow_ui import WorkflowWindow  # noqa: E402
@@ -34,7 +35,7 @@ folder.mkdir(parents=True)
 (folder / "rounds.csv").write_text("round\n1\n")
 (folder / "player_rounds.csv").write_text("round\n1\n")
 (folder / "players.csv").write_text("steamid,name,team_number\n76561198062530225,CanadianIQ,3\n")
-raw = ROOT / "01_Demos/test/batch_001"
+raw = ROOT / "replays/test/batch_001"
 raw.mkdir(parents=True)
 (raw / "one.dem").write_bytes(b"demo")
 (raw / "duplicate.dem").write_bytes(b"demo")
@@ -89,11 +90,18 @@ saved = ROOT / "selection.json"
 packet_ui.filedialog.asksaveasfilename = lambda **kwargs: str(saved)
 window.save_selection()
 assert len(json.loads(saved.read_text())["included"]) == 1
+# Metadata directories still exist after relocation; translate even when present.
+legacy = ROOT / "01_Demos/test/batch_001"
+legacy.mkdir(parents=True)
+record = json.loads(saved.read_text())
+record["raw"] = str(legacy)
+saved.write_text(json.dumps(record))
 window.name_filter.set("")
 window.set_visible(False)
 packet_ui.filedialog.askopenfilename = lambda **kwargs: str(saved)
 window.load_selection()
 settle()
+assert Path(window.raw.get()) == raw
 assert len(window.included) == 1
 window.operation = "prepare"
 window.cancel_path = ROOT / "cancel"
@@ -103,7 +111,7 @@ assert window.cancel_path.exists()
 window.set_busy(False)
 
 # A completely new raw batch must appear even before its analysis directory exists.
-new_raw = ROOT / "01_Demos/new_batch/batch_001"
+new_raw = ROOT / "replays/new_batch/batch_001"
 new_raw.mkdir(parents=True)
 (new_raw / "fresh.dem").write_bytes(b"fresh")
 packet_ui.filedialog.askdirectory = lambda **kwargs: str(new_raw)

@@ -4,7 +4,7 @@
 Current extractor and additive viewer tracks; v7.7 is superseded.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **6 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **7 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -14,12 +14,13 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
+| [demo_layout.py](demo_layout.py) | Raw replay locations, separate from the analysis/knowledge data root. A copy ships beside standalone extractors; keep the two copies identical. | source / undated | extracted |
 | [extract_demos_v7dot7.py](extract_demos_v7dot7.py) | CS2 demo extraction for coaching analysis — v7.7 / schema 3.7 Changes from previous v5 (schema 2.2): FULL-MATCH / TARGETLESS MODE TARGET_PLAYER = None or "" now means "extract the entire match with no… | superseded extractor / undated | extracted |
 | [extract_demos_v7dot8.py](extract_demos_v7dot8.py) | CS2 demo extraction for coaching analysis — v7.8 / schema 3.8 v7.8 (2026-09-28), core table changes limited to damage: - player_hurt gains dmg_health_effective + same_tick_multi_hurt. The legacy… | source / undated | extracted |
 | [extract_viewer_tracks.py](extract_viewer_tracks.py) | CS2 viewer-tracks sidecar -- extract_viewer_tracks.py (v1.1) WHAT IT DOES Adds two thin data sets that the 2D viewer and several coaching measures need but the frozen v7.x extractor never wrote. It is… | source / undated | extracted |
 | [job_lock.py](job_lock.py) | Exclusive local extraction and snapshot ownership, using only the stdlib. | source / undated | extracted |
 | [README.md](README.md) | Extractor — **Current: `extract_demos_v7dot8.py` (v7.8, schema 3.8).** `extract_demos_v7dot7.py` is the superseded, still-pinned v7.7 (ADR-005; v7.8 adopted by ADR-005A). Changes to core table semantics… | source / undated | extracted |
-| [run_all_tracks.py](run_all_tracks.py) | Run the viewer-tracks sidecar over EVERY demo under the Demos folder, recursively. Put this file next to extract_viewer_tracks.py and run: python run_all_tracks.py # everything under PROJECT_ROOT\01_Demos… | source / undated | extracted |
+| [run_all_tracks.py](run_all_tracks.py) | Run viewer sidecars recursively over the raw replay root. CS2DI_DEMOS_ROOT (or --demos-root) selects raw demos. CS2DI_ROOT (or --root) selects the analysis data root. Player folders resolve to existing… | source / undated | extracted |
 
 ## Find a specific file
 

@@ -4,7 +4,7 @@
 Evidence, digest, findings, repairs, CLI, and report package.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **27 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **28 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -23,8 +23,9 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [analyst.py](analyst.py) | The Analyst: every finding for one player from one batch, against lobby peers and own level. Combines fight-situation findings (findings.py) with round-impact findings (impact.py), then runs one… | product implementation / undated | extracted |
 | [batch_selection.py](batch_selection.py) | Batch mapping, identities and replay preflight without scientific imports. | product implementation / undated | extracted |
 | [cli.py](cli.py) | Python definitions: _batch_path, main | product implementation / undated | extracted |
-| [config.py](config.py) | Single source of truth for filesystem layout (ADR-001). Set CS2DI_ROOT to the folder that contains ``01_Demos/`` and ``02_Analysis/`` (layout in 00_LEGEND.md). Nothing else in the codebase may hard-code a path. | product implementation / undated | extracted |
+| [config.py](config.py) | Single source of truth for filesystem layout (ADR-001). CS2DI_ROOT contains analysis and knowledge; CS2DI_DEMOS_ROOT contains raw replays. Nothing else in the codebase may hard-code a path. | product implementation / undated | extracted |
 | [damage.py](damage.py) | Effective health damage from ``player_hurt`` rows. ``player_hurt.health`` is the victim's health AFTER the hit and the extractor's event-time ``user_health`` is the health at the start of the tick. When one… | product implementation / undated | extracted |
+| [demo_layout.py](demo_layout.py) | Raw replay locations, separate from the analysis/knowledge data root. A copy ships beside standalone extractors; keep the two copies identical. | product implementation / undated | extracted |
 | [digest.py](digest.py) | Evidence digest: the software computes every number, the AI only interprets. ``build_digest`` reads gate-passing analyzed demos for ONE player and returns plain metrics (with numerator, denominator and a… | product implementation / undated | extracted |
 | [extraction_queue.py](extraction_queue.py) | Resource-aware admission for independent demo subprocesses, with durable results. | product implementation / undated | extracted |
 | [fights.py](fights.py) | Fight episodes: every gunfight between two opposing players, not only the ones that end in a death. A fight starts at the first gun damage between two opposing players (either direction) and continues while… | product implementation / undated | extracted |

@@ -59,6 +59,7 @@ def worker(job, phase):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=config.root())
+    parser.add_argument("--demos-root", type=Path, default=config.demos_root())
     parser.add_argument("--batch", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, default=0, help="Maximum total jobs for a bounded trial")
@@ -90,17 +91,32 @@ def main():
         jobs = json.loads(args.jobs.read_text(encoding="utf-8"))
     else:
         jobs = []
-        raw_root = args.root / "01_Demos"
+        raw_root = args.demos_root
         if not raw_root.is_dir():
             parser.error(f"Demo root missing: {raw_root}")
         batches = sorted(p for p in raw_root.iterdir() if p.is_dir())
         if args.batch:
             wanted = {name.casefold() for name in args.batch}
-            batches = [p for p in batches if p.name.casefold() in wanted]
-            if {p.name.casefold() for p in batches} != wanted:
+            batches = [
+                p
+                for p in batches
+                if config.collection_name(p, args.root / "02_Analysis").casefold() in wanted
+                or p.name.casefold() in wanted
+            ]
+            if not wanted.issubset(
+                {
+                    n.casefold()
+                    for p in batches
+                    for n in (p.name, config.collection_name(p, args.root / "02_Analysis"))
+                }
+            ):
                 parser.error("One or more requested batches do not exist")
         for batch in batches:
-            analysis = args.root / "02_Analysis" / ("analyzed_" + batch.name)
+            analysis = (
+                args.root
+                / "02_Analysis"
+                / ("analyzed_" + config.collection_name(batch, args.root / "02_Analysis"))
+            )
             print(f"Checking batch: {batch.name}", flush=True)
             for match in scan_matches(analysis, batch, args.root / ".extraction_jobs/hashes_cli.json"):
                 if match.problem or (not match.core_ready and args.phase == "viewer"):

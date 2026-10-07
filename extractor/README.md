@@ -45,8 +45,8 @@ See [the viewer review](../docs/VIEWER_REVIEW_2026-10-06.md) for verified behavi
 remaining limitations and the implemented preparation workflow.
 
 ## Run the sidecar over every batch: `run_all_tracks.py`
-Next to `extract_viewer_tracks.py`. Walks `01_Demos\<batch>\**\*.dem` (sub-folders included), pairs each demo with
-`02_Analysis\analyzed_<batch>\<demo file name>` (falls back to a unique same-named folder in any `analyzed_*`), and runs the
+Next to `extract_viewer_tracks.py`. Walks the Steam replay root (or `--demos-root`)
+recursively, pairs each demo only with its own analysis collection, and runs the
 sidecar. Resumable, one failure never stops the run, demos without an analyzed folder are listed, not processed.
 
     python run_all_tracks.py --dry-run          # what is ready / missing
@@ -58,3 +58,12 @@ grenade paths live in the additive viewer files. See the
 [packet UI guide](../docs/PACKET_BUILDER_UI.md) for the managed queue and resumable
 `fix_viewer_data.py` repair; it uses one selected collection per raw batch, without
 the legacy runner's cross-collection fallback. Repair does not update old packets.
+
+## Raw location versus analysis location
+
+Current extractors use separate roots. See [raw-demo locations](../docs/RAW_DEMO_LOCATIONS.md).
+`DEMO_FOLDER` remains the logical analysis collection ID (for example,
+`CanadianIQ_demos`); its raw folder resolves to `replays/CanadianIQ`.
+Both v7.8 and the sidecar scan nested series/batch folders and reject repeated
+stems before extraction. Ship `demo_layout.py` and `job_lock.py` alongside the
+standalone scripts. The superseded v7.7 is retained unchanged as historical code.

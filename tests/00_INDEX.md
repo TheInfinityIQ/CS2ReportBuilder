@@ -4,7 +4,7 @@
 Synthetic checks; tests do not require downloading demo data.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **16 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **17 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -19,6 +19,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [test_agent_docs.py](test_agent_docs.py) | Check current entry links and preservation of archived instruction sources. | executable check / undated | extracted |
 | [test_analyst.py](test_analyst.py) | Python definitions: test_win_chance_edges_and_shrinkage, test_small_samples_never_become_findings, _analysis, ready, test_finding_blocks_render_with_verdict_and_calculation,… | executable check / undated | extracted |
 | [test_batch_workflow.py](test_batch_workflow.py) | Python definitions: tracks, test_nested_raw_subset_deduplicates_content_inside_one_collection, test_ambiguous_stems_are_blocked_and_missing_core_can_be_planned, test_hash_cache_invalidates_changed_original,… | executable check / undated | extracted |
+| [test_demo_layout.py](test_demo_layout.py) | Relocated raw data must keep its existing analysis collection identities. | executable check / undated | extracted |
 | [test_digest.py](test_digest.py) | Python definitions: test_counts_including_kill_after_round_end, test_late_kill_is_never_an_opening, test_damage_ignores_team_damage, test_unknown_is_not_zero, test_every_metric_has_a_plain_definition,… | executable check / undated | extracted |
 | [test_docs_consistency.py](test_docs_consistency.py) | Checks for current runtime documentation and named product files. | executable check / undated | extracted |
 | [test_fights_findings.py](test_fights_findings.py) | Python definitions: test_weapon_display_and_event_names_agree, _fights, test_same_match_in_two_batches_is_kept_once, test_bh_is_monotone_and_bounded, test_small_samples_are_never_findings | executable check / undated | extracted |

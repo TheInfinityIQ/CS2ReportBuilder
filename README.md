@@ -68,6 +68,9 @@ $env:CS2DI_ROOT = 'C:\path\to\demoparser'
 & .venv/Scripts/cs2di.exe gate mimy
 ```
 
-The sibling demoparser folder holds local demos, analysis, knowledge material,
-packets, and reports. Extraction-linked demo/analysis paths remain unchanged.
+Raw demos now live in the Steam CS2 `game\csgo\replays` folder, organized by
+tournament/series or player/batch. Set `CS2DI_DEMOS_ROOT` to override that root.
+The sibling demoparser folder holds analysis, knowledge, packets, and reports;
+existing analysis collection names and demo filenames stay unchanged.
+See [raw-demo locations](docs/RAW_DEMO_LOCATIONS.md) for examples and compatibility.
 GitHub holds software and documentation; local demo and analysis data stay local.

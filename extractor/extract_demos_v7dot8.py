@@ -8,7 +8,7 @@ v7.8 (2026-09-28), core table changes limited to damage:
     shares the start-of-tick user_health. Verified on 179 sampled demos across 8 batches:
     0.1-0.9% excess damage, 3.3% on Premier. See docs/KNOWN_PITFALLS.md row 27.
   - utility_effectiveness HE/fire damage now uses dmg_health_effective.
-  - Paths follow PROJECT_ROOT/01_Demos/<folder> -> PROJECT_ROOT/02_Analysis/analyzed_<folder>.
+  - Raw replays use CS2DI_DEMOS_ROOT; analysis stays in PROJECT_ROOT/02_Analysis/analyzed_<folder>.
   Damage dealt after the round-end tick is still counted: FACEIT's ADR includes it.
 
 Changes from previous v5 (schema 2.2):
@@ -41,6 +41,10 @@ Usage:
 """
 
 from pathlib import Path
+try:
+    from cs2di.demo_layout import collection_dir, data_root, demo_files
+except ImportError:
+    from demo_layout import collection_dir, data_root, demo_files
 import json
 import traceback
 import math
@@ -60,13 +64,11 @@ from demoparser2 import DemoParser
 # CONFIGURATION
 # ============================================================
 
-PROJECT_ROOT = Path(
-    r"C:\Users\dawso\Developer\CS2ReportBuilder\demoparser"
-)
+PROJECT_ROOT = data_root()
 
 DEMO_FOLDER = "iTrilogy"
 
-DEMO_DIR = PROJECT_ROOT / "01_Demos" / DEMO_FOLDER
+DEMO_DIR = collection_dir(DEMO_FOLDER)
 OUTPUT_DIR = PROJECT_ROOT / "02_Analysis" / f"analyzed_{DEMO_FOLDER}"
 
 # Set to a player name for classic single-target mode.
@@ -2575,7 +2577,7 @@ def main():
         run_internal_self_tests()
         print("Internal regression self-tests: PASS")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    demos = sorted(DEMO_DIR.glob("*.dem"))
+    demos = demo_files(DEMO_DIR)
     if not demos:
         print(f"No .dem files found in: {DEMO_DIR.resolve()}")
         return

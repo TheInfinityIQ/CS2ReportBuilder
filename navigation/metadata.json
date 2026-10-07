@@ -204,12 +204,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Master entry for the CS2 coaching pipeline, batch preparation UI, setup, current documentation and optional navigation.",
-        "reviewed_sha256": "ee7af30932794fd2c2768761ad5848d52d4ad2c1c4d92bd659ee8142366c1ab4"
+        "summary": "Project entry point, packet-builder launch, software setup, and separate raw replay and analysis roots.",
+        "reviewed_sha256": "650ebd5dd65630b17526c035481f8ecc39e616d715e9b0400c0ce1572db72e1d"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation, completed 351-demo 16 Hz repair, known product gaps, verification limits and source evidence.",
-        "reviewed_sha256": "cda3c45e8262ba2e340a25bcd0e52cece0c940068bc7c1d35464838894c255df"
+        "summary": "Verified implementation, full 16 Hz repair, raw replay relocation, current gaps and verification records.",
+        "reviewed_sha256": "6af62f42811bc5b9379916d09dc63552341231838e45696c671b0d18714903eb"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -326,7 +326,7 @@
     "folders": {
       ".": "Local layout and optional file discovery. Project entry and development rules live in the sibling repo README.md and AGENTS.md.",
       "00_ORGANIZE_ME": "Unsorted intake and review notes; these do not override source evidence.",
-      "01_Demos": "Raw local demos. Open the batch map, then query filenames; no demo bytes are decoded by navigation.",
+      "01_Demos": "Retained player batch metadata and historical maps. Raw demos moved to Steam replays; see repo/docs/RAW_DEMO_LOCATIONS.md.",
       "02_Analysis": "Extracted evidence. Batch maps and the catalog avoid thousands of repeated per-demo index files.",
       "03_Scripts": "Local runnable extractors and archives; compare current copies with the Git repository.",
       "04_Reports": "Rendered reports and presentation artifacts, never machine evidence sources.",

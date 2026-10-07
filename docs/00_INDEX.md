@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **55 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **56 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -27,7 +27,8 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Coach packet window — Double-click **Open_Coach_Packet_Builder.cmd** in the repository root. Reopen an | reference; distinguish current state from historical claims / undated | extracted |
 | [PACKET_WORKFLOW_PLAN_2026-10-06.md](PACKET_WORKFLOW_PLAN_2026-10-06.md) | Approved packet workflow implementation plan — Dawson approved implementation on 2026-10-06. | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, completed 351-demo 16 Hz repair, known product gaps, verification limits and source evidence. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Verified implementation, full 16 Hz repair, raw replay relocation, current gaps and verification records. | reference; distinguish current state from historical claims / 2026-10-06 | curated |
+| [RAW_DEMO_LOCATIONS.md](RAW_DEMO_LOCATIONS.md) | Raw demo locations — The raw replay root is now: | reference; distinguish current state from historical claims / undated | extracted |
 | [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and batch workflow — Evidence inspected before these repairs | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 
 ## Find a specific file

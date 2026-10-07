@@ -68,6 +68,10 @@ import time
 import traceback
 import zipfile
 from pathlib import Path
+try:
+    from cs2di.demo_layout import collection_dir, data_root, demo_files
+except ImportError:
+    from demo_layout import collection_dir, data_root, demo_files
 
 import numpy as np
 import pandas as pd
@@ -79,11 +83,10 @@ SCHEMA = 1
 # ============================================================
 # CONFIGURATION  (same convention as extract_demos_v7dot8.py)
 # ============================================================
-PROJECT_ROOT = Path(
-    r"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\replays\demoparser"
-)
+PROJECT_ROOT = data_root()
+
 DEMO_FOLDER = "iTrilogy"
-DEMO_DIR = PROJECT_ROOT / "01_Demos" / DEMO_FOLDER
+DEMO_DIR = collection_dir(DEMO_FOLDER)
 ANALYZED_DIR = PROJECT_ROOT / "02_Analysis" / f"analyzed_{DEMO_FOLDER}"
 
 SAMPLE_HZ = 16
@@ -505,7 +508,7 @@ def main(argv=None) -> int:
     if not a.analyzed.is_dir():
         log(f"ERROR: analyzed folder not found: {a.analyzed}")
         return 2
-    demos = sorted(a.demos.glob("*.dem"))
+    demos = demo_files(a.demos)
     if a.only:
         demos = [d for d in demos if d.stem in set(a.only)]
     if a.limit:

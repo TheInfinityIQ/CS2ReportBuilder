@@ -5,6 +5,9 @@ Date: 2026-10-06. Distinguish observed artifacts from verified behavior.
 ## Observed implementation and artifacts
 
 - A local Git checkout exists at CS2ReportBuilder/repo, alongside demoparser.
+- [Raw demo locations](RAW_DEMO_LOCATIONS.md) separate Steam replays from local
+  analysis. Raw folders use tournament/series or player/batch; analysis collection
+  names and demo stems remain unchanged. Current scripts support both roots.
 - Source implements extraction v7.8, viewer sidecar, integrity gating, digest,
   analysis, plan validation, packet generation, and HTML report rendering.
 - The [packet-builder window](PACKET_BUILDER_UI.md) maps a raw batch or subfolder

@@ -9,9 +9,10 @@ calculation and extraction use the repository `.venv` when available.
 1. Select an analysis collection in **Demo batch**, or **Choose folder…** for a
    custom collection containing individual match directories.
 2. In **Batch selection and preparation**, optionally **Choose raw folder…**:
-   choose a batch or subfolder such as `CanadianIQ_demos/batch_001`. Under the
-   normal `01_Demos` layout it selects `analyzed_CanadianIQ_demos` automatically,
-   even if that collection has not been created. For outside raw folders, choose
+   choose a batch or subfolder such as `CanadianIQ/batch_001`. Under the
+   Steam `replays` layout it selects `analyzed_CanadianIQ_demos` automatically,
+   when that collection already exists. For a new player collection, choose its
+   intended analysis folder explicitly. For outside raw folders, choose
    the corresponding analysis collection explicitly. Matching uses exact demo
    stems inside this collection; it never searches other players or collections.
 3. Review the match table. Double-click highlighted rows to toggle inclusion,

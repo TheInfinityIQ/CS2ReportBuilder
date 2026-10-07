@@ -561,14 +561,17 @@ class WorkflowWindow(PacketWindow):
         if self.busy:
             return
         folder = filedialog.askdirectory(
-            title="Choose raw demo batch or subfolder", initialdir=str(config.root() / "01_Demos")
+            title="Choose raw demo batch or subfolder", initialdir=str(config.demos_root())
         )
         if folder:
             raw = Path(folder).resolve()
             self.raw.set(str(raw))
-            base = (config.root() / "01_Demos").resolve()
+            base = (config.demos_root()).resolve()
             if raw.is_relative_to(base) and raw != base:
-                self.custom_batch = Path(self.analysis.get()) / ("analyzed_" + raw.relative_to(base).parts[0])
+                self.custom_batch = Path(self.analysis.get()) / (
+                    "analyzed_"
+                    + config.collection_name(base / raw.relative_to(base).parts[0], Path(self.analysis.get()))
+                )
                 self.refresh(preferred=self.custom_batch)
             elif self.batches:
                 self.load_batch()
@@ -605,6 +608,10 @@ class WorkflowWindow(PacketWindow):
             if record["version"] != 1 or not isinstance(record["included"], list):
                 raise ValueError("Unsupported selection file")
             analysis, raw = (Path(record["analysis"]).resolve(), record.get("raw"))
+            if raw:
+                relocated = config.relocated_selection(Path(raw))
+                if relocated.is_dir():
+                    raw = str(relocated)
             if raw and (not Path(raw).is_dir()):
                 raise ValueError("Saved raw folder is missing")
             self.custom_batch = analysis
