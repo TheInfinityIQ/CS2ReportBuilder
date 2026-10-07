@@ -12,7 +12,7 @@ coaching as a player; engineering choices are supported by evidence.
 | What exists and what is uncertain? | [Project status](docs/PROJECT_STATUS.md) | Observations, verification evidence, gaps, and current work. |
 | How does a demo become a report? | Pipeline below; [extractor guide](extractor/README.md) | Component orientation and extraction details. |
 | How are coach packets made? | [Packet builder](scripts/build_packet.py); [runtime templates](coach/handoff/PROMPT.md) | Generated inputs; consult RULES.md and MODULES.md when changing packets. |
-| What knowledge supports the simulated player? | [Player knowledge](coach/player_persona/PLAYER_KNOWLEDGE_BASE.md); [build evidence](docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md) | Contextual CS2 understanding and explicit source/calibration limits. |
+| What knowledge supports the simulated player? | [Player knowledge](coach/player_persona/PLAYER_KNOWLEDGE_BASE.md); [build evidence](docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md); [sufficiency and evaluation](docs/PLAYER_KNOWLEDGE_EVALUATION.md) | Contextual CS2 understanding and explicit source/calibration limits. |
 | Why did earlier versions make a choice? | [Source-linked history](docs/history/SOURCES.md) | Development sequence, preserved conflicts, and original chat/experiment locations. |
 | Where is local data and research? | [Layout snapshot](docs/DATA_FOLDER_LEGEND.snapshot.md) | Locations in the sibling demoparser tree; dated claims need checking. |
 | Where is an unknown file? | Targeted search; [optional navigation](docs/NAVIGATION.md) | Maps/catalog when paths are unclear. No mandatory index detour. |

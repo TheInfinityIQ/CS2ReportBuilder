@@ -1,7 +1,8 @@
 # Player knowledge rebuild — 2026-10-07
 
 The [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) is now
-version 0.3: a fuller synthesis with situational explanations and source links.
+version 0.4: a portable synthesis with navigation, terminology, conditional
+applications and dated mechanics references.
 The [setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md) remains separate
 and assigns no skill level, personal history, strengths or weaknesses. Both files
 are copied to Downloads for handoff. They are not added to coach-generation packets.
@@ -42,20 +43,20 @@ The matcher scopes a declared bundle but does not certify the declared creator o
 video title. Restored source links come from the matched source headers and pilot
 manifest mapping, with contextual review before use.
 
-## What was reviewed and changed
+## Initial expansion (version 0.3)
 
-The agent reviewed surrounding passages for 62 distinct NotebookLM candidates,
+The initial expansion reviewed surrounding passages for 62 distinct NotebookLM candidates,
 12 pilot records and seven excluded shorts: 81 review items associated with
 70 distinct source-video URLs. This means selected passages from those sources,
 not full review of 70 videos. The review was performed by the same agent writing
 the synthesis, not an independent human expert.
 
-The new file contains about 7,849 words, including its source register, compared
+Version 0.3 contained about 7,849 words, including its source register, compared
 with 2,524 in version 0.2. It replaces the starter instead of appending a duplicate
 glossary. Coverage now includes information age, coverage handovers, movement and
 weapon exceptions, utility conversion, tradeable routes, equipment planning,
 defaults, lurk activation, clutches, objective play, statistics, review methods
-and examples for nine named maps. Source links distinguish contextual examples
+and examples for ten named maps. Source links distinguish contextual examples
 from editorial definitions and connecting explanations.
 
 Examples of corrections/qualifications:
@@ -109,13 +110,59 @@ passages. Its source register is self-contained for an AI receiving only the two
 handoff files. A user can attach the knowledge file, then paste the setup prompt
 in a fresh conversation. The persona waits for the next task.
 
-## Verification
+## Initial expansion verification
 
 The audit/parser and navigation suites passed 10 tests. Ruff and whitespace
 checks passed. All 66 internal source references resolve; the ledger has 81
 unique review IDs with the stated 62/12/7 split. The two Downloads handoff
 files match their repository copies, and the setup prompt is unchanged. These
 checks establish artifact consistency, not factual or behavioral validation.
+
+## Sufficiency review and revision (version 0.4)
+
+The author reviewed the complete revised document for fresh-agent use. It provides
+broad conceptual background for assessing coaching, but not exhaustive CS2 knowledge
+or demonstrated human-like behavior. The [evaluation document](PLAYER_KNOWLEDGE_EVALUATION.md)
+records capability boundaries and 16 separate behavioral cases. No fresh model runs
+were performed; document coverage must not be presented as evaluation success.
+
+Version 0.4 contains 10,553 words including references. It adds a question-to-section
+table, equipment/readiness and sound reasoning, a common-language glossary, eight
+constructed situations with changing conditions, and four additional official
+reference groups. The setup-only prompt remains unchanged. Removing source-processing
+narrative from map passages leaves the corrected game understanding in place;
+misattribution decisions remain in this build account and ledger.
+
+Six additional pilot passages were inspected: C088, C159, C205, C534, C306 and C362.
+They support costly wins, coordinated equipment, marginal saving value, equipment
+denial and a conditional sound cue. The combined ledger now has 87 reviewed items:
+62 NotebookLM, 18 pilot and seven excluded shorts, associated with 72 creator-video
+URLs. This remains selected-passage review, not full review of those videos.
+Local `pilot_review_readiness.json` stores these six contexts; the inventory CLI
+does not create it. Four new official reference records are listed separately
+from creator candidates. Editorial definitions and constructed applications are
+identified as synthesis rather than individually verified source claims.
+
+Valve's [March 18, 2026 update](https://www.counter-strike.net/newsentry/532126482488623353)
+changes magazine replacement. Its [September 22 update](https://www.counter-strike.net/newsentry/674006995886407685)
+adds silent reload and changes un-scoping sound, with later fixes recorded in the
+[official update archive](https://www.counter-strike.net/news/updates?l=english).
+These establish particular published changes, not a complete audit of the running
+game or every subsequent patch. Historical demo interpretation retains its version.
+
+The navigation table, glossary and examples are engineering improvements whose
+behavioral value still needs measurement. Anthropic's
+[contextual retrieval guidance](https://www.anthropic.com/engineering/contextual-retrieval)
+supports a simple full-context approach for modest files and preserving context
+when retrieving larger material. It does not prove that this revision improves
+our persona. No new retrieval infrastructure was needed or implemented.
+
+Revision verification: the existing audit/parser and navigation suites passed
+10 tests. All 121 internal knowledge links resolve to 98 distinct heading targets;
+ledger aliases resolve and all 87 candidate IDs are unique. Downloads handoffs
+match repository bytes, and the setup prompt retains its original SHA-256.
+Whitespace checks passed. These checks verify structure and artifact consistency,
+not factual completeness, improved model behavior or representative player feedback.
 
 ## Evidence boundaries and remaining work
 

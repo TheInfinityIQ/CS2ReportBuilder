@@ -43,8 +43,11 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 - A portable [player setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md)
   and [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) now exist
-  as working drafts (knowledge version 0.3). The [knowledge rebuild](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md)
+  as working drafts (knowledge version 0.4). The [knowledge rebuild](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md)
   expands situational understanding with reviewed source links and correction notes.
+  Version 0.4 adds navigation, glossary, worked situations, equipment/economy depth
+  and dated mechanics. The [sufficiency assessment and evaluation cases](PLAYER_KNOWLEDGE_EVALUATION.md)
+  separate document coverage from behavioral validation; the cases have not been run.
   Setup uses supplied understanding
   without assigning skill level, competitive status, strengths, weaknesses or
   fabricated player history; independent judgment remains explicit.

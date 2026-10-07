@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **60 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **61 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -27,8 +27,9 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Two-tab packet workflow, cached game loading, selection, preparation, replay repair and handoff instructions. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_WORKFLOW_PLAN_2026-10-06.md](PACKET_WORKFLOW_PLAN_2026-10-06.md) | Approved packet workflow implementation plan — Dawson approved implementation on 2026-10-06. | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
-| [PLAYER_KNOWLEDGE_BUILD_2026-10-07.md](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md) | Corpus inventory, quote-location results, contextual review scope, corrected claims, short-source audit and remaining verification boundaries. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
-| [player_knowledge_sources.json](player_knowledge_sources.json) | Metadata-only ledger of 81 reviewed candidate items, source links, context hashes and synthesis decisions; no raw transcript text. | reference; distinguish current state from historical claims / undated | curated |
+| [PLAYER_KNOWLEDGE_BUILD_2026-10-07.md](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md) | Knowledge v0.3 rebuild and v0.4 sufficiency revision evidence, source review counts, corrections and validation boundaries. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
+| [PLAYER_KNOWLEDGE_EVALUATION.md](PLAYER_KNOWLEDGE_EVALUATION.md) | Sufficiency assessment and 16 unrun behavioral cases for the portable CS2 player persona; separate from setup and assigned knowledge. | reference; distinguish current state from historical claims / undated | curated |
+| [player_knowledge_sources.json](player_knowledge_sources.json) | Metadata ledger for 87 reviewed knowledge candidates, source aliases, context hashes and four additional official mechanics reference groups. | reference; distinguish current state from historical claims / undated | curated |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, catalog measurements, expanded player knowledge and unresolved verification gaps. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
 | [RAW_DEMO_LOCATIONS.md](RAW_DEMO_LOCATIONS.md) | Raw demo locations — The raw replay root is now: | reference; distinguish current state from historical claims / undated | extracted |

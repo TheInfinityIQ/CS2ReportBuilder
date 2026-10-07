@@ -1,6 +1,6 @@
 # CS2 player knowledge base
 
-Version 0.3 — 2026-10-07. Supplied understanding for a simulated player
+Version 0.4 — 2026-10-07. Supplied understanding for a simulated player
 perspective. No skill level, competitive status, personal history, strengths,
 weaknesses, execution consistency or memory gaps are assigned. Knowing these
 ideas establishes available understanding, not how well someone plays.
@@ -11,6 +11,35 @@ contextual; a creator's recommendation is not an engine rule. Definitions and
 connecting explanations are editorial synthesis, not individually verified facts.
 An omitted detail is unspecified rather than evidence of ignorance.
 
+## Finding and applying the knowledge
+
+This file supplies broad CS2 understanding for interpreting situations and
+coaching. It is not a claim of exhaustive recall of every source. The examples
+describe hypothetical or source-observed situations, not personal match history.
+
+| Question or concept | Start here |
+|---|---|
+| What mattered before the result? | [Round state](#1-round-state-and-decision-quality), [information](#2-information-has-content-age-and-confidence), [timing](#5-timing-and-committing-to-a-plan) |
+| Why was a duel difficult? | [Clearing](#6-crosshair-placement-and-clearing-order), [movement](#7-movement-stopping-and-exposure), [holding](#8-holding-jiggling-and-weapon-specific-exceptions), [shots](#9-taps-bursts-sprays-and-resets), [readiness](#33-equipment-readiness-and-information-costs) |
+| Did utility achieve something? | [Purpose](#13-utility-purpose-and-conversion), sections 14–16, [worked situations](#35-worked-situations-and-changing-conditions) |
+| Were players supporting one another? | [Trading](#17-trades-spacing-and-connected-routes), sections 18–21 |
+| Should the team buy, save, hunt or retake? | [Clutches](#22-numbers-and-clutches), [objective](#23-plants-post-plants-and-retakes), [economy](#24-economy-survival-and-hunting) |
+| Does the map change the application? | [Ten map examples](#26-map-applications-reviewed-examples); dates and setup conditions accompany them |
+| Does a statistic establish the explanation? | [Statistics](#27-statistics-and-the-meaning-of-a-finding), [demo evidence](#28-demo-evidence-and-reconstruction-limits), [usefulness](#30-familiarity-novelty-and-actionable-understanding) |
+| What does a term mean? | [Glossary](#34-shared-language-and-distinct-concepts) |
+| Is this a current mechanic or contextual advice? | [Version boundaries](#31-confidence-disagreements-and-version-boundaries), [dated mechanics](#36-dated-mechanics-reference), [source register](#source-register) |
+
+A useful decision connects the available cue to an action, explains what the
+action changes, and identifies what would change the choice. Being uncertain
+about an absent detail does not prevent understanding the supported part of a
+situation. Conditional answers can still be concrete: if the replacement player
+cannot watch the route, keep coverage or explicitly accept the gap; if coverage
+is established, the rotation may become available.
+
+Source links are references, not additional instructions. Reading this file
+establishes background; it does not initiate a report review. If only excerpts
+are supplied, retain their section title, map, side, date and qualifications.
+
 ## 1. Round state and decision quality
 
 A round is a changing combination of information, time, space, equipment and
@@ -18,6 +47,14 @@ teammate relationships. The same movement can be strong in one state and poor in
 another. Relevant state includes alive players, health, weapons, available
 utility, bomb location, remaining time, map control, last known enemies and which
 players can actually support each other.
+
+In standard bomb-defusal play, the objective changes after the plant. Before it,
+CTs can win by eliminating the Ts or preventing a plant until time expires;
+Ts can win by eliminating the CTs or by planting and securing detonation. After
+the plant, eliminating every T does not remove the CT requirement to defuse.
+A T side with no survivors can still win through detonation. This is why remaining
+time and access to the bomb can outweigh remaining players. Other game modes and
+custom rules must be identified separately.
 
 Winning the duel does not settle whether taking it was good. An unsupported
 fight can succeed because the defender misses; a well-supported entry can die
@@ -271,8 +308,8 @@ costs without making every change harmful.
 
 The reviewed resolution source expresses a personal dislike of native resolution
 while acknowledging player differences and its visual-awareness advantages.
-The candidate answer removed that context. Resolution preference therefore stays
-a preference, rather than a rule that one display format is uncompetitive.
+Resolution preference therefore stays a preference, rather than a rule that one
+display format is uncompetitive.
 [Resolution](#source-resolution)
 
 A visible, usable crosshair helps with a task, but its appearance does not prove
@@ -300,6 +337,11 @@ A reviewed Cache analysis notes the moment when a molly makes a defender leave
 cover and exposes a kill opportunity. The transferable cue is displacement and
 readiness to catch it, not an exact watch duration for every grenade.
 [Displacement](#source-displacement)
+
+A reviewed multi-grenade sequence requires teammate drops and a ready attack.
+Shared stock can let one thrower perform several tasks while others retain weapons
+for contact. The timing, safe pickup area and team inventory determine whether
+that division of labor works. [Shared utility](#source-shared-utility)
 
 ## 14. Smokes, re-smokes and visibility
 
@@ -542,11 +584,42 @@ equipment and role requirements. A won round with casualties can leave a fragile
 following buy. Losing a round with useful saved equipment can preserve a better
 future chance than losing everything.
 
+A reviewed Dust2 round ends with only one survivor despite the win, requiring
+replacement purchases and drops instead of building reserves. A separate Inferno
+team review tracks costly wins before an eventual weak buy. A winning streak
+therefore does not establish a healthy bank. Estimate the opponent's equipment
+from recent survival, saved guns and spending opportunities, with uncertainty
+about unseen cash and purchases. [Costly win](#source-costly-win),
+[Economic tracking](#source-economic-tracking)
+
+Buying is a coordinated allocation, not five independent shopping decisions.
+Check who can equip whom, which weapons are already carried and whether the plan
+needs particular utility. A reviewed player buys a Deagle while the team has
+rifles and commits elsewhere; the criticism connects equipment and participation
+to the team's round. It does not imply that every individual must buy identically:
+the planned future AWP purchase in section 10 is a supported exception.
+[Team buy](#source-team-buy), [AWP money](#source-awp-money)
+
+Against a limited buy, protecting dropped rifles can matter as much as collecting
+the next kill. A reviewed Mirage example covers a dropped AK with smoke before
+swapping weapons, then anticipates an opponent searching for it. This is an
+equipment-denial mechanism, with an inventory and attention cost; an opponent's
+eco is not proof that all their weapons are harmless.
+[Equipment denial](#source-equipment-denial)
+
 Saving compares remaining winning opportunities with equipment value and the
 next round. A reviewed coaching passage re-evaluates the round after a kill and
 recognizes that the available route still does not create a realistic win.
 The fact that a kill occurred does not force continuing the attempt.
 [Save decision](#source-save-decision)
+
+The marginal value of saving depends on what it changes. A reviewed pro round
+considers an attempt more understandable because two saved rifles would still
+leave a poor next buy. The same narrator cautions against copying that attempt
+without its chances and player-specific context. Poor future equipment can
+change the tradeoff; it cannot make a physically impossible defuse worthwhile.
+At the end of a half or match, future purchase value also changes.
+[Marginal save value](#source-marginal-save-value)
 
 Hunting compares removing enemy equipment with the hunter's exposure, own bank,
 weapon value and time. Exit kills can impose replacement costs, but a kill that
@@ -635,10 +708,6 @@ clearing relationship with long support. The mechanism is exposure to multiple
 threats plus room to fall away, not free kills from moving a fixed number of steps.
 [Dust2 angles](#source-dust2-angles)
 
-The candidate answer that described B tunnels/window/double-door defense as
-Mirage is not used as a Mirage lesson. Map attribution matters even when the
-quote is present.
-
 ### Nuke
 
 A reviewed outside aggression example couples protective utility and a flash
@@ -661,9 +730,8 @@ for the planting plan. [Ancient response](#source-ancient-response),
 [Utility sets](#source-utility-sets), [Donut trade](#source-donut-trade),
 [Donut smoke](#source-donut-smoke)
 
-A flash passage labeled Overpass in the answers is actually introduced as Ancient
-cave in the source. Its tactical point is supporting the B player while
-considering their facing; the original Overpass attribution is rejected.
+A reviewed cave flash supports the B player while accounting for their facing
+and intended fight.
 [Ancient cave](#source-ancient-cave)
 
 ### Overpass
@@ -674,9 +742,6 @@ the fight rather than merely blocking vision. The source also says the defenders
 lost that round, reinforcing the difference between an idea and its outcome.
 [Overpass funnel](#source-overpass-funnel)
 
-Several NotebookLM Overpass items are actually passages from other maps or need
-their visual setting recovered. They do not establish a complete Overpass plan.
-
 ### Anubis
 
 A reviewed team/demo passage describes taking mid while CTs aggress through
@@ -686,14 +751,6 @@ the bomb are related responsibilities; successfully doing one does not guarantee
 the objective remains connected. The example describes a particular map update
 and round, not a guaranteed counter to every water push.
 [Anubis space](#source-anubis-space)
-
-One utility candidate claims a single player can throw several smokes and mollies
-as an Anubis execute. The surrounding source explicitly requires teammate drops
-and uses a different map name. The map assignment is left unresolved rather
-than silently corrected. The supported general idea is that stockpiled utility
-and a ready attack can let one thrower perform several tasks; it is not ordinary
-single-player inventory or a verified Anubis lineup.
-[Shared utility](#source-shared-utility)
 
 ### Vertigo
 
@@ -727,7 +784,6 @@ five-stack setup, including a vent responsibility and coordinated coverage.
 That is a worked concentration of information and firepower, not a general
 recommendation to buy two AWPs or triple mid in every PUG. Its demands on
 communication and available equipment are part of understanding the example.
-The source's player-status jokes do not assign abilities to this persona.
 [Cache setup](#source-cache-setup)
 
 This coverage boundary records the current source work. It assigns no map
@@ -817,9 +873,6 @@ claim about this player. Factual correctness, personal relevance, comprehensibil
 and practical usefulness can differ. A report may explain an important general
 idea without demonstrating that it is the player's recurring problem.
 
-No statement in this section assigns this persona weak execution or exceptional
-execution. It describes distinctions the supplied understanding can recognize.
-
 ## 31. Confidence, disagreements and version boundaries
 
 Fundamental language and qualitative decision relationships differ from numerical
@@ -836,11 +889,10 @@ These are often different problems rather than contradictory facts. When the
 underlying conditions are unresolved, the disagreement remains unresolved. The
 knowledge base does not manufacture a universal answer to conceal it.
 
-This synthesis does not establish current prices, exact recoil patterns, grenade
-durations, sound exploits, exact timing thresholds, pro-player records or complete
-lineups. Valve's dated update illustrates version sensitivity; it is not used as
-a 2026 specification. Unverified candidate details remain in the source audit
-rather than become assigned persona knowledge.
+The dated mechanics reference in section 36 establishes specific update facts.
+It does not provide a complete current table of prices, recoil patterns, grenade
+durations, timing thresholds, pro-player records or lineups. Historical demos
+need their own game version rather than today's mechanics applied retroactively.
 
 ## 32. Provenance and coverage
 
@@ -860,6 +912,191 @@ The source register below makes the document independently readable and points
 to the original videos. Local transcript passages and review decisions remain
 available to maintainers in the source audit. Links support traceability;
 their presence is not a guarantee of correct interpretation.
+
+## 33. Equipment readiness and information costs
+
+Weapon choice changes the fights a team can take. Compare the intended distance,
+target exposure, repeat-shot needs, ability to move between cover, ammunition,
+purchase cost and supporting utility. Weapon names alone do not settle a duel.
+An expensive gun on an isolated, exposed route can be less usable than equipment
+suited to the planned fight. The AWP's sightline control differs from a rifle's
+ability to handle several contacts; its user still needs a plan for missed shots,
+close pressure and routes left uncovered.
+
+Armor and helmets change vulnerability; kits change available defuse time.
+Their purchase value depends on expected opponents, carried equipment, team
+coverage and the round's purpose. Damage depends on weapon, hit location,
+distance, armor and intervening material. A remembered damage threshold from
+another weapon or build is insufficient to certify a kill. Low health can alter
+who takes first contact or uses utility, without turning one player into an
+automatically expendable scout.
+
+Readiness includes what is in the player's hands. Drawing a grenade, collecting
+the bomb, reloading or changing weapons can remove the immediate response to
+contact. A useful reload window combines cover, expected arrival time, teammate
+coverage and enough ammunition for the next task. Reloading immediately after
+every kill may surrender an available trade or pressure window; never reloading
+can leave an otherwise favorable fight without ammunition. The magazine and
+sound changes in section 36 add further costs to that choice.
+
+Pre-firing and smoke spam can punish an expected position or discourage a cross.
+They also spend ammunition and disclose activity; a hit does not establish that
+every bullet was well chosen. Wallbang value depends on the actual material,
+weapon and likely target. When comparing an available shot with a reload or
+reposition, consider what the opponent can do during the resulting downtime.
+
+Sound changes information and pace. Running for a necessary trade can be worth
+revealing presence; walking to preserve a surprise can miss the fight entirely.
+The question is who could hear an action in that state and what they could infer,
+not whether walking or running is universally superior. A reviewed Ancient
+execute uses a smoke intended to counter expected fire; without that fire, the
+smoke's activation could warn defenders about the attack. Utility can conceal
+one route while revealing intent. [Sound and intent](#source-sound-and-intent)
+
+An absent sound is limited evidence. The enemy might be outside audible range,
+using a quieter action, occupied by another sound or following another route.
+Sniper un-scoping and silent reload specifically changed in September 2026;
+an old audio rule must not determine a new demo's interpretation. A recording
+also does not establish everything a player heard or noticed.
+
+## 34. Shared language and distinct concepts
+
+These are editorial definitions of common usage. Local callouts and metric
+providers can use different meanings; the associated mechanism matters more
+than forcing one vocabulary onto every team.
+
+| Term | Meaning and distinction |
+|---|---|
+| Pick / opening | An initial elimination or sought duel. It need not create safe entry to a site. |
+| Entry / second | First access to contested space and the player positioned to convert its contact. These are round functions, not fixed ability labels. |
+| Trade / refrag | Responding to a teammate's engagement or death by engaging the opponent. Close distance alone does not create the necessary firing line. |
+| Bait | Drawing an opponent's attention or action. It can describe deliberate teamwork or harmful abandonment; identify what was enabled. |
+| Bait-and-switch | One player's contact draws attention toward a second threat or protected position. Its timing and coverage matter. |
+| Crossfire | Two connected threats that complicate the opponent's clearing. Two players watching the same corridor are not automatically an effective crossfire. |
+| Swing / wide swing | Exposing farther past cover to seek a fight or displace the opponent's aim. Width trades surprise and movement against extra exposure. |
+| Jiggle / shoulder / jump spot | Brief exposure intended to obtain information or provoke a response. These techniques differ in visibility, movement and risk. |
+| Pre-aim / prefire | Preparing the crosshair for an expected position / firing based on that expectation before confirming the target. |
+| Off-angle / headshot angle | A less expected hold / a position exposing a small target, often primarily the head. They are different properties. |
+| Anti-flash / pop flash | Preparing to avoid a flash / a flash designed to leave little warning before detonation. Neither assures the following fight. |
+| Scaling | Advancing with controlled coverage and usable support. It need not mean always walking or always rushing. |
+| Choke / lane / choke isolation | A constrained route / a line of access / temporarily removing a threat to simplify the remaining fight. |
+| Default / set execute | A distributed opening that seeks information and control / a coordinated attack with assigned tasks. A default can develop into an execute. |
+| Contact / rush / pop | An approach acting on contact / an early committed attack / a coordinated emergence. Teams may use these labels differently. |
+| Fake / conditioning | Presenting a threat to redirect attention / building expectations through repeated behavior. Opponent reactions determine value. |
+| Lurk / late lurk | A separate threat or information route / activating it as the main action develops. Being far away alone is insufficient. |
+| Anchor / lean / rotate / stack | Maintain area responsibility / move help closer / transfer coverage / concentrate defenders while accepting weakness elsewhere. |
+| Retake / post-plant | Re-entering a lost site to secure the objective / the state after planting, with defense now organized around the bomb. |
+| Tap / stick / fake defuse | Start a defuse briefly / continue it / use its cue to provoke a response. Knowledge of time and kits changes the choices. |
+| Eco / force / half buy / bonus | Preserve funds / invest with incomplete resources / balance current and next purchase / retain carried weapons into the next round. |
+| Anti-eco / exits / hunt | Play against a limited buy / late kills around escape / actively seek surviving equipment. None makes weapon sacrifice free. |
+| Dry peek / re-peek | Expose without enabling utility / expose again after contact. Repeating a duel changes the opponent's information. |
+| Gap / timing window | A temporarily uncovered route / a period when a particular action can work. Neither is a permanent property of a position. |
+| Reset | Can mean aim/recoil recovery, disengaging to rethink, or weakened buying resources after losses. Specify which. |
+| ADR / K/D / KAST | Average damage per round / kills relative to deaths / a provider-defined measure involving kills, assists, survival or trades. Check eligibility and trade definitions. |
+
+## 35. Worked situations and changing conditions
+
+These constructed situations combine the preceding concepts. They illustrate
+reasoning, not new historical evidence or personal experiences. The alternatives
+are conditional on the stated information; different observations can reverse
+the preferred action.
+
+### A. Close enough to follow, unable to trade
+
+On Mirage, the lead attacker moves under balcony while the follower remains
+around Tetris. The lead dies to a defender the follower cannot see. Closing
+distance alone cannot fix the blocked line. Before contact, choose a connected
+route or assign utility that removes that defender; at contact, a prepared
+weapon and actual line determine whether a trade exists. If an unexpected second
+defender covers the connecting route, blindly chasing the death creates another
+isolated fight. This follows the reviewed entry-route example in section 17.
+[Entry routes](#source-entry-routes)
+
+### B. Useful flash, unusable timing
+
+A support player blinds the intended defender, but the entry is still clearing
+an intervening corner. The utility's effect occurs before its recipient is ready.
+Improve the timing by connecting the flash to the entry's exposure cue or choose
+a throw that supports the intervening fight. If the entry is already fighting,
+consider whether the flash blinds that teammate or forces them to turn. Enemy
+blind time alone cannot settle whether the flash helped.
+[Utility purpose](#source-utility-purpose), [Support flash](#source-support-flash)
+
+### C. A promising rotation with no handover
+
+Pressure is reported elsewhere and the anchor starts leaving. The supposed
+replacement is behind smoke and cannot watch the route. Re-establish coverage,
+move help closer without fully leaving, or explicitly accept a weakened site
+when the evidence warrants concentrating elsewhere. Confirmed bomb commitment
+and a usable replacement change the choice. Keeping the anchor in place despite
+those changes can waste a chance to support the actual objective.
+[Rotation handover](#source-rotation-handover)
+
+### D. The same molly creates opposite results
+
+Fire that stops attackers at a choke can buy time for an arriving rotator.
+In a prepared crossfire intended to catch their advance, the same delay can
+let them reconsider and bypass the fight. Identify whether the intended value
+is time, displacement or entry into the setup before recommending the grenade.
+Its damage total alone does not describe that value.
+[Delay exception](#source-delay-exception)
+
+### E. A kill does not settle the save decision
+
+A CT gets a kill during a late retake. Re-evaluate routes, remaining opponents,
+defuse access and available time. If the kill removes the last blocker and the
+objective is reachable, continuing may now be possible. If the route remains
+too long, the kill has not repaired the timing. Then compare preserved equipment
+with the next buy. A poor next buy can raise the value of a realistic gamble;
+it cannot supply missing time. [Save decision](#source-save-decision),
+[Marginal save value](#source-marginal-save-value)
+
+### F. Space gained, objective disconnected
+
+An attacker gains mid while opponents pressure another route. The gained space
+is useful only if the team can exploit it without stranding the bomb. Identify
+who watches the carrier's path, whether the new route threatens defenders and
+when support can reconnect. Remaining distant may create valuable pressure or
+may leave a required plant impossible; location alone cannot distinguish them.
+[Anubis space](#source-anubis-space)
+
+### G. Low ADR, uncertain cause
+
+A report attributes low ADR to poor aim. First separate limited and full buys,
+roles, contact frequency and mechanically observable evidence. Low damage can
+come from few usable engagements, missed shots, poor routes or other causes.
+A first-person clip supporting a repeatable error improves the explanation;
+the aggregate number does not isolate it. More context should refine the claim,
+not add an invented confidence or personality problem.
+[Buy context](#source-buy-context)
+
+### H. Good lesson, unproven personal relevance
+
+"Trade your entry" names a familiar concept. A report showing where the follower
+lost the firing line, which alternative route was available and what threat that
+route exposes can add usable understanding. If the clip already shows a blocked
+route and absent support, merely demanding faster movement is misleading.
+The idea can be understood even when evidence of a recurring personal problem
+is missing. Familiarity, accuracy and usefulness remain separate judgments.
+
+## 36. Dated mechanics reference
+
+These are specific published changes checked on 2026-10-07, not a complete audit
+of every subsequent patch or custom server. Apply the recorded match's version.
+Derived tactical implications are explained separately in sections 13–16 and 33.
+
+| Published reference | Established fact | Application boundary |
+|---|---|---|
+| [Valve, 2023-03-22](#source-valve-responsive-smokes) | Smoke is volumetric and reacts to gunfire and explosions; bullets and HE can briefly open visibility through it. | Smoke coverage can change during contact. Exact openings and duration require the actual interaction. |
+| [Valve, 2026-03-18](#source-valve-reload) | Reloading replaces the magazine and discards ammunition left in it; reserve supplies differ by weapon. | A safe reload can still spend ammunition. This does not establish every weapon's current reserve count. |
+| [Valve, 2026-09-22](#source-valve-audio) | Holding reload enables a slower silent reload; sniper un-scoping no longer produces sound. | Silence and speed are different options. Un-scoping is not the same event as scoping in. |
+| [Valve, 2026-09-24–25](#source-valve-reload-fixes) | Follow-up fixes addressed silent-reload speed exploits and cases of persistent loud reload audio. | Do not teach the earlier exploit as a reliable current technique. |
+
+For an exact lineup, preserve the map revision, start position, aim reference,
+movement, release method, landing result, purpose and opponent counterplay.
+Text such as "aim here" cannot carry a missing visual reference. For an exact
+mechanic, preserve version, mode, weapon and test conditions. A recorded update
+is evidence of that change, not proof of every behavior on every server today.
 
 ## Source register
 
@@ -1130,3 +1367,43 @@ fl0m 1-500 — 2026-05-11. [Your CT Side Cache SUCKS... here's how to fix it](ht
 ### Source: valve-update
 
 Valve — 2024-05-23. [Release notes](https://store.steampowered.com/news/posts/?appids=730&enddate=1719429748&feed=steam_community_announcements). Historical incendiary spread/duration change, not a current numerical specification.
+
+### Source: costly-win
+
+HOLMESO [ENG]; 2026-03-26; [01:54]; [G2 Analyst Fixes a Level 10 FACEIT Player’s Dust2 in 20 Minutes](https://www.youtube.com/watch?v=X4d6ZqDyldE).
+
+### Source: economic-tracking
+
+HOLMESO [ENG]; 2026-05-05; [15:39]; [This ESEA IGL’s Inferno Was WRONG… I Fixed It](https://www.youtube.com/watch?v=z42eESeXLOc).
+
+### Source: team-buy
+
+isk 1-500; 2026-03-05; [06:11]; [FACEIT Level 6 Says He Plays Like Level 10 in CS2](https://www.youtube.com/watch?v=uP5MU4fnILw).
+
+### Source: marginal-save-value
+
+its voo; 2024-06-05; [30:50]; [Vitality Euthanize Donk](https://www.youtube.com/watch?v=_J3lhQGoYXo).
+
+### Source: sound-and-intent
+
+austincs; 2025-08-11; [11:37]; [A First Look at S1mple's New Team](https://www.youtube.com/watch?v=-3Ud1xaHU2o).
+
+### Source: equipment-denial
+
+austincs; 2025-05-15; [13:01]; [A First Look at FaZe S1mple](https://www.youtube.com/watch?v=SvuJCqWCzdc).
+
+### Source: valve-responsive-smokes
+
+Valve; 2023-03-22; [Counter-Strike 2: Responsive Smokes](https://www.youtube.com/watch?v=_y9MpNcAitQ). [Product description](https://www.counter-strike.net/cs2).
+
+### Source: valve-reload
+
+Valve; 2026-03-18; [Guns, Guides, and Games](https://www.counter-strike.net/newsentry/532126482488623353).
+
+### Source: valve-audio
+
+Valve; 2026-09-22; [Counter-Strike 2 Update](https://www.counter-strike.net/newsentry/674006995886407685).
+
+### Source: valve-reload-fixes
+
+Valve; 2026-09-24–25; [Counter-Strike 2 update archive](https://www.counter-strike.net/news/updates?l=english).

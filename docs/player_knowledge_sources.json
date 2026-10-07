@@ -1,5 +1,5 @@
 {
-  "edition": "0.3",
+  "edition": "0.4",
   "reviewer": "Codex; not independent human verification",
   "reviewed_candidates": [
     {
@@ -1190,6 +1190,96 @@
       "used_in_source_register": true,
       "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07",
       "context_sha256": "83723034dc22a8860fa20f2bea5600f4095bbd426623b2f88f36259b1b9af8c8"
+    },
+    {
+      "candidate": "C088",
+      "source": {
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-03-26",
+        "title": "G2 Analyst Fixes a Level 10 FACEIT Player’s Dust2 in 20 Minutes",
+        "url": "https://www.youtube.com/watch?v=X4d6ZqDyldE",
+        "pilot": "P08",
+        "timestamp": "[01:54]"
+      },
+      "review_note": "Retain replacement-purchase pressure after a costly win; do not infer exact team cash from survival alone.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "212091dc542992d10a6ef589362d95f576f22cc3ef210a01deadb40610d20f17"
+    },
+    {
+      "candidate": "C159",
+      "source": {
+        "creator": "HOLMESO [ENG]",
+        "date": "2026-05-05",
+        "title": "This ESEA IGL’s Inferno Was WRONG… I Fixed It",
+        "url": "https://www.youtube.com/watch?v=z42eESeXLOc",
+        "pilot": "P11",
+        "timestamp": "[15:39]"
+      },
+      "review_note": "Track survival and spending across wins; shared economic awareness, not a guaranteed reset after a fixed sequence.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "2bf853ccda63c0572beb4afdf8311f7fb9794c8c4e5abf1b4fe7017a05d63028"
+    },
+    {
+      "candidate": "C205",
+      "source": {
+        "creator": "isk 1-500",
+        "date": "2026-03-05",
+        "title": "FACEIT Level 6 Says He Plays Like Level 10 in CS2",
+        "url": "https://www.youtube.com/watch?v=uP5MU4fnILw",
+        "pilot": "P16",
+        "timestamp": "[06:11]"
+      },
+      "review_note": "Equipment and participation should fit the coordinated round; preserve planned role-specific savings as an exception.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "96617321d508e1fa50a90de58883961fa6bf13de85002b472284d33110f6f01a"
+    },
+    {
+      "candidate": "C534",
+      "source": {
+        "creator": "its voo",
+        "date": "2024-06-05",
+        "title": "Vitality Euthanize Donk",
+        "url": "https://www.youtube.com/watch?v=_J3lhQGoYXo",
+        "pilot": "P33",
+        "timestamp": "[30:50]"
+      },
+      "review_note": "Source considers poor following buy but cautions against copying the pro attempt. Poor savings value cannot make impossible defuse viable.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "deaf9bab4dd2b477fa641a958a66a2583297eb28320135a7f5d226e211b9fc93"
+    },
+    {
+      "candidate": "C306",
+      "source": {
+        "creator": "austincs",
+        "date": "2025-08-11",
+        "title": "A First Look at S1mple's New Team",
+        "url": "https://www.youtube.com/watch?v=-3Ud1xaHU2o",
+        "pilot": "P20",
+        "timestamp": "[11:37]"
+      },
+      "review_note": "Source Ancient introduction and surrounding execute read; unnecessary smoke activation can indicate a possible attack, not confirmed bomb commitment.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "240a898cca7e1c00e6f1704eb705ad8f54fd777fdb5bd03b00af4e6595c48361"
+    },
+    {
+      "candidate": "C362",
+      "source": {
+        "creator": "austincs",
+        "date": "2025-05-15",
+        "title": "A First Look at FaZe S1mple",
+        "url": "https://www.youtube.com/watch?v=SvuJCqWCzdc",
+        "pilot": "P23",
+        "timestamp": "[13:01]"
+      },
+      "review_note": "Covering a dropped AK denies a pickup opportunity; reject later source rhetoric guaranteeing the kill.",
+      "used_in_source_register": true,
+      "context_artifact": "C:\\Users\\dawso\\Developer\\CS2ReportBuilder\\repo\\..\\demoparser\\05_Coach_Knowledge\\cs2_profile_build\\audit_2026-10-07\\pilot_review_readiness.json",
+      "context_sha256": "e61b5bc57c137f3830eced4f78c063dfad0e0b3fbfd6e3ef4d887eef7abeef44"
     }
   ],
   "source_aliases": {
@@ -1257,6 +1347,54 @@
     "shared-utility": "Q39-Q51-083",
     "vertigo-revision": "Q39-Q51-094",
     "train-examples": "Q39-Q51-098",
-    "cache-setup": "Q39-Q51-104"
-  }
+    "cache-setup": "Q39-Q51-104",
+    "costly-win": "C088",
+    "economic-tracking": "C159",
+    "team-buy": "C205",
+    "marginal-save-value": "C534",
+    "sound-and-intent": "C306",
+    "equipment-denial": "C362"
+  },
+  "official_references": [
+    {
+      "alias": "valve-responsive-smokes",
+      "publisher": "Valve",
+      "date": "2023-03-22",
+      "title": "Counter-Strike 2: Responsive Smokes",
+      "url": "https://www.youtube.com/watch?v=_y9MpNcAitQ",
+      "additional_url": "https://www.counter-strike.net/cs2",
+      "checked_on": "2026-10-07",
+      "review_note": "Volumetric smoke response; product-page gameplay text also describes bullet/HE visibility openings."
+    },
+    {
+      "alias": "valve-reload",
+      "publisher": "Valve",
+      "date": "2026-03-18",
+      "title": "Guns, Guides, and Games",
+      "url": "https://www.counter-strike.net/newsentry/532126482488623353",
+      "additional_url": null,
+      "checked_on": "2026-10-07",
+      "review_note": "Magazine replacement discards remaining ammo. Weapon reserves differ; no exact per-weapon table imported."
+    },
+    {
+      "alias": "valve-audio",
+      "publisher": "Valve",
+      "date": "2026-09-22",
+      "title": "Counter-Strike 2 Update",
+      "url": "https://www.counter-strike.net/newsentry/674006995886407685",
+      "additional_url": null,
+      "checked_on": "2026-10-07",
+      "review_note": "Slower silent reload by holding reload; sniper un-scoping sound removed. Do not generalize to scoping in."
+    },
+    {
+      "alias": "valve-reload-fixes",
+      "publisher": "Valve",
+      "date": "2026-09-24–25",
+      "title": "Counter-Strike 2 update archive",
+      "url": "https://www.counter-strike.net/news/updates?l=english",
+      "additional_url": null,
+      "checked_on": "2026-10-07",
+      "review_note": "Sep24 speed/shotgun exploits fixed; Sep25 persistent loud audio cases fixed. Checked official indexed archive text."
+    }
+  ]
 }
