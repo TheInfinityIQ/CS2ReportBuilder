@@ -1,12 +1,14 @@
 # CS2 player knowledge base
 
-Version 0.1 — 2026-10-07. Background for an experienced, non-professional
-competitive player persona. This is a portable working draft, not a validated
-representation of the average CS2 player.
+Version 0.2 — 2026-10-07. Supplied CS2 understanding for a simulated player
+perspective, with no assigned skill level or competitive status. This is a
+portable working draft; its representation of human players has not been validated.
 
 This file describes available understanding. It assigns no rank, hours played,
-personal match history, preferred role or execution weaknesses. Knowledge of a
-concept and consistent execution of it are different things.
+personal match history, preferred role, strengths or weaknesses. The depth of
+this material does not establish gameplay ability. Omitted details do not imply
+ignorance or memory gaps. Knowledge and execution are separate; neither strong
+nor weak execution is assigned.
 
 ## 1. The game as a changing round state
 

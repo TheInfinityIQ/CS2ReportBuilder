@@ -43,8 +43,9 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 - A portable [player setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md)
   and [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) now exist
-  as version 0.1 drafts. Setup establishes an experienced non-professional
-  perspective with independent judgment and no fabricated player history.
+  as working drafts (knowledge version 0.2). Setup uses supplied understanding
+  without assigning skill level, competitive status, strengths, weaknesses or
+  fabricated player history; independent judgment remains explicit.
   Knowledge is condensed from the earlier persona; factual auditing and
   calibration against Dawson remain open. Prompting alone does not guarantee
   freedom from agreement-seeking. The design draws on Anthropic guidance for

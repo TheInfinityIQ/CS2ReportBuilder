@@ -210,7 +210,7 @@
       },
       "docs/PROJECT_STATUS.md": {
         "summary": "Current implementation, catalog measurements, experimental player-persona files and unresolved verification gaps.",
-        "reviewed_sha256": "e3fa63eec088004cd93d2a90fb5eacead0079727626239c246a953e4f8dada3e"
+        "reviewed_sha256": "3c5710d8f6871e48b61d177990a1625f771a9d66514d171ce1ffe7527990f62e"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -288,12 +288,12 @@
         "reviewed_sha256": "f1c2ae15e1971df2865003aee0c6df2ed76c0eb40b4283497ff7b1f578538fc7"
       },
       "coach/player_persona/PLAYER_SETUP_PROMPT.md": {
-        "summary": "Persona setup only: experienced non-professional perspective, supplied knowledge boundaries, independent judgments and no invented history.",
-        "reviewed_sha256": "44a94a65bbbe8876b218abb793957cc0a72c9da2259d2af3ba7e75b18100459f"
+        "summary": "Persona setup only: supplied understanding, neutral skill/status, independent judgment and no invented strengths, weaknesses or history.",
+        "reviewed_sha256": "34a73526de3ef5dd789945df00ce9d861e667c7c1d4421fe7620b547b14446fb"
       },
       "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
-        "summary": "Version 0.1 qualitative CS2 knowledge for the player persona; provenance and unvalidated factual/calibration limits are explicit.",
-        "reviewed_sha256": "28dc85032b5209683d805c09c2aeaeba44b3db0e53702da4a3e0eb832ff408a8"
+        "summary": "Version 0.2 qualitative CS2 knowledge without assigned ability; provenance and unvalidated factual/calibration limits are explicit.",
+        "reviewed_sha256": "30493fc3e63e02cf81723f635cf6de0c0d496307cda1c2ab1f12f9a085bd8b7c"
       }
     }
   },

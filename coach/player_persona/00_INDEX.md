@@ -14,8 +14,8 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Version 0.1 qualitative CS2 knowledge for the player persona; provenance and unvalidated factual/calibration limits are explicit. | source / undated | curated |
-| [PLAYER_SETUP_PROMPT.md](PLAYER_SETUP_PROMPT.md) | Persona setup only: experienced non-professional perspective, supplied knowledge boundaries, independent judgments and no invented history. | source / undated | curated |
+| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Version 0.2 qualitative CS2 knowledge without assigned ability; provenance and unvalidated factual/calibration limits are explicit. | source / undated | curated |
+| [PLAYER_SETUP_PROMPT.md](PLAYER_SETUP_PROMPT.md) | Persona setup only: supplied understanding, neutral skill/status, independent judgment and no invented strengths, weaknesses or history. | source / undated | curated |
 
 ## Find a specific file
 
