@@ -14,7 +14,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Partial CS2 knowledge synthesis v0.4; intended target is comprehensive coach/pro/analyst knowledge across all available sources, without assigned gameplay ability. | source / undated | curated |
+| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | CS2 knowledge v0.5: 42 chapters, specialist applications, 23 Cache protocol cards, Mirage/Inferno systems and economy comparisons; comprehensive extraction remains incomplete. | source / undated | curated |
 | [PLAYER_SETUP_PROMPT.md](PLAYER_SETUP_PROMPT.md) | Persona setup only: supplied understanding, neutral skill/status, independent judgment and no invented strengths, weaknesses or history. | source / undated | curated |
 
 ## Find a specific file

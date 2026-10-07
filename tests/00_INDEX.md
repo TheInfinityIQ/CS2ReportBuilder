@@ -4,7 +4,7 @@
 Synthetic checks; tests do not require downloading demo data.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **19 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **20 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -28,6 +28,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [test_navigation.py](test_navigation.py) | Navigation must detect drift without altering evidence or isolated coach inputs. | executable check / undated | extracted |
 | [test_packet_jobs.py](test_packet_jobs.py) | Python definitions: test_inspection_excludes_failures_and_groups_exact_player_ids, test_selects_an_example_for_another_player, fake_builder, test_jobs_preserve_sources_and_previous_packets,… | executable check / undated | extracted |
 | [test_player_knowledge_audit.py](test_player_knowledge_audit.py) | Checks answer parsing, question boundaries and conservative handling of ambiguous, ellipsis and missing quote locations. | executable check / undated | curated |
+| [test_player_knowledge_corpus.py](test_player_knowledge_corpus.py) | Seven tests for lossless preparation, signed-punctuation preservation, prior exclusions/missing files, stale evidence, lesson references and unverified candidate labels. | executable check / undated | curated |
 | [test_repair.py](test_repair.py) | Python definitions: hurts, test_same_tick_hits_are_not_double_counted, test_row_order_does_not_matter_and_single_hits_unchanged, test_unknown_victim_is_never_chained_and_unknown_stays_unknown,… | executable check / undated | extracted |
 | [test_report.py](test_report.py) | Python definitions: ready, build, mutate, test_builds_with_both_tabs_and_shell, test_css_is_single_source_and_ai_cannot_style, test_player_surface_has_no_math_terms,… | executable check / undated | extracted |
 | [test_viewer.py](test_viewer.py) | Replay provenance and timing regressions, independent of real demo downloads. | executable check / undated | extracted |

@@ -1,6 +1,6 @@
 # CS2 player knowledge base
 
-Version 0.4 — 2026-10-07. Supplied understanding for a simulated player
+Version 0.5 — 2026-10-07. Comprehensive rebuild in progress. Supplied understanding for a simulated player
 perspective. No skill level, competitive status, personal history, strengths,
 weaknesses, execution consistency or memory gaps are assigned. Knowing these
 ideas establishes available understanding, not how well someone plays.
@@ -35,6 +35,10 @@ describe hypothetical or source-observed situations, not personal match history.
 | Does a statistic establish the explanation? | [Statistics](#27-statistics-and-the-meaning-of-a-finding), [demo evidence](#28-demo-evidence-and-reconstruction-limits), [usefulness](#30-familiarity-novelty-and-actionable-understanding) |
 | What does a term mean? | [Glossary](#34-shared-language-and-distinct-concepts) |
 | Is this a current mechanic or contextual advice? | [Version boundaries](#31-confidence-disagreements-and-version-boundaries), [dated mechanics](#36-dated-mechanics-reference), [source register](#source-register) |
+| Where is deeper specialist and team knowledge? | [Recovered short-source applications](#37-specialist-applications-recovered-from-short-sources), [Cache team system](#38-cache-team-system-and-practice-protocols), [further coaching applications](#39-further-coaching-applications-and-contested-shortcuts) |
+| How do defaults, calls and opponent adaptation fit together? | [Structured Mirage and improvised Cache systems](#40-structured-defaults-improvised-calling-and-opponent-adaptation) |
+| How do I reason about several buys and enemy resources? | [Economic planning and worked comparisons](#41-economic-planning-and-worked-comparisons) |
+| How does an Inferno team build and adapt a T-side plan? | [Inferno control, information and finish protocols](#42-inferno-control-information-and-finish-protocols) |
 
 A useful decision connects the available cue to an action, explains what the
 action changes, and identifies what would change the choice. Being uncertain
@@ -908,9 +912,15 @@ and approximately 5.8 million words recorded in the bundle index. All 526 saved
 NotebookLM candidate records across Q1–Q55 were parsed into a local audit. Quote
 location checks do not certify what the claims mean or whether they are current.
 
-This expansion uses selected surrounding passages, a targeted pilot review and a
-sample of excluded shorts. It is not a claim that all 5.8 million words or all
-570 pilot claims were reviewed. The original candidate files remain unchanged.
+The comprehensive rebuild has now prepared all 2,988 transcripts, including the
+former exclusions and deferred livestreams. After removing their duplicated
+plain-text copies, the prepared collection contains about 20.8 million words.
+Preparation is not semantic review. This edition uses selected surrounding
+passages, 140 reviewed short captions, five full longer transcript reviews and
+stratbook synthesis. The new pass has 122 resolved source-text dispositions and
+23 unresolved short captions; reviewing supplied text does not certify its
+video or underlying demos. It does not claim
+all source knowledge has been extracted. The original candidate files remain unchanged.
 The detailed build account distinguishes reviewed examples, exclusions and open
 work. Useful simulated feedback has not yet been calibrated against Dawson or
 a broader player population.
@@ -1095,6 +1105,7 @@ Derived tactical implications are explained separately in sections 13–16 and 3
 | Published reference | Established fact | Application boundary |
 |---|---|---|
 | [Valve, 2023-03-22](#source-valve-responsive-smokes) | Smoke is volumetric and reacts to gunfire and explosions; bullets and HE can briefly open visibility through it. | Smoke coverage can change during contact. Exact openings and duration require the actual interaction. |
+| [Valve, 2025-07-15](#source-valve-2025-economy) | Competitive CTs receive a $50 team award for each T eliminated; the update also increased incendiary spread speed and MP9 recoil while reducing its jumping accuracy. | Apply after this patch in the relevant mode. Earlier incendiary and MP9 advice needs its original version retained. |
 | [Valve, 2026-03-18](#source-valve-reload) | Reloading replaces the magazine and discards ammunition left in it; reserve supplies differ by weapon. | A safe reload can still spend ammunition. This does not establish every weapon's current reserve count. |
 | [Valve, 2026-09-22](#source-valve-audio) | Holding reload enables a slower silent reload; sniper un-scoping no longer produces sound. | Silence and speed are different options. Un-scoping is not the same event as scoping in. |
 | [Valve, 2026-09-24–25](#source-valve-reload-fixes) | Follow-up fixes addressed silent-reload speed exploits and cases of persistent loud reload audio. | Do not teach the earlier exploit as a reliable current technique. |
@@ -1104,6 +1115,979 @@ movement, release method, landing result, purpose and opponent counterplay.
 Text such as "aim here" cannot carry a missing visual reference. For an exact
 mechanic, preserve version, mode, weapon and test conditions. A recorded update
 is evidence of that change, not proof of every behavior on every server today.
+
+## 37. Specialist applications recovered from short sources
+
+Short explanations can carry distinct knowledge. These applications preserve
+the source's conditions; emphatic titles do not establish guaranteed kills,
+universal percentages or a complete visual recipe. They supplement the general
+concepts rather than assign habits or abilities to this persona.
+
+### Equipment selection for the intended action
+
+Utility purchases should match the round's jobs. A reviewed coach favors a molly
+over a second flash when no specific double-flash strategy is planned, while
+explicitly allowing a strategy that needs two flashes. The useful comparison is
+which problem the team still needs to solve, who can use each grenade, and what
+the purchase displaces. The claim is a coaching preference, not an engine rule
+that mollies are always more valuable. [Utility purchase](#source-short-buy)
+
+Picking up a weapon changes the available fights. Another reviewed example
+criticizes replacing a MAC-10 with a Scout immediately before clearing close B
+angles. The explanation explicitly retains Scout uses for early mid pressure
+and limited-money rounds. Preserve the weapon suited to the imminent task unless
+the replacement and the changed plan provide greater value; weapon price or
+prestige alone cannot choose the pickup. [Pickup choice](#source-short-pickup)
+
+A USP example criticizes repeatedly shooting a particular box that the shots
+cannot penetrate. The transferable knowledge is to distinguish obstructed aim
+from penetrable cover before spending ammunition. The caption does not identify
+the material or establish that every box resists every pistol. Its visual example
+is not a universal penetration table. [Material check](#source-short-material)
+
+### Contact preparation and movement transitions
+
+Searching for an unfamiliar molly during an active advance can waste the contact
+window and leave the player without a gun. A reviewed example recommends using
+a known throw when it has a purpose, otherwise drawing the weapon and supporting
+the fight. This does not discourage learning utility in practice; it distinguishes
+prepared execution from searching during a live timing. [Ready gun](#source-short-ready)
+
+A throw's movement is part of its recipe. In one review, starting to run before
+the intended stationary utility release causes the throw to fail. Release before
+starting the follow-up movement for that throw. Running and jumping lineups have
+their own required movement and must not inherit a blanket prohibition on moving
+with utility. [Throw inputs](#source-short-release)
+
+Walking protects information but prolongs exposure. One source identifies a
+site approach exposing window, door, site, left and car together: continuing to
+walk out assumes none of those defenders can punish the slow crossing. Another
+recommends a quiet Inferno apartments approach until contact, then a coordinated
+burst, because early running gives the nearby defense warning. Those are compatible
+phases, not a choice between always walking and always rushing.
+[Exposure transition](#source-short-walk), [Apartments contact](#source-short-apps)
+
+In a reviewed Glock fight, crouching and firing before an enemy is seen makes the
+player unnecessarily static. The coach favors lateral movement and shooting for
+that engagement. The advice preserves the distinction between a mobile pistol
+fight and a deliberate crouch used for a different angle or shot.
+[Glock movement](#source-short-glock)
+
+Two movement critiques describe stopping before aim preparation is complete,
+or moving forward/backward into an intended lateral duel. Prepare the crosshair
+through the exposure, stop for the intended accurate shot and recover movement
+afterward where the fight permits. This does not mean every route is purely
+lateral: approaching cover and executing a particular wall-running peek are
+different parts of movement. A separate spray critique targets prolonged crouched
+spraying that leaves an easy target, not every spray or a fixed bullet limit.
+[Stopping sequence](#source-short-stops), [Lateral duel](#source-short-lateral),
+[Spray commitment](#source-short-spray)
+
+### Utility interactions and opponent responses
+
+Throwing fire can induce a defender to draw blocking utility. A reviewed connector
+example exploits that response by peeking promptly rather than waiting for the
+fire to finish. Its opportunity is an occupied defender and a ready attacking
+weapon. If the defender keeps a gun ready, has support or already controls the
+exposure, the same timing can be dangerous. [Response window](#source-short-response)
+
+Fire coverage is geometry-dependent. A source describes a poorly placed ramp
+molly leaving a ledge route that an attacker can use to appear behind it.
+Recognize the actual gap rather than treating a grenade activation as complete
+route denial. The caption does not establish a safe route through every ramp
+molly or a damage-free crossing on every map revision.
+[Fire gap](#source-short-gap)
+
+After an aggressive first opponent, a supporting second opponent can remain at
+the same smoke or choke. A reviewed coach recommends maintaining attention there
+briefly when no other threat needs checking, while criticizing waiting too long.
+The speaker's informal frequency is not a measured probability or a universal
+delay. Updated information and other exposed routes determine when to turn away.
+[Second contact](#source-short-second)
+
+Utility popularity does not establish utility purpose. A reviewed smoke provides
+little for the actual round despite coming from a short social-media clip.
+Judge the lane removed, recipient, conversion timing and counterplay. A correct
+landing can still solve the wrong problem. [Smoke relevance](#source-short-purpose)
+
+### Visual information and map applications
+
+Shadows can provide information before an opponent's body appears. Two reviewed
+shorts connect a particular Dust2 lower-route hold and another clearing path to
+shadow visibility. The exact positions, light, graphics behavior and map build
+need the images; the captions alone cannot reconstruct them. A visible shadow
+is usable evidence when observed, not a promise that the player can see an enemy
+behind every wall. [Dust2 shadow](#source-short-shadow),
+[Clearing path](#source-short-shadow-path)
+
+A Dust2 example uses a teammate-assisted suicide boost to threaten players
+pushing lower. It illustrates committing a teammate, height and surprise to a
+defined route. Account for setup time, the booster's exposure and the lost normal
+coverage. The words "go here" do not establish the exact standing positions.
+[Dust2 boost](#source-short-boost)
+
+Ancient mid support flashes are described as popping behind the advancing
+teammates' view while affecting likely defenders, including a closer threat.
+Another cave example retrieves a teammate's flash and retains gun coverage for
+the recipient. Sharing the grenade and covering the supported action are part
+of the play. Actual teammate facing still determines whether the flash is safe.
+[Ancient mid support](#source-short-midflash), [Shared flash](#source-short-sharedflash)
+
+For an Ancient cave self-flash, the reviewed sequence includes a bounced throw,
+moving into the intended position, drawing the gun and peeking. A separate Ancient
+mid sequence moves its follow-up fire to stairs to preserve timing, then adds
+an HE before peeking. These supply purposes and ordering; their missing aim
+references must be recovered before reproducing the throws.
+[Cave self-flash](#source-short-cave), [Ancient timing](#source-short-ancient)
+
+An Overpass short combines ramp and playground fire with a flash over mid,
+then describes a peek, kill opportunity and fallback. Treat it as a coordinated
+control package with an exit, not a claim that one player carries two fire
+grenades or that every peek produces a kill. Confirm who supplies each component
+and the demonstrated endpoints. [Overpass package](#source-short-overpass)
+
+Mirage connector HE and a connector-smoke throw illustrate reopening a blocked
+line or covering a crossing. A Dust2 B-rush flash illustrates selecting a throw
+whose detonation threatens the defender watching the incoming lead player.
+These purposes are established by the explanations; neither a vague dot/antenna
+reference nor the title establishes a complete lineup or guaranteed effect.
+[Connector HE](#source-short-conbreak), [Connector smoke](#source-short-consmoke),
+[Dust2 lead flash](#source-short-bflash)
+
+A Mirage B-retake example uses a crouched view of an opponent's legs around car
+to choose between penetration and a prepared peek. The information step can
+precede exposing for the duel. The geometry and permitted penetration still
+require the actual demonstrated position and map build.
+[Mirage car information](#source-short-car)
+
+### Learning, legacy advice and a reported defuse technique
+
+A sensitivity heuristic asks whether the player can perform the necessary peek
+and turn comfortably with a swipe. It is a practical movement check alongside
+small aim control, not a universal DPI value or proof that settings alone decide
+performance. [Turning comfort](#source-short-sensitivity)
+
+Two 2021 explanations offer historical perspective: mechanical superiority can
+win despite poor tactics, and concentrating five players in Inferno banana can
+expose more bodies to shared utility damage. Preserve those mechanisms without
+inferring that strategy is irrelevant, or that five-player banana actions are
+always wrong under current rules and coordinated timing.
+[Aim and decision outcome](#source-short-aim), [Banana concentration](#source-short-banana)
+
+A December 2025 short reports throwing a flash while continuing a defuse. The
+speaker's suggested delay is informal, and the clip is not a specification of
+current input behavior or a verified blind interval. This is a reported technique
+to verify in the matching build before teaching an exact sequence. It also
+illustrates the separate costs of continued objective progress, utility timing
+and exposure. [Reported defuse flash](#source-short-defuse)
+
+## 38. Cache team system and practice protocols
+
+This section draws from the local **FaZe Cache T Side Stratbook**, a reconstruction
+of five supplied match archives, not FaZe's private call sheet. Its underlying
+event exports have not been independently re-analysed for this knowledge build.
+The stratbook covers 65 T rounds including overtime. It separates observed
+events, inferred purposes, uncertainty and practice adaptations. Retain those
+distinctions when using its lessons. There are no confirmed purchases, voice
+calls, view angles, complete inventories or exact throw inputs in that source.
+[Stratbook](#source-cache-stratbook)
+
+### System, allocation and route selection
+
+The recurring structure is a central working group, retained A and B access,
+and flexible delivery of a rear bomb. The book classifies four default families
+in 47 of 65 rounds: 18 ground-mid, 15 delayed-boost, nine A-weighted and five
+B-heavy. Those frequencies describe the supplied sample and analyst categories;
+they are not an optimal mix or an exhaustive repertoire. A default can develop
+into an execute, a switch and a post-plant protocol without becoming four
+independent rounds for statistical counting.
+
+The usual functions are mid opener, mid partner, A extremity, B extremity and
+rear utility/AWP flex. They can temporarily form different distributions as
+support moves. In the sampled rounds, jcobbb often opens mid; Twistzz shares
+mid or utility support; Neityu often preserves A access and supplies mid utility;
+frozen often preserves B pressure; JBOEN supplies flexible AWP/utility and bomb
+support. These are observed tendencies, not permanent player roles or a fixed
+five-player formation. A replacement roster should rehearse responsibilities.
+
+Ground-mid access can feed highway for A, vents for B or CT-link pressure.
+The destination depends on usable routes and surviving support. Having a player
+cross a named sector does not establish that the sector was cleared. Losing
+mid changes the available system; moving everyone to the final open choke does
+not automatically restore a workable entry. Preserve retained access while
+re-establishing a contact/trade relationship.
+
+### Five pistol structures with different requirements
+
+**Boost plus door toward A:** two elevated mid players and two door players wait
+for rear smoke/flash support. Both routes must survive the shared contact window;
+the sampled attempt loses the mid pair before the A pair can convert. Rehearsing
+a cancellation if mid disappears is a practice adaptation, not a recovered call.
+
+**Ground mid plus door toward A:** a three-player ground-mid advance combines
+with retained door presence and rear A utility. A close retaliation can preserve
+the highway branch, while the late main supporter contributes another route.
+The carrier follows the surviving mid group. Its two-player eventual plant is
+not evidence of a stable full-team post-plant.
+
+**Boosted mid through CT link toward B:** three players use the longer CT-link
+wrap, while one keeps B access and another supplies rear mid utility. This route
+is distinct from the vents route of rifle splits. Losing extremity support can
+leave a solo plant and retake defense even if the wrap gains access.
+
+**Four staged at B with delayed support:** the carrier and lead rifle/pistols
+cross checkers as rear site fire, flashes and tree-side smoke develop. In the
+sample, the smoke lands after the carrier dies. Coordinate the intended protected
+crossing to the utility state; elapsed round time alone is an inadequate cue.
+
+**Two A distraction, three B contact:** A utility and contact overlap the B group's
+fights. A front B death is traded, the trader continues clearing, and the carrier
+follows. The support can later intercept a rotator rather than immediately
+following the carrier. Some CT movement predates the main A utility burst, so
+the burst cannot be credited with causing every rotation.
+
+### Four default families and their branches
+
+**Ground-mid default:** mid opener and partner work with rear utility; A and B
+players retain approaches. A mid pick can lead to highway or vents, a B pick can
+accelerate delivery through B main, and an opening loss can require a trade or
+regroup. The book has fast and delayed instances of the same responsibility
+structure. Mid entry is not prescribed at one fixed second.
+
+**Delayed-boost default:** establish extremities, stage elevated pressure and
+release a prepared mid wave of isolation smoke, displacement fire and flashes.
+The B player retains local utility for the later split. Similar waves occur at
+different round times in the sample; the reusable order is route preparation,
+mid access, B support, contact and carrier. Exact boost construction and elevated
+smoke coverage require the corresponding map build and visual reference.
+
+**A-weighted default with B extremity:** main and door pressure develop with rear
+support and a mid flex, while the B player retains another option. An A pick can
+support main/door/highway convergence. B kills can instead pull the rear carrier
+to B while A pressure remains. The initial distribution does not prove a
+pre-planned A finish or fake.
+
+**B-heavy pressure with A access:** several B-side players supply tradeable
+pressure, while A retains a usable entrance and the rear/mid flex protects the
+bomb choice. Progress B after usable contact, or send support and the carrier A
+if attention shifts and the retained route is still available. Leaving a living
+checkers threat after switching can keep pressure credible. Recheck access if
+the destination extremity dies.
+
+### Five finish and opening modules
+
+**A main/door utility finish:** coordinate both approaches around rear isolation
+smokes, fire to displace site/elevated threats and successive entry flashes.
+Assign main lead/trader, door lead/trader, utility and carrier among the actual
+players. The source includes an attempt where the main group arrives too late
+to complement door contact. Its later clutch does not repair the earlier
+coordination. Align routes to usable utility rather than copy the failed clock.
+
+**Highway split with retained A entry:** ground-mid progress combines with main
+or door pressure. One mid player may continue holding rotations instead of all
+three following onto site. If mid is denied, stop or redirect the split; retaining
+one A player does not make a destroyed mid branch complete. The carrier can
+arrive by main while highway players clear another set of threats.
+
+**Vents/B-main split:** release mid access before spending the B finish package.
+The vents threat and B-main crossing must overlap; otherwise an isolated main
+group can consume the site utility before the flank threat arrives. Use site
+fire, a tree-side isolation smoke and flashes for the demonstrated purpose.
+A rear carrier follows the accessible B-main route, while a mid survivor can
+retain rotation pressure. Recovering a dead carrier is a reaction, not a required
+step in the execute. Exact grenade endpoints are not complete throw instructions.
+
+**B-main conversion:** a contact/trader pair creates access, local support manages
+checkers/vents and the carrier follows. A retained mid or opposite-site player
+can continue constraining defenders. Following early defender kills may require
+less local utility than entering an intact defense. A plant after picks is not
+automatically proof of a rehearsed full B execute.
+
+**Early A pressure with mid cover:** select the actual variant—ground-mid split,
+door burst, or concentrated main with mid utility. Combining their incompatible
+roles into one purported script produces a plan not present in the source. An
+early opening can still stall and plant late; plant time is not execute start.
+
+### Resource-specific applications
+
+**Low-utility pistol regroup:** surviving players gather around a closer route
+with a contact/trade chain and a protected carrier. Preserve a useful door or
+rear function until it is reassigned. Repeated multi-kills in the source show
+that moving four bodies into one choke is not sufficient. A stolen weapon can
+change the route or planting chance; confirmed cash is needed to distinguish
+force from half-buy in otherwise similar observed equipment.
+
+**Armored door burst with mid utility:** the canonical example allocates close
+weapons to a three-player door sequence, utility/main support to a fourth player
+and mid pressure to the fifth. The carrier follows the first two contacts.
+Loss of the mid player need not cancel a site route already opened by the door
+group. Reproducing roles and arrival relationships is more useful than turning
+the observed one-second sampled gaps into a universal spacing rule.
+
+**Rifle anti-eco default:** retain rifle-friendly fights, rear control and
+re-clear utility until contact supports gathering. Distinguish pure pistols from
+saved AWP/rifle or SMG/scout mixed buys. Site absence can reflect aggression into
+T territory rather than surrender. Several sampled anti-ecos fail; the opponent
+equipment label is not evidence that clearing or the rear assignment is optional.
+
+### Six mid-round and post-plant protocols
+
+**Convert a pick while retaining lanes:** the nearest support prevents recovery
+of the gained area, the carrier uses its safe route, and other players keep
+useful mid/opposite-site pressure. If the carrier already began moving before
+the kill, the entire switch cannot be attributed to that kill. A single opening
+can support a slower continuation instead of an instant hit.
+
+**Trade or regroup after aggression:** the nearest player trades if the opponent
+remains reachable; rear support can catch the aggressor's exit. Otherwise reuse
+a retained approach and prepare the re-clear. Kill-delay measurements do not
+establish line of sight, and a later movement does not by itself prove a
+rehearsed revenge protocol.
+
+**Keep extremity pressure while switching the bomb:** retain the destination
+entrance, leave credible pressure behind and route support/carrier through
+available rear space. Observable CT movement can support the mechanism without
+proving what the IGL called or every cue the defense perceived. The pressure
+player may contribute without reaching the eventual plant.
+
+**Retrieve and recover the bomb:** a rear drop can preserve destination choice;
+name a collector once usable access develops. For a forward death, clear the
+covering threat, protect recovery and account for travel plus planting time.
+An alternate route can help or distract. The eventual planter need not be the
+original carrier: all five sampled players plant. A late recovery success does
+not establish a desirable standard planting deadline.
+
+**Cancel denied mid:** withdraw the working group, retain a usable extremity,
+prepare a new contact/trade sequence and move the carrier along the rear. Some
+sampled cancellations succeed and others collapse after late regrouping. The
+next lane must be rechecked; utility blocked at mid and time remaining do not
+guarantee the last available site approach is open.
+
+**Defend with site and outside lanes:** assign immediate objective cover and
+useful main/door, vents/checkers or rotation-blocking positions among survivors.
+A distant player can still deny a route, but position alone does not prove they
+can see a defuse. Some rounds win after every T dies; other planted setups lose.
+The source therefore supports survivor-dependent priorities rather than a fixed
+five-player arrangement or a guaranteed crossfire.
+
+### Turning reconstruction into team practice
+
+Select one canonical round for a module before assigning roles; do not stitch
+unrelated variants into an invented protocol. Verify utility destinations,
+throw inputs and route geometry on the matching practice map. Rehearse once
+without opposition, then with the observed denial or an opening death, and
+practice the cancel, bomb recovery and shorthanded post-plant branches.
+
+The source's late plants illustrate recovery costs rather than a target clock.
+Set a practice decision deadline that leaves travel, re-clear, pickup and planting
+time. That new deadline, purchase allocation, exact angle assignment and spoken
+call are team adaptations; the event exports do not recover them. Review whether
+the chosen adaptation creates a working mechanism, then distinguish its failure
+from a poorly reconstructed source claim.
+
+## 39. Further coaching applications and contested shortcuts
+
+### Holding geometry and flash protection
+
+An Inferno A pistol example holds from an elevated bench rather than the usual
+height, with a door frame obstructing the demonstrated flashes. The mechanism
+combines an unexpected crosshair adjustment with a specific occlusion. It does
+not make the player immune to every flash or establish the exact position from
+text alone. An Overpass example similarly uses visible shadow information to
+avoid exposing unnecessarily for a check. Both depend on actual geometry and
+lighting rather than the name "off-angle."
+[Inferno bench](#source-short-bench), [Overpass shadow](#source-short-overpass-shadow)
+
+A rubber-band-peek example retreats briefly, then initiates its own renewed
+exposure instead of remaining stationary for the opponent's next swing. The
+change is who initiates contact and from what prepared position. It does not
+guarantee a networking advantage; the opponent can predict the re-peek or be
+supported. A separate AWP critique favors a wider prepared swing over exposing
+exactly into the sniper's held line. Available cover, isolation and utility
+remain part of whether that swing is sensible.
+[Re-peek initiation](#source-short-rubber), [AWP exposure](#source-short-vsawp)
+
+### Mobility has equipment and teammate conditions
+
+A jump-peek critique connects its usefulness to a following player who can
+convert the displaced aim, and highlights lack of armor as another vulnerability.
+Jumping alone merely to copy a professional's movement can sacrifice an accurate
+fight without enabling anybody. This is a situational critique; jump spotting
+for information and crossing under support are different purposes.
+[Jump support](#source-short-jump)
+
+Another example criticizes reaching an exposed elevated position without the
+AWP drawn and ready to scope. Prepare the weapon before arriving in the fight
+window. Learning a jump's path and learning to arrive ready for its next action
+are separate parts of the technique. Accuracy while airborne and the precise
+landing still require their own evidence.
+[Arrival readiness](#source-short-jumpready)
+
+### Information reliability and opponent scouting
+
+A stale "still at taxi" call surprises a player when the enemy has moved.
+The reviewed speaker uses a rating-based cutoff and harsh judgments to describe
+unreliable teammates. The supported situation is a failed position assumption;
+the rating stereotype does not prove every call from a group is false. Preserve
+location, observation time and confirmation, then consider reachable alternatives.
+Ignoring all teammate information would also discard useful evidence.
+[Call reliability](#source-short-calls)
+
+A reviewed Ancient pressure example recalls a defender's earlier instant smoke
+followed by a push. Similar cave pressure makes the speaker prepare for that
+defender moving toward ramp again. This is a conditional opponent model: prior
+behavior plus the present stimulus can identify a route to watch. The successful
+prediction does not turn the pattern into certainty or establish that the same
+player must repeat it after changing equipment or support.
+[Scouting cue](#source-short-scout)
+
+### Short tactical menus and their boundaries
+
+A Mirage anti-eco example replaces an isolated AK search with a simple team
+short/B action: cover connector and window, move the group short, and use an
+apartments player to clear car with fire. Its purpose is connected rifle contact
+and removal of relevant defensive lines. Check the actual saved guns, control,
+utility and rear coverage; the title's promise of winning every round is not a
+win-rate claim. [Mirage anti-eco](#source-short-mirage-eco)
+
+A Dust2 coaching shortcut offers fast long with suitable spawn, a chosen B rush,
+or doors isolation and short control, including an approach through lower.
+This is a compact decision menu for obtaining useful space, not an exhaustive
+map solution. Defender contests, teammate allocation, the bomb and the clock can
+require another branch. A separate mid example pairs smoke and fire for a B
+split after clearing the relevant space; retained utility becomes useful because
+that route is now reachable. [Dust2 menu](#source-short-dustmenu),
+[Dust2 mid split](#source-short-dustsplit)
+
+An Anubis B-pressure sequence combines an opening smoke, close-position HE,
+right-side fire and scaling with the gun. Afterward the player can spam, take
+an available fight or fall back and reset. The knowledge is sequencing a prepared
+pressure package with an exit and follow-up options. The caption's rectangle and
+shadow references do not establish an exact lineup or which close defender is
+actually present. [Anubis pressure](#source-short-anubis)
+
+An Ancient rotation-lane critique warns that exposing into a route receiving
+players from A and red can meet several defenders rather than one isolated duel.
+Understand where enemies converge and whether the attack can handle that
+attention. The source's "never peek" rhetoric does not eliminate a supported
+late flank or a different local-information state.
+[Rotation concentration](#source-short-rotation-lane)
+
+### Economy reasoning without copying a faulty shortcut
+
+A reviewed force-buy explanation compares preserving cash with an inadequate
+following-round purchase. That marginal-buy comparison is useful. Its numerical
+example treats a projected cash amount as insufficient for an M4 without clearly
+separating the bare weapon from armor, utility and team drops. Do not promote
+that shorthand to a current price table or conclude that being poor always
+requires a force. Specify the complete intended loadout, carried gear, team
+distribution and applicable loss reward before comparing the options.
+[Force-buy comparison](#source-short-force)
+
+### Visual recipes, movement inputs and support lessons
+
+An older window-smoke explanation deliberately adds lateral momentum to a
+jump-throw so the grenade travels farther. This illustrates why a stationary
+throw and moving throw are different recipes, not a universal movement input
+for every window smoke. Historical donut and Dust2 long-cross explanations
+similarly identify the isolation goal but still require their aim reference and
+map build to reproduce. No text-only "aim here" instruction supplies the image.
+[Moving throw](#source-short-momentum), [Donut smoke](#source-short-donut),
+[Long crossing](#source-short-cross)
+
+An Ancient B fire example describes a deeper landing and a visible flame that
+complicates a defender's view while the attacker approaches. The source also
+acknowledges taking slightly more setup time. Assess actual view obstruction
+and the timing cost; fire is not guaranteed opaque cover.
+[Deep fire](#source-short-deepfire)
+
+## 40. Structured defaults, improvised calling and opponent adaptation
+
+These three reviewed sessions supply different kinds of evidence: an ESEA team
+coaching conversation published in February 2026, a September 2026 professional
+stand-in's account of his calls, and a September 2026 review of a high-level Cache
+pug. The first conversation explicitly says its reviewed demo was about two years
+old. Publication date therefore does not certify the demonstrated map or engine
+version. The following systems preserve the explanations without inventing exact
+visual alignments, team communications that were not supplied, or guaranteed wins.
+
+### A. Give autonomy a shared operating structure
+
+A caller need not approve every mid-round action. If five players repeatedly ask
+permission for separate timings, the caller must solve several local problems
+while also deciding the round, and the requests consume communication space.
+Conversely, unrestricted independent actions can turn one coherent call into
+five incompatible rounds. A workable arrangement defines the shared goal, the
+space and support each role owns, which local actions players may initiate, and
+which call overrides those actions. Spawn-supported opening proposals can be
+settled during freeze time; announce meaningful mid-round action so teammates
+can adjust rather than silently consume coverage. This is a coordination design,
+not a ban on asking for help or communicating a change.
+
+The coach's example override is **freeze**: stop seeking additional fights and
+hold against pushes while the team restores spacing or chooses its finish. It
+addresses the player who gets an opening kill and immediately charges through
+connector beyond support. In a 5v3 or 5v4, there may be no need to offer that
+isolated duel. The keyword works only if everyone understands what to hold and
+what ends the hold. It does not mean stand exposed, ignore a necessary retreat,
+or wait until the clock removes every option. The useful invariant is controlled
+commitment, not zero initiative. [Team coaching](#source-structured-default)
+
+### B. A Mirage default has checkpoints and a defined finish
+
+The reviewed model can use three toward mid with one A and one B, or two mid
+with one underpass and the two extremities. These are role distributions, not
+mandatory counts in every buy. Exchange opening smoke duties according to spawn
+and throw speed so the utility is ready for the actual takers.
+
+1. **Establish a protected mid foothold.** Opening top-mid/window isolation and
+   support help place a player behind boxes. The AWP can cover aggression and
+   flash the taker out. The boxes player observes defensive responses from cover
+   instead of the whole group standing in valley. A and B presence retain route
+   options and restrict easy defender information.
+2. **Let support catch up.** While defensive connector utility delays progress,
+   hold against re-aggression and allow the underpass player to clear the route.
+   Reaching boxes does not authorize one player to run alone through connector
+   while the others remain behind smoke.
+3. **Renew the isolation needed for the next move.** If the opening window smoke
+   fades before the team is ready to advance, assign a replacement. The reviewed
+   team had smokes available but waited in positions exposed to window, connector
+   and short. Renewing window protection removes one of those simultaneous
+   threats. Top-connector smoke and timed support can then enable connector
+   control. A replacement is purposeful when window still threatens the chosen
+   movement; indiscriminately spending every smoke in window is not the lesson.
+4. **Declare the control checkpoint complete and choose a finish.** Connector or
+   ladder/short control creates options; it is not itself a bomb-site win. Call
+   a practiced A split, B split, contact, pressure-and-return variation or another
+   supported finish before scattered players start selecting fights separately.
+
+The coach also demonstrates underpass-heavy and B-pressure variations, including
+a window boost during pressure elsewhere. Those variations share a staging idea
+without requiring identical player counts or the same final bomb site. A default
+can fail at the opening when CTs contest mid aggressively; the reviewed example
+shows the attacking side losing those duels. Having a system does not guarantee
+that its first checkpoint is available. [Team coaching](#source-structured-default)
+
+### C. Use the AWP to release teammates from a coverage burden
+
+The reviewed AWP advances into a line toward top ticket/A while window is
+isolated. Riflers can then scale the relevant side of connector without each
+having to watch that distant swing themselves. The value is the protected route
+and the defender action punished, not merely the AWP getting a kill. After the
+advance, the AWP can reposition to cover short or join the evolving round.
+
+This depends on an actual unobstructed firing line and weapon readiness. A
+teammate saying they cover ticket does not prove they can see every step of the
+riflers' path. The source's exact right-side path and visual aiming line are
+not reproduced as coordinates here. Pair this idea with section 17's connectivity
+test: identify which defender can threaten each crossing and who can shoot them.
+The coach recommends an actively communicating AWP in that T-side system; it is
+not an engine rule that every team's AWPer must be its second-most vocal member.
+[Team coaching](#source-structured-default)
+
+### D. Pressure-and-return is a conditional finish
+
+The example named **Nexus** leaves one player in connector after control is
+established while the others group toward B. B pressure occupies defenders and
+may create a jungle timing for the connector player. If that player gains the
+relevant kill and access, the group can return through underpass into connector
+and finish A, protecting short on the return as needed. The switch depends on
+the opportunity actually opening, bomb travel, time, and retained routes. B
+utility alone does not prove A is now open. The connector player must communicate
+what was gained and what remains contested; otherwise the group runs toward a
+story rather than usable control.
+
+A familiar finish name compresses a shared assignment. It is useful because
+players already know who stays, who pressures, what triggers the switch, and
+where support moves. Teaching a name without those assignments creates no
+coordination. Other reviewed finishes retain the same opening utility and then
+regroup into an A contact, hiding the final choice behind a familiar opening.
+[Team coaching](#source-structured-default)
+
+### E. Coordination details can decide whether the system is usable
+
+Four players short may still lack the apartment angle or the car-clearing utility
+that an apartment player supplies. A player walking into B exposure with a molly
+out has not been made safe merely because several teammates are nearby. Allocate
+the throw to someone protected while another rifle covers contact, then advance
+when the throw and sightlines actually support it.
+
+Repeated palace jiggles can consume the timing created by a defender focusing on
+connector. One or two deliberate checks followed by a supported action may use
+that window; five or six unproductive checks may let the defender look back.
+This is a cue-to-action timing problem, not a universal maximum jiggle count.
+Similarly, a teammate audibly dropping out of window can suggest that window
+has been vacated. A player who remains hidden there may exploit the misleading
+sound instead of immediately searching for another risky fight. The sound is
+evidence about an action, not proof that every teammate left.
+
+Low-equipment rounds can also have connected assignments. When the team can
+afford the utility and appropriate pistols, a practiced grouped play may create
+an isolated route better than five independent searches. When little beyond
+Deagles is affordable, searching for a pick can be a deliberate alternative.
+The coach explicitly corrects the suggestion that every eco must be a set play.
+[Team coaching](#source-structured-default)
+
+### F. Match plan complexity to the roster's coordination readiness
+
+In the stand-in account, the caller had very few practice repetitions and an
+unexpected Cache match. He chose simple, grouped, fast and varied calls because
+a detailed unfamiliar slow default offered many coordination failure points.
+Examples include a highway-smoke/two-flash A pistol pop, an anti-force that
+combined long-range rifle fights with close-position fire, mid pops, and a B
+contact after previous A/mid pressure. This is evidence for adapting complexity
+to preparation, not a general conclusion that defaults are bad or randomness
+is good strategy. The account attributes several wins to teammates' exceptional
+entries and recovery of a disadvantaged round. That contribution must survive
+any explanation of the caller's success. [Stand-in calling](#source-cache-calling)
+
+His anti-force plan keeps the group connected, uses rifle range against close
+weapons, and clears threatening close cover with utility. An early boosted rifle
+fight can pressure the defense before the group executes B. When defenders have
+limited defensive utility, fire and isolation may remove their ways to remain
+in cover. This relies on assessed equipment and actual setup; an enemy half-buy
+can differ from the full buy inferred from estimated cash.
+
+Several mid variations change the signal that preceded the same space: a pop
+through smoke, a fast boost before expected utility, and later a slow quiet AWP
+search after many fast rounds. Opponents accustomed to early pressure may seek
+information when it is absent, supplying an AWP contact. Repeating the same
+opening utility can conceal different finishes; changing the pace can change
+the defender's information need. Neither approach requires pretending the caller
+knows the opponents' thoughts with certainty.
+
+Risk remains visible. One solo entry ignores other angles and has no immediate
+trader; the caller turns away on an audio cue and loses it. Another succeeds but
+is followed by a teammate flash that blinds him. A later B conversion omits the
+CT smoke he carried and suffers a kill through that lane. These are distinct
+execution and support costs, even when the round ultimately goes well. A report
+should identify them rather than infer that winning vindicated every choice.
+[Stand-in calling](#source-cache-calling)
+
+The final A pop is countered by a defender who stays concealed while fully
+flashed, waits for vision and takes a brief useful contact between flashes. A
+blinded defender need not fire and reveal themselves immediately. Attackers
+still need to clear tight cover and cover the intervals between flashes. A
+successful utility effect therefore does not establish that the site has been
+neutralized. The counter also shows why a previous successful call can acquire
+a predictable timing. [Stand-in calling](#source-cache-calling)
+
+### G. Cache mid: spawn, exposure and a connected conversion
+
+In the pug review, a fast CT spawn can enable garage isolation and boost fire
+while reaching the highway area. A slower spawn does not inherit that same safe
+timing. Traffic, movement execution and enemy utility also affect the route;
+the spoken account cannot certify a present-version unconditional safe arrival.
+A moving fire throw released a few steps too late misses its intended boost
+coverage. Reproduce the visual throw before relying on it.
+
+When two Ts are separated by smoke, adjust the swing to expose one first instead
+of widening into both firing lines simultaneously. After winning that first
+fight, another exposure can address the second. A bounce flash can support a
+re-peek and the order of checking smoke exits. The demonstrated opponent who
+breaks contact after being flashed can emerge at a different edge; aiming only
+at the first location ignores the action the flash just caused.
+
+The review initially dismisses an extra solo peek in a 4v1 as unimportant in a
+pug, then observes the round reaching a 1v1 and retracts that judgment. Preserve
+that correction: unnecessary exposure can throw away a numerical advantage
+in either environment. Retreating and arranging a double peek may secure the
+fight better when the objective and clock permit it. [Cache review](#source-cache-pug)
+
+### H. React to the second threat, not only the visible event
+
+A teammate killed near vents does not guarantee an immediate vent refrag is
+available—the killer may already have dropped out of view. Meanwhile, the kill
+can draw T attention toward vents and create a white-box/sandbag peek. The
+reviewed player waits on those plausible follow-up lanes while smoke protects
+him from vents, instead of chasing an unavailable trade. The explanation joins
+trade feasibility, attention and temporary cover; it does not justify abandoning
+every teammate after contact.
+
+Fire used to clear cover also needs a gun watching the forced exit. A defender
+displaced from forklift or Nuke heaven can run into a useful duel while the
+attackers look elsewhere. Likewise, knowing boost was mollied does not prove
+no one crossed it: the review shows an opponent accepting fire damage to obtain
+an unexpected timing. Smoke can extinguish fire, and a delayed fire can leave
+a crossing window. Preserve the difference between making a route costly and
+making it impossible. [Cache review](#source-cache-pug)
+
+An early B lurk smoke can conceal the number of Ts present and support a paired
+entry/trade through its edge. That advantage is larger against defenders lacking
+a shared check/flash/HE protocol. It remains an observed opportunity, not a
+guaranteed round or a fully specified throw. CT counter-spam also carries a cost:
+continuing to fire from exactly the same location gives a return spam a stable
+target. Reassess position between exposures rather than treating smoke as
+invulnerability. Mid access can enable vents and a B split, but those transitions
+still need the necessary utility, route coverage and teammates.
+[Cache review](#source-cache-pug)
+
+## 41. Economic planning and worked comparisons
+
+The reviewed economy guide explains multi-round decisions and worked match
+examples. Its numerical schedule and weapon-class shorthand are creator claims,
+not a newly audited current game-data table. Use version-appropriate award and
+price data for an actual calculation. The following reasoning preserves the
+guide's useful distinctions without turning its near-universal buying advice or
+three-survivor rule of thumb into engine laws. [Economy guide](#source-economy-guide)
+
+### Track cash and carried equipment separately
+
+For a player, start from cash before the round, subtract actual spending, and add
+the applicable personal and team awards. Track carried gun, armor, kit and unused
+utility separately. A teammate who saved a rifle may have the same incoming cash
+as one who died, yet a very different next-round buying requirement. A recovered
+rifle can change the team's options without creating cash. A drop reallocates
+equipment and spending within the team; it does not increase total resources.
+
+The cost of a **complete loadout** depends on role and task. A bare rifle price
+is not the cost of rifle, armor, utility and a relevant kit. An AWPer can need
+more retained cash than a rifler for the intended next buy. The guide's advice
+to retain about an additional thousand is a planning shortcut in its examples,
+not a fixed rule for every AWP purchase or patch. Establish the desired loadout
+and compare its actual cost with projected resources.
+
+### Compare buying policies across a sequence
+
+The CT post-pistol example contrasts saving immediately for a thinner earlier
+rifle buy with taking a coordinated force, then an eco if it loses, and arriving
+at a stronger later buy. The force supplies one additional contested round but
+risks delaying the stronger equipment. Compare the current force's realistic
+utility and weapon plan, the opposing anti-force equipment, the later loadout,
+and the score's remaining opportunities. A statement that buying is almost
+always correct after a loss is a speaker recommendation; loss bonus alone cannot
+select the best policy for every team and match.
+
+**Illustrative arithmetic, with inputs deliberately supplied:** a player has
+3,000 cash and a next-loss award of 2,400. Spending nothing leaves 5,400 if those
+conditions occur. Spending 1,200 leaves 4,200 under the same conditions. Compare
+both figures with the desired future loadout, not just the rifle price. A win,
+plant, kill award, saved equipment or teammate drop changes the projection. This
+example teaches budgeting; it does not certify a universal current loss schedule.
+
+A half buy should leave an explicit future budget. Buying one more grenade can
+be worthwhile when it gives the current round a connected plan, or costly when
+it prevents the intended next-round equipment. Five players independently
+spending to different future budgets can leave an apparently affordable team
+with incompatible buys. Coordinate who carries the strongest weapon, who supplies
+utility, and who can preserve enough for a later drop.
+
+### Survival controls reinvestment, not a magic survivor threshold
+
+The guide uses three or more survivors as a warning sign that a team's bank may
+grow, and two or fewer as a warning sign that replacements may consume it. The
+underlying mechanism is equipment retention and replacement spending. It is not
+a guarantee: two saved expensive weapons plus a large bank, or five survivors
+with cheap guns and exhausted utility, can produce different future resources.
+An enemy can win several rounds yet remain fragile after repeatedly replacing
+most of its equipment. Economic damage therefore includes forcing expensive
+replacement, not just reducing the visible round score.
+
+An unnecessary solo chase in a comfortable advantage can sacrifice the current
+round and the retained loadout. Assess both costs. Conversely, damage and kills
+in an otherwise lost round can remove enemy guns and raise their next spending.
+Whether attempting them is worthwhile depends on the chance to survive, the
+objective clock, recoverable equipment and the value of one's own carried gun.
+Calling every exit kill good economic damage skips those conditions.
+
+### Read enemy buys as possibilities supported by observations
+
+Track recent wins/losses, survivors, known saved or recovered guns, observed
+weapon kills, plants and purchases where known. Different weapons can have
+different kill awards, so a player repeatedly farming an eco with an SMG may
+have more money than a uniform team estimate suggests. Do not assume every
+member's bank equals the team's nominal round award. Weapon-class shorthand
+must be checked for exceptions and the match's version before exact arithmetic.
+
+The guide's saved-AK/scout example shows why an apparent low-cash CT team may
+still produce a dangerous mixed buy. Existing weapons and a possible drop can
+support pistols, armor and utility around a strong gun. The likely threat might
+be one dangerous line supported by cheaper weapons rather than five full rifles.
+An estimate supports a plan robust to those possibilities; it does not reveal
+an unobserved player's precise bank or prove what they will choose to buy.
+
+One expensive surviving weapon also creates an asymmetry after a later loss:
+its owner did not replace that gun in the previous round and may retain more
+cash than teammates who did. That player might supply a hero rifle or preserve
+an AWP budget. A prediction that the enemy is completely unarmed must account
+for those surviving resources. [Economy guide](#source-economy-guide)
+
+### Hunting has two budgets and a limit
+
+First compare the value of removing enemy carried equipment with the enemy's
+replacement capacity. If its bank already permits another full buy, a hunt may
+have little immediate effect. Then assess one's own replacement capacity and
+the route's danger. A fragile winning side can damage itself more than the
+losing side by losing rifles on a speculative hunt.
+
+The reviewed examples change the answer across consecutive successful site
+takes: preserve guns when the winning side needs to build its bank and the
+opponents can replace theirs anyway; consider a controlled hunt later when
+one's own side can absorb limited losses and removing saved guns changes the
+enemy buy. Name which players can risk their equipment and which should retain
+it. Having money does not justify an unlimited hunt or weaken the need to secure
+the bomb and survive its explosion. The guide's suggestion to let opponents save
+so they later invest more is one strategic preference, not a reason to decline
+every favorable exit kill. [Economy guide](#source-economy-guide)
+
+### Economy should change the fight offered
+
+Against likely close-range pistols or SMGs, a supported long-range rifle fight
+can exploit equipment advantage better than rushing into their strongest
+engagement. The guide gives Dust2 long versus close B fights as an application.
+That is conditional on spawns, available control, enemy positions and utility:
+economy does not override a known long stack or make a crossing safe.
+
+Likewise, weapon reward can influence selecting an SMG against low equipment,
+but the extra potential income is earned only through successful fights. Do not
+choose the farming weapon if its range and armor limitations undermine the
+round's intended plan. A bonus weapon can remain useful without being ideal in
+every fight; adjust support and route rather than pretending it is a full rifle.
+
+The T timeout-save question includes two different resources: carried equipment
+and the applicable timeout award treatment. Before recommending death to obtain
+money or survival to preserve a gun, calculate the version-specific result and
+the equipment's future value. The guide's characterization of justified T saves
+as primarily a pro concept does not itself exclude the same resource tradeoff
+from a pug. Mode-specific disconnect compensation and suicide-award claims are
+also unresolved here rather than generalized across competitive services.
+
+## 42. Inferno control, information and finish protocols
+
+This fuller Inferno coaching review complements section 26's selected map
+examples. It explains a team system, including alternatives and failed rounds,
+rather than a universal layout for solo queue. The reviewer analyzes a supplied
+demo; the transcript cannot independently establish the team's private calls,
+the exact visual utility recipes or how every opponent plays today.
+[Inferno IGL review](#source-inferno-system)
+
+### Plan the site problem before the next territory
+
+An early dispersed pistol can look for CT information plays before regrouping,
+but it still needs enough utility to solve the intended entry. The review's
+proposed B package combines two smokes, two flashes and a molly across the team.
+The reasoning is to address site cover and entry support; it is not a claim that
+one player carries that entire set or that every B pistol requires it.
+
+Before planning to take ruins, solve getting onto the site and dislodging the
+positions that can deny the entry or plant. Triple can threaten multiple
+crossings, stay hidden, and work with a CT support flash. Removing or covering
+that threat changes which angles entrants must address. One flash behind
+fountain and another toward CT can serve successive movement needs, provided
+the players actually move with those effects. The spoken transcript does not
+supply a complete lineup for either.
+
+The reviewed attackers win despite leaving threats insufficiently addressed.
+The reviewer explains that the defense broke its own connected setup: one
+defender exposed first instead of letting the two site players establish contact
+and then taking a difficult second angle. A coordinated defense could alternate
+contacts from strong positions and make the same attack much harder. Separate
+the useful attack spacing from the defender mistake that permitted success.
+Likewise, a B post-plant with several connected strong positions can be favorable
+because CTs must coordinate entrances, utility and trades. It is not automatically
+won at equal numbers. [Inferno IGL review](#source-inferno-system)
+
+### Build several defaults around a purpose
+
+The reviewer proposes a banana-heavy 4–1, a 3–2 with more A presence, and an
+A-oriented brackets plan. The 4–1 establishes numbers for banana fights and
+trades while the solo apartments player retains options. After gaining control,
+players can redistribute into 3–2 or send enough toward A for supported control.
+The counts express a chosen opening, not permanent roles throughout the round.
+
+Against an unfamiliar team, the solo apartments player can work more reservedly,
+survive and retain the ability to join rather than assume no aggressive setup
+exists. A very heavy banana commitment can temporarily use five players if
+remote A utility shows presence and the team accepts the information risk.
+That alternative depends on the opponent's willingness and ability to push for
+information. Professional caution is not guaranteed in a pug; label the model's
+assumptions before transferring it.
+
+The coach places the IGL nearer the principal banana contest so the caller can
+read flash quality, retake utility, traps and rotations firsthand. The AWP or
+another supporter can supply flashes while rifles handle initial contact. This
+is a task assignment within the reviewed roster: the caller need not enter every
+round or abandon an AWP whenever circumstances demand another arrangement.
+The coach explicitly leaves AWP frequency and support duties for the team to
+decide together. [Inferno IGL review](#source-inferno-system)
+
+### Read and contest banana utility as a sequence
+
+Different CT HEs create different risks: deep early damage, damage during the
+control fight, or a reactive HE when fire reveals a T commitment. Count observed
+throws and notice where they land and when, rather than merely declaring the
+defenders have used grenades. The second banana player can share this tracking
+so the IGL is not the sole observer. CTs can weaken a later B finish through
+utility damage without ever offering a direct duel.
+
+In the proposed early fight, the first banana utility is fire against the car
+area; a following player's HE responds to likely aggression. A second fire can
+extend pressure and induce another defensive utility set. The value is the
+coverage and resource response actually created, not a universal instruction
+to throw both fires into the same place every round. Learn the landing coverage
+and protect the rifle movements it supports.
+
+A late fire can allow a CT to step ahead of it, changing the threat. An HE that
+opens a banana smoke can support an AWP pick when its opening, flash and sightline
+are synchronized. The team must catch the expected advancing defender at the
+useful point, not after that defender has reached cover. Those effects can occur
+alongside A/brackets work, but simultaneous plans need allocated utility and
+coverage; saying both are happening does not coordinate them.
+
+The reviewer prefers a banana pressure smoke with fewer players there in a 3–2,
+while a heavy 4–1 may fight without it and preserve that smoke for the eventual
+execute. This is an explicit tradeoff between stabilizing fewer local takers and
+retaining later utility when numbers already support the fight. The cited team
+habit is an example from that source, not a permanent professional meta rule.
+[Inferno IGL review](#source-inferno-system)
+
+### Convert the opening on the connected side
+
+The example called **domino** reconnects players rapidly toward the side where
+kills created an opening. After two apartment kills and a limited remaining
+A defense, continuing risky banana fights can donate the advantage instead of
+using the accessible site. The team must communicate the kills, the remaining
+plausible positions and the route/bomb timing. The protocol is a quick connected
+conversion when the inference is supported, not an automatic run toward every
+isolated kill or a claim that rotations cannot have changed the remaining count.
+
+Against apparently weak buys, an overextended lead who clears alone still creates
+economic and round risk. Absence of usual banana or mid utility can signal a
+different setup or stack; it does not prove an empty route. Take the intended
+fight with the group, and preserve replacements even when the opponent has
+cheap weapons. [Inferno IGL review](#source-inferno-system)
+
+### Treat smoke protection as an assignment
+
+In a long trap, enough players can push and trade while the last controls the
+smoke route. Sending everyone into the visible fight leaves the concealment
+available to an opponent. The reviewed mid smoke allowed a player through when
+nobody maintained that watch. Break-and-check utility or a protected hold can
+address the risk; merely having thrown a smoke does not control its crossings.
+
+The suggested keyword **danger** marks an unusual smoke and raises attention
+to plausible pushes toward the relevant routes. It is an alert with an implied
+coverage response, not evidence that a push has occurred. Distinguish what the
+team observed from the opponent action it now considers possible. Assign who
+checks or holds so every player does not turn toward the same guess.
+
+### Choose the finish using surviving resources and feedback
+
+After taking brackets, an anti-push pause can collect information: what the
+apartments player hears, whether their smoke is still available, whether an
+opponent rotated, and which routes remain contested. That utility report affects
+the feasible finish. The reviewed A plan uses fire toward bike to force a
+defender toward pit and then converts the fight before focusing site. Exact
+coverage depends on the visual setup and revision; fire does not certify every
+defender exited as expected.
+
+For a late B finish, useful triple fire can reduce the number of positions that
+need clearing and preserve time for the plant. When the clock permits it, quiet
+approach through the supporting smokes can deny an early audible commitment.
+When time does not permit it, the same priority changes. The source's closing
+instruction is to adapt to what the round and team need, then to the opponent's
+observed pattern—not to accumulate inflexible rules about always walking,
+always rushing or always using one lineup. [Inferno IGL review](#source-inferno-system)
 
 ## Source register
 
@@ -1414,3 +2398,227 @@ Valve; 2026-09-22; [Counter-Strike 2 Update](https://www.counter-strike.net/news
 ### Source: valve-reload-fixes
 
 Valve; 2026-09-24–25; [Counter-Strike 2 update archive](https://www.counter-strike.net/news/updates?l=english).
+
+### Source: short-sharedflash
+
+isk 1-500; 2025-10-19; [best cave flash #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=0zxXA4fTFLE).
+
+### Source: short-shadow
+
+austincs; 2026-08-21; [insane shadow angle on dust 2 #shorts #cs2](https://www.youtube.com/watch?v=8Frbp6E4LlU).
+
+### Source: short-consmoke
+
+pienix 1-500; 2025-12-16; [Use this simple yet effective smoke and cross short easily!💨🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=dY63PagUzUE).
+
+### Source: short-aim
+
+its voo; 2021-05-15; [the Reality of Aim vs Gamesense #shorts](https://www.youtube.com/watch?v=6tGHN1wRMe4).
+
+### Source: short-banana
+
+its voo; 2021-06-27; [THIS is Why You Don't 5 Banana on Inferno](https://www.youtube.com/watch?v=l_a2iRFo9os).
+
+### Source: short-cave
+
+pienix 1-500; 2026-02-17; [Struggling to take cave control on Ancient? Do this and dominate!🔑🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=BO4j9BTzdng).
+
+### Source: short-boost
+
+pienix 1-500; 2025-12-21; [Just a simple way to get kills on D2 - use responsibly!🪜🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=qWvJX_cvl48).
+
+### Source: short-buy
+
+pienix 1-500; 2026-05-29; [Stop doing this buying mistake with utility🙅♂️ #cs2 #cs2tips](https://www.youtube.com/watch?v=CZTsH7GUJhw).
+
+### Source: short-ready
+
+pienix 1-500; 2026-09-07; [Don't waste time doing this, take out your gun!🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=ngDwzq4HE2E).
+
+### Source: short-gap
+
+isk 1-500; 2026-02-28; [abuse bad ramp molly #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=EgYxFHorfK0).
+
+### Source: short-material
+
+pienix 1-500; 2026-03-27; [You're wasting your USP bullets by doing this...❌ #cs2 #cs2tips](https://www.youtube.com/watch?v=KTvb7jZQJMw).
+
+### Source: short-overpass
+
+isk 1-500; 2025-11-24; [Most OP overpass util set #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=7I3fvDWu4Dw).
+
+### Source: short-spray
+
+isk 1-500; 2025-10-30; [CS2 Spray Control: The Mistake That's Ruining Your Aim #counterstrike #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=YKfjTiKcTHY).
+
+### Source: short-sensitivity
+
+pienix 1-500; 2026-01-14; [Use this rule to find out if your SENSITIVITY is good!🧑🏫🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=FPkiguDQntI).
+
+### Source: short-response
+
+isk 1-500; 2026-01-30; [take conn like a pro #cs2tips #csgo #cs2](https://www.youtube.com/watch?v=QOKL7nZz6Bk).
+
+### Source: short-conbreak
+
+pienix 1-500; 2026-03-14; [This simple con break will 10x your kills on Mirage🧠 #cs2 #cs2tips](https://www.youtube.com/watch?v=p-0GZMwzZmc).
+
+### Source: short-purpose
+
+isk 1-500; 2025-11-15; [Stop throwing tiktok utility #cs2 #csgo #cs2tips](https://www.youtube.com/watch?v=LapXtaPpyls).
+
+### Source: short-defuse
+
+pienix 1-500; 2025-12-23; [You can actually throw flashes while defusing the bomb - try it!🤯🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=tEmkEr4TQPM).
+
+### Source: short-second
+
+pienix 1-500; 2026-09-18; [Always expect 2nd enemy if they are doing an aggressive push!🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=KPI5LSqh9sw).
+
+### Source: short-midflash
+
+pienix 1-500; 2025-12-22; [Want to support your teammates rushing out mid? Use this💥🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=FqyJwkICg40).
+
+### Source: short-release
+
+pienix 1-500; 2025-12-21; [Avoid this crucial mistake - start running after util is throw is done!🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=RLiKIulGtY4).
+
+### Source: short-car
+
+isk 1-500; 2026-01-14; [retake trick on b site mirage #counterstrike #cs2 #csgo](https://www.youtube.com/watch?v=-EXFi4KH5qE).
+
+### Source: short-ancient
+
+pienix 1-500; 2026-01-27; [Use this to dominate Ancient mid and get free kills!👨🏫🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=hKy53lH7toM).
+
+### Source: short-pickup
+
+pienix 1-500; 2026-08-17; [Avoid this weapon switching mistake in your CS2 games!🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=IkVPd2d78Ew).
+
+### Source: short-shadow-path
+
+isk 1-500; 2026-01-20; [use shadows to youre advantages #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=KB320mKinf4).
+
+### Source: short-walk
+
+pienix 1-500; 2026-08-10; [Shifting in CS2 is okay but not for that long!🧠 #cs2 #cs2tips](https://www.youtube.com/watch?v=t82hJVPUvAk).
+
+### Source: short-apps
+
+pienix 1-500; 2025-12-19; [Rushing apts on Inferno is not a good strat... - stop doing it!🙈🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=kNFXuNCy2X4).
+
+### Source: short-glock
+
+pienix 1-500; 2026-06-11; [Avoid using glock like this - you're a free kill❌🧠 #cs2 #cs2tips](https://www.youtube.com/watch?v=btkgrCAPDVA).
+
+### Source: short-bflash
+
+pienix 1-500; 2026-09-06; [What flash to use when rushing B on Dust2?🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=f-60qDOhUE4).
+
+### Source: short-lateral
+
+isk 1-500; 2025-09-22; [never do this mistake when peeking in cs2 #csgo #cs2 #cs2tips](https://www.youtube.com/watch?v=arK3J_fMdMM).
+
+### Source: short-stops
+
+isk 1-500; 2026-02-02; [stop randomly stopping during strafes #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=4zdJd61UslA).
+
+### Source: cache-stratbook
+
+Local FaZe Cache T Side Stratbook; five supplied match archives, 65 T rounds. Evidence and practice distinctions are preserved in section 38. This is an analytical reconstruction, not independently verified team communications or a current-meta claim.
+
+### Source: short-donut
+
+austincs; 2024-07-10; [how to smoke donut in cs2 #cs2 #shorts #austincs](https://www.youtube.com/watch?v=-MtGY7p-TkU).
+
+### Source: short-bench
+
+pienix 1-500; 2025-12-17; [Steal this angle from m0nesy and farm on pistol rounds!🔥🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=LtpbRC3GUmY).
+
+### Source: short-calls
+
+pienix 1-500; 2026-02-04; [Doing this mistake in faceit soloQ will get you killed and annoyed!🙅#cs2 #cs2tips](https://www.youtube.com/watch?v=yJM4i5O2DtA).
+
+### Source: short-jump
+
+pienix 1-500; 2026-02-17; [Stop mindlessly copying PROs and being a free kill!🙅🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=hpecwuauqOo).
+
+### Source: short-vsawp
+
+isk 1-500; 2025-11-11; [How to peek vs awpers #cs2 #cs2clips #csgo](https://www.youtube.com/watch?v=N3LCQZJy9Q4).
+
+### Source: short-deepfire
+
+pienix 1-500; 2026-03-01; [The MOST annoying B site molly on Ancient 😈 #cs2 #cs2tips](https://www.youtube.com/watch?v=F5nj4St07wk).
+
+### Source: short-rotation-lane
+
+pienix 1-500; 2026-03-09; [Peeking this Ancient area is suicide #cs2 #cs2tips](https://www.youtube.com/watch?v=7TczHCYn8xU).
+
+### Source: short-dustsplit
+
+pienix 1-500; 2026-02-15; [Use this insane combo to dominate mid on Dust2🔑🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=yTuNknZrreg).
+
+### Source: short-cross
+
+austincs; 2024-07-09; [how to smoke cross on dust 2 #cs2 #shorts #austincs](https://www.youtube.com/watch?v=J4QAyLaGvro).
+
+### Source: short-overpass-shadow
+
+pienix 1-500; 2026-01-20; [If enemies are sneaking here you will see their shadows first!👨🏫🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=MGuBtiMicm0).
+
+### Source: short-jumpready
+
+pienix 1-500; 2026-01-11; [You're doing this jump wrong - you have to be ready to shoot!🧑🏫🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=VDaQLeW942M).
+
+### Source: short-mirage-eco
+
+pienix 1-500; 2026-05-27; [This is how to win every round vs pistols on Mirage!🤓 #cs2 #cs2tips](https://www.youtube.com/watch?v=kWiU29FhIAE).
+
+### Source: short-dustmenu
+
+pienix 1-500; 2026-03-21; [2x your winrate on Dust2 with this 20sec explanation🤫 #cs2 #cs2tips](https://www.youtube.com/watch?v=HJDROIch7GI).
+
+### Source: short-momentum
+
+austincs; 2024-06-28; [easy window smoke #cs2 #shorts #austincs](https://www.youtube.com/watch?v=6D9HKcYuXJA).
+
+### Source: short-rubber
+
+pienix 1-500; 2026-01-13; [This is a good example of rubber band peeking - steal it!🧑🏫🧠#cs2 #cs2tips](https://www.youtube.com/watch?v=xSrAkmsHU08).
+
+### Source: short-force
+
+pienix 1-500; 2026-03-28; [You're trolling your team if you eco in this situation ❌ #cs2 #cs2tips](https://www.youtube.com/watch?v=ywQZ8KH26-g).
+
+### Source: short-scout
+
+austincs; 2026-08-25; [reading the other team in CS2 #cs2 #shorts](https://www.youtube.com/watch?v=PvmiHCmzRNg).
+
+### Source: short-anubis
+
+isk 1-500; 2026-01-30; [donk abuses this util set on anubis #cs2 #cs2tips #csgo](https://www.youtube.com/watch?v=YaTENsQS9CI).
+
+### Source: structured-default
+
+isk 1-500; 2026-02-04; [This is why you need a structured default | ESEA Main Coaching](https://www.youtube.com/watch?v=xlJhDeYtPD4). Supplied transcript reviewed in full; original video/demo not independently reviewed.
+
+### Source: cache-calling
+
+Grashog; 2026-09-14; [0 Practice, 11 Rounds Won — My Calls vs FURIA Explained](https://www.youtube.com/watch?v=y_MbjXMWu84). Supplied transcript reviewed in full; original video/demo not independently reviewed.
+
+### Source: cache-pug
+
+Grashog; 2026-09-03; [Top Puggers Analysis - npl (Cache)](https://www.youtube.com/watch?v=t2QPAdzlxgM). Supplied transcript reviewed in full; original video/demo not independently reviewed.
+
+### Source: economy-guide
+
+austincs; 2026-05-29; [The Simple Guide to Economy in CS2](https://www.youtube.com/watch?v=u80g7AtlUDQ). Full supplied transcript reviewed; original video and demos not independently re-audited.
+
+### Source: inferno-system
+
+HOLMESO [ENG]; 2026-05-05; [This ESEA IGL’s Inferno Was WRONG… I Fixed It](https://www.youtube.com/watch?v=z42eESeXLOc). Full supplied transcript reviewed; original video and demos not independently re-audited.
+
+### Source: valve-2025-economy
+
+Valve, 2025-07-15: [official Steam update archive](https://store.steampowered.com/news/posts/?appids=730&enddate=1753737365&feed=steam_community_announcements). Competitive CT elimination team award, incendiary spread and MP9 changes checked 2026-10-07; this historical patch is not a full subsequent-update audit.

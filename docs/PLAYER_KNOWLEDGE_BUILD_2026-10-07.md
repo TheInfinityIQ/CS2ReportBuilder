@@ -1,13 +1,58 @@
 # Player knowledge rebuild — 2026-10-07
 
 The [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) is now
-version 0.4: a portable synthesis with navigation, terminology, conditional
-applications and dated mechanics references.
+version 0.5, with roughly 20,700 words. The comprehensive rebuild has started;
+it is not complete. The [coverage matrix and continuation record](PLAYER_KNOWLEDGE_COVERAGE.md)
+separate preparation, reviewed passages, compiled lessons and remaining gaps.
 The [setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md) remains separate
 and assigns no skill level, personal history, strengths or weaknesses. Both files
 are copied to Downloads for handoff. They are not added to coach-generation packets.
 
+## Comprehensive pass: implemented progress
+
+The new [corpus preparer](../scripts/build_player_knowledge_corpus.py) accounts
+for all 2,988 raw transcripts, including every prior short, old, deferred and
+noise exclusion. It preserves original files and does not infer review from
+inventory. Punctuation-preserving comparison removes 2,975 redundant plain
+copies; 13 differing parallel copies are retained. The prepared collection has
+20,807,343 words across 11,153 contiguous chunks, with hashes and boundary context.
+Length/date/format alone never produces a game-knowledge rejection.
+
+The same tool inventories 1,096 derived claims (526 saved answers, 570 pilot
+claims) and 37 supplemental documents. Existing support labels are inherited
+metadata, not fresh proof. These counts are separate from semantic review.
+
+New review decisions cover 140 short captions and five full longer transcripts.
+The 153 inspected chunks resolve 122 source texts, with 23 short-source visual or
+interpretation gaps and 11,000 chunks still pending. Eighty-seven new lesson
+records preserve supporting context and its hash. The preceding edition's 87
+selected candidate reviews remain separately identified, avoiding double-counted
+full-source review. The Cache book adds its evidence model and 23 protocol cards;
+the underlying 65-round reconstruction was not independently repeated.
+
+Sections 37–42 add specialist applications, Cache pistol/default/finish/resource
+protocols, additional map counterplay, a structured Mirage default and finishes,
+contrasting stand-in Cache calling, economic sequence comparisons, and a fuller
+Inferno team system. Observed events, inferred purpose, practice adaptations,
+visual dependencies and historical scope stay distinct. A July 2025 Valve update
+also supplies a dated CT elimination award/incendiary/MP9 reference.
+
+Source and prepared-text changes invalidate review coverage; duplicate lesson
+IDs and missing lesson references are rejected. Tests check those failure cases,
+lossless chunk reconstruction, preservation of signed numerical differences,
+excluded/new/missing-source accounting, and inherited candidate-label handling.
+These checks do not establish tactical correctness or useful simulated behavior.
+
+The rebuild is single-agent at Dawson's explicit request. No model behavior
+evaluation, paid external processing, video review or additional-agent review
+has been performed in this pass. The next work is source extraction and
+qualification reconciliation across the remaining coverage matrix, not another
+whole-corpus inventory.
+
 ## Available material and audit
+
+The sections below record the earlier 0.3/0.4 pass and the scope correction.
+They are historical build evidence; current completion status is given above.
 
 **Scope correction:** the owner clarified that a compact coaching-feedback
 reference is not the intended deliverable. Version 0.4 remains a partial synthesis,
@@ -248,7 +293,6 @@ The proposed substantial rebuild is:
    alone are insufficient. Full-corpus coverage and behavioral reliability remain
    different claims.
 
-This records the corrected design before a substantial processing workflow is
-implemented, as required by the working agreement. The comprehensive pass has
-not been performed. No additional agents or external paid processing have been
-authorized for it; delegation would require case-specific approval.
+This plan was approved after the scope correction. Implementation is recorded
+above; comprehensive semantic review remains unfinished. Dawson chose to keep
+this rebuild single-agent.

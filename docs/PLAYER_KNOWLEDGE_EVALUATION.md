@@ -1,10 +1,10 @@
 # Player knowledge sufficiency and evaluation
 
-Reviewed 2026-10-07 against knowledge version 0.4.
+Reviewed 2026-10-07 against knowledge version 0.5.
 
 The intended deliverable is one comprehensive CS2 knowledge document containing
 all distinct, relevant knowledge available in the project's sources, at the depth
-used by coaches, professional players and analysts. Version 0.4 does not meet
+used by coaches, professional players and analysts. Version 0.5 does not yet meet
 that scope. Its limited use in preliminary feedback trials is not an acceptance
 criterion for completion. Extensive knowledge is desired; personal gameplay
 ability and history remain separate. No fresh model evaluation was run during
@@ -23,8 +23,9 @@ but are not an exhaustive evaluation of coach/pro/analyst knowledge.
 | Distinguish familiar concepts from useful coaching | Explicitly supported | A known principle can still supply a better cue or application; no assumed execution deficit. |
 | Challenge an unsupported report explanation | Explicitly supported | Statistics versus causes, spectator versus player knowledge, available alternatives and source boundaries. Actual behavior untested. |
 | Discuss map-dependent tactics | Partial | Selected examples across ten maps; uneven depth and no exhaustive current playbooks. |
+| Explain coordinated team systems | Deeper partial coverage | 23 Cache protocol cards, phased Mirage default/finishes, contrasting stand-in calls, and fuller Inferno control/conversion protocols. Underlying demos are not independently re-audited. |
 | Supply exact current mechanics and lineups | Partial | Specific Valve updates are dated. Full prices, damage tables, timings and reproducible visual throws remain unverified. |
-| Recall the full transcript collection | Not established | 87 selected review items across 72 creator-video URLs; the 5.8-million-word corpus is not compressed exhaustively. |
+| Recall the full transcript collection | Not established | All 2,988 transcripts are prepared (20.8 million words); 122 source texts have resolved new dispositions, with 23 unresolved short captions and 11,000 chunks pending. Earlier selected reviews remain separate. |
 | Predict Dawson's reaction or other players' reactions | Not established | No supplied personal history or calibrated behavioral sample. Broad knowledge is not representative feedback by itself. |
 
 The goal is broad available understanding with accurate application. Calling the
@@ -37,6 +38,11 @@ particular aspirational phrase is prohibited.
 
 ## Why the revision helps
 
+- The [coverage matrix](PLAYER_KNOWLEDGE_COVERAGE.md) exposes topic gaps and
+  distinguishes full transcript review from earlier selected passages. Corpus
+  preparation no longer excludes material solely for length, date or format.
+- New chapters preserve full-session mechanisms, prerequisites, alternatives
+  and counterexamples rather than treating isolated tips as complete systems.
 - A question-to-section table and glossary provide entry points without copying
   the whole document into another summary.
 - Worked situations connect cues, actions, mechanisms and reversal conditions.

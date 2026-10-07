@@ -205,12 +205,12 @@
         "reviewed_sha256": "5e748f854be0863c888113cf3eb97efc6599abd860eccd0c42123355ce4f5c0c"
       },
       "README.md": {
-        "summary": "Project entry with pipeline, packet window, game catalog, player knowledge and data-root guidance.",
-        "reviewed_sha256": "01267a55442f798dd1cb1f474c35e075c83682066d1a444458059f2ad9a2cac8"
+        "summary": "Project entry with extraction, packet UI, catalog and player knowledge links; comprehensive knowledge rebuild remains in progress.",
+        "reviewed_sha256": "efd45d762e72b3a182f6b0960f1f6e756c1ac0b9ae42021acd5e7b1b2810b2d1"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation, catalog measurements, expanded player knowledge and unresolved verification gaps.",
-        "reviewed_sha256": "02f04a4729186b39003f0d5f8fa11f1cadb16e2bc5af42c1b0510ddd51dc0d2e"
+        "summary": "Observed implementation, catalog measurements and knowledge v0.5 progress; distinguishes prepared sources from semantic review and behavioral validation.",
+        "reviewed_sha256": "f013e5aea99cf593efd14c22dbb676e31e51ce007c8ef5408cf44df7b81e8ee8"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -292,16 +292,16 @@
         "reviewed_sha256": "34a73526de3ef5dd789945df00ce9d861e667c7c1d4421fe7620b547b14446fb"
       },
       "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
-        "summary": "Partial CS2 knowledge synthesis v0.4; intended target is comprehensive coach/pro/analyst knowledge across all available sources, without assigned gameplay ability.",
-        "reviewed_sha256": "3f49679f7907012a96e6de0d09b1ea00207215bbd610821682e0534069205974"
+        "summary": "CS2 knowledge v0.5: 42 chapters, specialist applications, 23 Cache protocol cards, Mirage/Inferno systems and economy comparisons; comprehensive extraction remains incomplete.",
+        "reviewed_sha256": "dd0b5c7ad1dbac0a3f66446515e9f66742d436e4e7bd4ab2e6209714cefeb309"
       },
       "docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md": {
-        "summary": "Knowledge build evidence and corrected proposal for comprehensive source coverage; full rebuild not yet performed.",
-        "reviewed_sha256": "ab54a7b7ef20cfa5ff4ba05bb12e54ee93a52de1085f724657b1ae22650793d7"
+        "summary": "Knowledge v0.5 build progress, corpus preparation, reviewed-source counts and approved comprehensive scope; earlier build accounts labeled historical.",
+        "reviewed_sha256": "001df53a1494ea597ba1ee4418fdfc5b073473de5b5a7686c7dd98a6a0bd638d"
       },
       "docs/player_knowledge_sources.json": {
-        "summary": "Metadata ledger for 87 reviewed knowledge candidates, source aliases, context hashes and four additional official mechanics reference groups.",
-        "reviewed_sha256": "02a4ec9acb019cda0b0699dc087c25445ba6b0c57b90d1aa1ad2e14b43992054"
+        "summary": "Metadata provenance ledger separating prior 87 candidate reviews from 87 new lessons, five full transcript reviews, Cache book scope and dated official references.",
+        "reviewed_sha256": "cf7c1c16d5318b0c8c864b0650a1e7dd6915697d5bf271b089b3949cd2d759f8"
       },
       "scripts/audit_player_knowledge.py": {
         "summary": "Reproducible local inventory and conservative quote-location audit for NotebookLM candidate knowledge; no entailment certification.",
@@ -312,8 +312,20 @@
         "reviewed_sha256": "bd4e3ed85e46d5fa1dcb93c47301b8e2b28d0782a641094b937bf628ae86c57a"
       },
       "docs/PLAYER_KNOWLEDGE_EVALUATION.md": {
-        "summary": "Partial coverage assessment and 16 unrun preliminary cases; v0.4 does not fulfill the comprehensive knowledge scope.",
-        "reviewed_sha256": "c1aaed90edf835ceaf3af63c307affcb51531c481bf698876493ec57a4ab51d4"
+        "summary": "Partial knowledge coverage v0.5 and 16 unrun application cases; separates document correctness, source completeness and simulated feedback.",
+        "reviewed_sha256": "2f19e697ad14ff82f2faf3b9ff8ca474dd632df276e8cbef7127157469a5d07e"
+      },
+      "docs/PLAYER_KNOWLEDGE_COVERAGE.md": {
+        "summary": "Maintainer topic matrix and exact continuation workflow; 122 resolved source texts, 23 unresolved captions and 11000 chunks pending; no full-coverage claim.",
+        "reviewed_sha256": "03e71622b8a4c3a85c27d858d69aeeb86183e3206745faf3424c2b54c74a9837"
+      },
+      "scripts/build_player_knowledge_corpus.py": {
+        "summary": "Resumable full-transcript preparation, saved-claim/supplemental inventory and bounded review batches; checksum-validated manual coverage without AI invocation or automatic certification.",
+        "reviewed_sha256": "1187fd5b53bf9cd0baea41d000d39c79082b260a789e01c2c8c41c160842b764"
+      },
+      "tests/test_player_knowledge_corpus.py": {
+        "summary": "Seven tests for lossless preparation, signed-punctuation preservation, prior exclusions/missing files, stale evidence, lesson references and unverified candidate labels.",
+        "reviewed_sha256": "aacdea6b636b025f8a100e8c3cfe2dd56a330deda6e5186455f2eb82567fce28"
       }
     }
   },
