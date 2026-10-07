@@ -344,8 +344,8 @@
     },
     "files": {
       "00_LEGEND.md": {
-        "summary": "Local layout and quick finder; new development entry references, with older corpus claims explicitly dated.",
-        "reviewed_sha256": "f63b9d1af271099720cc256445c9f8dfa5a3279b338e970b3b4af869ce4c9dd8"
+        "summary": "Local layout guide: raw demos now in Steam tournament/series or player/batch folders; analysis remains local. Other corpus and report tables retain their dated snapshot context.",
+        "reviewed_sha256": "e402411cfd6bba75e9a0b9ca177f95101459577a74c0229970706038c93d840e"
       },
       "05_Coach_Knowledge/ai_chat_history/ClaudeDemoparserFilesReview.txt": {
         "summary": "Developer handoff: shift to independent single-batch coaches, repository/Design v5 rollout, and packet testing as the next task.",
