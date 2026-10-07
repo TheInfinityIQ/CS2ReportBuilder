@@ -65,7 +65,8 @@
       "docs/history/agent-system": "Retired agent procedures retained as evidence, not active rules.",
       "docs/history/agent-system/2026-10-03": "Verified snapshots of the rules reset; MIGRATION.json records original locations and hashes.",
       "docs/history/project-records": "Preserved earlier project accounts, proposals, critiques and reviews; original references may name pre-migration paths.",
-      "docs/history/cleanup-2026-10-04": "Migration ledger for broader documentation cleanup; original paths and content hashes."
+      "docs/history/cleanup-2026-10-04": "Migration ledger for broader documentation cleanup; original paths and content hashes.",
+      "coach/player_persona": "Portable experimental player-persona setup and game knowledge; separate from coach-generation packet templates."
     },
     "files": {
       "docs/DATA_FOLDER_LEGEND.snapshot.md": {
@@ -208,8 +209,8 @@
         "reviewed_sha256": "9d39e6a12b318e1058398d8851e6eb05a72f4d98ff08724094b8028f4ebe43cc"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current observed implementation, catalog measurements, verification evidence and unresolved coaching gaps.",
-        "reviewed_sha256": "7905aa83de528d7d27c8a327f0d85a88cb100925b20549902f2f372d5d91026d"
+        "summary": "Current implementation, catalog measurements, experimental player-persona files and unresolved verification gaps.",
+        "reviewed_sha256": "e3fa63eec088004cd93d2a90fb5eacead0079727626239c246a953e4f8dada3e"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -285,6 +286,14 @@
       "tests/test_game_catalog.py": {
         "summary": "Catalog reuse, invalidation, publication, concurrency, recovery and fresh packet-validation checks.",
         "reviewed_sha256": "f1c2ae15e1971df2865003aee0c6df2ed76c0eb40b4283497ff7b1f578538fc7"
+      },
+      "coach/player_persona/PLAYER_SETUP_PROMPT.md": {
+        "summary": "Persona setup only: experienced non-professional perspective, supplied knowledge boundaries, independent judgments and no invented history.",
+        "reviewed_sha256": "44a94a65bbbe8876b218abb793957cc0a72c9da2259d2af3ba7e75b18100459f"
+      },
+      "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
+        "summary": "Version 0.1 qualitative CS2 knowledge for the player persona; provenance and unvalidated factual/calibration limits are explicit.",
+        "reviewed_sha256": "28dc85032b5209683d805c09c2aeaeba44b3db0e53702da4a3e0eb832ff408a8"
       }
     }
   },

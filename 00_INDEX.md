@@ -4,7 +4,7 @@
 README.md is the project entry; AGENTS.md holds development rules. Open known sources directly; maps are optional.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **241 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **243 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 ## Subfolders
 

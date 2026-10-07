@@ -4,13 +4,14 @@
 Current packet templates and explicitly retired prompts.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **7 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **9 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
 ## Subfolders
 
 - [handoff](handoff/00_INDEX.md): Current fresh-coach instructions. Do not add agent workflow context to generated packets.
+- [player_persona](player_persona/00_INDEX.md): Portable experimental player-persona setup and game knowledge; separate from coach-generation packet templates.
 - [prompts](prompts/00_INDEX.md): Legacy prompts retained for provenance, not current coaching instructions.
 
 ## Find a specific file

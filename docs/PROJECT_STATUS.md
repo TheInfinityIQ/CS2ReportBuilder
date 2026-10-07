@@ -41,6 +41,16 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
   costs, including one +25.7% overhead case. It measured returned characters,
   not billed tokens, and was assessed by the index author. Maps are optional.
 
+- A portable [player setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md)
+  and [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) now exist
+  as version 0.1 drafts. Setup establishes an experienced non-professional
+  perspective with independent judgment and no fabricated player history.
+  Knowledge is condensed from the earlier persona; factual auditing and
+  calibration against Dawson remain open. Prompting alone does not guarantee
+  freedom from agreement-seeking. The design draws on Anthropic guidance for
+  [role prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+  and [sycophancy research](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models).
+
 ## Known gaps
 
 - Independent factual and usefulness review of the eight reports remains open.
