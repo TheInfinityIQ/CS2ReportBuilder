@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **62 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **63 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -20,6 +20,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 |---|---|---|---|
 | [CLEANUP_2026-10-03.md](CLEANUP_2026-10-03.md) | Documentation cleanup — first batch — Date: 2026-10-03. Authorized by Dawson after reviewing the plan and delegating | reference; distinguish current state from historical claims / 2026-10-03 | extracted |
 | [CLEANUP_2026-10-04.md](CLEANUP_2026-10-04.md) | Broader documentation cleanup — Date: 2026-10-04. Completes the authorized documentation cleanup, following | reference; distinguish current state from historical claims / 2026-10-04 | extracted |
+| [COACHING_FEEDBACK_REVIEW_2026-10-07.md](COACHING_FEEDBACK_REVIEW_2026-10-07.md) | First-batch player feedback and consultant review: teaching failures, checked implementation gaps and proposed priorities. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
 | [DATA_FOLDER_LEGEND.snapshot.md](DATA_FOLDER_LEGEND.snapshot.md) | Dated layout snapshot with new entry references; historical process statements are not active rules. | layout snapshot / undated | curated |
 | [DATA_REPAIR_2026-10-06.md](DATA_REPAIR_2026-10-06.md) | Full viewer-data repair: 2026-10-06 — Dawson authorized repairing every eligible demo. All **351 demos across nine | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
 | [GAME_CATALOG.md](GAME_CATALOG.md) | Local SQLite catalog contents, freshness checks, extraction updates, refresh/query commands and measured loading improvements. | reference; distinguish current state from historical claims / undated | curated |
@@ -32,7 +33,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [PLAYER_KNOWLEDGE_EVALUATION.md](PLAYER_KNOWLEDGE_EVALUATION.md) | Partial knowledge coverage v0.5 and 16 unrun application cases; separates document correctness, source completeness and simulated feedback. | reference; distinguish current state from historical claims / undated | curated |
 | [player_knowledge_sources.json](player_knowledge_sources.json) | Metadata provenance ledger separating prior 87 candidate reviews from 87 new lessons, five full transcript reviews, Cache book scope and dated official references. | reference; distinguish current state from historical claims / undated | curated |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Observed implementation, catalog measurements and knowledge v0.5 progress; distinguishes prepared sources from semantic review and behavioral validation. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, map coverage, feedback findings, knowledge rebuild status and verification limits. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
 | [RAW_DEMO_LOCATIONS.md](RAW_DEMO_LOCATIONS.md) | Raw demo locations — The raw replay root is now: | reference; distinguish current state from historical claims / undated | extracted |
 | [TOOL_UI_PLAN_2026-10-07.md](TOOL_UI_PLAN_2026-10-07.md) | CS2 Coach Tools: workflow plan and implementation — Goal: let Dawson select the games and player, prepare evidence when needed, then | reference; distinguish current state from historical claims / 2026-10-07 | extracted |
 | [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and batch workflow — Evidence inspected before these repairs | reference; distinguish current state from historical claims / 2026-10-06 | extracted |

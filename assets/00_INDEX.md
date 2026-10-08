@@ -4,7 +4,7 @@
 Map art and transforms used in presentation.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **89 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **94 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 

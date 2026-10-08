@@ -1,0 +1,129 @@
+{
+  "owner": "Valve",
+  "mirror": "https://github.com/MurkyYT/cs2-map-icons",
+  "upstream_commit": "068761900db687827aae7ea48428296717dbf89d",
+  "verified_on": "2026-10-07",
+  "scope": "Nine requested base radars and Nuke, Vertigo, Train lower radars. Legacy aliases, Cache and Ancient v1 are outside this verification.",
+  "assets": {
+    "de_mirage": {
+      "file": "de_mirage.png",
+      "sha256": "5de1cc16362e538dc5f4561a24661cb1fb1c15c77ec289e32b44c0fc07bfb85b",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_mirage_radar_psd.png",
+      "calibration": {
+        "pos_x": -3230,
+        "pos_y": 1713,
+        "scale": 5.0
+      }
+    },
+    "de_nuke": {
+      "file": "de_nuke.png",
+      "sha256": "6230346d3ce969006062fbd02220b083245f621ef366ce26a42dc27a80120bd0",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_nuke_radar_psd.png",
+      "calibration": {
+        "pos_x": -3453,
+        "pos_y": 2887,
+        "scale": 7.0
+      }
+    },
+    "de_ancient": {
+      "file": "de_ancient.png",
+      "sha256": "88fe108f7cc54d89b9c6179155cc39f419aa02f79df1a3f36031049577fd1952",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_ancient_radar_psd.png",
+      "calibration": {
+        "pos_x": -2953,
+        "pos_y": 2164,
+        "scale": 5.0
+      }
+    },
+    "de_anubis": {
+      "file": "de_anubis.png",
+      "sha256": "7c9badbb4ecb655d3d789724ca9d615bb06abf721d776176018ee3263a8a7b94",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_anubis_radar_psd.png",
+      "calibration": {
+        "pos_x": -2796,
+        "pos_y": 3328,
+        "scale": 5.22
+      }
+    },
+    "de_overpass": {
+      "file": "de_overpass.png",
+      "sha256": "ab3bfff1c3cc8da47eda921511b3eb34028e24b718b85709ac080f123fd4c108",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_overpass_radar_psd.png",
+      "calibration": {
+        "pos_x": -4831,
+        "pos_y": 1781,
+        "scale": 5.2
+      }
+    },
+    "de_inferno": {
+      "file": "de_inferno.png",
+      "sha256": "e4929829f8475d2edcb44ee3537ffad094dc8008b4d6f5aa81e66e77ddb077ba",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_inferno_radar_psd.png",
+      "calibration": {
+        "pos_x": -2087,
+        "pos_y": 3870,
+        "scale": 4.9
+      }
+    },
+    "de_dust2": {
+      "file": "de_dust2.png",
+      "sha256": "3be20317d1383da6f390a5bb245cabb65857ef08b1e2c5b82b5938a8cb3167bb",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_dust2_radar_psd.png",
+      "calibration": {
+        "pos_x": -2476,
+        "pos_y": 3239,
+        "scale": 4.4
+      }
+    },
+    "de_vertigo": {
+      "file": "de_vertigo.png",
+      "sha256": "3cfa3f044ed5883098e78ab63939a3c9e39fc2c0c2100e59acf4e2c3fa09df43",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_vertigo_radar_psd.png",
+      "calibration": {
+        "pos_x": -3168,
+        "pos_y": 1762,
+        "scale": 4.0
+      }
+    },
+    "de_train": {
+      "file": "de_train.png",
+      "sha256": "26007eea00d58e722058b11b96b16e08d4b28bf5494a4df141463a7dbcb0648a",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_train_radar_psd.png",
+      "calibration": {
+        "pos_x": -2308,
+        "pos_y": 2078,
+        "scale": 4.082
+      }
+    },
+    "de_nuke_lower": {
+      "file": "de_nuke_lower.png",
+      "sha256": "040c958f141d0365ca9125388bc20228b0df0ac6abd1fe78d743ecfa1be4bb64",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_nuke_lower_radar_psd.png",
+      "calibration": {
+        "pos_x": -3453,
+        "pos_y": 2887,
+        "scale": 7.0
+      }
+    },
+    "de_vertigo_lower": {
+      "file": "de_vertigo_lower.png",
+      "sha256": "89ab966da946061906ab0d8876b9b45761291e8080149246611e12de526cd673",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_vertigo_lower_radar_psd.png",
+      "calibration": {
+        "pos_x": -3168,
+        "pos_y": 1762,
+        "scale": 4.0
+      }
+    },
+    "de_train_lower": {
+      "file": "de_train_lower.png",
+      "sha256": "c1852ca4d1f0ba7ccb426a853f57f203ab5431b32e59323b6bd5cd216d7b40ed",
+      "source_url": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/068761900db687827aae7ea48428296717dbf89d/images/radars/de_train_lower_radar_psd.png",
+      "calibration": {
+        "pos_x": -2308,
+        "pos_y": 2078,
+        "scale": 4.082
+      }
+    }
+  }
+}

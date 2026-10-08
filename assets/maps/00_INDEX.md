@@ -4,7 +4,7 @@
 Radar images and map metadata; asset presence alone does not validate historical compatibility.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **23 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **28 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -18,6 +18,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [de_ancient_radar_psd.png](de_ancient_radar_psd.png) | de ancient radar psd (png). | presentation asset / undated | filename |
 | [de_ancient_v1.png](de_ancient_v1.png) | de ancient v1 (png). | presentation asset / undated | filename |
 | [de_ancient_v1_radar_psd.png](de_ancient_v1_radar_psd.png) | de ancient v1 radar psd (png). | presentation asset / undated | filename |
+| [de_anubis.png](de_anubis.png) | de anubis (png). | presentation asset / undated | filename |
 | [de_cache.png](de_cache.png) | de cache (png). | presentation asset / undated | filename |
 | [de_cache_radar_psd.png](de_cache_radar_psd.png) | de cache radar psd (png). | presentation asset / undated | filename |
 | [de_dust2.png](de_dust2.png) | de dust2 (png). | presentation asset / undated | filename |
@@ -33,10 +34,14 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [de_overpass.png](de_overpass.png) | de overpass (png). | presentation asset / undated | filename |
 | [de_overpass_radar_psd.png](de_overpass_radar_psd.png) | de overpass radar psd (png). | presentation asset / undated | filename |
 | [de_train.png](de_train.png) | de train (png). | presentation asset / undated | filename |
+| [de_train_lower.png](de_train_lower.png) | de train lower (png). | presentation asset / undated | filename |
 | [de_train_radar_psd.png](de_train_radar_psd.png) | de train radar psd (png). | presentation asset / undated | filename |
 | [de_vertigo.png](de_vertigo.png) | de vertigo (png). | presentation asset / undated | filename |
+| [de_vertigo_lower.png](de_vertigo_lower.png) | de vertigo lower (png). | presentation asset / undated | filename |
 | [de_vertigo_radar_psd.png](de_vertigo_radar_psd.png) | de vertigo radar psd (png). | presentation asset / undated | filename |
-| [map-data.json](map-data.json) | JSON fields: de_ancient, de_ancient_v1, de_cache, de_dust2, de_inferno, de_mirage, de_nuke, de_nuke_lower, de_overpass, de_train | presentation asset / undated | extracted |
+| [map-data.json](map-data.json) | JSON fields: de_ancient, de_ancient_v1, de_anubis, de_cache, de_dust2, de_inferno, de_mirage, de_nuke, de_nuke_lower, de_overpass | presentation asset / undated | extracted |
+| [PROVENANCE.json](PROVENANCE.json) | Hashes and source URLs for nine requested base radars and three lower radars, verified 2026-10-07. | presentation asset / undated | curated |
+| [README.md](README.md) | Map asset coverage, pinned source verification, calibration and current floor-selection limits. | presentation asset / undated | curated |
 
 ## Find a specific file
 

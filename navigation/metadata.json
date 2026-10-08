@@ -209,8 +209,8 @@
         "reviewed_sha256": "efd45d762e72b3a182f6b0960f1f6e756c1ac0b9ae42021acd5e7b1b2810b2d1"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Observed implementation, catalog measurements and knowledge v0.5 progress; distinguishes prepared sources from semantic review and behavioral validation.",
-        "reviewed_sha256": "f013e5aea99cf593efd14c22dbb676e31e51ce007c8ef5408cf44df7b81e8ee8"
+        "summary": "Current implementation, map coverage, feedback findings, knowledge rebuild status and verification limits.",
+        "reviewed_sha256": "a62f63608640c5c2007e06ebf778a65d399654dce8be65d62efac1a20769c4f2"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -326,6 +326,18 @@
       "tests/test_player_knowledge_corpus.py": {
         "summary": "Seven tests for lossless preparation, signed-punctuation preservation, prior exclusions/missing files, stale evidence, lesson references and unverified candidate labels.",
         "reviewed_sha256": "aacdea6b636b025f8a100e8c3cfe2dd56a330deda6e5186455f2eb82567fce28"
+      },
+      "assets/maps/README.md": {
+        "summary": "Map asset coverage, pinned source verification, calibration and current floor-selection limits.",
+        "reviewed_sha256": "4f8c036e069a92bc293cd3f17161e35c66c436b532f78883510ac80001aca2db"
+      },
+      "assets/maps/PROVENANCE.json": {
+        "summary": "Hashes and source URLs for nine requested base radars and three lower radars, verified 2026-10-07.",
+        "reviewed_sha256": "96ebd060667ec7ae9df9e5ea8b2f99604901cee320d0cf2d9533e2dca91d26a4"
+      },
+      "docs/COACHING_FEEDBACK_REVIEW_2026-10-07.md": {
+        "summary": "First-batch player feedback and consultant review: teaching failures, checked implementation gaps and proposed priorities.",
+        "reviewed_sha256": "7ebae0c3691582093e90fc93805841d40b500b3e9af88a18ecb2c6ee118d3a9f"
       }
     }
   },

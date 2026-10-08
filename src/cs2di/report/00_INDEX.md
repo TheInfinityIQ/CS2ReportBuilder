@@ -22,7 +22,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [situation.py](situation.py) | Resolve a (demo, round) reference into a plain event timeline, from analyzed files only. | product implementation / undated | extracted |
 | [theme.py](theme.py) | The one place styling lives. The AI can never touch this: plans have no style fields. | product implementation / undated | extracted |
 | [viewer.js](viewer.js) | /* 2D round viewer (v3.5). Everything drawn comes from the demo: — - facing: recorded sidecar view angle when data.facing, else recorded aim events (held AIM_HOLD s), else facing unknown; marker shape stays… | product implementation / undated | extracted |
-| [viewer.py](viewer.py) | 2D round viewer: software-built playback of a round on the map, plus observed facts. Background: a radar image when verified map assets are installed (assets/maps: awpy's map-data.json + de_<map>.png),… | product implementation / undated | extracted |
+| [viewer.py](viewer.py) | 2D round viewer: software-built playback of a round on the map, plus observed facts. Background: a radar image when map assets are installed (assets/maps: map-data.json + de_<map>.png; source verification is… | product implementation / undated | extracted |
 | [weapons.py](weapons.py) | Validate item categories and map raw demo names to exact Valve equipment graphics. Two spellings exist in the demo files: the display name in `active_weapon_name` ("High Explosive Grenade", "M4A1-S") and the… | product implementation / undated | extracted |
 
 ## Find a specific file

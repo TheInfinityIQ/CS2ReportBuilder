@@ -1,8 +1,9 @@
 """2D round viewer: software-built playback of a round on the map, plus observed facts.
 
-Background: a radar image when verified map assets are installed (assets/maps: awpy's
-map-data.json + de_<map>.png), otherwise a map outline drawn from where players actually stood in
-the batch's games (accurate by construction, no downloads). Both use the same world->pixel
+Background: a radar image when map assets are installed (assets/maps:
+map-data.json + de_<map>.png; source verification is recorded in PROVENANCE.json),
+otherwise an outline estimated from sampled player positions in the batch.
+The outline is not verified map geometry. Both use the same world->pixel
 transform: px = (x - x0) / s, py = (y0 - y) / s.
 
 Nothing here is written by the AI: the coach picks a round and writes a note; the software draws.

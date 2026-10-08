@@ -4,6 +4,14 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 ## Observed implementation and artifacts
 
+- [First-batch player feedback](COACHING_FEEDBACK_REVIEW_2026-10-07.md) records
+  two original player reviews and the consultant's three-report assessment.
+  Useful contextual adjustments, example selection and claim-to-evidence
+  validation remain priorities; no revised coaching has yet been evaluated.
+  [Map assets](../assets/maps/README.md) now cover all nine requested maps,
+  including newly added Anubis, with verified image provenance. Lower radars
+  exist for Nuke, Vertigo and Train; automatic floor selection is not implemented.
+
 - A local Git checkout exists at CS2ReportBuilder/repo, alongside demoparser.
 - [Raw demo locations](RAW_DEMO_LOCATIONS.md) separate Steam replays from local
   analysis. Raw folders use tournament/series or player/batch; analysis collection

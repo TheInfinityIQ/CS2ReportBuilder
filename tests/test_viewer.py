@@ -16,6 +16,28 @@ from cs2di.report import viewer, weapons
 REPO = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.parametrize("map_name", [
+    "de_mirage", "de_nuke", "de_ancient", "de_anubis", "de_overpass",
+    "de_inferno", "de_dust2", "de_vertigo", "de_train",
+    "de_nuke_lower", "de_vertigo_lower", "de_train_lower",
+])
+def test_supported_maps_embed_verified_radar_without_outline(tmp_path, map_name):
+    """Missing map assets must not silently turn a supported map into an outline."""
+    import struct
+
+    assets = REPO / "assets/maps"
+    provenance = json.loads((assets / "PROVENANCE.json").read_text())["assets"][map_name]
+    png = (assets / provenance["file"]).read_bytes()
+    assert png[:8] == b"\x89PNG\r\n\x1a\n"
+    assert struct.unpack(">II", png[16:24]) == (1024, 1024)
+    assert hashlib.sha256(png).hexdigest() == provenance["sha256"]
+    radar = viewer.background(tmp_path / "nonexistent_batch", map_name)
+    assert radar["kind"] == "radar"
+    assert radar["img"].startswith("data:image/png;base64,")
+    cal = provenance["calibration"]
+    assert (radar["x0"], radar["y0"], radar["s"]) == (cal["pos_x"], cal["pos_y"], cal["scale"])
+
+
 @pytest.mark.parametrize("hz", [8, 16, 32])
 def test_render_preserves_sidecar_sample_rate(tmp_path, hz):
     demo = tmp_path / "demo"
