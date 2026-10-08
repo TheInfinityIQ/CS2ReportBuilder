@@ -1,10 +1,10 @@
 # Player knowledge sufficiency and evaluation
 
-Reviewed 2026-10-07 against knowledge version 0.5.
+Updated 2026-10-07 for knowledge version 0.6; original assessment concerns 0.5.
 
 The intended deliverable is one comprehensive CS2 knowledge document containing
 all distinct, relevant knowledge available in the project's sources, at the depth
-used by coaches, professional players and analysts. Version 0.5 does not yet meet
+used by coaches, professional players and analysts. Version 0.6 does not yet meet
 that scope. Its limited use in preliminary feedback trials is not an acceptance
 criterion for completion. Extensive knowledge is desired; personal gameplay
 ability and history remain separate. No fresh model evaluation was run during
@@ -116,6 +116,25 @@ failed retrieval, failed application and prompt-induced behavior before changing
 the document. Do not train the file merely to repeat these cases' expected wording.
 
 ## Useful next depth
+
+Edition 0.6 adds the following application probes. These are proposed checks,
+not executed scores. Their expected distinctions remain outside the persona's
+knowledge handoff and should be judged against the relevant sources as well as
+the document. They supplement, rather than exhaust, the original sixteen cases.
+
+| ID | Task input | Distinctions to assess |
+|---|---|---|
+| K17 | Two rifle players survive after contact. In case A only one known threat is exposed and support is ready; in B several uncleared lines become exposed and help arrives later. A coach recommends the same wide swing in both. Assess it. | Purpose and live threats change commitment; no universal wide/narrow correction. Outcome alone is insufficient. |
+| K18 | An attacker crosses a choke before the defensive smoke forms. In another round the defender throws it long before a plausible arrival while a teammate needs immediate help. Explain why “throw earlier” does not solve both. | Denial continuity versus premature spending; effect formation, opponent arrival and competing support task. Exact timings require case evidence. |
+| K19 | A teammate is nearby after a death. They still must clear another live angle and have a grenade out. A report says “stand closer to trade.” Assess its diagnosis and suggest what would distinguish alternatives. | Route/threat ownership/readiness/reset window; no inferred attention or proven tradeability from distance. |
+| K20 | A player gets an opening kill from surprise, then stays and dies. The report says “always retreat after a kill.” Compare a round with a safe fallback to one where remaining on the line is needed to deny an urgent plant. | Surprise changes but objective can justify continuing; distinguish a conditional cue from a habit diagnosis. |
+| K21 | A second-round eco suggestion buys HE for favorable spawns into an expected route. Another report mandates the same purchase with unknown spawns and a different enemy route. Assess transfer without inventing prices or damage. | Bounded investment purpose, likely opportunity and next buy; no universal grenade purchase or assured damage. |
+| K22 | A peeking guide says crouch-walking allows immediate accurate fire. A report uses that sentence to certify every weapon and firing state. What is established and what still needs checking? | Creator explanation versus weapon/state/build-specific fact; useful approach rationale does not establish universal accuracy. |
+
+Use the existing supported-reasoning/application/calibration/usefulness rubric.
+Record missing knowledge, access/application failure, missing case evidence and
+workflow restrictions separately. Persona confidence and agreement with a coach
+are not independent factual validation. Fresh-model runs remain outstanding.
 
 Prioritize source work when an actual report exposes a gap: more current map
 protocols, verified equipment/economy tables, visual lineup references and examples

@@ -1,14 +1,34 @@
 # Player knowledge rebuild — 2026-10-07
 
 The [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) is now
-version 0.5, with roughly 20,700 words. The comprehensive rebuild has started;
+version 0.6, with roughly 22,394 whitespace-separated words. The comprehensive rebuild has started;
 it is not complete. The [coverage matrix and continuation record](PLAYER_KNOWLEDGE_COVERAGE.md)
 separate preparation, reviewed passages, compiled lessons and remaining gaps.
 The [setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md) remains separate
 and assigns no skill level, personal history, strengths or weaknesses. Both files
-are copied to Downloads for handoff. They are not added to coach-generation packets.
+are available in Downloads for handoff. They are not added to coach-generation packets.
 
-## Comprehensive pass: implemented progress
+## Edition 0.6 continuation
+
+The [expansion queue](PLAYER_KNOWLEDGE_EXPANSION.md) incorporates the supplied gap
+brief as advisory evidence. Three additional full transcripts yielded twelve
+qualified lesson records, integrated into existing engagement, utility, support,
+objective and economy chapters. Six new chunk dispositions remain unresolved
+for visual or mechanics dependencies; no broad creator claim became a verified
+engine fact. Current totals are 159 chunk decisions, 29 unresolved, 10,994
+pending and 99 new-pass lessons. Fully resolved source texts remain 122.
+Six additional application cases are proposed, not receiving-model results.
+The portable `Downloads/PLAYER_KNOWLEDGE_BASE_v0.6.md` matches edition 0.6;
+setup is unchanged. The older unversioned Downloads copy was locked by another
+process and was left unchanged.
+
+Edition 0.6 verification: 17 corpus/audit/navigation tests passed. All 209
+internal links resolve; the local coverage audit validates recorded hashes and
+lesson/chunk references. The versioned handoff matches repository bytes. These
+checks establish artifact consistency, not receiving-model reliability or
+independent tactical correctness.
+
+## Comprehensive pass: implemented progress (edition 0.5 baseline)
 
 The new [corpus preparer](../scripts/build_player_knowledge_corpus.py) accounts
 for all 2,988 raw transcripts, including every prior short, old, deferred and

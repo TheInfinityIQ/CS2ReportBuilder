@@ -14,7 +14,7 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 
 | File | Contents / read when | Status / date | Basis |
 |---|---|---|---|
-| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | CS2 knowledge v0.5: 42 chapters, specialist applications, 23 Cache protocol cards, Mirage/Inferno systems and economy comparisons; comprehensive extraction remains incomplete. | source / undated | curated |
+| [PLAYER_KNOWLEDGE_BASE.md](PLAYER_KNOWLEDGE_BASE.md) | Persona knowledge edition 0.6: comprehensive rebuild in progress; qualified game understanding with deeper diagnostic, utility, support and objective applications. | source / undated | curated |
 | [PLAYER_SETUP_PROMPT.md](PLAYER_SETUP_PROMPT.md) | Persona setup only: supplied understanding, neutral skill/status, independent judgment and no invented strengths, weaknesses or history. | source / undated | curated |
 
 ## Find a specific file

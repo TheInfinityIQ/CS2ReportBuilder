@@ -1,6 +1,6 @@
 # CS2 player knowledge base
 
-Version 0.5 — 2026-10-07. Comprehensive rebuild in progress. Supplied understanding for a simulated player
+Version 0.6 — 2026-10-07. Comprehensive rebuild in progress. Supplied understanding for a simulated player
 perspective. No skill level, competitive status, personal history, strengths,
 weaknesses, execution consistency or memory gaps are assigned. Knowing these
 ideas establishes available understanding, not how well someone plays.
@@ -190,6 +190,29 @@ A flick, tracking correction and pre-aim solve different problems. An unusually
 large flick can indicate poor preparation, unexpected information or a legitimate
 surprise. One miss does not isolate its cause.
 
+### Distinguishing engagement problems before prescribing a correction
+
+Evaluate the preparation, choice and execution separately. The following is a
+diagnostic synthesis of the reviewed peeking and Dust2 coaching passages; it is
+not a diagnosis of the persona or a promise that demo data supplies every cue.
+
+| Possible mechanism | What would help distinguish it | Relevant adjustment and competing explanation |
+|---|---|---|
+| Exposure exceeds the intended fight | Which uncleared lines become live during the route; objective urgency and partner coverage | Stage behind cover or change clearing order. A wide entry can still be justified when support or the clock requires commitment. |
+| Movement does not serve the task | Whether the player seeks information, conceals an approach or commits to a known contact | Choose a short information exposure, quiet clearing or a committed swing deliberately. Small repeated strafes can surrender a contact window; that is different from correctly gathering information. |
+| Shot preparation or readiness is wrong | Weapon state, target acquisition, firing time, scope/reload/draw state and suitable view evidence | Prepare the weapon or shot before exposure. A miss alone cannot distinguish readiness, recoil, spread, aim correction or unexpected target movement. |
+| Surprise has been consumed | Whether contact revealed the position and an escape or supported follow-up remains | Reposition or change timing after contact. Staying can be correct if it maintains objective pressure, prevents a plant or enables a partner. |
+| Support arrives after the useful window | Partner route, intervening threats, equipment readiness and the opponent's reset path | Repair staging, threat ownership or the commitment cue. Standing closer does not solve blocked geometry or a necessary clearing task. |
+| The next task is lost after a kill | Remaining threats, objective, time, partner coverage and whether switching equipment is safe | Reassess the next job before another peek or pulling utility/knife. A kill is not proof that the route or continuation was sound. |
+
+When comparing a success and a failure, identify the condition that changed:
+exposed lines, opponent readiness, support, weapon, objective or available time.
+Do not use the outcomes themselves as the explanation. If the decisive mechanism
+is unobservable, explain the alternatives and the useful supported part rather
+than prescribing an aim correction. [Peek purposes](#source-peek-purposes),
+[Dust2 utility and continuation](#source-dust2-continuation),
+[Position and utility windows](#source-position-windows)
+
 ## 7. Movement, stopping and exposure
 
 Movement changes exposure, information and weapon accuracy. Counter-strafing is a
@@ -236,6 +259,37 @@ An off-angle can avoid common pre-aim and expose the attacker to another threat.
 Its surprise can be consumed after contact. Escape and support still matter.
 Source titles promising free kills are rhetorical; a position never guarantees a
 kill simply because it is unusual.
+
+### Peek choice is a sequence of tasks
+
+An information exposure asks a question without deliberately committing to a
+duel. A jiggle can reveal a presence or invite a shot; a jump spot can inspect a
+line while moving between cover where the geometry permits it. Neither is free
+or universally safe. The usable result is a cue for the next choice: commit,
+use utility, change route or keep living. Repeating an exposure without using
+what it reveals can become predictable and consume the original advantage.
+
+A committed wide swing instead accepts exposure to act on a prepared contact.
+In one Dust2 review, small repeated strafes let a fast-moving opponent finish
+repositioning. The coach recommends a more decisive strafe for that particular
+contact. Elsewhere, the same review criticizes a wide swing into multiple
+opponents just as help is arriving. These are different problems, not conflicting
+universal instructions to swing wider or narrower.
+
+Quiet clearing protects information while progressively preparing angles. It
+can combine short information checks, deliberate clearing and a committed peek;
+one movement style need not carry the whole route. Noise already created by
+teammates may change the value of concealment, but does not automatically make
+every new sound irrelevant. Crouched commitment trades mobility for a different
+target shape and firing situation. The reviewed peeking guide favors it when a
+fight is isolated and warns against committing while several lines remain live.
+
+The guide also describes crouch-walking in selected constrained approaches.
+Its broad claim of immediate accuracy is a creator explanation, not a verified
+weapon-independent rule. Use weapon/state evidence before making a precise
+accuracy claim. Its unseen demonstrations cannot establish an exact route or
+visual anchor from phrases such as "here." [Peek purposes](#source-peek-purposes),
+[Position and utility windows](#source-position-windows)
 
 ## 9. Taps, bursts, sprays and resets
 
@@ -338,6 +392,31 @@ A reviewed utility lesson connects a flash to a recipient who can actually peek
 and connects fire to somebody positioned to punish a displaced defender. A
 grenade can otherwise spend a resource while giving the opponent time to return.
 [Utility purpose](#source-utility-purpose)
+
+### Opportunity, recipient and timing
+
+Before spending utility, identify the next action it enables and who can perform
+it. A Dust2 review questions two flashes thrown toward long with nobody ready to
+use them. A flash can instead serve concealment, deception or delay, but those
+purposes also need an intended effect; a blind count alone does not establish it.
+In the review's paired CT long take, one player isolates long house, the partner
+pressures blue, and the first contact waits for the supporting flash. The reusable
+knowledge is divided responsibility and a commitment cue, not a complete lineup.
+
+Defensive utility has an opportunity window too. One review contrasts a smoke
+forming after attackers have passed it with successful timing near the end of
+an existing molotov's denial. Another sequence criticizes spending a defensive
+smoke before opponents can plausibly arrive while a teammate needs immediate
+help elsewhere. "Smoke earlier" and "save the smoke" can both be useful because
+the intended task and enemy access differ. Check effect formation, entry path,
+current denial and the player's competing job; do not copy a fixed timer from
+one round into all rounds.
+
+Throwing also occupies attention and equipment. A grenade can be technically
+successful while its release causes the player to miss a trade or abandon a live
+line. Conversely, withdrawing to throw can be the correct handoff when a partner
+holds that line. [Dust2 utility and continuation](#source-dust2-continuation),
+[Position and utility windows](#source-position-windows)
 
 The same lesson's skeptical treatment of distraction is not a ban on fakes. A
 separate reviewed conditioning example uses utility to shape expectations even
@@ -447,6 +526,25 @@ Following contact with the bomb or utility in hand may miss a fleeting trade
 opportunity. A reviewed Ancient donut situation makes that specific error
 visible. It does not require chasing every death through unsafe space.
 [Donut trade](#source-donut-trade)
+
+### Repair the specific support failure
+
+Connected support has several distinct failure branches. If the line is blocked,
+change staging or route. If the follower must clear another threat, redistribute
+that threat or change the sequence before expecting an immediate trade. If the
+weapon is unready, change preparation or the commitment cue. If the defender can
+escape before the follower arrives, reassess the timing and exposure. If both
+players expose to the same spray or flash, more closeness can increase the cost.
+These are editorial diagnostic branches built from this chapter's sources;
+deciding which occurred still requires case evidence.
+
+A reviewed Dust2 sequence illustrates a concrete alternative after a first kill:
+hold or fall back into a developing crossfire rather than swing into two threats
+while teammates are about to help. The useful cue is arriving usable coverage,
+not simply being ahead in players. In a PUG, a short request such as asking a
+partner to smoke the pressured choke can make the support job explicit. That
+request needs a willing, equipped partner and time to act; otherwise choose a
+feasible individual response. [Position and utility windows](#source-position-windows)
 
 ## 18. Roles and team function
 
@@ -558,6 +656,26 @@ bomb can be recovered; the action is not a reusable script without that state.
 [Bomb uncertainty](#source-bomb-uncertainty)
 
 ## 23. Plants, post-plants and retakes
+
+### Reassess after contact or corrected information
+
+A kill changes the next task, not just the numerical state. In the Dust2 review,
+an MP9 lower push loses its surprise after the opponent sees the player and
+survives; the suggested continuation is withdrawal and a new timing. After a
+successful opening, the coach again asks for an escape rather than repeatedly
+fighting from the revealed position. This is useful when retaining the player
+preserves an advantage and an escape exists. A trade, plant denial or urgent
+objective can instead justify continued pressure.
+
+The same review describes a retake where the defender initially misunderstands
+the plant location. The correction changes which enemy position can defend the
+bomb and whether a defuse cue might force a response. A fake is useful only if
+the opponent has a reason to react and sufficient time remains to convert the
+response. Do not copy the source's promise of a guaranteed kill or reconstruct
+its exact crouch/cover geometry from text. In a pre-plant clutch with ample time,
+checking alternate routes can gather information; the same sequence under an
+urgent timer can abandon the only feasible objective attempt.
+[Dust2 utility and continuation](#source-dust2-continuation)
 
 Plant choice changes which positions can defend the bomb and which defuse routes
 are dangerous. A plant safe during its animation may be harder to defend later;
@@ -1833,6 +1951,22 @@ three-survivor rule of thumb into engine laws. [Economy guide](#source-economy-g
 
 ### Track cash and carried equipment separately
 
+Make the ledger actionable by stating the intended next-round jobs first:
+equipment carried, cash available, loadout still needed, purchase shortfall and
+possible donor. Compare a coordinated buy with the same team's save or partial
+buy under explicit assumptions. A player's impressive weapon does not settle
+whether partners can supply armor, kits, utility or the other jobs the plan needs.
+This ledger structure is an editorial application of the economy guide, not a
+new price or award table. [Economy guide](#source-economy-guide)
+
+An eco can also buy a bounded opportunity rather than distribute weak upgrades
+uniformly. The reviewed Dust2 coach prefers HE investment by favorable CT long
+spawns over a Deagle peek into expected flashes in one second-round situation.
+Its value depends on arrival, likely enemy path, damage opportunity and the next
+buy. The coach's "most of the time" and zero-damage jumping claims are not verified
+rates or engine facts. The lesson is to compare the purpose of alternative small
+investments, not mandate HE on every eco. [Dust2 utility and continuation](#source-dust2-continuation)
+
 For a player, start from cash before the round, subtract actual spending, and add
 the applicable personal and team awards. Track carried gun, armor, kit and unused
 utility separately. A teammate who saved a rifle may have the same incoming cash
@@ -2622,3 +2756,27 @@ HOLMESO [ENG]; 2026-05-05; [This ESEA IGL’s Inferno Was WRONG… I Fixed It](h
 ### Source: valve-2025-economy
 
 Valve, 2025-07-15: [official Steam update archive](https://store.steampowered.com/news/posts/?appids=730&enddate=1753737365&feed=steam_community_announcements). Competitive CT elimination team award, incendiary spread and MP9 changes checked 2026-10-07; this historical patch is not a full subsequent-update audit.
+
+### Source: peek-purposes
+
+isk 1-500, 2026-05-19, *Every CS2 Peek Explained (Mechanical Breakdown)*. [https://www.youtube.com/watch?v=QJeGiRN77kU](https://www.youtube.com/watch?v=QJeGiRN77kU).
+Prepared source ID `T-5f1e84c9b2ed7ef1`. Full supplied transcript read in this pass; relevant
+passages: 00:53–03:46 information/commitment; 04:10–10:54 jiggle, quiet clearing and isolated crouch commitment; 10:56–12:58 crouch-walk claims and limitations. Creator explanations and editorial applications are
+not independent game tests. Video visuals were not inspected; exact visual
+recipes and broad safety/accuracy/guaranteed-outcome claims remain unresolved.
+
+### Source: dust2-continuation
+
+HOLMESO [ENG], 2025-12-21, *Are You Using Your Utility Right? [CS2 Demo Analysis Coaching] FACEIT lvl 8*. [https://www.youtube.com/watch?v=tI638-wdzVk](https://www.youtube.com/watch?v=tI638-wdzVk).
+Prepared source ID `T-9c433b9ae631aa49`. Full supplied transcript read in this pass; relevant
+passages: 00:00–01:39 eco purpose; 01:45–04:30 lost surprise and retake; 05:40–08:17 utility and continuation; 08:34–09:01 corrected plant information; 10:59–14:40 time, coverage and recipient; 14:41–20:10 paired long and conversion. Creator explanations and editorial applications are
+not independent game tests. Video visuals were not inspected; exact visual
+recipes and broad safety/accuracy/guaranteed-outcome claims remain unresolved.
+
+### Source: position-windows
+
+isk 1-500, 2026-06-29, *These fundamental positioning mistakes are costing you free wins...*. [https://www.youtube.com/watch?v=iOv7ycxp8tk](https://www.youtube.com/watch?v=iOv7ycxp8tk).
+Prepared source ID `T-c806f73df04ff179`. Full supplied transcript read in this pass; relevant
+passages: 01:33–03:42 denial timing and committed strafe; 04:01–06:53 support and post-kill exposure; 07:33–11:39 utility opportunity and outcome bias; 11:43–13:14 exposure and cover. Creator explanations and editorial applications are
+not independent game tests. Video visuals were not inspected; exact visual
+recipes and broad safety/accuracy/guaranteed-outcome claims remain unresolved.

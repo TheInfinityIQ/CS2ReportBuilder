@@ -51,17 +51,21 @@ Date: 2026-10-07. Distinguish observed artifacts from verified behavior.
 
 - A portable [player setup prompt](../coach/player_persona/PLAYER_SETUP_PROMPT.md)
   and [knowledge base](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md) now exist
-  as working drafts (knowledge version 0.5). The [knowledge rebuild](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md)
+  as working drafts (knowledge version 0.6). The [knowledge rebuild](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md)
   now prepares all 2,988 transcripts and separately inventories 1,096 derived
-  claims and 37 supplemental documents. Knowledge is roughly 20,700 words,
+  claims and 37 supplemental documents. Knowledge is roughly 22,394 whitespace-separated words,
   including Cache protocol cards, deeper Mirage/Inferno systems, economic
   comparisons and specialist applications. The [coverage matrix](PLAYER_KNOWLEDGE_COVERAGE.md)
   records remaining extraction work. The [sufficiency assessment and evaluation cases](PLAYER_KNOWLEDGE_EVALUATION.md)
   separate document coverage from behavioral validation; the cases have not been run.
+  The [expansion queue](PLAYER_KNOWLEDGE_EXPANSION.md) records the gap brief,
+  twelve additional qualified source lessons and six new application probes;
+  current coverage is 159 decisions, 29 unresolved and 10,994 pending chunks.
   The owner clarified the target is comprehensive coach/pro/analyst knowledge
-  across all available sources. Version 0.5 is partial and does not fulfill that
-  scope; the comprehensive pass has begun with 122 newly resolved source texts,
-  23 unresolved short captions and 11,000 transcript chunks still pending.
+  across all available sources. Version 0.6 is partial and does not fulfill that
+  scope; 122 source texts have resolved dispositions. Remaining dependencies
+  include 23 short captions and six newly reviewed chunks needing visual or
+  mechanics evidence.
   Setup uses supplied understanding
   without assigning skill level, competitive status, strengths, weaknesses or
   fabricated player history; independent judgment remains explicit.

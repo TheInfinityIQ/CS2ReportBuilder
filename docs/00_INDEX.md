@@ -4,7 +4,7 @@
 Current project status, cleanup verification, optional navigation and local-layout snapshot; older accounts live in history.
 
 Read only the files relevant to the task. Authority comes from the original documents, not this index.
-Catalog: **63 files** below this folder. Extracted/filename descriptions are not semantic reviews.
+Catalog: **64 files** below this folder. Extracted/filename descriptions are not semantic reviews.
 
 [Parent map](../00_INDEX.md)
 
@@ -28,12 +28,13 @@ Summary basis: curated, extracted, or filename. Curated summaries flag edits tha
 | [NAVIGATION.md](NAVIGATION.md) | Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_BUILDER_UI.md](PACKET_BUILDER_UI.md) | Two-tab packet workflow, cached game loading, selection, preparation, replay repair and handoff instructions. | reference; distinguish current state from historical claims / undated | curated |
 | [PACKET_WORKFLOW_PLAN_2026-10-06.md](PACKET_WORKFLOW_PLAN_2026-10-06.md) | Approved packet workflow implementation plan — Dawson approved implementation on 2026-10-06. | reference; distinguish current state from historical claims / 2026-10-06 | extracted |
-| [PLAYER_KNOWLEDGE_BUILD_2026-10-07.md](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md) | Knowledge v0.5 build progress, corpus preparation, reviewed-source counts and approved comprehensive scope; earlier build accounts labeled historical. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
-| [PLAYER_KNOWLEDGE_COVERAGE.md](PLAYER_KNOWLEDGE_COVERAGE.md) | Maintainer topic matrix and exact continuation workflow; 122 resolved source texts, 23 unresolved captions and 11000 chunks pending; no full-coverage claim. | reference; distinguish current state from historical claims / undated | curated |
-| [PLAYER_KNOWLEDGE_EVALUATION.md](PLAYER_KNOWLEDGE_EVALUATION.md) | Partial knowledge coverage v0.5 and 16 unrun application cases; separates document correctness, source completeness and simulated feedback. | reference; distinguish current state from historical claims / undated | curated |
+| [PLAYER_KNOWLEDGE_BUILD_2026-10-07.md](PLAYER_KNOWLEDGE_BUILD_2026-10-07.md) | Knowledge rebuild evidence and edition 0.6 continuation; source review, compilation, verification and comprehensive scope. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
+| [PLAYER_KNOWLEDGE_COVERAGE.md](PLAYER_KNOWLEDGE_COVERAGE.md) | Edition 0.6 source/topic coverage and continuation: preparation, qualified lessons, unresolved dependencies and remaining corpus work. | reference; distinguish current state from historical claims / undated | curated |
+| [PLAYER_KNOWLEDGE_EVALUATION.md](PLAYER_KNOWLEDGE_EVALUATION.md) | Persona application and calibration checks: twenty-two proposed cases, failure diagnosis and evidence boundaries; model runs outstanding. | reference; distinguish current state from historical claims / undated | curated |
+| [PLAYER_KNOWLEDGE_EXPANSION.md](PLAYER_KNOWLEDGE_EXPANSION.md) | Fourteen-area knowledge research queue, edition 0.6 source pass and separation of knowledge, application, case evidence and workflow failures. | reference; distinguish current state from historical claims / undated | curated |
 | [player_knowledge_sources.json](player_knowledge_sources.json) | Metadata provenance ledger separating prior 87 candidate reviews from 87 new lessons, five full transcript reviews, Cache book scope and dated official references. | reference; distinguish current state from historical claims / undated | curated |
 | [PLAYER_UNIT_COUNTS.csv](PLAYER_UNIT_COUNTS.csv) | steamid,name,kind,eligible_units — 76561197989430253,karrigan,pro,41 | reference; distinguish current state from historical claims / undated | extracted |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, map coverage, feedback findings, knowledge rebuild status and verification limits. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation, map and feedback findings, knowledge edition 0.6 expansion and verification limits. | reference; distinguish current state from historical claims / 2026-10-07 | curated |
 | [RAW_DEMO_LOCATIONS.md](RAW_DEMO_LOCATIONS.md) | Raw demo locations — The raw replay root is now: | reference; distinguish current state from historical claims / undated | extracted |
 | [TOOL_UI_PLAN_2026-10-07.md](TOOL_UI_PLAN_2026-10-07.md) | CS2 Coach Tools: workflow plan and implementation — Goal: let Dawson select the games and player, prepare evidence when needed, then | reference; distinguish current state from historical claims / 2026-10-07 | extracted |
 | [VIEWER_REVIEW_2026-10-06.md](VIEWER_REVIEW_2026-10-06.md) | Viewer review and batch workflow — Evidence inspected before these repairs | reference; distinguish current state from historical claims / 2026-10-06 | extracted |

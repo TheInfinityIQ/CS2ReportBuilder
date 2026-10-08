@@ -209,8 +209,8 @@
         "reviewed_sha256": "efd45d762e72b3a182f6b0960f1f6e756c1ac0b9ae42021acd5e7b1b2810b2d1"
       },
       "docs/PROJECT_STATUS.md": {
-        "summary": "Current implementation, map coverage, feedback findings, knowledge rebuild status and verification limits.",
-        "reviewed_sha256": "a62f63608640c5c2007e06ebf778a65d399654dce8be65d62efac1a20769c4f2"
+        "summary": "Current implementation, map and feedback findings, knowledge edition 0.6 expansion and verification limits.",
+        "reviewed_sha256": "b3624c8da26f2e10c9871fb1571a15991482c94e60c505e9a5b903104469fd1c"
       },
       "docs/NAVIGATION.md": {
         "summary": "Optional discovery and maintenance of the installed generator. Direct sources and content search can bypass maps.",
@@ -292,12 +292,12 @@
         "reviewed_sha256": "34a73526de3ef5dd789945df00ce9d861e667c7c1d4421fe7620b547b14446fb"
       },
       "coach/player_persona/PLAYER_KNOWLEDGE_BASE.md": {
-        "summary": "CS2 knowledge v0.5: 42 chapters, specialist applications, 23 Cache protocol cards, Mirage/Inferno systems and economy comparisons; comprehensive extraction remains incomplete.",
-        "reviewed_sha256": "dd0b5c7ad1dbac0a3f66446515e9f66742d436e4e7bd4ab2e6209714cefeb309"
+        "summary": "Persona knowledge edition 0.6: comprehensive rebuild in progress; qualified game understanding with deeper diagnostic, utility, support and objective applications.",
+        "reviewed_sha256": "866cb4c91ed8652f7ac62582a3c8ecdf917d61b18d7eaaa3d55e9ae4f5c508f0"
       },
       "docs/PLAYER_KNOWLEDGE_BUILD_2026-10-07.md": {
-        "summary": "Knowledge v0.5 build progress, corpus preparation, reviewed-source counts and approved comprehensive scope; earlier build accounts labeled historical.",
-        "reviewed_sha256": "001df53a1494ea597ba1ee4418fdfc5b073473de5b5a7686c7dd98a6a0bd638d"
+        "summary": "Knowledge rebuild evidence and edition 0.6 continuation; source review, compilation, verification and comprehensive scope.",
+        "reviewed_sha256": "e8078d2cb010d91180bb7460fb90656296e9e324503d2b70169bf1d301884429"
       },
       "docs/player_knowledge_sources.json": {
         "summary": "Metadata provenance ledger separating prior 87 candidate reviews from 87 new lessons, five full transcript reviews, Cache book scope and dated official references.",
@@ -312,12 +312,12 @@
         "reviewed_sha256": "bd4e3ed85e46d5fa1dcb93c47301b8e2b28d0782a641094b937bf628ae86c57a"
       },
       "docs/PLAYER_KNOWLEDGE_EVALUATION.md": {
-        "summary": "Partial knowledge coverage v0.5 and 16 unrun application cases; separates document correctness, source completeness and simulated feedback.",
-        "reviewed_sha256": "2f19e697ad14ff82f2faf3b9ff8ca474dd632df276e8cbef7127157469a5d07e"
+        "summary": "Persona application and calibration checks: twenty-two proposed cases, failure diagnosis and evidence boundaries; model runs outstanding.",
+        "reviewed_sha256": "1aefa2a5170aabdcc02adf9c49a668a116f6308b862b476ef4c2da39ca1ea2fa"
       },
       "docs/PLAYER_KNOWLEDGE_COVERAGE.md": {
-        "summary": "Maintainer topic matrix and exact continuation workflow; 122 resolved source texts, 23 unresolved captions and 11000 chunks pending; no full-coverage claim.",
-        "reviewed_sha256": "03e71622b8a4c3a85c27d858d69aeeb86183e3206745faf3424c2b54c74a9837"
+        "summary": "Edition 0.6 source/topic coverage and continuation: preparation, qualified lessons, unresolved dependencies and remaining corpus work.",
+        "reviewed_sha256": "9e09473cc7c020beb1c40b87104933248a0a3d4fdd9493a30ed6ea3248d2453e"
       },
       "scripts/build_player_knowledge_corpus.py": {
         "summary": "Resumable full-transcript preparation, saved-claim/supplemental inventory and bounded review batches; checksum-validated manual coverage without AI invocation or automatic certification.",
@@ -338,6 +338,10 @@
       "docs/COACHING_FEEDBACK_REVIEW_2026-10-07.md": {
         "summary": "First-batch player feedback and consultant review: teaching failures, checked implementation gaps and proposed priorities.",
         "reviewed_sha256": "7ebae0c3691582093e90fc93805841d40b500b3e9af88a18ecb2c6ee118d3a9f"
+      },
+      "docs/PLAYER_KNOWLEDGE_EXPANSION.md": {
+        "summary": "Fourteen-area knowledge research queue, edition 0.6 source pass and separation of knowledge, application, case evidence and workflow failures.",
+        "reviewed_sha256": "f15013ebd3f19d9b7d4b8174aa758015f8cfecb6d6726b79b5d7350c4c019dd8"
       }
     }
   },

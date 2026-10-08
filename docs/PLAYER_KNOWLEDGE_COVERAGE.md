@@ -1,6 +1,6 @@
 # Comprehensive player knowledge: coverage and continuation
 
-Updated 2026-10-07 for knowledge edition 0.5. This is a maintainer record, not
+Updated 2026-10-07 for knowledge edition 0.6. This is a maintainer record, not
 persona background. The handoff remains the setup prompt and the single
 [knowledge document](../coach/player_persona/PLAYER_KNOWLEDGE_BASE.md).
 
@@ -10,10 +10,20 @@ The target is all distinct, relevant knowledge in the available collection at
 coach, professional-player and analyst depth. No arbitrary length limit or
 assumed player ignorance defines acceptance. Preparation, extraction, source
 correctness, compilation coverage and simulated behavior are separate checks.
-Edition 0.5 remains in progress; the following record must not be used to certify
+Edition 0.6 remains in progress; the following record must not be used to certify
 the full collection.
 
-## Recorded review
+## Edition 0.6 continuation
+
+The [expansion queue](PLAYER_KNOWLEDGE_EXPANSION.md) records fourteen assessed
+content areas and the source/evidence needed next. Three additional full texts
+yielded twelve qualified lessons in existing sections 6, 8, 13, 17, 23 and 41.
+Their six chunks remain unresolved for visual or broad mechanics dependencies;
+useful extracted text does not certify the full demonstrations. Current totals:
+159 chunk decisions, 29 unresolved, 10,994 pending, 99 new-pass lessons and 122
+fully resolved source texts. The six new application cases have not been run.
+
+## Recorded review (edition 0.5 baseline)
 
 - The previous edition's 87 selected candidate reviews remain a separate ledger.
   They inspected passages, not every word of their source videos.
@@ -104,4 +114,4 @@ Full acceptance also requires every source and candidate accounted for, every
 distinct supported lesson compiled or a reasoned remaining disposition, the
 complete topic matrix checked, and applicable version/visual dependencies
 resolved or clearly scoped. Behavioral cases then test application separately.
-The existing 16 proposed cases have not been run and are not exhaustive.
+The existing 22 proposed cases have not been run and are not exhaustive.
