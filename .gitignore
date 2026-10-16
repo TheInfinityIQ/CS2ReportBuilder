@@ -1,24 +1,10 @@
-# Data never lives in git (ADR-002)
-*.dem
-*.zip
-*.parquet
-*.csv.gz
-Demos/
-demos/
-v7dot7Analysis/
-analyzed_*/
-Stage3_*/
-ContentCreator/
-# Python / tooling
-__pycache__/
-*.pyc
+/data/
+/knowledge/
+/reports/
 .venv/
+__pycache__/
 .pytest_cache/
 .ruff_cache/
+*.py[cod]
 *.egg-info/
-# Generated outputs
-out/
-Outputs/
-
-# Rebuildable local game catalog (including journals and recovery copies)
-game_catalog.sqlite3*
+*.log
