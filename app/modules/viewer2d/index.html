@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS2 · Round viewer</title><link rel="stylesheet" href="viewer.css"></head>
+<body>
+<header><div class="brand"><span class="brand-mark">↗</span><strong>ROUND VIEWER</strong><span class="divider">/</span><span id="map-title">Loading replay…</span></div>
+<div class="header-right"><span class="live-dot"></span><span id="quality">16 Hz replay</span><button id="help" title="Keyboard shortcuts and replay notes" aria-label="Help">?</button></div></header>
+<main>
+<section id="stage" aria-label="Interactive tactical map"><canvas id="map" aria-label="Round replay map"></canvas>
+<div class="match-title"><span class="eyebrow">MATCH REVIEW</span><h1 id="match-name">Preparing your round</h1><p id="source-name"></p></div>
+<div class="scoreboard"><span class="ct" id="ct-score">0</span><div><span id="round-label">ROUND —</span><strong id="clock">1:55</strong><small id="phase">LIVE ROUND</small></div><span class="t" id="t-score">0</span></div>
+<div class="map-tools"><button id="names" class="active" title="Show player names" aria-pressed="true">Aa</button><button id="trails" class="active" title="Show grenade trajectories" aria-pressed="true">⌁</button><button id="zoom-in" title="Zoom in">+</button><button id="zoom-out" title="Zoom out">−</button><button id="reset" title="Reset map view">⌖</button><button id="fullscreen" title="Fullscreen">⛶</button></div>
+<div id="killfeed" aria-label="Recent eliminations"></div>
+<div id="utility-presets" class="utility-presets" aria-label="Utility review moments"></div>
+<div class="shot-controls"><label for="shot-style">SHOT DISPLAY</label><select id="shot-style"><option value="flash">1 · Firing flashes</option><option value="direction" selected>2 · Directional tracers</option><option value="reconstructed" disabled>3 · Reconstructed rays — unavailable</option></select><button id="replay-shots">Replay same gunfight</button><small id="shot-status" role="status"></small><small>Reconstructed rays need verified spread calculations and map collision geometry.</small></div>
+<div class="map-caption"><span><i class="dot blue"></i> Counter-Terrorists</span><span><i class="dot amber"></i> Terrorists</span><span id="map-hint">Scroll to zoom · drag to pan · click a player to follow</span></div>
+<div id="loading" role="status">Loading round…</div>
+</section>
+<aside><div class="aside-heading"><span class="eyebrow">MATCH LIBRARY</span><select id="match-select" aria-label="Choose analyzed match"><option>Current match</option></select></div><section id="ct-team" class="team ct"></section><section id="t-team" class="team t"></section><div class="event-heading"><span class="eyebrow">ROUND EVENTS</span><span id="event-count"></span></div><div id="event-list"></div><div class="data-note">Recorded player movement<br><span>Utility shapes & ground loot are approximations.</span></div></aside>
+</main>
+<footer><div class="round-strip"><span class="eyebrow">ROUNDS</span><nav id="rounds" aria-label="Skip to round"></nav></div>
+<div class="transport"><button id="play" class="play" aria-label="Play" title="Play / pause (Space)">▶</button><button id="back" title="Back five seconds (←)" aria-label="Back five seconds">↶</button><select id="speed" aria-label="Playback speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select><time id="elapsed">0:00</time><div class="timeline-wrap"><div id="markers"></div><input id="timeline" type="range" min="0" max="1000" value="0" step="0.1" aria-label="Round timeline"><output id="hover-time"></output></div><time id="duration">0:00</time><span id="tick-label">TICK —</span></div></footer>
+<dialog id="help-dialog"><h2>Review every moment.</h2><p><kbd>Space</kbd> Play / pause · <kbd>←</kbd> <kbd>→</kbd> Skip 5 seconds<br><kbd>Home</kbd> Round start · <kbd>End</kbd> Round end<br>Drag the timeline to seek. Click an event to jump to it.<br>Click a pawn or roster row to follow. Click again to release.<br>Use the wheel to zoom, drag the map to pan, ⌖ to reset.</p><h3>About this replay</h3><ul id="notes"></ul><button id="close-help">Got it</button></dialog>
+<script type="module" src="viewer.js?v=8"></script></body></html>

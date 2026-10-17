@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS2 · V8 rebuild</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b131b;color:#e5edf5;font:16px 'Segoe UI',sans-serif}main{max-width:940px;margin:7vh auto;padding:32px}a{color:#77baff}small{color:#8d9da9}h1{font-size:32px;margin:12px 0}p{line-height:1.6;color:#b3c1ca}.stats{display:flex;gap:40px;margin:32px 0}.stats strong{font-size:38px;display:block}.stats span{color:#93a7b5}progress{width:100%;height:12px;accent-color:#5aaaf2}article{background:#121e29;border:1px solid #263a49;border-radius:12px;padding:24px;margin:24px 0}#current{overflow-wrap:anywhere}button{background:#253e50;border:1px solid #426178;color:#eef4fa;padding:12px 18px;border-radius:7px;cursor:pointer}button:disabled{opacity:.5}li{padding:10px 0;overflow-wrap:anywhere}#message{font:13px Consolas,monospace;color:#95aab9;white-space:pre-wrap;overflow-wrap:anywhere}.pill{color:#80d4b6}details{margin-top:28px}#error{color:#ecb96e}</style>
+<main><small>CS2 REPORT BUILDER</small><h1>Full v8 rebuild</h1><span class="pill" id="status">Connecting…</span>
+<p>Existing analysis stays available. Each demo is rebuilt with player tracks, ground items, fire patches and experimental smoke decoding.</p>
+<div class="stats"><div><strong id="done">—</strong><span>Completed</span></div><div><strong id="failed">—</strong><span>Need attention</span></div><div><strong id="remaining">—</strong><span>Remaining</span></div></div>
+<progress id="progress" max="1" value="0"></progress>
+<article><small>CURRENT DEMO</small><p id="current">Waiting for progress…</p><div id="message"></div><p><small id="disk"></small></p></article>
+<button id="stop">Stop after current demo</button><p id="error"></p>
+<p><a href="./?sample=utility-check.json">Open the smoke and molotov preview →</a></p>
+<details><summary>Demos that need attention</summary><ul id="errors"></ul></details>
+<p><small>Keep the computer awake while processing. This page can be closed without stopping the rebuild. Failed demos keep their logs; completed demos can be resumed without repeating them.</small></p>
+</main><script>
+const $=id=>document.getElementById(id),labels={running:'Rebuild running',completed:'Rebuild complete',completed_with_failures:'Finished with demos needing attention',stopped:'Stopped between demos',low_disk:'Paused to preserve free disk space',interrupted:'Interrupted — progress saved',not_started:'Not started'};
+async function refresh(){try{const r=await fetch('/api/rebuild-status');if(!r.ok)throw Error('Progress is temporarily unavailable.');const s=await r.json();
+ $('status').textContent=(labels[s.status]||s.status)+(s.stop_requested&&s.status==='running'?' · stopping after current demo':'');
+ $('done').textContent=s.completed||0;$('failed').textContent=s.failed||0;$('remaining').textContent=Math.max(0,s.total-(s.completed||0)-(s.failed||0));
+ $('progress').max=s.total||1;$('progress').value=(s.completed||0)+(s.failed||0);$('current').textContent=s.current||'No demo currently processing';$('message').textContent=s.message||'';
+ $('disk').textContent=s.free_gb?`${s.free_gb} GB free · 12 GB reserve`:'';$('stop').disabled=s.status!=='running'||s.stop_requested;
+ const errors=Object.entries(s.results||{}).filter(([k,v])=>v.status==='failed');$('errors').replaceChildren(...errors.map(([k,v])=>{const li=document.createElement('li');li.textContent=k+' — '+(v.error||'See extraction log');return li;}));
+ $('error').textContent='';}catch(e){$('error').textContent=e.message;}}
+$('stop').onclick=async()=>{try{const r=await fetch('/api/rebuild-stop',{method:'POST'});if(!r.ok)throw Error('Could not request a stop.');await refresh();}catch(e){$('error').textContent=e.message;}};
+refresh();setInterval(refresh,3000);
+</script></html>

@@ -8,3 +8,10 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 *.log
+app/extractor/.deps/
+app/extractor/entity_v8/bin/
+app/extractor/entity_v8/obj/
+app/extractor/impact_audit/bin/
+app/extractor/impact_audit/obj/
+app/extractor/entity_v8/api-probe.txt
+app/extractor/.v8-test-*/
