@@ -15,3 +15,8 @@ app/extractor/impact_audit/bin/
 app/extractor/impact_audit/obj/
 app/extractor/entity_v8/api-probe.txt
 app/extractor/.v8-test-*/
+app/desktop/native_capture/build/
+app/standalone3d/.godot/
+app/standalone3d/**/bin/
+app/standalone3d/**/obj/
+/app/modules/viewer2d/smoke-inferno-round.json

@@ -5,8 +5,13 @@ import threading
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import urlencode
 
 from jobs import ROOT, STATE, hidden_options, python_executable
+
+
+def selected_url(base, selection):
+    return base + ('?' + urlencode(selection) if selection else '')
 
 
 def is_viewer(url):
@@ -25,8 +30,11 @@ class ViewerService:
         self.url = None
         self.opening = False
         self.closed = threading.Event()
+        self.selection = None
 
-    def open(self):
+    def open(self, source=None, round_number=1, tick=None):
+        self.selection = ({'source':source, 'round':int(round_number), **({'tick':int(tick)} if tick is not None else {})}
+                          if source is not None else None)
         if self.opening:
             return
         self.opening = True
@@ -35,7 +43,7 @@ class ViewerService:
     def _open(self):
         try:
             if self.url and is_viewer(self.url):
-                self.events.put(('viewer_ready', self.url))
+                self.events.put(('viewer_ready', selected_url(self.url, self.selection)))
                 return
             for port in [8766, 8765, *range(8770, 8781)]:
                 if self.closed.is_set():
@@ -43,7 +51,7 @@ class ViewerService:
                 url = f'http://127.0.0.1:{port}/modules/viewer2d/'
                 if is_viewer(url):
                     self.url = url
-                    self.events.put(('viewer_ready', url))
+                    self.events.put(('viewer_ready', selected_url(url, self.selection)))
                     return
                 with socket.socket() as probe:
                     try:
@@ -62,7 +70,7 @@ class ViewerService:
                         raise RuntimeError('The viewer could not start. Check viewer-server.log in Activity logs.')
                     if is_viewer(url):
                         self.url = url
-                        self.events.put(('viewer_ready', url))
+                        self.events.put(('viewer_ready', selected_url(url, self.selection)))
                         return
                 raise RuntimeError('The viewer did not become ready in time.')
             raise RuntimeError('No local viewer port is available.')

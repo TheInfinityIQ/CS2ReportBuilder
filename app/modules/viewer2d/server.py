@@ -5,6 +5,9 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit, unquote
 
 from replay import ANALYSIS, ROOT, build_replay
+from heatmap import Heatmaps
+
+HEATMAPS = Heatmaps(ANALYSIS, json.loads((ROOT / 'app/assets/maps/map-data.json').read_text()))
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -21,7 +24,11 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         url = urlsplit(self.path)
         try:
-            if url.path == '/api/rebuild-status':
+            if url.path == '/api/heatmap/context':
+                result = HEATMAPS.context(parse_qs(url.query).get('source', [''])[0])
+            elif url.path == '/api/heatmap/status':
+                result = HEATMAPS.status(parse_qs(url.query).get('job', [''])[0])
+            elif url.path == '/api/rebuild-status':
                 path = ROOT / 'data/.desktop/rebuild-v8/progress.json'
                 result = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'status':'not_started','total':0,'completed':0,'failed':0}
                 result['stop_requested'] = (path.parent / 'stop.request').exists()
@@ -56,6 +63,25 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_error(400, str(exc))
 
     def do_POST(self):
+        if urlsplit(self.path).path in ('/api/heatmap', '/api/heatmap/cancel'):
+            if self.headers.get('Origin') != f'http://{self.headers.get("Host")}':
+                self.send_error(403); return
+            try:
+                size = int(self.headers.get('Content-Length', '0'))
+                if not 0 < size <= 32768:
+                    raise ValueError('Invalid request size.')
+                request = json.loads(self.rfile.read(size))
+                if not isinstance(request, dict):
+                    raise ValueError('Expected an object.')
+                result = (HEATMAPS.status(request.get('job'), cancel=True)
+                          if urlsplit(self.path).path.endswith('/cancel') else HEATMAPS.submit(request))
+                payload = json.dumps(result, allow_nan=False).encode()
+                self.send_response(200); self.send_header('Content-Type', 'application/json')
+                self.send_header('Content-Length', str(len(payload))); self.end_headers()
+                self.wfile.write(payload)
+            except (ValueError, KeyError, TypeError, OSError) as exc:
+                self.send_error(400, str(exc))
+            return
         if urlsplit(self.path).path != '/api/rebuild-stop':
             self.send_error(404); return
         # Only allow the local status page to request a graceful stop.

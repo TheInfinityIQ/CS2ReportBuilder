@@ -6,10 +6,12 @@ import ast
 import csv
 import gzip
 import json
+import sys
 from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / 'app'))
 ANALYSIS = ROOT / 'data' / 'analysis'
 HERE = Path(__file__).resolve().parent
 
@@ -45,6 +47,8 @@ def inventory(value):
 
 def safe_source(source):
     path = (ANALYSIS / source).resolve()
+    from analysis_references import resolve
+    path = resolve(ANALYSIS, path)
     if not path.is_relative_to(ANALYSIS.resolve()) or not (path / 'rounds.csv').is_file():
         raise ValueError('Choose an analysis folder containing rounds.csv.')
     return path

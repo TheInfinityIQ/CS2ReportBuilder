@@ -18,7 +18,7 @@ class DesktopTests(unittest.TestCase):
         self.demo.write_bytes(b'command-validation fixture')
 
     def test_demo_path_with_spaces_stays_one_argument(self):
-        cmd = build_extraction(source=str(self.demo), output=str(self.root / 'output folder'))
+        cmd = build_extraction(source=str(self.demo), output=str(self.root / 'output_folder'))
         self.assertEqual(cmd[cmd.index('--demo') + 1], str(self.demo))
         self.assertNotIn('--replace', cmd)
 

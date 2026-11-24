@@ -15,6 +15,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = ROOT / 'data' / '.desktop'
+if str(ROOT / 'app') not in sys.path:
+    sys.path.append(str(ROOT / 'app'))
+from analysis_layout import component as analysis_component, validate_root as validate_analysis_root
 
 
 def python_executable():
@@ -80,7 +83,8 @@ def save_json(path, value):
     stage.replace(path)
 
 
-def build_extraction(*, source, output, folder=False, entities=False, analysis='', round_number='', hz='16', replace=False):
+def build_extraction(*, source, output, folder=False, entities=False, analysis='', round_number='', hz='16', replace=False,
+                     analysis_name='', organized=True):
     if not source.strip():
         raise ValueError('Choose a demo file or demo folder.')
     if not output.strip():
@@ -97,10 +101,18 @@ def build_extraction(*, source, output, folder=False, entities=False, analysis='
         raise ValueError('Choose an output folder.')
     if output.exists() and not output.is_dir():
         raise ValueError('The output must be a folder, not a file.')
+    if organized or analysis_name:
+        validate_analysis_root(output)
     if str(hz) not in ('1', '2', '4', '8', '16', '32', '64'):
         raise ValueError('Choose a valid sampling rate.')
     cmd = [python_executable(), '-u', str(ROOT / 'app/extractor/extract_demos_v8.py'),
            '--demos' if folder else '--demo', str(source.resolve()), '--output', str(output.resolve()), '--entity-hz', str(hz)]
+    if analysis_name:
+        if folder or analysis_name != analysis_component(analysis_name, 220):
+            raise ValueError('Choose one demo and a single whitespace-free analysis folder name.')
+        cmd += ['--analysis-name', analysis_name]
+    elif organized:
+        cmd.append('--organized-output')
     if entities:
         cmd.append('--entities-only')
         if analysis.strip():

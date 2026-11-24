@@ -46,9 +46,17 @@ The coaching pipeline below is retained from v7.8; new output defaults to _v8.
 
 from pathlib import Path
 import sys
+if str(Path(__file__).resolve().parents[1]) not in sys.path:
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
+from analysis_layout import analysis_name, component, validate_root
 _LOCAL_DEPS = Path(__file__).resolve().parent / ".deps"
 if _LOCAL_DEPS.is_dir():
     sys.path.insert(0, str(_LOCAL_DEPS))
+try:
+    from .analysis_resources import configure_native_threads
+except ImportError:
+    from analysis_resources import configure_native_threads
+configure_native_threads()
 try:
     from cs2di.demo_layout import collection_dir, data_root, demo_files
 except ImportError:
@@ -61,6 +69,7 @@ import hashlib
 import sys
 import shutil
 import importlib.metadata
+import gc
 from collections import defaultdict
 
 import pandas as pd
@@ -782,7 +791,7 @@ def parse_dense_state(parser, ticks, notes):
         return pd.DataFrame()
     try:
         df = normalize_dataframe(parser.parse_ticks(DENSE_PLAYER_PROPS, ticks=ticks))
-        df = filter_competitive_rows(df)
+        df = filter_competitive_rows(df, owned=True)
         notes["dropped_props"]["dense_state"] = report_dropped_props(
             df, DENSE_PLAYER_PROPS, "dense engagement state")
         return df
@@ -876,8 +885,15 @@ def _nearest_tick_rows(dense, tick, tolerance=2):
 def _row_for_sid(rows, sid):
     if rows.empty or "steamid" not in rows.columns or sid is None:
         return None
-    m = rows[rows["steamid"].map(_as_sid) == int(sid)]
-    return None if m.empty else m.iloc[0]
+    matches = _sid_matches(rows["steamid"], sid).to_numpy(dtype=bool, na_value=False).nonzero()[0]
+    return None if not len(matches) else rows.iloc[int(matches[0])]
+
+
+def _sid_matches(values, sid):
+    """Keep exact nullable IDs; avoid Python scalar conversion on repaired tables."""
+    if pd.api.types.is_integer_dtype(values.dtype):
+        return values == int(sid)
+    return values.map(_as_sid) == int(sid)
 
 
 def _kill_category(death_row, attacker_sid, victim_sid):
@@ -910,7 +926,7 @@ def _attacker_fire_ticks(fires, attacker_sid, lo, hi):
         return []
     ticks = pd.to_numeric(fires["tick"], errors="coerce")
     m = fires[(ticks >= int(lo)) & (ticks <= int(hi)) &
-              (fires[sid_col].map(_as_sid) == int(attacker_sid))]
+              _sid_matches(fires[sid_col], attacker_sid)]
     if m.empty:
         return []
     return sorted(set(pd.to_numeric(m["tick"], errors="coerce").dropna().astype(int).tolist()))
@@ -978,8 +994,8 @@ def build_engagements(dense, all_events, players):
         if not hurts.empty and {"attacker_steamid", "user_steamid", "tick"}.issubset(hurts.columns):
             htick = pd.to_numeric(hurts["tick"], errors="coerce")
             hm = hurts[(htick >= lo) & (htick <= death_tick) &
-                       (hurts["attacker_steamid"].map(_as_sid) == a) &
-                       (hurts["user_steamid"].map(_as_sid) == v)]
+                       _sid_matches(hurts["attacker_steamid"], a) &
+                       _sid_matches(hurts["user_steamid"], v)]
             if not hm.empty:
                 first_damage = int(pd.to_numeric(hm["tick"], errors="coerce").min())
 
@@ -1319,12 +1335,13 @@ def normalize_competitive_players(players: pd.DataFrame) -> pd.DataFrame:
     return out.drop_duplicates(subset=["steamid"], keep="last").reset_index(drop=True)
 
 
-def filter_competitive_rows(df: pd.DataFrame) -> pd.DataFrame:
+def filter_competitive_rows(df: pd.DataFrame, *, owned=False) -> pd.DataFrame:
     """Filter tick-state tables to the authoritative competitive roster."""
     if df is None or df.empty or "steamid" not in df.columns or not ROSTER:
         return df
-    out = repair_steamids(df.copy(), ROSTER)
-    return out[out["steamid"].isin(ROSTER)].copy()
+    out = repair_steamids(df if owned else df.copy(), ROSTER)
+    keep = out["steamid"].isin(ROSTER)
+    return out if keep.all() else out[keep].copy()
 
 
 def get_players(parser: DemoParser) -> pd.DataFrame:
@@ -1837,7 +1854,9 @@ def clean_segment_snapshot_artifacts(events: dict, meta: dict, notes: dict) -> d
     if not meta.get("is_continued_segment") or meta.get("start_tick") is None:
         return events
 
-    out = {k: v.copy() for k, v in events.items()}
+    # Only replaced tables are changed below; copying every rich event table
+    # duplicates inventories and telemetry that this cleanup never touches.
+    out = dict(events)
     deaths = out.get("player_death", pd.DataFrame())
     if deaths.empty or "tick" not in deaths.columns:
         return out
@@ -1900,7 +1919,7 @@ def clean_segment_snapshot_artifacts(events: dict, meta: dict, notes: dict) -> d
 
 def sanitize_clipped_events(events: dict, notes: dict) -> dict:
     """Remove known non-gameplay round_end placeholders/duplicates universally."""
-    out = {k: v.copy() for k, v in events.items()}
+    out = dict(events)
     re_df = out.get("round_end", pd.DataFrame())
     if not re_df.empty and "tick" in re_df.columns:
         before = len(re_df)
@@ -2314,13 +2333,25 @@ def write_batch_validation_summary(output_dir: Path):
 # MAIN PER-DEMO PIPELINE
 # ============================================================
 
+NAMED_OUTPUTS = {}
+
+
+def demo_output(demo_path):
+    return NAMED_OUTPUTS.get(Path(demo_path).resolve(), OUTPUT_DIR / Path(demo_path).stem)
+
+
+def invalid_output(demo_path):
+    destination = demo_output(demo_path)
+    return destination.with_name(destination.name + '__INVALID_v8')
+
+
 def _analyze_demo_unlocked(demo_path: Path) -> bool:
     print(f"\n{'='*80}\nDEMO: {demo_path.name}\n{'='*80}")
-    final_out_dir = OUTPUT_DIR / demo_path.stem
-    out_dir = OUTPUT_DIR / f".{demo_path.stem}.v8_tmp"
+    final_out_dir = demo_output(demo_path)
+    out_dir = final_out_dir.parent / f".{final_out_dir.name}.v8_tmp"
     if out_dir.exists():
         shutil.rmtree(out_dir)
-    invalid_out_dir = OUTPUT_DIR / f"{demo_path.stem}__INVALID_v8"
+    invalid_out_dir = invalid_output(demo_path)
     if invalid_out_dir.exists():
         shutil.rmtree(invalid_out_dir)
     # Parse transactionally into a temporary directory.  A failed rerun must
@@ -2375,6 +2406,7 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
         plain = safe_parse_events(parser, plain_wanted, other=GAME_STATE_OTHER)
 
         all_events = {**rich, **place, **plain}
+        del rich, place, plain
         if "round_end" in all_events:
             all_events["round_end"] = normalize_round_end(all_events["round_end"])
 
@@ -2436,11 +2468,13 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
             if df.empty or "tick" not in df.columns or start_tick is None or end_tick is None:
                 return df
             t = pd.to_numeric(df["tick"], errors="coerce")
-            return df[(t >= int(start_tick)) & (t <= int(end_tick))].copy()
+            keep = (t >= int(start_tick)) & (t <= int(end_tick))
+            return df if keep.all() else df[keep].copy()
 
         clipped_events = {name: clip(df) for name, df in all_events.items()}
         clipped_events = clean_segment_snapshot_artifacts(clipped_events, meta, notes)
         clipped_events = sanitize_clipped_events(clipped_events, notes)
+        del all_events
         unexpected_ids = audit_event_steamids(clipped_events, ROSTER)
         notes["unexpected_non_roster_event_steamids"] = unexpected_ids
         if unexpected_ids:
@@ -2463,7 +2497,7 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
             if not rf.empty and "tick" in rf.columns:
                 econ = normalize_dataframe(parser.parse_ticks(
                     ECONOMY_PROPS, ticks=pd.to_numeric(rf["tick"], errors="coerce").dropna().astype(int).tolist()))
-                econ = filter_competitive_rows(econ)
+                econ = filter_competitive_rows(econ, owned=True)
                 save_df(econ, out_dir / "economy.csv")
                 print(f"  economy: {len(econ):,} rows")
         except Exception as exc:
@@ -2482,7 +2516,7 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
                 first_sample = int(start_tick) + ((-int(start_tick)) % TICK_SAMPLE_EVERY)
                 sample_ids = list(range(first_sample, int(end_tick)+1, TICK_SAMPLE_EVERY))
                 ticks = normalize_dataframe(parser.parse_ticks(TICK_PROPS, ticks=sample_ids))
-                ticks = filter_competitive_rows(ticks)
+                ticks = filter_competitive_rows(ticks, owned=True)
                 ticks = clip(ticks)
             save_df(ticks, out_dir / "player_positions.csv.gz")
             print(f"  player_positions: {len(ticks):,} rows")
@@ -2507,6 +2541,7 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
 
         engagements = build_engagements(dense, clipped_events, players)
         save_df(engagements, out_dir / "coaching" / "engagements.csv")
+        del dense, dense_ticks, usercmd_df
         utility = build_utility_effectiveness(clipped_events)
         save_df(utility, out_dir / "coaching" / "utility_effectiveness.csv")
         econ_coaching = build_economy_coaching(econ)
@@ -2567,15 +2602,24 @@ def _analyze_demo_unlocked(demo_path: Path) -> bool:
         write_json(meta, out_dir / "match_summary.json")
 
         if not meta["valid"]:
-            invalid_out_dir = OUTPUT_DIR / f"{demo_path.stem}__INVALID_v8"
+            invalid_out_dir = invalid_output(demo_path)
             if invalid_out_dir.exists():
                 shutil.rmtree(invalid_out_dir)
             out_dir.replace(invalid_out_dir)
             print(f"INVALID OUTPUT (canonical output preserved): {invalid_out_dir}")
             return False
 
+        # Core files are published transactionally below. The separate entity
+        # decoder needs only the demo, not the Python core tables. Release them
+        # before starting it so the two stages do not overlap their RAM peaks.
+        del parser, clipped_events, ticks, econ, engagements, utility, econ_coaching
+        del scoreboard_start, scoreboard, scoreboard_delta, player_rounds, rounds_df
+        del primary_players, tick_players, players
+        gc.collect()
         from viewer_entities_v8 import extract_entities
+        print('Analyzing recorded grenade and item trajectories; long demos can take several minutes…', flush=True)
         entity_result = extract_entities(demo_path, out_dir / "viewer_v8", hz=ENTITY_SAMPLE_HZ)
+        print('Recorded trajectory analysis complete.', flush=True)
         meta["viewer_entities_v8"] = entity_result
         write_json(meta, out_dir / "match_summary.json")
         if final_out_dir.exists():
@@ -2596,13 +2640,13 @@ def analyze_demo(demo_path: Path) -> bool:
         from cs2di.job_lock import exclusive, lock_path
     except ImportError:
         from job_lock import exclusive, lock_path
-    with exclusive(lock_path(OUTPUT_DIR / demo_path.stem)):
+    with exclusive(lock_path(demo_output(demo_path))):
         result = _analyze_demo_unlocked(demo_path)
         try:
             from cs2di.game_catalog import notify_output
         except ImportError:
             from game_catalog import notify_output
-        notify_output(OUTPUT_DIR / demo_path.stem, demo_path, owned=True)
+        notify_output(demo_output(demo_path), demo_path, owned=True)
         return result
 
 
@@ -2656,11 +2700,11 @@ def main():
     results = []
     for demo in demos:
         ok = bool(analyze_demo(demo))
-        rec = {"demo": demo.name, "stem": demo.stem, "success": ok}
+        rec = {"demo": demo.name, "stem": demo_output(demo).name, "success": ok}
         if ok and EXTRACT_VIEWER_DATA:
             try:
                 import extract_viewer_tracks
-                viewer = extract_viewer_tracks.process_demo(demo, OUTPUT_DIR / demo.stem, VIEWER_SAMPLE_HZ, True, False)
+                viewer = extract_viewer_tracks.process_demo(demo, demo_output(demo), VIEWER_SAMPLE_HZ, True, False)
                 rec["viewer_status"] = viewer["status"]
                 rec["viewer_hz"] = VIEWER_SAMPLE_HZ
                 if not (viewer.get("meta") or {}).get("interpolation_check", {}).get("ok") and viewer["status"] != "skipped_done":
@@ -2669,8 +2713,8 @@ def main():
                 rec["viewer_status"] = "failed"
                 rec["viewer_error"] = str(exc)
                 print(f"Viewer data failed for {demo.name}: {exc}. Core analysis is preserved.")
-        canonical_sm = OUTPUT_DIR / demo.stem / "match_summary.json"
-        invalid_dir = OUTPUT_DIR / f"{demo.stem}__INVALID_v8"
+        canonical_sm = demo_output(demo) / "match_summary.json"
+        invalid_dir = invalid_output(demo)
         invalid_sm = invalid_dir / "match_summary.json"
 
         # Read only the output produced by *this* run.  If current extraction
@@ -2691,6 +2735,13 @@ def main():
         elif not ok:
             rec["output_kind"] = "parse_exception_or_abort"
         results.append(rec)
+        receipt_dir = demo_output(demo) if ok else invalid_dir
+        if receipt_dir.is_dir():
+            write_json({"demo_count": 1, "success_count": int(ok),
+                        "failure_count": int(not ok and rec.get('output_kind') != 'invalid_quarantine'),
+                        "invalid_count": int(rec.get('output_kind') == 'invalid_quarantine'),
+                        "viewer_failure_count": int(rec.get('viewer_status') in {'failed', 'validation_failed'}),
+                        "results": [rec]}, receipt_dir / 'analysis_run.json')
 
     failures = [r for r in results if not r["success"] and r.get("output_kind") == "parse_exception_or_abort"]
     invalid = [r for r in results if r.get("output_kind") == "invalid_quarantine"]
@@ -2727,6 +2778,15 @@ ENTITY_SAMPLE_HZ = 16
 
 
 def cli():
+    try:
+        from cs2di.job_lock import exclusive
+    except ImportError:
+        from job_lock import exclusive
+    with exclusive(PROJECT_ROOT / '.desktop' / 'analysis-maintenance.lock'):
+        return _cli()
+
+
+def _cli():
     import argparse
     ap = argparse.ArgumentParser(description="v8: v7.8 coaching analysis plus recorded ground items, fire patches and raw smoke voxel updates.")
     source = ap.add_mutually_exclusive_group(required=True)
@@ -2739,8 +2799,10 @@ def cli():
     ap.add_argument("--entity-hz", type=int, choices=[1,2,4,8,16,32,64], default=16)
     ap.add_argument("--no-player-viewer", action="store_true", help="Skip the separate 16 Hz player/trajectory sidecars")
     ap.add_argument("--replace", action="store_true", help="Allow replacing this demo's existing v8 output")
+    ap.add_argument("--analysis-name", help="One whitespace-free output folder name (single demo only)")
+    ap.add_argument("--organized-output", action="store_true", help="Group output by map and use whitespace-free Analysis_<demo> folders")
     args = ap.parse_args()
-    global DEMO_DIR, OUTPUT_DIR, INPUT_DEMOS, ENTITY_SAMPLE_HZ, EXTRACT_VIEWER_DATA
+    global DEMO_DIR, OUTPUT_DIR, INPUT_DEMOS, ENTITY_SAMPLE_HZ, EXTRACT_VIEWER_DATA, NAMED_OUTPUTS
     ENTITY_SAMPLE_HZ = args.entity_hz
     EXTRACT_VIEWER_DATA = not args.no_player_viewer
     if args.demo:
@@ -2753,6 +2815,28 @@ def cli():
         INPUT_DEMOS = demo_files(DEMO_DIR)
         if not INPUT_DEMOS: ap.error("No .dem files found")
     OUTPUT_DIR = (args.output or (PROJECT_ROOT / "analysis" / f"analyzed_{DEMO_DIR.name}_v8")).resolve()
+    NAMED_OUTPUTS = {}
+    if args.analysis_name or args.organized_output:
+        try:
+            validate_root(OUTPUT_DIR)
+            if args.analysis_name and (len(INPUT_DEMOS) != 1 or args.analysis_name != component(args.analysis_name, 220)):
+                ap.error('--analysis-name requires one demo and a single whitespace-free folder name')
+            occupied = set()
+            for demo in INPUT_DEMOS:
+                if args.analysis_name:
+                    destination = OUTPUT_DIR / args.analysis_name
+                else:
+                    header = DemoParser(str(demo)).parse_header()
+                    if not header.get('map_name'):
+                        ap.error(f'No map name in {demo.name}; cannot organize its analysis')
+                    map_folder = component(str(header['map_name']).removeprefix('de_').lower(), 40)
+                    destination = OUTPUT_DIR / map_folder / analysis_name(demo.stem)
+                if str(destination).casefold() in occupied:
+                    ap.error('Demo names collide after whitespace normalization; choose unique demo names')
+                occupied.add(str(destination).casefold())
+                NAMED_OUTPUTS[demo.resolve()] = destination
+        except (OSError, ValueError) as exc:
+            ap.error(str(exc))
     if args.round is not None and (not args.entities_only or not args.analysis):
         ap.error("--round requires --entities-only and --analysis")
     if args.analysis and len(INPUT_DEMOS) != 1: ap.error("--analysis requires one --demo")
@@ -2760,14 +2844,14 @@ def cli():
         from viewer_entities_v8 import extract_entities, round_window
         window = round_window(args.analysis, args.round) if args.round is not None else (0, None)
         for demo in INPUT_DEMOS:
-            destination = OUTPUT_DIR / demo.stem / "viewer_v8"
+            destination = demo_output(demo) / "viewer_v8"
             if destination.exists() and not args.replace: ap.error(f"Output exists: {destination}; use --replace deliberately")
             result = extract_entities(demo, destination, hz=ENTITY_SAMPLE_HZ, start=window[0], end=window[1], analysis=args.analysis)
             print(json.dumps(result, indent=2))
         return
     for demo in INPUT_DEMOS:
-        if (OUTPUT_DIR / demo.stem).exists() and not args.replace:
-            ap.error(f"Output exists for {demo.stem}; use --replace deliberately")
+        if demo_output(demo).exists() and not args.replace:
+            ap.error(f"Output exists for {demo_output(demo).name}; use --replace deliberately")
     return main()
 
 

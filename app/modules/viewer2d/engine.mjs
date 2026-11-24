@@ -15,6 +15,15 @@ export function interpolate(track, tick) {
     yaw: a[4] + angle * f, pitch: lerp(a[5], b[5], f), flags: a[6], sampleTick: a[0]};
 }
 
+// A trajectory has no known position before its first recorded sample.
+export function trajectoryAt(path, tick) {
+  const i = upperBound(path, tick) - 1;
+  if (i < 0) return null;
+  const a = path[i], b = path[i + 1] || a;
+  const f = a === b ? 0 : clamp((tick - a[0]) / (b[0] - a[0]), 0, 1);
+  return [tick, lerp(a[1], b[1], f), lerp(a[2], b[2], f), lerp(a[3], b[3], f)];
+}
+
 export function jumpAnimations(track, tickrate=64, jumpTicks=[]) {
   const animations=[];
   for(let i=1;i<track.length;i++){

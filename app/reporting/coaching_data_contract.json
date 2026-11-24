@@ -1,0 +1,145 @@
+{
+  "version": "1.1",
+  "purpose": "Situation-first evidence for useful coaching; not automatic profile assignment or statistical diagnosis.",
+  "knowledge_review": {
+    "chat": "CS2 Coach - Knowledge Expert",
+    "response": "45efcce0-5662-59e0-9ec2-a0fd5b86c7c1",
+    "basis": "Existing project knowledge and source contract, not independent re-extraction."
+  },
+  "states": [
+    "eligible_interpretation_unresolved",
+    "eligible_reviewed",
+    "ineligible",
+    "eligibility_unknown"
+  ],
+  "questions": [
+    {
+      "id": "t_postplant_advantage",
+      "definition_version": "1.0",
+      "question": "After the plant, how did the player help defend a numbers advantage?",
+      "start": "Plant completion; tracked player alive on T; at least two Ts alive and Ts outnumber living CTs.",
+      "population": "Every qualifying plant in eligible rounds, including rounds without player damage or later contact.",
+      "required_for_eligibility": [
+        "canonical live rosters",
+        "verified plant completion tick",
+        "tracked player's side/alive state",
+        "unambiguous live counts at plant"
+      ],
+      "context_for_interpretation": [
+        "site and bomb position where known",
+        "actual game clock where available",
+        "player and teammate tracks",
+        "kill and damage order",
+        "defuse events",
+        "equipment",
+        "round outcome"
+      ],
+      "exclusions": [
+        "plant/death ordering changes eligibility and cannot be resolved",
+        "unreconciled rosters or death sequence"
+      ],
+      "unknown_policy": "Missing tracks do not erase an eligible conversion observation, but spacing, cover and access to a fight remain unresolved.",
+      "lesson": "Who can respond if a teammate takes contact, and who can contest the bomb?",
+      "contrast": "Same site with comparable starting counts and objective timing, including timer wins.",
+      "claim_ceiling": "Observed sequence, team conversion and reviewed spatial transitions. A tradeable death requires a usable route or sightline in time. No intent or causal win credit from counts alone."
+    },
+    {
+      "id": "last_alive_outnumbered",
+      "definition_version": "1.0",
+      "question": "When the player became the last teammate alive against multiple opponents, what options remained?",
+      "start": "First transition per round to tracked player as sole surviving teammate against at least two living opponents.",
+      "population": "All qualifying episodes, retaining no-contact episodes and later transitions to 1v1.",
+      "required_for_eligibility": [
+        "canonical player/round identity",
+        "reconciled live roster and death ordering",
+        "verified target still alive"
+      ],
+      "context_for_interpretation": [
+        "side",
+        "initial opponent count",
+        "clock",
+        "bomb phase and known position",
+        "equipment and defuse kit",
+        "movement",
+        "objective actions",
+        "engagements",
+        "outcome"
+      ],
+      "unknown_policy": "Uncertain live counts disqualify eligibility. Missing objective, clock or equipment leaves feasibility of planting, defusing or saving unresolved. Remaining round duration after the fact is not the clock the player knew.",
+      "lesson": "Identify what the objective and clock still allow before choosing the next fight.",
+      "contrast": "Same side, starting odds and bomb phase; separate 1v1 numerical parity from an outnumbered start.",
+      "claim_ceiling": "Describe how observed actions changed options. Opponent positions in replay do not establish player knowledge or intent. No clutch or closer identity from a naked win percentage."
+    },
+    {
+      "id": "flash_teammate_contact",
+      "definition_version": "1.0",
+      "question": "When did the player's flash coincide with a teammate fighting an affected opponent?",
+      "start": "Each attributable tracked-player flash detonation in eligible rounds.",
+      "population": "All attributable detonations with enemy, team, self and unknown outcomes retained, rather than death-conditioned examples only.",
+      "required_for_eligibility": [
+        "parsed detonation stream",
+        "canonical thrower identity",
+        "round/tick assignment"
+      ],
+      "context_for_interpretation": [
+        "affected player",
+        "recorded blind interval",
+        "same-opponent teammate weapon damage or kill",
+        "friendly blinds separately",
+        "detonation location",
+        "teammate approach"
+      ],
+      "unknown_policy": "If target, throw attribution, interval or stream coverage is missing, retain the recorded throw/effect and mark overlap unknown. Ambiguous simultaneous grenade attribution cannot be guessed.",
+      "lesson": "Coordinate the flash timing with the teammate's arrival.",
+      "contrast": "Similar throw area and teammate approach, including contact after the blind effect expired.",
+      "claim_ceiling": "A teammate damaged this opponent during the recorded blind interval. Temporal overlap alone is not proof of intended or causal assistance. Smoke delay requires separately validated coverage and movement."
+    }
+  ],
+  "record_requirements": [
+    "stable match/round/event ID",
+    "start-state and tick domain/rate",
+    "eligibility and exclusion reason",
+    "observed sequence",
+    "missing context",
+    "replay anchor",
+    "definition version",
+    "source hashes"
+  ],
+  "followup_requirements": [
+    "exact delivered practice cue",
+    "supporting and contrasting examples",
+    "what future observable behaviour would indicate progress",
+    "new versus overlapping games",
+    "comparable opportunity populations",
+    "improved/unchanged/unresolved/not-comparable outcomes"
+  ],
+  "excluded_claims": [
+    "verified angle clearing from sampled facing alone",
+    "vertical/head-height accuracy without a validated geometry model",
+    "reaction time from censored contact windows",
+    "continuous input behaviour from a capability probe",
+    "trade feasibility from proximity alone"
+  ],
+  "aggregate_review": {
+    "response": "80196e94-00b0-4fb9-b09c-35804d116899",
+    "status": "Accepted for candidate discovery; no new coaching diagnosis approved",
+    "record": "KNOWLEDGE_AGGREGATE_REVIEW.md",
+    "independent_replay_review": false
+  },
+  "selection_rules": [
+    "Select by decision question and observable choices, without filtering wins, losses, deaths or successful contact",
+    "A matched win/loss pair is exploratory only, never a controlled comparison or certified positive/negative example",
+    "Search for contextually useful choices and genuinely disconfirming evidence; preserve observations when alternatives remain unresolved"
+  ],
+  "counting_units": {
+    "postplant": "142/303 describes opportunity prevalence, not conversion or closing ability",
+    "last_alive": "21/123 describes transition to 1v1, not clutch success; no damage/kill is not no contact",
+    "flash": "Detonations, blind effect records, overlap links, source event rows and fights are different units; exclude out-of-live-window detonations from live denominators and retain same-tick uncertainty"
+  },
+  "followup_interpretation": {
+    "postplant": "Observed useful coverage, coordinated responses or avoidance of unnecessary independent exposure in fresh comparable postplants",
+    "last_alive": "Actions reflect objective, time, verified resources and realistic alternatives in comparable starting states",
+    "flash": "Observable coordination with teammate movement/contact in comparable sequences, without simply increasing harmful friendly effects",
+    "comparability": "Use new non-overlapping games and unchanged opportunity definitions; disclose method/coverage breaks; behavior first, outcomes second"
+  }
+}

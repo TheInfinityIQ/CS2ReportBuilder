@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict');
+const {pairing,pendingIdentity,uploadUrl}=require('./userscripts/SkyboxSync.user.js');
+assert.equal(pairing(''),null);
+assert.equal(pairing('#cs2skybox=1&port=4567&pair='+'a'.repeat(43)).port,4567);
+for(const fragment of ['#cs2skybox=2','#cs2skybox=1&port=80&pair=bad'])assert.throws(()=>pairing(fragment));
+const mid='1-11111111-1111-1111-1111-111111111111',hash='a'.repeat(64);
+assert.deepEqual(pendingIdentity([{sourceName:mid+'__'+hash+'.dem'}, {upload:{sourceName:mid+'.dem'}}, {sourceName:'bad',error:{errorType:'failed'}}]),{hashes:[hash],ids:[mid]});
+assert.equal(uploadUrl('https://storage.example.com/demo?signature=fixture'),'https://storage.example.com/demo?signature=fixture');
+for(const url of ['http://storage.example.com','https://127.0.0.1/demo','https://10.0.0.1/demo','https://user:pass@example.com/demo'])assert.throws(()=>uploadUrl(url));
+console.log('Companion pairing, pending identities and destination checks passed.');

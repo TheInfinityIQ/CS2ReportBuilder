@@ -73,6 +73,12 @@ try:
 except ImportError:
     from demo_layout import collection_dir, data_root, demo_files
 
+try:
+    from .analysis_resources import configure_native_threads
+except ImportError:
+    from analysis_resources import configure_native_threads
+configure_native_threads()
+
 import numpy as np
 import pandas as pd
 from demoparser2 import DemoParser
@@ -223,6 +229,9 @@ def build_tracks(parser: DemoParser, windows: pd.DataFrame, step: int, meta: dic
         "yaw": df["yaw"].astype(float).round(1).to_numpy(),
         "pitch": df["pitch"].astype(float).round(1).to_numpy(),
         "flags": flags})
+    # The compact output owns the needed columns; do not retain the full parser
+    # table during the subsequent filter/sort allocations.
+    del df
     out = out[out["round"] > 0].sort_values(["round", "tick", "steamid"]).reset_index(drop=True)
     return out
 

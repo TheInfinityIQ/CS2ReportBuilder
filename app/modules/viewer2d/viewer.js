@@ -1,9 +1,12 @@
-import {clamp, lerp, interpolate, stateAt, upperBound, weaponKey, smokeOpacity, formatTime, entityStatesAt, jumpAnimations, jumpAmount, crouchAmount} from './engine.mjs?v=4';
+import {clamp, lerp, trajectoryAt, interpolate, stateAt, upperBound, weaponKey, smokeOpacity, formatTime, entityStatesAt, jumpAnimations, jumpAmount, crouchAmount} from './engine.mjs?v=5';
 import {fireMesh} from './geometry.mjs?v=1';
 import {directionEndpoint, prepareShots, comparisonShot} from './shots.mjs?v=1';
+import {HeatmapUI} from './heatmap-ui.js?v=1';
 
 const $ = id => document.getElementById(id);
+const assetURL = path => globalThis.replayProvider ? globalThis.replayProvider.asset(path) : `../../assets/${path}`;
 const canvas = $('map'), ctx = canvas.getContext('2d');
+const heatmap = new HeatmapUI(document.querySelector('aside'));
 const colors = {CT:'#58aff7', T:'#f1b34f'};
 const icons = new Map();
 const smokeLayers = new Map();
@@ -26,7 +29,7 @@ const unit = n => n / replay.calibration.scale * view.size / 1024;
 function icon(name) {
   const key = weaponKey(name);
   if (!icons.has(key)) {
-    const image = new Image(); image.src = `../../assets/weapons/${key || 'knife'}.svg`;
+    const image = new Image(); image.src = assetURL(`weapons/${key || 'knife'}.svg`);
     icons.set(key,image);
   }
   return icons.get(key);
@@ -75,7 +78,12 @@ function makeRoster() {
   }
 }
 async function loadReplay(data) {
+  heatmap.setSource(data);
   replay=data;tick=data.start;setPlaying(false);zoom=1;pan=[0,0];follow=null;lastFeed='';smokeLayers.clear();voxelImages.clear();firePaths.clear();
+  if($('watch-cs2')){
+    const game=globalThis.replayProvider?.matches().find(g=>g.source===data.source);
+    $('watch-cs2').disabled=!game?.nativeWatch;
+  }
   data.shots=prepareShots(data.shots || [],data.events);
   $('replay-shots').disabled=!data.shots.length;
   updateShotStatus();
@@ -85,9 +93,9 @@ async function loadReplay(data) {
   }
   mapReady=false;lowerReady=false;mapImage=new Image();lowerImage=new Image();
   mapImage.onload=()=>{mapReady=true;};mapImage.onerror=()=>{$('loading').textContent=`Map asset missing: ${data.map}`;$('loading').hidden=false;};
-  mapImage.src=`../../assets/maps/${data.map}.png`;
+  mapImage.src=assetURL(`maps/${data.map}.png`);
   if(['de_nuke','de_vertigo','de_train'].includes(data.map)) {
-    lowerImage.onload=()=>{lowerReady=true;};lowerImage.src=`../../assets/maps/${data.map}_lower.png`;
+    lowerImage.onload=()=>{lowerReady=true;};lowerImage.src=assetURL(`maps/${data.map}_lower.png`);
   }
   $('map-title').textContent=data.map.replace('de_','').replace(/^./,s=>s.toUpperCase());
   $('match-name').textContent=`${data.roundInfo.ct_team_clan_name || 'Counter-Terrorists'} vs ${data.roundInfo.t_team_clan_name || 'Terrorists'}`;
@@ -134,9 +142,12 @@ async function loadReplay(data) {
 }
 async function loadRound(source,round) {
   const id=++requestId;setPlaying(false);$('loading').textContent=`Loading round ${round}…`;$('loading').hidden=false;
-  try{const response=await fetch(`/api/replay?source=${encodeURIComponent(source)}&round=${round}`);
-    if(!response.ok)throw new Error('Run server.py to browse other rounds in your analysis library.');
-    const data=await response.json();if(id!==requestId)return;await loadReplay(data);
+  try{
+    let data;
+    if(globalThis.replayProvider)data=await globalThis.replayProvider.load(source,round);
+    else{const response=await fetch(`/api/replay?source=${encodeURIComponent(source)}&round=${round??1}`);
+      if(!response.ok)throw new Error('Run server.py to browse other rounds in your analysis library.');data=await response.json();}
+    if(id!==requestId)return;await loadReplay(data);
   }catch(e){if(id!==requestId)return;$('loading').hidden=true;alert(e.message);}
 }
 function deathFor(id){return replay.events.find(e=>e.kind==='player_death'&&e.user_steamid===id&&e.tick<=tick);}
@@ -162,18 +173,18 @@ function renderUI() {
     if(p.health>0)alive[player.side]++;
     const n=rosterNodes.get(player.id);n.row.classList.toggle('dead',p.health<=0);n.row.classList.toggle('followed',follow===player.id);
     n.fill.style.width=`${clamp(p.health,0,100)}%`;n.money.textContent=p.money===null?'—':`$${p.money}`;
-    const path=`../../assets/weapons/${weaponKey(p.weapon)}.svg`;if(n.weapon.getAttribute('src')!==path)n.weapon.src=path;
+    const path=assetURL(`weapons/${weaponKey(p.weapon)}.svg`);if(n.weapon.getAttribute('src')!==path)n.weapon.src=path;
     n.weapon.title=p.weapon;n.weapon.alt=p.weapon;
     n.status.textContent=p.dead?'ELIMINATED':p.flash>.1?'BLINDED':p.flags&16?'DEFUSING':p.flags&32?'RELOAD':`${Math.round(p.health)} HP`;
     const utility=p.inventory.filter(w=>['smokegrenade','flashbang','hegrenade','molotov','incgrenade','c4','decoy'].includes(weaponKey(w)));
-    const signature=utility.join('|');if(n.util.dataset.items!==signature){n.util.dataset.items=signature;n.util.replaceChildren(...utility.map(w=>{const im=document.createElement('img');im.src=`../../assets/weapons/${weaponKey(w)}.svg`;im.className='utility';im.alt=w;im.title=w;return im;}));}
+    const signature=utility.join('|');if(n.util.dataset.items!==signature){n.util.dataset.items=signature;n.util.replaceChildren(...utility.map(w=>{const im=document.createElement('img');im.src=assetURL(`weapons/${weaponKey(w)}.svg`);im.className='utility';im.alt=w;im.title=w;return im;}));}
   }
   for(const side of ['CT','T']){const p=replay.players.find(p=>p.side===side);if(p)rosterNodes.get(p.id).count.textContent=`${alive[side]} / 5`;}
   const feed=replay.events.filter(e=>e.kind==='player_death'&&e.tick<=tick&&tick-e.tick<replay.tickrate*8).slice(-4);
   const signature=feed.map(e=>e.tick).join();
   if(signature!==lastFeed){lastFeed=signature;$('killfeed').replaceChildren(...feed.map(e=>{const row=document.createElement('div');row.className='kill-row';
     const a=document.createElement('span');a.textContent=e.attacker_name||'World';a.style.color=colors[sideFor(e.attacker_steamid)];
-    const im=document.createElement('img');im.src=`../../assets/weapons/${weaponKey(e.weapon)}.svg`;im.alt=e.weapon;
+    const im=document.createElement('img');im.src=assetURL(`weapons/${weaponKey(e.weapon)}.svg`);im.alt=e.weapon;
     const b=document.createElement('span');b.textContent=e.user_name||'Player';b.style.color=colors[sideFor(e.user_steamid)];
     row.append(a,im,b);if(e.headshot==='True'){const hs=document.createElement('span');hs.textContent='⊕';row.append(hs);}
     return row;}));}
@@ -186,8 +197,8 @@ function drawGrenades() {
     const det=g.det_tick||g.path.at(-1)?.[0]||g.throw_tick;
     const age=(tick-det)/rate;
     if(tick<=det&&g.path.length){
-      const pts=g.path.filter(p=>p[0]<=tick),j=Math.max(0,upperBound(g.path,tick)-1),a=g.path[j],b=g.path[j+1]||a;
-      const f=a===b?0:clamp((tick-a[0])/(b[0]-a[0]),0,1);const current=[tick,lerp(a[1],b[1],f),lerp(a[2],b[2],f),lerp(a[3],b[3],f)];
+      const current=trajectoryAt(g.path,tick);if(!current)continue;
+      const pts=g.path.filter(p=>p[0]<=tick);
       if(trails&&pts.length){ctx.beginPath();[...pts,current].forEach((p,i)=>{const s=screen(p[1],p[2]);if(i)ctx.lineTo(...s);else ctx.moveTo(...s);});ctx.strokeStyle=color+'aa';ctx.lineWidth=1.3;ctx.stroke();}
       const [x,y]=screen(current[1],current[2]);circle(x,y,5,'#18232a',color,1.5);drawIcon(g.kind,x,y,9,9);continue;
     }
@@ -376,6 +387,7 @@ function render() {
   if(mapReady){ctx.save();ctx.globalAlpha=.85;ctx.filter='grayscale(1) brightness(.86)';ctx.drawImage(mapImage,x,y,size,size);ctx.restore();}
   // Multiple floors can be selected from the map toolbar on maps with a lower radar.
   if(lowerReady&&$('reset').dataset.floor==='lower'){ctx.save();ctx.globalAlpha=.88;ctx.drawImage(lowerImage,x,y,size,size);ctx.restore();}
+  heatmap.draw(ctx,view);
   hitboxes=[];drawGrenades();drawRecordedUtilities();drawGround();
   for(const player of replay.players){const p=playerAt(player);if(p)drawPlayer(player,p);}
   drawShots();
@@ -407,11 +419,42 @@ canvas.onpointerup=e=>{if(drag&&!drag.moved){const rect=canvas.getBoundingClient
 window.onkeydown=e=>{if(['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)||$('help-dialog').open||!replay)return;
   if(e.code==='Space'){e.preventDefault();$('play').click();}if(e.key==='ArrowLeft'){e.preventDefault();seek(tick-replay.tickrate*5);}if(e.key==='ArrowRight'){e.preventDefault();seek(tick+replay.tickrate*5);}if(e.key==='Home'){e.preventDefault();seek(replay.start);}if(e.key==='End'){e.preventDefault();seek(replay.end);}
 };
-$('match-select').onchange=e=>loadRound(e.target.value,1);
+$('match-select').onchange=e=>loadRound(e.target.value,null);
 async function boot(){
-  try{const requested=new URLSearchParams(location.search).get('sample');
+  try{
+    if(globalThis.replayProvider){
+      catalog=globalThis.replayProvider.matches();
+      if($('watch-cs2'))$('watch-cs2').onclick=()=>{
+        setPlaying(false);
+        try{globalThis.replayProvider.watch(replay.source,Math.floor(tick));
+          $('watch-cs2-status').textContent='Opening Toolbox for this moment. If nothing opens, enable CS2 report links in Tools & setup.';
+        }catch(error){$('watch-cs2-status').textContent=error.message}
+      };
+      const mapSelect=$('report-map');
+      const maps=[...new Set(catalog.map(g=>g.map))];
+      for(const map of maps){const o=document.createElement('option');o.value=map;o.textContent=map.replace('de_','');mapSelect.append(o)}
+      const showMap=map=>{
+        const games=catalog.filter(g=>g.map===map);
+        $('match-select').replaceChildren(...games.map(g=>{const o=document.createElement('option');o.value=g.source;o.textContent=g.name;return o}));
+        return games[0];
+      };
+      mapSelect.onchange=()=>{const game=showMap(mapSelect.value);loadRound(game.source,null)};
+      const initial=globalThis.replayProvider.initial();showMap(catalog.find(g=>g.source===initial.source).map);
+      await loadReplay(await globalThis.replayProvider.load(initial.source,initial.round));
+      heatmap.root.open=true;heatmap.enabled=true;heatmap.$('enabled').checked=true;
+      if(heatmap.context)heatmap.schedule(0);
+      return;
+    }
+    const params=new URLSearchParams(location.search),source=params.get('source');
+    const requested=params.get('sample');
     const sample=requested&&/^[a-zA-Z0-9_-]+\.json$/.test(requested)?requested:'example-round.json';
-    const response=await fetch(`./${sample}`);if(!response.ok)throw new Error('Export a round with replay.py before opening the viewer.');await loadReplay(await response.json());
+    const round=Number(params.get('round')||1);
+    if(source&&(!Number.isSafeInteger(round)||round<1))throw Error('Invalid requested round.');
+    const response=await fetch(source?'/api/replay?'+new URLSearchParams({source,round:String(round)}):`./${sample}`);
+    if(!response.ok)throw new Error(source?'This analysis round is unavailable. Refresh the review library.':'Export a round with replay.py before opening the viewer.');
+    await loadReplay(await response.json());
+    const requestedTick=Number(params.get('tick'));
+    if(params.has('tick')&&Number.isFinite(requestedTick))seek(requestedTick);
     const option=document.createElement('option');option.value=replay.source;option.textContent=replay.source.split('/').at(-1);$('match-select').replaceChildren(option);
     $('match-select').disabled=!!replay.previewOnly;if(replay.previewOnly)return;
     try{const r=await fetch('/api/matches');if(r.ok){catalog=await r.json();$('match-select').replaceChildren(...catalog.map(m=>{const o=document.createElement('option');o.value=m.source;o.textContent=m.name;return o;}));$('match-select').value=replay.source;}}catch{/* Exported round still works on a static server. */}

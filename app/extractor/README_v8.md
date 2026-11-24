@@ -30,6 +30,8 @@ The default output is a separate collection under `data/analysis/analyzed_Canadi
 
 Full extraction runs the original core integrity checks, then validates entity sidecars before publishing the new analysis. A backend or validation failure preserves the previous canonical output. The player/trajectory viewer pass remains separate; its failure is reported and gives a nonzero exit status. `--no-player-viewer` skips that player pass, but does not disable v8 entities.
 
+Toolbox supplies `--organized-output` for local extraction: the output collection gets `<map>/Analysis_<demo-name>/`, with whitespace replaced by underscores. `--analysis-name Analysis_<name>` selects a single named output folder for one demo, allowing the download manager to supply its tournament/team or player/map parent. Organized output roots cannot contain whitespace. Locks, staging, integrity quarantine, entity sidecars, player tracks, catalog notifications, and existence checks all use the selected output path. Each published demo also retains `analysis_run.json`, a per-demo status receipt independent of collection-level batch summaries. Without either flag the existing CLI/rebuild folder layout is preserved. Original demo files are never renamed by these options.
+
 The restored `demo_layout.py`, `job_lock.py`, `game_catalog.py`, and `extract_viewer_tracks.py` are the supporting modules referenced by the original script. They were missing from this checkout. Default data paths now resolve to this project's `data/` and `data/demos/`; `CS2DI_ROOT` and `CS2DI_DEMOS_ROOT` still override them.
 
 ## Add only the new entity data

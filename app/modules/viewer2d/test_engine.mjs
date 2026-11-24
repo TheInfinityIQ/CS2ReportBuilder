@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {interpolate, stateAt, smokeOpacity, weaponKey, upperBound, entityStatesAt, jumpAnimations, jumpAmount, crouchAmount} from './engine.mjs';
+import {interpolate, trajectoryAt, stateAt, smokeOpacity, weaponKey, upperBound, entityStatesAt, jumpAnimations, jumpAmount, crouchAmount} from './engine.mjs';
 
 const sample=(tick,z,flags=0)=>[tick,0,0,z,0,0,flags];
 const jumpTrack=[sample(0,100),sample(4,111,8),sample(8,126,8),sample(12,137,8),sample(16,145,8),sample(20,151,8),sample(24,155,8),sample(28,156,8),sample(32,154,8),sample(36,148,8),sample(40,139,8),sample(44,127,8),sample(48,112,8),sample(52,100)];
@@ -82,4 +82,17 @@ test('display names resolve to existing asset conventions', () => {
   assert.equal(weaponKey('Smoke Grenade'),'smokegrenade');
   assert.equal(weaponKey('Bowie Knife'),'knife');
   assert.equal(weaponKey('SSG 08'),'ssg08');
+});
+
+test('grenade trajectories do not reveal the first sample early or retain future state after seeking', () => {
+  const path=[[10,100,200,300],[14,140,240,340]];
+  assert.equal(trajectoryAt([],10),null);
+  assert.equal(trajectoryAt(path,9),null);
+  assert.deepEqual(trajectoryAt(path,10),[10,100,200,300]);
+  assert.deepEqual(trajectoryAt(path,12),[12,120,220,320]);
+  assert.deepEqual(trajectoryAt(path,14),[14,140,240,340]);
+  assert.deepEqual(trajectoryAt(path,15),[15,140,240,340]);
+  assert.equal(trajectoryAt(path,9),null);
+  assert.deepEqual(trajectoryAt([[10,1,2,3]],10),[10,1,2,3]);
+  assert.deepEqual(path,[[10,100,200,300],[14,140,240,340]]);
 });
